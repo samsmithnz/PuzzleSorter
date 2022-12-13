@@ -31,7 +31,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
     - name: .NET test
       run: dotnet test src/PuzzleSolver.Tests/PuzzleSolver.Tests.csproj -c Release
     - name: .NET publish
