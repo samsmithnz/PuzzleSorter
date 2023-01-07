@@ -1,3 +1,5 @@
+using SixLabors.ImageSharp.PixelFormats;
+
 namespace PuzzleSolver.Tests;
 
 [TestClass]
@@ -8,11 +10,11 @@ public class ImageProcessingTests
     {
         //Arrange
         ImageProcessing imageProcessing = new();
-        
+
         //Act
-        int count = imageProcessing.ProcessImage(@"C:\Users\samsm\source\repos\PuzzleSolver\src\PuzzleSolver\baseImage.png");
+        Dictionary<Rgb24, Rgb24> groupedColors = imageProcessing.ProcessImageIntoColorGroups(@"C:\Users\samsm\source\repos\PuzzleSolver\src\PuzzleSolver\baseImage.png");
 
         //Assert
-        Assert.AreEqual(2, count);
+        Assert.AreEqual(8, groupedColors.Count);
     }
 }
