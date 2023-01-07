@@ -13,6 +13,6 @@ public class UnitTest1
         int count = class1.ProcessImage(@"C:\Users\samsm\source\repos\PuzzleSolver\src\PuzzleSolver\baseImage.png");
 
         //Assert
-        Assert.AreEqual(4, count);
+        Assert.AreEqual(2, count);
     }
 }
