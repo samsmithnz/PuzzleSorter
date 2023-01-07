@@ -5,6 +5,27 @@ namespace PuzzleSolver;
 
 public class ImageProcessing
 {
+    public List<Rgb24> ColorGroups { get; set; }
+
+    public ImageProcessing()//List<Rgb24> colorGroups)
+    {       
+        //Add the primary and secondary colors, with black and white for initial buckets
+        ColorGroups = new List<Rgb24> { 
+            Color.Red.ToPixel<Rgb24>(), 
+            Color.Purple.ToPixel<Rgb24>(), 
+            Color.Blue.ToPixel<Rgb24>(), 
+            Color.Green.ToPixel<Rgb24>(), 
+            Color.Yellow.ToPixel<Rgb24>(), 
+            Color.Orange.ToPixel<Rgb24>(), 
+            Color.White.ToPixel<Rgb24>(), 
+            Color.Black.ToPixel<Rgb24>() };
+    }
+    
+    private Rgb24 ConvertColorToRGB(Color color)
+    {
+        return color.ToPixel<Rgb24>();
+    }
+
     public int ProcessImage(string srcFilename)
     {
         var srcFile = new FileInfo(srcFilename);
