@@ -1,5 +1,6 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using System.Diagnostics;
 
 namespace PuzzleSolver;
 
@@ -21,14 +22,9 @@ public class ImageProcessing
             Color.Black.ToPixel<Rgb24>() };
     }
 
-    private Rgb24 ConvertColorToRGB(Color color)
+    public Dictionary<Rgb24, List<Rgb24>> ProcessImageIntoColorGroups(string srcFilename)
     {
-        return color.ToPixel<Rgb24>();
-    }
-
-    public Dictionary<Rgb24, Rgb24> ProcessImageIntoColorGroups(string srcFilename)
-    {
-        Dictionary<Rgb24, Rgb24> groupedColors = new();
+        Dictionary<Rgb24, List<Rgb24>> groupedColors = new();
         FileInfo srcFile = new(srcFilename);
         string destFilename = Path.GetFileNameWithoutExtension(srcFile.Name) + "_sorted.jpg";
 
@@ -63,12 +59,27 @@ public class ImageProcessing
         });
 
         //Count the final values
-        int total = 0;
         foreach (KeyValuePair<Rgb24, int> item in pixels)
         {
-            if (item.Key.R == 255 && item.Key.G == 0 && item.Key.B == 0)
+            Rgb24? colorGroup = FindClosestColorGroup(item.Key);
+            if (colorGroup != null)
             {
-                total += item.Value;
+                if (!groupedColors.ContainsKey((Rgb24)colorGroup))
+                {
+                    List<Rgb24> colorList = new();
+                    colorList.Add(item.Key);
+                    groupedColors[(Rgb24)colorGroup] = colorList;
+                }
+                else
+                {
+                    List<Rgb24> colorList = groupedColors[(Rgb24)colorGroup];
+                    colorList.Add(item.Key);
+                    groupedColors.Add((Rgb24)colorGroup, colorList);
+                }
+            }
+            else
+            {
+                Debug.WriteLine("FindClosestColorGroup::Shouldn't get here");
             }
         }
 
@@ -83,7 +94,7 @@ public class ImageProcessing
         foreach (Rgb24 color in ColorGroups)
         {
             int colorDifference = GetColorDifference(color, colorToTest);
-            if (colorDifference < 0 )
+            if (colorDifference < 0)
             {
                 colorDifference = colorDifference * -1;
             }
@@ -99,6 +110,11 @@ public class ImageProcessing
         }
         return closestColorGroup;
     }
+
+    //private Rgb24 ConvertColorToRGB(Color color)
+    //{
+    //    return color.ToPixel<Rgb24>();
+    //}
 
     private int GetColorDifference(Rgb24 color1, Rgb24 color2)
     {
