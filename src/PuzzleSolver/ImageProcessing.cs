@@ -1,10 +1,9 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
-using System.Dynamic;
 
 namespace PuzzleSolver;
 
-public class Class1
+public class ImageProcessing
 {
     public int ProcessImage(string srcFilename)
     {
