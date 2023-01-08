@@ -33,7 +33,13 @@ jobs:
       with:
         dotnet-version: 7.0.x
     - name: .NET test
-      run: dotnet test src/PuzzleSolver.Tests/PuzzleSolver.Tests.csproj -c Release
+      run: dotnet test src/PuzzleSolver.Tests/PuzzleSolver.Tests.csproj -c Debug --logger trx -e:CollectCoverage=true -e:CoverletOutput=TestResults/ -e:CoverletOutputFormat=lcov
+    - name: Publish coverage report to coveralls.io
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: src/PuzzleSolver.Tests/TestResults/coverage.info 
+      continue-on-error: true
     - name: .NET publish
       run: dotnet publish src/PuzzleSolver/PuzzleSolver.csproj -c Release -p:Version='${{ steps.gitversion.outputs.SemVer }}'
     - name: Upload package back to GitHub
