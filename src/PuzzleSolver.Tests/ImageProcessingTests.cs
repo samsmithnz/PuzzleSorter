@@ -60,9 +60,7 @@ public class ImageProcessingTests
         Assert.AreEqual(4, groupedColors.Count);
         Assert.AreEqual(59160, groupedColors[Color.Blue.ToPixel<Rgb24>()].Count);
         Assert.AreEqual(118660, groupedColors[Color.White.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(29920, groupedColors[Color.Orange.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(29920, groupedColors[Color.Orange.ToPixel<Rgb24>()].Count); //one of the bars is closer to orange than white or red
         Assert.AreEqual(59160, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
-        //Assert.AreEqual(25 * 25, groupedColors[Color.Orange.ToPixel<Rgb24>()].Count);
-        //Assert.AreEqual(25 * 25, groupedColors[Color.Green.ToPixel<Rgb24>()].Count);
     }
 }
