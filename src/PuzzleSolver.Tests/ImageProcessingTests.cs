@@ -21,4 +21,25 @@ public class ImageProcessingTests
         Assert.AreEqual(3, groupedColors.Count);
         Assert.AreEqual(2, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
     }
+    
+    [TestMethod]
+    public void PrimaryAndSecondaryColorsImageTest()
+    {
+        //Arrange
+        ImageProcessing imageProcessing = new();
+        string imageDir = Environment.CurrentDirectory;
+        imageDir += @"/TestImages/PrimaryAndSecondaryColors.png";
+
+        //Act
+        Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
+
+        //Assert
+        Assert.AreEqual(6, groupedColors.Count);
+        Assert.AreEqual(25*25, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25, groupedColors[Color.Blue.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25, groupedColors[Color.Yellow.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25, groupedColors[Color.Purple.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25, groupedColors[Color.Orange.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25, groupedColors[Color.Green.ToPixel<Rgb24>()].Count);
+    }
 }
