@@ -1,3 +1,4 @@
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
 namespace PuzzleSolver.Tests;
@@ -6,7 +7,7 @@ namespace PuzzleSolver.Tests;
 public class ImageProcessingTests
 {
     [TestMethod]
-    public void ImageTest()
+    public void FourPixelImageTest()
     {
         //Arrange
         ImageProcessing imageProcessing = new();
@@ -16,5 +17,6 @@ public class ImageProcessingTests
 
         //Assert
         Assert.AreEqual(3, groupedColors.Count);
+        Assert.AreEqual(2, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
     }
 }

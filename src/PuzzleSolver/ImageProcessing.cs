@@ -39,49 +39,69 @@ public class ImageProcessing
         {
             for (var row = 0; row < srcHeight; row++)
             {
-                //var pixels = srcImg.GetPixelRowSpan(row).ToArray();
                 Span<Rgb24> pixelSpan = accessor.GetRowSpan(row);
-                //var orderedPixels = pixels.OrderBy(p => p.R + p.G + p.B).ToArray();
-
                 for (var col = 0; col < pixelSpan.Length; col++)
                 {
-                    //destImg[col, row] = orderedPixels[col];
-                    if (pixels.ContainsKey(pixelSpan[col]))
+                    //if (pixels.ContainsKey(pixelSpan[col]))
+                    //{
+                    //    pixels[pixelSpan[col]]++;
+                    //}
+                    //else
+                    //{
+                    //    pixels.Add(pixelSpan[col], 1);
+                    //}
+                    Rgb24? colorGroup = FindClosestColorGroup(pixelSpan[col]);
+                    if (colorGroup != null)
                     {
-                        pixels[pixelSpan[col]]++;
+                        if (!groupedColors.ContainsKey((Rgb24)colorGroup))
+                        {
+                            List<Rgb24> colorList = new()
+                            {
+                                pixelSpan[col]
+                            };
+                            groupedColors[(Rgb24)colorGroup] = colorList;
+                        }
+                        else
+                        {
+                            List<Rgb24> colorList = groupedColors[(Rgb24)colorGroup];
+                            colorList.Add(pixelSpan[col]);
+                            groupedColors[(Rgb24)colorGroup] = colorList;
+                        }
                     }
                     else
                     {
-                        pixels.Add(pixelSpan[col], 1);
+                        Debug.WriteLine("FindClosestColorGroup::Shouldn't get here");
                     }
                 }
             }
         });
 
-        //Count the final values
-        foreach (KeyValuePair<Rgb24, int> item in pixels)
-        {
-            Rgb24? colorGroup = FindClosestColorGroup(item.Key);
-            if (colorGroup != null)
-            {
-                if (!groupedColors.ContainsKey((Rgb24)colorGroup))
-                {
-                    List<Rgb24> colorList = new();
-                    colorList.Add(item.Key);
-                    groupedColors[(Rgb24)colorGroup] = colorList;
-                }
-                else
-                {
-                    List<Rgb24> colorList = groupedColors[(Rgb24)colorGroup];
-                    colorList.Add(item.Key);
-                    groupedColors.Add((Rgb24)colorGroup, colorList);
-                }
-            }
-            else
-            {
-                Debug.WriteLine("FindClosestColorGroup::Shouldn't get here");
-            }
-        }
+        ////Count the final values
+        //foreach (KeyValuePair<Rgb24, int> item in pixels)
+        //{
+        //    Rgb24? colorGroup = FindClosestColorGroup(item.Key);
+        //    if (colorGroup != null)
+        //    {
+        //        if (!groupedColors.ContainsKey((Rgb24)colorGroup))
+        //        {
+        //            List<Rgb24> colorList = new()
+        //            {
+        //                item.Key
+        //            };
+        //            groupedColors[(Rgb24)colorGroup] = colorList;
+        //        }
+        //        else
+        //        {
+        //            List<Rgb24> colorList = groupedColors[(Rgb24)colorGroup];
+        //            colorList.Add(item.Key);
+        //            groupedColors[(Rgb24)colorGroup] =  colorList;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Debug.WriteLine("FindClosestColorGroup::Shouldn't get here");
+        //    }
+        //}
 
         return groupedColors;
     }
