@@ -12,7 +12,7 @@ public class ImageProcessingTests
         //Arrange
         ImageProcessing imageProcessing = new();
         string imageDir = Environment.CurrentDirectory;
-        imageDir += @"/TestImages/baseImage.png";
+        imageDir += @"/TestImages/BaseImage.png";
 
         //Act
         Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
@@ -43,8 +43,6 @@ public class ImageProcessingTests
         Assert.AreEqual(25 * 25, groupedColors[Color.Green.ToPixel<Rgb24>()].Count);
     }
 
-
-
     [TestMethod]
     public void RedToBlueBlendColorsImageTest()
     {
@@ -62,5 +60,24 @@ public class ImageProcessingTests
         Assert.AreEqual(118660, groupedColors[Color.White.ToPixel<Rgb24>()].Count);
         Assert.AreEqual(29920, groupedColors[Color.Orange.ToPixel<Rgb24>()].Count); //one of the bars is closer to orange than white or red
         Assert.AreEqual(59160, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
+    }
+
+    [TestMethod]
+    public void PuzzlePiecesImageTest()
+    {
+        //Arrange
+        ImageProcessing imageProcessing = new();
+        string imageDir = Environment.CurrentDirectory;
+        imageDir += @"/TestImages/RedToBlueBlend.jpg";
+
+        //Act
+        Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
+
+        //Assert
+        Assert.AreEqual(6, groupedColors.Count);
+        //Assert.AreEqual(59160, groupedColors[Color.Blue.ToPixel<Rgb24>()].Count);
+        //Assert.AreEqual(118660, groupedColors[Color.White.ToPixel<Rgb24>()].Count);
+        //Assert.AreEqual(29920, groupedColors[Color.Orange.ToPixel<Rgb24>()].Count); //one of the bars is closer to orange than white or red
+        //Assert.AreEqual(59160, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
     }
 }

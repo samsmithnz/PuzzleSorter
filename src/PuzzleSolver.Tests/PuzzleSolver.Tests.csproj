@@ -27,10 +27,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="TestImages\baseImage.png">
+    <None Update="TestImages\BaseImage.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestImages\PrimaryAndSecondaryColors.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestImages\Puzzlepieces.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestImages\RedToBlueBlend.jpg">
