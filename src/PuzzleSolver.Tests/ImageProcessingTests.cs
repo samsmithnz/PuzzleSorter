@@ -25,7 +25,7 @@ public class ImageProcessingTests
     {
         //Arrange
         ImageProcessing imageProcessing = new();
-        string imageDir = Environment.CurrentDirectory + @" / TestImages/BaseImage.png";
+        string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
 
         //Act
         Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
