@@ -10,7 +10,6 @@ public class ImageProcessingTests
     public void pathtest()
     {
         //Arrange
-
         string imageDir = Environment.CurrentDirectory + @"/TestImages";
 
         //Act
@@ -20,6 +19,7 @@ public class ImageProcessingTests
         Assert.AreEqual(4, files.Length);
         Assert.AreEqual("", files[0]);
     }
+    
     [TestMethod]
     public void FourPixelImageTest()
     {
