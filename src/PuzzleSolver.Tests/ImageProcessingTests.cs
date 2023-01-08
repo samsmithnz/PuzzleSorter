@@ -11,9 +11,11 @@ public class ImageProcessingTests
     {
         //Arrange
         ImageProcessing imageProcessing = new();
+        string imageDir = Environment.CurrentDirectory;
+        imageDir += @"\TestImages\baseImage.png";
 
         //Act
-        Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(@"C:\Users\samsm\source\repos\PuzzleSolver\src\PuzzleSolver.Tests\TestImages\baseImage.png");
+        Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
 
         //Assert
         Assert.AreEqual(3, groupedColors.Count);
