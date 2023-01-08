@@ -11,8 +11,7 @@ public class ImageProcessingTests
     {
         //Arrange
         ImageProcessing imageProcessing = new();
-        string imageDir = Environment.CurrentDirectory;
-        imageDir += @"/TestImages/BaseImage.png";
+        string imageDir = Environment.CurrentDirectory+ @"/TestImages/BaseImage.png";
 
         //Act
         Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
@@ -27,8 +26,7 @@ public class ImageProcessingTests
     {
         //Arrange
         ImageProcessing imageProcessing = new();
-        string imageDir = Environment.CurrentDirectory;
-        imageDir += @"/TestImages/PrimaryAndSecondaryColors.png";
+        string imageDir = Environment.CurrentDirectory+ @"/TestImages/PrimaryAndSecondaryColors.png";
 
         //Act
         Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
@@ -48,8 +46,7 @@ public class ImageProcessingTests
     {
         //Arrange
         ImageProcessing imageProcessing = new();
-        string imageDir = Environment.CurrentDirectory;
-        imageDir += @"/TestImages/RedToBlueBlend.jpg";
+        string imageDir = Environment.CurrentDirectory + @"/TestImages/RedToBlueBlend.jpg";
 
         //Act
         Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
@@ -67,8 +64,7 @@ public class ImageProcessingTests
     {
         //Arrange
         ImageProcessing imageProcessing = new();
-        string imageDir = Environment.CurrentDirectory;
-        imageDir += @"/TestImages/PuzzlePieces.jpg";
+        string imageDir = Environment.CurrentDirectory + @"/TestImages/PuzzlePieces.jpg";
 
         //Act
         Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
