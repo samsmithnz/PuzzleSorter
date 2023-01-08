@@ -33,7 +33,7 @@
     <None Update="TestImages\PrimaryAndSecondaryColors.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestImages\Puzzlepieces.jpg">
+    <None Update="TestImages\PuzzlePieces.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestImages\RedToBlueBlend.jpg">
