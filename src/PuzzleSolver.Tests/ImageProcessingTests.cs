@@ -7,6 +7,18 @@ namespace PuzzleSolver.Tests;
 public class ImageProcessingTests
 {
     [TestMethod]
+    public void pathtest()
+    {
+        //Arrange
+
+        string imageDir = Environment.CurrentDirectory;
+
+        //Act
+
+        //Assert
+        Assert.AreEqual("", imageDir);
+    }
+    [TestMethod]
     public void FourPixelImageTest()
     {
         //Arrange
