@@ -1,8 +1,10 @@
 # PuzzleSolver
 [![CI/CD](https://github.com/samsmithnz/PuzzleSolver/actions/workflows/workflow.yml/badge.svg)](https://github.com/samsmithnz/PuzzleSolver/actions/workflows/workflow.yml)
 
+With software, can we solve a jigsaw puzzle? 
+
 Some questions this project is experimenting with solving:
 
-- Given a collection of puzzle pieces, could we solve the puzzle? 
-- Given a collection of puzzle pieces, could we sort the pieces by color? 
-- Given a collection of puzzle pieces, could we sort by piece shape?
+- Main goal: Given a collection of puzzle pieces, could we solve the puzzle? 
+    - Secondary goal: Given a collection of puzzle pieces, could we analyze and sort the pieces by color? 
+    - Secondary goal: Given a collection of puzzle pieces, could we analyze and sort by piece shape?
