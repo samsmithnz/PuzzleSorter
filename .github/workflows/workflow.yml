@@ -70,8 +70,6 @@ jobs:
     - build
     - sonarCloud
     if: github.ref == 'refs/heads/main'
-    environment:
-      name: 'production'
     steps:
     - name: Display GitVersion outputs
       run: |
