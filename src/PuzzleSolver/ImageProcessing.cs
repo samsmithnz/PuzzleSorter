@@ -114,10 +114,6 @@ public class ImageProcessing
         foreach (Rgb24 color in ColorGroups)
         {
             int colorDifference = GetColorDifference(color, colorToTest);
-            if (colorDifference < 0)
-            {
-                colorDifference = colorDifference * -1;
-            }
             results.Add(new KeyValuePair<Rgb24, int>(color, colorDifference));
         }
         //Order the results and save over itself
@@ -131,11 +127,7 @@ public class ImageProcessing
         return closestColorGroup;
     }
 
-    //private Rgb24 ConvertColorToRGB(Color color)
-    //{
-    //    return color.ToPixel<Rgb24>();
-    //}
-
+    //Since it uses Sqrt, it always returns a postive number
     private int GetColorDifference(Rgb24 color1, Rgb24 color2)
     {
         return (int)Math.Sqrt(Math.Pow(color1.R - color2.R, 2) + Math.Pow(color1.G - color2.G, 2) + Math.Pow(color1.B - color2.B, 2));
