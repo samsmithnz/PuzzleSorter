@@ -5,21 +5,7 @@ namespace PuzzleSolver.Tests;
 
 [TestClass]
 public class ImageProcessingTests
-{
-    //[TestMethod]
-    //public void pathtest()
-    //{
-    //    //Arrange
-    //    string imageDir = Environment.CurrentDirectory + @"/TestImages";
-
-    //    //Act
-    //    string[] files = System.IO.Directory.GetFiles(imageDir);
-
-    //    //Assert
-    //    Assert.AreEqual(4, files.Length);
-    //    Assert.AreEqual("", files[0]);
-    //}
-    
+{    
     [TestMethod]
     public void FourPixelImageTest()
     {
