@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: Build job
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     outputs:
       Version: ${{ steps.gitversion.outputs.SemVer }}
       CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}
@@ -33,7 +33,13 @@ jobs:
       with:
         dotnet-version: 7.0.x
     - name: .NET test
-      run: dotnet test src/PuzzleSolver.Tests/PuzzleSolver.Tests.csproj -c Release
+      run: dotnet test src/PuzzleSolver.Tests/PuzzleSolver.Tests.csproj -c Debug --logger trx -e:CollectCoverage=true -e:CoverletOutput=TestResults/ -e:CoverletOutputFormat=lcov
+    - name: Publish coverage report to coveralls.io
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: src/PuzzleSolver.Tests/TestResults/coverage.info 
+      continue-on-error: true
     - name: .NET publish
       run: dotnet publish src/PuzzleSolver/PuzzleSolver.csproj -c Release -p:Version='${{ steps.gitversion.outputs.SemVer }}'
     - name: Upload package back to GitHub
@@ -41,3 +47,38 @@ jobs:
       with:
         name: drop
         path: src/PuzzleSolver/bin/Release
+
+        
+  sonarCloud:
+    name: Run SonarCloud analysis
+    runs-on: ubuntu-latest
+    #if: github.ref == 'refs/heads/main' 
+    steps:
+      - name: Run Sonarcloud test
+        uses: samsmithnz/SamsDotNetSonarCloudAction@1.2.0
+        with:
+          projects: 'src/PuzzleSolver/PuzzleSolver.csproj,src/PuzzleSolver.Tests/PuzzleSolver.Tests.csproj'
+          dotnet-version: '7.0.x'
+          sonarcloud-organization: samsmithnz-github
+          sonarcloud-project: samsmithnz_PuzzleSolver
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+
+  release:
+    runs-on: ubuntu-latest
+    needs: 
+    - build
+    - sonarCloud
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - name: Display GitVersion outputs
+      run: |
+        echo "Version: ${{ needs.build.outputs.Version }}" 
+        echo "CommitsSinceVersionSource: ${{ needs.build.outputs.CommitsSinceVersionSource }}" 
+    - name: Create Release
+      uses: ncipollo/release-action@v1
+      if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only create a release if there has been a commit/version change
+      with:
+        tag: ${{ needs.build.outputs.Version }}
+        name: Release ${{ needs.build.outputs.Version }}
+        token: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token   
