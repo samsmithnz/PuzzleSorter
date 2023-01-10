@@ -8,7 +8,7 @@ public class ImageProcessingTests
 {
 
     [TestMethod]
-    public void FourPixelImageWithJustPrimaryColorsTest()
+    public void FourPixelImageWithJustPrimaryPaletteTest()
     {
         //Arrange
         ImageProcessing imageProcessing = new(ColorPalettes.GetPrimaryColors());
@@ -23,7 +23,7 @@ public class ImageProcessingTests
     }
     
     [TestMethod]
-    public void FourPixelImageWithPrimaryAndSecondaryColorsTest()
+    public void FourPixelImageWithPrimaryAndSecondaryPaletteTest()
     {
         //Arrange
         ImageProcessing imageProcessing = new(ColorPalettes.GetPrimaryAndSecondaryColors());
@@ -38,7 +38,7 @@ public class ImageProcessingTests
     }
     
     [TestMethod]
-    public void FourPixelImageWithAllNamedColorsTest()
+    public void FourPixelImageWithAllNamedColorsPaletteTest()
     {
         //Arrange
         ImageProcessing imageProcessing = new(ColorPalettes.GetAllNamedColors());
@@ -53,7 +53,27 @@ public class ImageProcessingTests
     }
 
     [TestMethod]
-    public void PrimaryAndSecondaryColorsImageTest()
+    public void PrimaryAndSecondaryColorsImageWithOnlyPrimaryPaletteTest()
+    {
+        //Arrange
+        ImageProcessing imageProcessing = new(ColorPalettes.GetPrimaryColors());
+        string imageDir = Environment.CurrentDirectory + @"/TestImages/PrimaryAndSecondaryColors.png";
+
+        //Act
+        Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
+
+        //Assert
+        Assert.AreEqual(3, groupedColors.Count);
+        Assert.AreEqual(25 * 25 * 2, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25 * 2, groupedColors[Color.Blue.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25 * 2, groupedColors[Color.Yellow.ToPixel<Rgb24>()].Count);
+        //Assert.AreEqual(25 * 25, groupedColors[Color.Purple.ToPixel<Rgb24>()].Count);
+        //Assert.AreEqual(25 * 25, groupedColors[Color.Orange.ToPixel<Rgb24>()].Count);
+        //Assert.AreEqual(25 * 25, groupedColors[Color.Green.ToPixel<Rgb24>()].Count);
+    }
+
+    [TestMethod]
+    public void PrimaryAndSecondaryColorsImageWithPrimaryAndSecondaryPaletteTest()
     {
         //Arrange
         ImageProcessing imageProcessing = new(ColorPalettes.GetPrimaryAndSecondaryColors());
