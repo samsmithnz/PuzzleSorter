@@ -1,6 +1,5 @@
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
-using System.Xml.Linq;
 
 namespace PuzzleSolver.Tests;
 
@@ -68,9 +67,6 @@ public class ImageProcessingTests
         Assert.AreEqual(25 * 25 * 2, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
         Assert.AreEqual(25 * 25 * 2, groupedColors[Color.Blue.ToPixel<Rgb24>()].Count);
         Assert.AreEqual(25 * 25 * 2, groupedColors[Color.Yellow.ToPixel<Rgb24>()].Count);
-        //Assert.AreEqual(25 * 25, groupedColors[Color.Purple.ToPixel<Rgb24>()].Count);
-        //Assert.AreEqual(25 * 25, groupedColors[Color.Orange.ToPixel<Rgb24>()].Count);
-        //Assert.AreEqual(25 * 25, groupedColors[Color.Green.ToPixel<Rgb24>()].Count);
     }
 
     [TestMethod]
@@ -188,14 +184,6 @@ public class ImageProcessingTests
 
         //Assert
         Assert.AreEqual(138, groupedColors.Count);
-        //Assert.AreEqual(167062, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
-        //Assert.AreEqual(168713, groupedColors[Color.Blue.ToPixel<Rgb24>()].Count);
-        //Assert.AreEqual(1576, groupedColors[Color.Yellow.ToPixel<Rgb24>()].Count);
-        //Assert.AreEqual(182167, groupedColors[Color.Orange.ToPixel<Rgb24>()].Count);
-        //Assert.AreEqual(9431, groupedColors[Color.Purple.ToPixel<Rgb24>()].Count);
-        //Assert.AreEqual(186354, groupedColors[Color.Green.ToPixel<Rgb24>()].Count);
-        //Assert.AreEqual(92385, groupedColors[Color.Black.ToPixel<Rgb24>()].Count);
-        //Assert.AreEqual(2293112, groupedColors[Color.White.ToPixel<Rgb24>()].Count);
     }
 
     [TestMethod]
@@ -210,13 +198,5 @@ public class ImageProcessingTests
 
         //Assert
         Assert.AreEqual(107, groupedColors.Count);
-        //Assert.AreEqual(167062, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
-        //Assert.AreEqual(168713, groupedColors[Color.Blue.ToPixel<Rgb24>()].Count);
-        //Assert.AreEqual(1576, groupedColors[Color.Yellow.ToPixel<Rgb24>()].Count);
-        //Assert.AreEqual(182167, groupedColors[Color.Orange.ToPixel<Rgb24>()].Count);
-        //Assert.AreEqual(9431, groupedColors[Color.Purple.ToPixel<Rgb24>()].Count);
-        //Assert.AreEqual(186354, groupedColors[Color.Green.ToPixel<Rgb24>()].Count);
-        //Assert.AreEqual(92385, groupedColors[Color.Black.ToPixel<Rgb24>()].Count);
-        //Assert.AreEqual(2293112, groupedColors[Color.White.ToPixel<Rgb24>()].Count);
     }
 }
