@@ -20,6 +20,11 @@ public class ImageProcessingTests
         //Assert
         Assert.AreEqual(3, groupedColors.Count);
         Assert.AreEqual(2, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
+        string expected = @"Red: 50.00%
+Blue: 25.00%
+Yellow: 25.00%
+";
+        Assert.AreEqual(expected, ImageProcessing.BuildNamedColorsAndPercents(groupedColors));
     }
 
     [TestMethod]
@@ -67,6 +72,11 @@ public class ImageProcessingTests
         Assert.AreEqual(25 * 25 * 2, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
         Assert.AreEqual(25 * 25 * 2, groupedColors[Color.Blue.ToPixel<Rgb24>()].Count);
         Assert.AreEqual(25 * 25 * 2, groupedColors[Color.Yellow.ToPixel<Rgb24>()].Count);
+        string expected = @"Red: 33.33%
+Blue: 33.33%
+Yellow: 33.33%
+";
+        Assert.AreEqual(expected, ImageProcessing.BuildNamedColorsAndPercents(groupedColors));
     }
 
     [TestMethod]
@@ -108,7 +118,7 @@ public class ImageProcessingTests
             {
                 Assert.AreEqual("Crimson", ColorPalettes.ToName(entry.Key));
             }
-            else if (i ==1)
+            else if (i == 1)
             {
                 Assert.AreEqual("RoyalBlue", ColorPalettes.ToName(entry.Key));
             }
@@ -148,6 +158,12 @@ public class ImageProcessingTests
         Assert.AreEqual(118660, groupedColors[Color.White.ToPixel<Rgb24>()].Count);
         Assert.AreEqual(29920, groupedColors[Color.Orange.ToPixel<Rgb24>()].Count); //one of the bars is closer to orange than white or red
         Assert.AreEqual(59160, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
+        string expected = @"Blue: 22.17%
+White: 44.46%
+Orange: 11.21%
+Red: 22.17%
+";
+        Assert.AreEqual(expected, ImageProcessing.BuildNamedColorsAndPercents(groupedColors));
     }
 
     [TestMethod]
@@ -170,6 +186,16 @@ public class ImageProcessingTests
         Assert.AreEqual(186354, groupedColors[Color.Green.ToPixel<Rgb24>()].Count);
         Assert.AreEqual(92385, groupedColors[Color.Black.ToPixel<Rgb24>()].Count);
         Assert.AreEqual(2293112, groupedColors[Color.White.ToPixel<Rgb24>()].Count);
+        string expected = @"White: 73.95%
+Purple: 0.30%
+Black: 2.98%
+Red: 5.39%
+Green: 6.01%
+Blue: 5.44%
+Orange: 5.87%
+Yellow: 0.05%
+";
+        Assert.AreEqual(expected, ImageProcessing.BuildNamedColorsAndPercents(groupedColors));
     }
 
     [TestMethod]

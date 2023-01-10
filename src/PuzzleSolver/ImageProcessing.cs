@@ -1,6 +1,7 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Diagnostics;
+using System.Text;
 
 namespace PuzzleSolver;
 
@@ -90,9 +91,16 @@ public class ImageProcessing
         return (int)Math.Sqrt(Math.Pow(color1.R - color2.R, 2) + Math.Pow(color1.G - color2.G, 2) + Math.Pow(color1.B - color2.B, 2));
     }
 
-    private static string BuildNamedColorsAndPercents(Dictionary<Rgb24, List<Rgb24>> colorGroups)
+    public static string BuildNamedColorsAndPercents(Dictionary<Rgb24, List<Rgb24>> colorGroups)
     {
-        return "";
+        //loop through dictionary and calculate percents for each key
+        StringBuilder sb = new();
+        foreach (KeyValuePair<Rgb24, List<Rgb24>> colorGroup in colorGroups)
+        {
+            double percent = (double)colorGroup.Value.Count / (double)colorGroups.Sum(t => t.Value.Count);
+            sb.AppendLine($"{ColorPalettes.ToName(colorGroup.Key)}: {percent:P}");
+        }
+        return sb.ToString();
     }
 
 }
