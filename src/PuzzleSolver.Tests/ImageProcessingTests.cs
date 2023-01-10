@@ -22,7 +22,7 @@ public class ImageProcessingTests
         Assert.AreEqual(3, groupedColors.Count);
         Assert.AreEqual(2, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
     }
-    
+
     [TestMethod]
     public void FourPixelImageWithPrimaryAndSecondaryPaletteTest()
     {
@@ -37,7 +37,7 @@ public class ImageProcessingTests
         Assert.AreEqual(3, groupedColors.Count);
         Assert.AreEqual(2, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
     }
-    
+
     [TestMethod]
     public void FourPixelImageWithAllNamedColorsPaletteTest()
     {
@@ -105,18 +105,35 @@ public class ImageProcessingTests
 
         //Assert
         Assert.AreEqual(6, groupedColors.Count);
-        Assert.AreEqual("", ColorPalettes.ToName(groupedColors[new Rgb24(220, 20, 60)]));
-        //Assert.AreEqual("", ColorPalettes.ToName(groupedColors[1]));
-        //Assert.AreEqual("", ColorPalettes.ToName(groupedColors[2]));
-        //Assert.AreEqual("", ColorPalettes.ToName(groupedColors[3]));
-        //Assert.AreEqual("", ColorPalettes.ToName(groupedColors[4]));
-        //Assert.AreEqual("", ColorPalettes.ToName(groupedColors[5]));
-        Assert.AreEqual(25 * 25, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(25 * 25, groupedColors[Color.Blue.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(25 * 25, groupedColors[Color.Yellow.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(25 * 25, groupedColors[Color.Purple.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(25 * 25, groupedColors[Color.Orange.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(25 * 25, groupedColors[Color.Green.ToPixel<Rgb24>()].Count);
+        int i = 0;
+        foreach (KeyValuePair<Rgb24, List<Rgb24>> entry in groupedColors)
+        {
+            if (i == 0)
+            {
+                Assert.AreEqual("Crimson", ColorPalettes.ToName(entry.Key));
+            }
+            else if (i ==1)
+            {
+                Assert.AreEqual("RoyalBlue", ColorPalettes.ToName(entry.Key));
+            }
+            else if (i == 2)
+            {
+                Assert.AreEqual("Yellow", ColorPalettes.ToName(entry.Key));
+            }
+            else if (i == 3)
+            {
+                Assert.AreEqual("DarkOrchid", ColorPalettes.ToName(entry.Key));
+            }
+            else if (i == 4)
+            {
+                Assert.AreEqual("LimeGreen", ColorPalettes.ToName(entry.Key));
+            }
+            else if (i == 5)
+            {
+                Assert.AreEqual("Coral", ColorPalettes.ToName(entry.Key));
+            }
+            i++;
+        }
     }
 
     [TestMethod]
