@@ -1,6 +1,7 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 namespace PuzzleSolver;
@@ -95,10 +96,17 @@ public class ImageProcessing
     {
         //loop through dictionary and calculate percents for each key
         StringBuilder sb = new();
+        List<KeyValuePair<string, double>> namePercents = new();
+        //Calculate the name and percent and add it into a list
         foreach (KeyValuePair<Rgb24, List<Rgb24>> colorGroup in colorGroups)
         {
             double percent = (double)colorGroup.Value.Count / (double)colorGroups.Sum(t => t.Value.Count);
-            sb.AppendLine($"{ColorPalettes.ToName(colorGroup.Key)}: {percent:P}");
+             namePercents.Add(new KeyValuePair<string, double>(ColorPalettes.ToName(colorGroup.Key), percent));
+        }
+        //Return the string ordered by percent
+        foreach (KeyValuePair<string, double> item in namePercents.OrderByDescending(x => x.Value).ThenBy(x => x.Key))
+        {
+            sb.AppendLine($"{item.Key}: {item.Value:P}");
         }
         return sb.ToString();
     }
