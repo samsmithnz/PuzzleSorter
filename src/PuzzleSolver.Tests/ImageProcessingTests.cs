@@ -1,5 +1,6 @@
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using System.Xml.Linq;
 
 namespace PuzzleSolver.Tests;
 
@@ -84,6 +85,32 @@ public class ImageProcessingTests
 
         //Assert
         Assert.AreEqual(6, groupedColors.Count);
+        Assert.AreEqual(25 * 25, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25, groupedColors[Color.Blue.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25, groupedColors[Color.Yellow.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25, groupedColors[Color.Purple.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25, groupedColors[Color.Orange.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25, groupedColors[Color.Green.ToPixel<Rgb24>()].Count);
+    }
+
+    [TestMethod]
+    public void PrimaryAndSecondaryColorsImageWithNamedColorsPaletteTest()
+    {
+        //Arrange
+        ImageProcessing imageProcessing = new(ColorPalettes.GetAllNamedColors());
+        string imageDir = Environment.CurrentDirectory + @"/TestImages/PrimaryAndSecondaryColors.png";
+
+        //Act
+        Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
+
+        //Assert
+        Assert.AreEqual(6, groupedColors.Count);
+        Assert.AreEqual("", ColorPalettes.ToName(groupedColors[new Rgb24(220, 20, 60)]));
+        //Assert.AreEqual("", ColorPalettes.ToName(groupedColors[1]));
+        //Assert.AreEqual("", ColorPalettes.ToName(groupedColors[2]));
+        //Assert.AreEqual("", ColorPalettes.ToName(groupedColors[3]));
+        //Assert.AreEqual("", ColorPalettes.ToName(groupedColors[4]));
+        //Assert.AreEqual("", ColorPalettes.ToName(groupedColors[5]));
         Assert.AreEqual(25 * 25, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
         Assert.AreEqual(25 * 25, groupedColors[Color.Blue.ToPixel<Rgb24>()].Count);
         Assert.AreEqual(25 * 25, groupedColors[Color.Yellow.ToPixel<Rgb24>()].Count);
