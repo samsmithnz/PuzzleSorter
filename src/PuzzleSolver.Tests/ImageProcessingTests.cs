@@ -5,12 +5,43 @@ namespace PuzzleSolver.Tests;
 
 [TestClass]
 public class ImageProcessingTests
-{    
+{
+
     [TestMethod]
-    public void FourPixelImageTest()
+    public void FourPixelImageWithJustPrimaryColorsTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new();
+        ImageProcessing imageProcessing = new(ColorPalettes.GetPrimaryColors());
+        string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
+
+        //Act
+        Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
+
+        //Assert
+        Assert.AreEqual(3, groupedColors.Count);
+        Assert.AreEqual(2, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
+    }
+    
+    [TestMethod]
+    public void FourPixelImageWithPrimaryAndSecondaryColorsTest()
+    {
+        //Arrange
+        ImageProcessing imageProcessing = new(ColorPalettes.GetPrimaryAndSecondaryColors());
+        string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
+
+        //Act
+        Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
+
+        //Assert
+        Assert.AreEqual(3, groupedColors.Count);
+        Assert.AreEqual(2, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
+    }
+    
+    [TestMethod]
+    public void FourPixelImageWithAllNamedColorsTest()
+    {
+        //Arrange
+        ImageProcessing imageProcessing = new(ColorPalettes.GetAllNamedColors());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
 
         //Act
@@ -25,7 +56,7 @@ public class ImageProcessingTests
     public void PrimaryAndSecondaryColorsImageTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new();
+        ImageProcessing imageProcessing = new(ColorPalettes.GetPrimaryAndSecondaryColors());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/PrimaryAndSecondaryColors.png";
 
         //Act
@@ -45,7 +76,7 @@ public class ImageProcessingTests
     public void RedToBlueBlendColorsImageTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new();
+        ImageProcessing imageProcessing = new(ColorPalettes.GetPrimaryAndSecondaryColors());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/RedToBlueBlend.jpg";
 
         //Act
@@ -63,7 +94,7 @@ public class ImageProcessingTests
     public void PuzzlePiecesImageTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new();
+        ImageProcessing imageProcessing = new(ColorPalettes.GetPrimaryAndSecondaryColors());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/PuzzlePieces.jpg";
 
         //Act
