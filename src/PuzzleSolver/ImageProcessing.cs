@@ -1,25 +1,17 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
-using System.Diagnostics;
+using System.Text;
 
 namespace PuzzleSolver;
 
 public class ImageProcessing
 {
-    public List<Rgb24> ColorGroups { get; set; }
+    public List<Rgb24> ColorPalette { get; set; }
 
-    public ImageProcessing()//List<Rgb24> colorGroups)
+    public ImageProcessing(List<Rgb24> colorPalette)
     {
         //Add the primary and secondary colors, with black and white for initial buckets
-        ColorGroups = new List<Rgb24> {
-            Color.Red.ToPixel<Rgb24>(),
-            Color.Purple.ToPixel<Rgb24>(),
-            Color.Blue.ToPixel<Rgb24>(),
-            Color.Green.ToPixel<Rgb24>(),
-            Color.Yellow.ToPixel<Rgb24>(),
-            Color.Orange.ToPixel<Rgb24>(),
-            Color.White.ToPixel<Rgb24>(),
-            Color.Black.ToPixel<Rgb24>() };
+        ColorPalette = colorPalette;
     }
 
     public Dictionary<Rgb24, List<Rgb24>> ProcessImageIntoColorGroups(string srcFilename)
@@ -60,10 +52,6 @@ public class ImageProcessing
                             groupedColors[(Rgb24)colorGroup] = colorList;
                         }
                     }
-                    else
-                    {
-                        Debug.WriteLine("FindClosestColorGroup::Shouldn't get here");
-                    }
                 }
             }
         });
@@ -76,7 +64,7 @@ public class ImageProcessing
     {
         Rgb24? closestColorGroup = null;
         List<KeyValuePair<Rgb24, int>> results = new();
-        foreach (Rgb24 color in ColorGroups)
+        foreach (Rgb24 color in ColorPalette)
         {
             int colorDifference = GetColorDifference(color, colorToTest);
             results.Add(new KeyValuePair<Rgb24, int>(color, colorDifference));
@@ -96,6 +84,25 @@ public class ImageProcessing
     private int GetColorDifference(Rgb24 color1, Rgb24 color2)
     {
         return (int)Math.Sqrt(Math.Pow(color1.R - color2.R, 2) + Math.Pow(color1.G - color2.G, 2) + Math.Pow(color1.B - color2.B, 2));
+    }
+
+    public static string BuildNamedColorsAndPercentsString(Dictionary<Rgb24, List<Rgb24>> colorGroups)
+    {
+        //loop through dictionary and calculate percents for each key
+        StringBuilder sb = new();
+        List<KeyValuePair<string, double>> namePercents = new();
+        //Calculate the name and percent and add it into a list
+        foreach (KeyValuePair<Rgb24, List<Rgb24>> colorGroup in colorGroups)
+        {
+            double percent = (double)colorGroup.Value.Count / (double)colorGroups.Sum(t => t.Value.Count);
+             namePercents.Add(new KeyValuePair<string, double>(ColorPalettes.ToName(colorGroup.Key), percent));
+        }
+        //Return the string ordered by percent
+        foreach (KeyValuePair<string, double> item in namePercents.OrderByDescending(x => x.Value).ThenBy(x => x.Key))
+        {
+            sb.AppendLine($"{item.Key}: {item.Value:0.00%}");
+        }
+        return sb.ToString();
     }
 
 }
