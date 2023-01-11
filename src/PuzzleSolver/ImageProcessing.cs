@@ -52,10 +52,6 @@ public class ImageProcessing
                             groupedColors[(Rgb24)colorGroup] = colorList;
                         }
                     }
-                    //else
-                    //{
-                    //    Debug.WriteLine("FindClosestColorGroup::Shouldn't get here");
-                    //}
                 }
             }
         });
