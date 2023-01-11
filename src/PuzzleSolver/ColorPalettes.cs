@@ -6,7 +6,7 @@ namespace PuzzleSolver
     public static class ColorPalettes
     {
 
-        public static List<Rgb24> GetPrimaryColors()
+        public static List<Rgb24> GetPrimaryColorsPalette()
         {
             return new List<Rgb24> {
                 Color.Red.ToPixel<Rgb24>(),
@@ -14,7 +14,7 @@ namespace PuzzleSolver
                 Color.Yellow.ToPixel<Rgb24>()};
         }
 
-        public static List<Rgb24> GetPrimaryAndSecondaryColors()
+        public static List<Rgb24> GetPrimaryAndSecondaryColorsPalette()
         {
             return new List<Rgb24> {
                 Color.Red.ToPixel<Rgb24>(),
@@ -27,7 +27,7 @@ namespace PuzzleSolver
                 Color.Black.ToPixel<Rgb24>() };
         }
 
-        public static List<Rgb24> GetAllNamedColors()
+        public static List<Rgb24> GetAllNamedColorsPalette()
         {
             return new List<Rgb24> {
                 Color.AliceBlue.ToPixel<Rgb24>(),
