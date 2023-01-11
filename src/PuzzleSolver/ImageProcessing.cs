@@ -106,7 +106,7 @@ public class ImageProcessing
         //Return the string ordered by percent
         foreach (KeyValuePair<string, double> item in namePercents.OrderByDescending(x => x.Value).ThenBy(x => x.Key))
         {
-            sb.AppendLine($"{item.Key}: {item.Value:P}");
+            sb.AppendLine($"{item.Key}: {item.Value:0.00%}");
         }
         return sb.ToString();
     }
