@@ -14,20 +14,20 @@ public class ImageProcessing
         ColorPalette = colorPalette;
     }
 
-    public Dictionary<Rgb24, List<Rgb24>> ProcessImageIntoColorGroups(string srcFilename)
+    public Dictionary<Rgb24, List<Rgb24>> ProcessImageIntoColorGroups(string sourceFilename)
     {
         Dictionary<Rgb24, List<Rgb24>> groupedColors = new();
-        FileInfo srcFile = new(srcFilename);
+        FileInfo srcFile = new(sourceFilename);
         string destFilename = Path.GetFileNameWithoutExtension(srcFile.Name) + "_sorted.jpg";
 
-        using Image<Rgb24> srcImg = Image.Load<Rgb24>(srcFile.FullName);
+        using Image<Rgb24> sourceImg = Image.Load<Rgb24>(srcFile.FullName);
 
-        int srcWidth = srcImg.Size().Width;
-        int srcHeight = srcImg.Size().Height;
+        int srcWidth = sourceImg.Size().Width;
+        int srcHeight = sourceImg.Size().Height;
 
         //using var destImg = new Image<Rgb24>(srcWidth, srcHeight);
         Dictionary<Rgb24, int> pixels = new();
-        srcImg.ProcessPixelRows(accessor =>
+        sourceImg.ProcessPixelRows(accessor =>
         {
             for (var row = 0; row < srcHeight; row++)
             {
@@ -103,6 +103,29 @@ public class ImageProcessing
             sb.AppendLine($"{item.Key}: {item.Value:0.00%}");
         }
         return sb.ToString();
+    }
+
+    public static Image<Rgba32> Extract(Image<Rgba32> sourceImage, Rectangle sourceArea)
+    {
+        Image<Rgba32> targetImage = new(sourceArea.Width, sourceArea.Height);
+
+        int height = sourceArea.Height;
+
+        sourceImage.ProcessPixelRows(accessor =>
+        {
+            for (int row = 0; row < height; row++)
+            {
+                Span<Rgba32> sourceRow = accessor.GetRowSpan(sourceArea.Y + row);
+                Span<Rgba32> targetRow = accessor.GetRowSpan(row);
+
+                //Span<Rgba32> sourceRow = sourceImage.GetPixelRowSpan(sourceArea.Y + row);
+                //Span<Rgba32> targetRow = targetImage.GetPixelRowSpan(row);
+
+                sourceRow.Slice(sourceArea.X, sourceArea.Width).CopyTo(targetRow);
+            }
+        });
+
+        return targetImage;
     }
 
 }
