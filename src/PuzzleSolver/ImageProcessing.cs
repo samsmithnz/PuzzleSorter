@@ -18,15 +18,15 @@ public class ImageProcessing
     {
         Dictionary<Rgb24, List<Rgb24>> groupedColors = new();
         FileInfo srcFile = new(sourceFilename);
-        string destFilename = Path.GetFileNameWithoutExtension(srcFile.Name) + "_sorted.jpg";
+        //string destFilename = Path.GetFileNameWithoutExtension(srcFile.Name) + "_sorted.jpg";
 
         using Image<Rgb24> sourceImg = Image.Load<Rgb24>(srcFile.FullName);
 
-        int srcWidth = sourceImg.Size().Width;
+        //int srcWidth = sourceImg.Size().Width;
         int srcHeight = sourceImg.Size().Height;
 
         //using var destImg = new Image<Rgb24>(srcWidth, srcHeight);
-        Dictionary<Rgb24, int> pixels = new();
+        //Dictionary<Rgb24, int> pixels = new();
         sourceImg.ProcessPixelRows(accessor =>
         {
             for (var row = 0; row < srcHeight; row++)
@@ -81,7 +81,7 @@ public class ImageProcessing
     }
 
     //Since it uses Sqrt, it always returns a postive number
-    private int GetColorDifference(Rgb24 color1, Rgb24 color2)
+    private static int GetColorDifference(Rgb24 color1, Rgb24 color2)
     {
         return (int)Math.Sqrt(Math.Pow(color1.R - color2.R, 2) + Math.Pow(color1.G - color2.G, 2) + Math.Pow(color1.B - color2.B, 2));
     }
@@ -95,7 +95,7 @@ public class ImageProcessing
         foreach (KeyValuePair<Rgb24, List<Rgb24>> colorGroup in colorGroups)
         {
             double percent = (double)colorGroup.Value.Count / (double)colorGroups.Sum(t => t.Value.Count);
-             namePercents.Add(new KeyValuePair<string, double>(ColorPalettes.ToName(colorGroup.Key), percent));
+            namePercents.Add(new KeyValuePair<string, double>(ColorPalettes.ToName(colorGroup.Key), percent));
         }
         //Return the string ordered by percent
         foreach (KeyValuePair<string, double> item in namePercents.OrderByDescending(x => x.Value).ThenBy(x => x.Key))
