@@ -9,6 +9,12 @@ namespace PuzzleSolver.App
         {
             InitializeComponent();
 
+            //1. Read in input image
+            //2. Split apart image
+            //3. Group images by biggest % 
+            //4. Display grouped images
+
+
             List<Rgb24> palette = ColorPalettes.GetPrimaryAndSecondaryColorsPalette();
 
             int startingX = 20;
