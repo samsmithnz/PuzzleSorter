@@ -33,7 +33,14 @@
             this.picSourceImage = new System.Windows.Forms.PictureBox();
             this.imglistTargetImages = new System.Windows.Forms.ImageList(this.components);
             this.panColors = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.picSourceImage)).BeginInit();
+            this.panColors.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // picSourceImage
@@ -65,10 +72,40 @@
             this.panColors.AutoScroll = true;
             this.panColors.AutoScrollMinSize = new System.Drawing.Size(0, 815);
             this.panColors.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panColors.Controls.Add(this.groupBox1);
             this.panColors.Location = new System.Drawing.Point(1052, 22);
             this.panColors.Name = "panColors";
             this.panColors.Size = new System.Drawing.Size(900, 750);
             this.panColors.TabIndex = 3;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.pictureBox2);
+            this.groupBox1.Controls.Add(this.pictureBox1);
+            this.groupBox1.Location = new System.Drawing.Point(20, 20);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(800, 300);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "   Test";
+            this.groupBox1.Visible = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Location = new System.Drawing.Point(5, 35);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(250, 250);
+            this.pictureBox2.TabIndex = 1;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.pictureBox1.Location = new System.Drawing.Point(6, 8);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // frmMain
             // 
@@ -81,6 +118,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Puzzle Solver tester";
             ((System.ComponentModel.ISupportInitialize)(this.picSourceImage)).EndInit();
+            this.panColors.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -90,5 +131,8 @@
         private PictureBox picSourceImage;
         private ImageList imglistTargetImages;
         private Panel panColors;
+        private GroupBox groupBox1;
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox1;
     }
 }

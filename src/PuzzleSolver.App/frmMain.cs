@@ -13,14 +13,14 @@ namespace PuzzleSolver.App
 
             int startingX = 20;
             int startingY = 20; //778;
-            int containerHeight = 250;
-            int containerWidth = 800;
+            int containerHeight = 300;
+            int containerWidth = 810;
             for (int i = 0; i < palette.Count; i++)
             {
                 Rgb24 item = palette[i];
                 int x = startingX;
                 int y = (i * containerHeight) + (i * startingY);
-                Debug.WriteLine("X:" + x + ",Y:" + y);
+                //Debug.WriteLine("X:" + x + ",Y:" + y);
                 GroupBox groupBox = new()
                 {
                     Height = containerHeight,
@@ -40,7 +40,21 @@ namespace PuzzleSolver.App
                     Parent = groupBox
                 };
 
+                for (int j = 0; j < 3; j++)
+                {
+                    //Now we have to show the items that map to this parent
+                    _ = new PictureBox()
+                    {
+                        Location = new Point(5 + (250 * j + (20 * j)), 35),
+                        Height = 250,
+                        Width = 250,
+                        BackColor = Color.FromName(ColorPalettes.ToName(item)),
+                        Parent = groupBox
+                    };
+                }
+
             }
+
         }
     }
 }
