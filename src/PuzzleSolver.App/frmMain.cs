@@ -18,8 +18,8 @@ namespace PuzzleSolver.App
 
             int startingX = 20;
             int startingY = 20; //778;
-            int containerHeight = 300;
-            int containerWidth = 810;
+            int containerHeight = 420;
+            int containerWidth = 800;
             for (int i = 0; i < palette.Count; i++)
             {
                 Rgb24 item = palette[i];
@@ -53,7 +53,15 @@ namespace PuzzleSolver.App
                         Location = new Point(5 + (250 * j + (20 * j)), 35),
                         Height = 250,
                         Width = 250,
-                        BackColor = Color.FromName(ColorPalettes.ToName(item)),
+                        //BackColor = Color.FromName(ColorPalettes.ToName(item)),
+                        Parent = groupBox
+                    };
+                    _ = new Label()
+                    {
+                        Location = new Point(6 + (250 * j + (20 * j)), 288),
+                        Height = 128,
+                        Width = 134,
+                        Text = "56% Red\r\n34% Yellow\r\n12% Blue\r\n3% other",
                         Parent = groupBox
                     };
                 }
