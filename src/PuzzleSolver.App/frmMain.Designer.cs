@@ -39,17 +39,20 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.lblSourceImageStats = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.picSourceImage)).BeginInit();
             this.panColors.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // picSourceImage
             // 
             this.picSourceImage.Image = global::PuzzleSolver.App.Properties.Resources.st_john_beach;
-            this.picSourceImage.Location = new System.Drawing.Point(22, 43);
+            this.picSourceImage.Location = new System.Drawing.Point(3, 3);
             this.picSourceImage.Name = "picSourceImage";
             this.picSourceImage.Size = new System.Drawing.Size(1000, 750);
             this.picSourceImage.TabIndex = 0;
@@ -78,7 +81,7 @@
             this.panColors.Controls.Add(this.groupBox1);
             this.panColors.Location = new System.Drawing.Point(1052, 43);
             this.panColors.Name = "panColors";
-            this.panColors.Size = new System.Drawing.Size(900, 750);
+            this.panColors.Size = new System.Drawing.Size(900, 896);
             this.panColors.TabIndex = 3;
             // 
             // groupBox1
@@ -138,15 +141,34 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Grouped images";
             // 
+            // lblSourceImageStats
+            // 
+            this.lblSourceImageStats.AutoSize = true;
+            this.lblSourceImageStats.Location = new System.Drawing.Point(3, 756);
+            this.lblSourceImageStats.Name = "lblSourceImageStats";
+            this.lblSourceImageStats.Size = new System.Drawing.Size(134, 128);
+            this.lblSourceImageStats.TabIndex = 7;
+            this.lblSourceImageStats.Text = "56% Red\r\n34% Yellow\r\n12% Blue\r\n3% other";
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.lblSourceImageStats);
+            this.panel1.Controls.Add(this.picSourceImage);
+            this.panel1.Location = new System.Drawing.Point(22, 44);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1024, 895);
+            this.panel1.TabIndex = 8;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1984, 821);
+            this.ClientSize = new System.Drawing.Size(1984, 958);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panColors);
-            this.Controls.Add(this.picSourceImage);
+            this.Controls.Add(this.panel1);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Puzzle Solver tester";
@@ -156,6 +178,8 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -172,5 +196,7 @@
         private Label label3;
         private Label label1;
         private Label label2;
+        private Label lblSourceImageStats;
+        private Panel panel1;
     }
 }

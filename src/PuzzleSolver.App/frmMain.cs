@@ -9,17 +9,20 @@ namespace PuzzleSolver.App
         {
             InitializeComponent();
 
-            //1. Read in input image
-            string imageDir = Environment.CurrentDirectory + @"/Images/st-john-beach.jpg";
-            Image<Rgb24> sourceImg = SixLabors.ImageSharp.Image.Load<Rgb24>(imageDir);
-
-            //2. Split apart image
-            //3. Group images by biggest % 
-            //4. Display grouped images
-
-
+            //0. Setup
             List<Rgb24> palette = ColorPalettes.GetPrimaryAndSecondaryColorsPalette();
 
+            //1. Read in input image
+            string imageDir = Environment.CurrentDirectory + @"/Images/st-john-beach.jpg";
+            ImageProcessing imageProcessing = new(palette);
+            Dictionary<Rgb24, List<Rgb24>> sourceGroupedStats = imageProcessing.ProcessImageIntoColorGroups(imageDir);
+            string sourceGroupedStatsString = ImageProcessing.BuildNamedColorsAndPercentsString(sourceGroupedStats);
+            lblSourceImageStats.Text = sourceGroupedStatsString;
+
+            //2. Split apart image
+            //Image<Rgb24> sourceImg = SixLabors.ImageSharp.Image.Load<Rgb24>(imageDir);
+            //3. Group images by biggest % 
+            //4. Display grouped images
             int startingX = 20;
             int startingY = 20; //778;
             int containerHeight = 420;
@@ -57,7 +60,7 @@ namespace PuzzleSolver.App
                         Location = new System.Drawing.Point(5 + (250 * j + (20 * j)), 35),
                         Height = 250,
                         Width = 250,
-                        //BackColor = Color.FromName(ColorPalettes.ToName(item)),
+                        BackColor = System.Drawing.Color.FromName(ColorPalettes.ToName(item)),
                         Parent = groupBox
                     };
                     _ = new Label()
