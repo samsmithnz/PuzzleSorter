@@ -1,3 +1,4 @@
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
 namespace PuzzleSolver.App
@@ -9,6 +10,9 @@ namespace PuzzleSolver.App
             InitializeComponent();
 
             //1. Read in input image
+            string imageDir = Environment.CurrentDirectory + @"/Images/st-john-beach.jpg";
+            Image<Rgb24> sourceImg = SixLabors.ImageSharp.Image.Load<Rgb24>(imageDir);
+
             //2. Split apart image
             //3. Group images by biggest % 
             //4. Display grouped images
@@ -31,17 +35,17 @@ namespace PuzzleSolver.App
                     Height = containerHeight,
                     Width = containerWidth,
                     Text = "   " + ColorPalettes.ToName(item),
-                    Location = new Point(x, y),
+                    Location = new System.Drawing.Point(x, y),
                     Parent = panColors,
                     Anchor = AnchorStyles.Top
                 };
 
                 _ = new PictureBox()
                 {
-                    Location = new Point(6, 8),
+                    Location = new System.Drawing.Point(6, 8),
                     Height = 20,
                     Width = 20,
-                    BackColor = Color.FromName(ColorPalettes.ToName(item)),
+                    BackColor = System.Drawing.Color.FromName(ColorPalettes.ToName(item)),
                     Parent = groupBox
                 };
 
@@ -50,7 +54,7 @@ namespace PuzzleSolver.App
                     //Now we have to show the items that map to this parent
                     _ = new PictureBox()
                     {
-                        Location = new Point(5 + (250 * j + (20 * j)), 35),
+                        Location = new System.Drawing.Point(5 + (250 * j + (20 * j)), 35),
                         Height = 250,
                         Width = 250,
                         //BackColor = Color.FromName(ColorPalettes.ToName(item)),
@@ -58,7 +62,7 @@ namespace PuzzleSolver.App
                     };
                     _ = new Label()
                     {
-                        Location = new Point(6 + (250 * j + (20 * j)), 288),
+                        Location = new System.Drawing.Point(6 + (250 * j + (20 * j)), 288),
                         Height = 128,
                         Width = 134,
                         Text = "56% Red\r\n34% Yellow\r\n12% Blue\r\n3% other",
