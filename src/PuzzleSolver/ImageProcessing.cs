@@ -1,6 +1,12 @@
 ﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Advanced;
+using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Text;
+using System;
+using System.IO;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Formats;
 
 namespace PuzzleSolver;
 
@@ -14,20 +20,28 @@ public class ImageProcessing
         ColorPalette = colorPalette;
     }
 
-    public Dictionary<Rgb24, List<Rgb24>> ProcessImageIntoColorGroups(string sourceFilename)
+    public Dictionary<Rgb24, List<Rgb24>> ProcessImageIntoColorGroups(string? sourceFilename = null, Image<Rgb24>? image = null)
     {
         Dictionary<Rgb24, List<Rgb24>> groupedColors = new();
-        FileInfo srcFile = new(sourceFilename);
         //string destFilename = Path.GetFileNameWithoutExtension(srcFile.Name) + "_sorted.jpg";
 
-        using Image<Rgb24> sourceImg = Image.Load<Rgb24>(srcFile.FullName);
+        Image<Rgb24> sourceImage;
+        if (sourceFilename != null)
+        {
+            FileInfo srcFile = new(sourceFilename);
+            sourceImage = Image.Load<Rgb24>(srcFile.FullName);
+        }
+        else
+        {
+            sourceImage = image;
+        }
 
         //int srcWidth = sourceImg.Size().Width;
-        int srcHeight = sourceImg.Size().Height;
+        int srcHeight = sourceImage.Size().Height;
 
         //using var destImg = new Image<Rgb24>(srcWidth, srcHeight);
         //Dictionary<Rgb24, int> pixels = new();
-        sourceImg.ProcessPixelRows(accessor =>
+        sourceImage.ProcessPixelRows(accessor =>
         {
             for (var row = 0; row < srcHeight; row++)
             {
@@ -105,27 +119,60 @@ public class ImageProcessing
         return sb.ToString();
     }
 
-    public static Image<Rgba32> Extract(Image<Rgba32> sourceImage, Rectangle sourceArea)
+    //from https://github.com/SixLabors/ImageSharp/discussions/1666
+    public static Image<Rgb24> ExtractSubImage(Image<Rgb24> sourceImage, Rectangle areaToExtract)
     {
-        Image<Rgba32> targetImage = new(sourceArea.Width, sourceArea.Height);
+        Image<Rgb24> targetImage = new(areaToExtract.Width, areaToExtract.Height);
 
-        int height = sourceArea.Height;
+        int height = areaToExtract.Height;
 
-        sourceImage.ProcessPixelRows(accessor =>
+        sourceImage.ProcessPixelRows(targetImage, (sourceAccessor, targetAccessor) =>
         {
             for (int row = 0; row < height; row++)
             {
-                Span<Rgba32> sourceRow = accessor.GetRowSpan(sourceArea.Y + row);
-                Span<Rgba32> targetRow = accessor.GetRowSpan(row);
+                Span<Rgb24> sourceRow = sourceAccessor.GetRowSpan(areaToExtract.Y + row); //get the row from the Y + row index
+                Span<Rgb24> targetRow = targetAccessor.GetRowSpan(row);
 
                 //Span<Rgba32> sourceRow = sourceImage.GetPixelRowSpan(sourceArea.Y + row);
                 //Span<Rgba32> targetRow = targetImage.GetPixelRowSpan(row);
 
-                sourceRow.Slice(sourceArea.X, sourceArea.Width).CopyTo(targetRow);
+                sourceRow.Slice(areaToExtract.X, areaToExtract.Width).CopyTo(targetRow);
             }
         });
 
         return targetImage;
     }
+
+    //public static byte[] ToArray(SixLabors.ImageSharp.Image imageIn)
+    //{
+    //    using (MemoryStream ms = new MemoryStream())
+    //    {
+    //        imageIn.Save(ms, JpegFormat.Instance);
+    //        return ms.ToArray();
+    //    }
+    //}
+
+    //public static byte[] ToArray(this SixLabors.ImageSharp.Image imageIn, IImageFormat fmt)
+    //{
+    //    using (MemoryStream ms = new MemoryStream())
+    //    {
+    //        imageIn.Save(ms, fmt);
+    //        return ms.ToArray();
+    //    }
+    //}
+
+
+    //public static System.Drawing.Bitmap ToBitmap<TPixel>(this Image<TPixel> image) where TPixel : unmanaged, IPixel<TPixel>
+    //{
+    //    using (var memoryStream = new MemoryStream())
+    //    {
+    //        var imageEncoder = image.GetConfiguration().ImageFormatsManager.FindEncoder(PngFormat.Instance);
+    //        image.Save(memoryStream, imageEncoder);
+
+    //        memoryStream.Seek(0, SeekOrigin.Begin);
+
+    //        return new System.Drawing.Bitmap(memoryStream);
+    //    }
+    //}
 
 }

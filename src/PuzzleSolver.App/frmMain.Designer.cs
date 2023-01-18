@@ -33,19 +33,19 @@
             this.picSourceImage = new System.Windows.Forms.PictureBox();
             this.imglistTargetImages = new System.Windows.Forms.ImageList(this.components);
             this.panColors = new System.Windows.Forms.Panel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.grpTest = new System.Windows.Forms.GroupBox();
+            this.lblTest = new System.Windows.Forms.Label();
+            this.picTest = new System.Windows.Forms.PictureBox();
+            this.picTestColor = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblSourceImageStats = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.picSourceImage)).BeginInit();
             this.panColors.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.grpTest.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picTest)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picTestColor)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,50 +78,49 @@
             this.panColors.AutoScroll = true;
             this.panColors.AutoScrollMinSize = new System.Drawing.Size(0, 815);
             this.panColors.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panColors.Controls.Add(this.groupBox1);
+            this.panColors.Controls.Add(this.grpTest);
             this.panColors.Location = new System.Drawing.Point(1052, 43);
             this.panColors.Name = "panColors";
             this.panColors.Size = new System.Drawing.Size(900, 896);
             this.panColors.TabIndex = 3;
             // 
-            // groupBox1
+            // grpTest
             // 
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.pictureBox2);
-            this.groupBox1.Controls.Add(this.pictureBox1);
-            this.groupBox1.Location = new System.Drawing.Point(20, 20);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(800, 420);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "   Test";
-            this.groupBox1.Visible = false;
+            this.grpTest.Controls.Add(this.lblTest);
+            this.grpTest.Controls.Add(this.picTest);
+            this.grpTest.Controls.Add(this.picTestColor);
+            this.grpTest.Location = new System.Drawing.Point(20, 20);
+            this.grpTest.Name = "grpTest";
+            this.grpTest.Size = new System.Drawing.Size(800, 420);
+            this.grpTest.TabIndex = 0;
+            this.grpTest.TabStop = false;
+            this.grpTest.Text = "   Test";
             // 
-            // label3
+            // lblTest
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 288);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(134, 128);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "56% Red\r\n34% Yellow\r\n12% Blue\r\n3% other";
+            this.lblTest.AutoSize = true;
+            this.lblTest.Location = new System.Drawing.Point(6, 288);
+            this.lblTest.Name = "lblTest";
+            this.lblTest.Size = new System.Drawing.Size(134, 128);
+            this.lblTest.TabIndex = 6;
+            this.lblTest.Text = "56% Red\r\n34% Yellow\r\n12% Blue\r\n3% other";
             // 
-            // pictureBox2
+            // picTest
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(5, 35);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(250, 250);
-            this.pictureBox2.TabIndex = 1;
-            this.pictureBox2.TabStop = false;
+            this.picTest.Location = new System.Drawing.Point(5, 35);
+            this.picTest.Name = "picTest";
+            this.picTest.Size = new System.Drawing.Size(250, 250);
+            this.picTest.TabIndex = 1;
+            this.picTest.TabStop = false;
             // 
-            // pictureBox1
+            // picTestColor
             // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.pictureBox1.Location = new System.Drawing.Point(6, 8);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.picTestColor.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.picTestColor.Location = new System.Drawing.Point(6, 8);
+            this.picTestColor.Name = "picTestColor";
+            this.picTestColor.Size = new System.Drawing.Size(20, 20);
+            this.picTestColor.TabIndex = 0;
+            this.picTestColor.TabStop = false;
             // 
             // label1
             // 
@@ -174,10 +173,10 @@
             this.Text = "Puzzle Solver tester";
             ((System.ComponentModel.ISupportInitialize)(this.picSourceImage)).EndInit();
             this.panColors.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.grpTest.ResumeLayout(false);
+            this.grpTest.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picTest)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picTestColor)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -190,10 +189,10 @@
         private PictureBox picSourceImage;
         private ImageList imglistTargetImages;
         private Panel panColors;
-        private GroupBox groupBox1;
-        private PictureBox pictureBox2;
-        private PictureBox pictureBox1;
-        private Label label3;
+        private GroupBox grpTest;
+        private PictureBox picTest;
+        private PictureBox picTestColor;
+        private Label lblTest;
         private Label label1;
         private Label label2;
         private Label lblSourceImageStats;
