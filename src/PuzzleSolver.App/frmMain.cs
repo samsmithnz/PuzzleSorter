@@ -27,17 +27,26 @@ namespace PuzzleSolver.App
             List<Bitmap> bitmaps = new();
             System.Drawing.Rectangle bmpRectangle = new(0, 0, 250, 250);
             bitmaps.Add(splitter.CropImage(picSourceImage.Image, bmpRectangle));
+            bmpRectangle = new(250, 0, 250, 250);
+            bitmaps.Add(splitter.CropImage(picSourceImage.Image, bmpRectangle));
+            bmpRectangle = new(500, 0, 250, 250);
+            bitmaps.Add(splitter.CropImage(picSourceImage.Image, bmpRectangle));
             //BitmapItem[] bitmaps = splitter.BitmapToArray(new Bitmap(picSourceImage.Image), new System.Drawing.Point(250, 250));
             //pictureBox2.BackColor = System.Drawing.Color.Transparent;
             picTest.Image = bitmaps[0];  //new Bitmap(ToNetImage(ImageProcessing.ToArray(microImage.SaveAsJpeg(), IImageFormat.)));
 
             Image<Rgb24> sourceImg = SixLabors.ImageSharp.Image.Load<Rgb24>(sourceImageLocation);
+            List<Image<Rgb24>> images = new();
             SixLabors.ImageSharp.Rectangle rectangle = new(0, 0, 250, 250);
-            Image<Rgb24> microImage = ImageProcessing.ExtractSubImage(sourceImg, rectangle);
-            string microPath = Environment.CurrentDirectory + @"/Images/micro-st-john-beach.png";
-            microImage.SaveAsPng(microPath);
-            Dictionary<Rgb24, List<Rgb24>> microSourceGroupedStats = imageProcessing.ProcessImageIntoColorGroups(null, microImage);
-            lblTest.Text = ImageProcessing.BuildNamedColorsAndPercentsString(microSourceGroupedStats) + bitmaps.Count;
+            images.Add(ImageProcessing.ExtractSubImage(sourceImg, rectangle));
+            rectangle = new(250, 0, 250, 250);
+            images.Add(ImageProcessing.ExtractSubImage(sourceImg, rectangle));
+            rectangle = new(500, 0, 250, 250);
+            images.Add(ImageProcessing.ExtractSubImage(sourceImg, rectangle));
+            //string microPath = Environment.CurrentDirectory + @"/Images/micro-st-john-beach.png";
+            //microImage.SaveAsPng(microPath);
+            //Dictionary<Rgb24, List<Rgb24>> microSourceGroupedStats = imageProcessing.ProcessImageIntoColorGroups(null, microImage1);
+            //lblTest.Text = ImageProcessing.BuildNamedColorsAndPercentsString(microSourceGroupedStats) + bitmaps.Count;
 
             int startingX = 20;
             int startingY = 20;
@@ -74,7 +83,7 @@ namespace PuzzleSolver.App
             for (int j = 0; j < bitmaps.Count; j++)
             {
                 //Now we have to show the items that map to this parent
-                _ = new PictureBox()
+                PictureBox pic2 = new PictureBox()
                 {
                     Location = new System.Drawing.Point(5 + (250 * j + (20 * j)), 35),
                     Height = 250,
@@ -83,12 +92,15 @@ namespace PuzzleSolver.App
                     Image = bitmaps[j],
                     Parent = groupBox
                 };
+                Dictionary<Rgb24, List<Rgb24>> microSourceGroupedStats = imageProcessing.ProcessImageIntoColorGroups(null, images[j]);
+                string text = ImageProcessing.BuildNamedColorsAndPercentsString(microSourceGroupedStats);
                 _ = new Label()
                 {
+                    AutoSize = false,
                     Location = new System.Drawing.Point(6 + (250 * j + (20 * j)), 288),
                     Height = 128,
-                    Width = 134,
-                    Text = "56% Red\r\n34% Yellow\r\n12% Blue\r\n3% other",
+                    Width = 200,
+                    Text = text,
                     Parent = groupBox
                 };
             }

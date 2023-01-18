@@ -95,13 +95,13 @@
             this.grpTest.TabIndex = 0;
             this.grpTest.TabStop = false;
             this.grpTest.Text = "   Test";
+            this.grpTest.Visible = false;
             // 
             // lblTest
             // 
-            this.lblTest.AutoSize = true;
             this.lblTest.Location = new System.Drawing.Point(6, 288);
             this.lblTest.Name = "lblTest";
-            this.lblTest.Size = new System.Drawing.Size(134, 128);
+            this.lblTest.Size = new System.Drawing.Size(200, 128);
             this.lblTest.TabIndex = 6;
             this.lblTest.Text = "56% Red\r\n34% Yellow\r\n12% Blue\r\n3% other";
             // 
@@ -174,7 +174,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.picSourceImage)).EndInit();
             this.panColors.ResumeLayout(false);
             this.grpTest.ResumeLayout(false);
-            this.grpTest.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picTest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picTestColor)).EndInit();
             this.panel1.ResumeLayout(false);
