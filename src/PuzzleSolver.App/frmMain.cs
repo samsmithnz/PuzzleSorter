@@ -1,6 +1,6 @@
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
-
+ 
 namespace PuzzleSolver.App
 {
     public partial class frmMain : Form
@@ -96,7 +96,7 @@ namespace PuzzleSolver.App
                     AutoSize = false,
                     Location = new System.Drawing.Point(6 + (250 * j + (20 * j)), 288),
                     Height = 128,
-                    Width = 200,
+                    Width = 250,
                     Text = text,
                     Parent = groupBox
                 };

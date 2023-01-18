@@ -101,7 +101,7 @@
             // 
             this.lblTest.Location = new System.Drawing.Point(6, 288);
             this.lblTest.Name = "lblTest";
-            this.lblTest.Size = new System.Drawing.Size(200, 128);
+            this.lblTest.Size = new System.Drawing.Size(250, 128);
             this.lblTest.TabIndex = 6;
             this.lblTest.Text = "56% Red\r\n34% Yellow\r\n12% Blue\r\n3% other";
             // 
