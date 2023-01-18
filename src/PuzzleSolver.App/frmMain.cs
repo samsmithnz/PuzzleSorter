@@ -33,8 +33,62 @@ namespace PuzzleSolver.App
             string microPath = Environment.CurrentDirectory + @"/Images/micro-st-john-beach.png";
             microImage.SaveAsPng(microPath);
             Dictionary<Rgb24, List<Rgb24>> microSourceGroupedStats = imageProcessing.ProcessImageIntoColorGroups(null, microImage);
-            lblTest.Text = ImageProcessing.BuildNamedColorsAndPercentsString(microSourceGroupedStats);
-                        
+            lblTest.Text = ImageProcessing.BuildNamedColorsAndPercentsString(microSourceGroupedStats) + bitmaps.Length; 
+
+            //int startingX = 20;
+            //int startingY = 20;
+            //int containerHeight = 420;
+            //int containerWidth = 800;
+            //int tempi = 0;
+
+            ////Rgb24 item = palette[i];
+            //int x = startingX;
+            //int y = (tempi * containerHeight) + (tempi * startingY);
+            ////Debug.WriteLine("X:" + x + ",Y:" + y);
+            //GroupBox groupBox = new()
+            //{
+            //    Height = containerHeight,
+            //    Width = containerWidth,
+            //    Text = "   " + "Static",// ColorPalettes.ToName(item),
+            //    Location = new System.Drawing.Point(x, y),
+            //    Parent = panColors,
+            //    Anchor = AnchorStyles.Top
+            //};
+
+            ////Bitmap bitmap = new()
+            ////SixLabors.ImageSharp.Image img = microImage.CloneAs<SixLabors.ImageSharp.Formats.Bmp>();
+            //_ = new PictureBox()
+            //{
+            //    Location = new System.Drawing.Point(6, 8),
+            //    Height = 20,
+            //    Width = 20,
+            //    //BackColor = System.Drawing.Color.FromName(ColorPalettes.ToName(item)),
+            //    //Image = new Bitmap(ToNetImage(ImageProcessing.ToArray(microImage))),
+            //    Parent = groupBox
+            //};
+
+            //for (int j = 0; j < 3; j++)
+            //{
+            //    //Now we have to show the items that map to this parent
+            //    _ = new PictureBox()
+            //    {
+            //        Location = new System.Drawing.Point(5 + (250 * j + (20 * j)), 35),
+            //        Height = 250,
+            //        Width = 250,
+            //        //BackColor = System.Drawing.Color.FromName(ColorPalettes.ToName(item)),
+            //        Image = bitmaps[j].Bitmap,
+            //        Parent = groupBox
+            //    };
+            //    _ = new Label()
+            //    {
+            //        Location = new System.Drawing.Point(6 + (250 * j + (20 * j)), 288),
+            //        Height = 128,
+            //        Width = 134,
+            //        Text = "56% Red\r\n34% Yellow\r\n12% Blue\r\n3% other",
+            //        Parent = groupBox
+            //    };
+            //}
+
             //3. Group images by biggest % 
             //4. Display grouped images
             //int startingX = 20;
