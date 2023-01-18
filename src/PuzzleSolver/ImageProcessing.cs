@@ -35,34 +35,37 @@ public class ImageProcessing
 
         //using var destImg = new Image<Rgb24>(srcWidth, srcHeight);
         //Dictionary<Rgb24, int> pixels = new();
-        sourceImage.ProcessPixelRows(accessor =>
+        if (sourceImage != null)
         {
-            for (var row = 0; row < srcHeight; row++)
+            sourceImage.ProcessPixelRows(accessor =>
             {
-                Span<Rgb24> pixelSpan = accessor.GetRowSpan(row);
-                for (var col = 0; col < pixelSpan.Length; col++)
+                for (var row = 0; row < srcHeight; row++)
                 {
-                    Rgb24? colorGroup = FindClosestColorGroup(pixelSpan[col]);
-                    if (colorGroup != null)
+                    Span<Rgb24> pixelSpan = accessor.GetRowSpan(row);
+                    for (var col = 0; col < pixelSpan.Length; col++)
                     {
-                        if (!groupedColors.ContainsKey((Rgb24)colorGroup))
+                        Rgb24? colorGroup = FindClosestColorGroup(pixelSpan[col]);
+                        if (colorGroup != null)
                         {
-                            List<Rgb24> colorList = new()
+                            if (!groupedColors.ContainsKey((Rgb24)colorGroup))
                             {
+                                List<Rgb24> colorList = new()
+                                {
                                 pixelSpan[col]
-                            };
-                            groupedColors[(Rgb24)colorGroup] = colorList;
-                        }
-                        else
-                        {
-                            List<Rgb24> colorList = groupedColors[(Rgb24)colorGroup];
-                            colorList.Add(pixelSpan[col]);
-                            groupedColors[(Rgb24)colorGroup] = colorList;
+                                };
+                                groupedColors[(Rgb24)colorGroup] = colorList;
+                            }
+                            else
+                            {
+                                List<Rgb24> colorList = groupedColors[(Rgb24)colorGroup];
+                                colorList.Add(pixelSpan[col]);
+                                groupedColors[(Rgb24)colorGroup] = colorList;
+                            }
                         }
                     }
                 }
-            }
-        });
+            });
+        }
 
         return groupedColors;
     }

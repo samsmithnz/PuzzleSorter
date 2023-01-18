@@ -10,7 +10,7 @@ namespace PuzzleSolver.App
             InitializeComponent();
 
             //0. Setup
-            List<Rgb24> palette = ColorPalettes.GetAllNamedColorsPalette();
+            List<Rgb24> palette = ColorPalettes.GetPrimaryAndSecondaryColorsPalette();
 
             //1. Read in input image
             string sourceImageLocation = Environment.CurrentDirectory + @"/Images/st-john-beach.jpg";
@@ -80,7 +80,7 @@ namespace PuzzleSolver.App
             for (int j = 0; j < bitmaps.Count; j++)
             {
                 //Now we have to show the items that map to this parent
-                PictureBox pic2 = new PictureBox()
+                _ = new PictureBox()
                 {
                     Location = new System.Drawing.Point(5 + (250 * j + (20 * j)), 35),
                     Height = 250,
