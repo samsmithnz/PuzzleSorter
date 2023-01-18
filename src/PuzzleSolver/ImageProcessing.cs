@@ -119,7 +119,7 @@ public class ImageProcessing
         return sb.ToString();
     }
 
-    //from https://github.com/SixLabors/ImageSharp/discussions/1666
+    //from https://docs.sixlabors.com/articles/imagesharp/pixelbuffers.html#efficient-pixel-manipulation
     public static Image<Rgb24> ExtractSubImage(Image<Rgb24> sourceImage, Rectangle areaToExtract)
     {
         Image<Rgb24> targetImage = new(areaToExtract.Width, areaToExtract.Height);
