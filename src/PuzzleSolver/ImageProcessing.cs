@@ -123,19 +123,17 @@ public class ImageProcessing
     public static Image<Rgb24> ExtractSubImage(Image<Rgb24> sourceImage, Rectangle areaToExtract)
     {
         Image<Rgb24> targetImage = new(areaToExtract.Width, areaToExtract.Height);
-
         int height = areaToExtract.Height;
-
         sourceImage.ProcessPixelRows(targetImage, (sourceAccessor, targetAccessor) =>
         {
             for (int row = 0; row < height; row++)
             {
-                Span<Rgb24> sourceRow = sourceAccessor.GetRowSpan(areaToExtract.Y + row); //get the row from the Y + row index
+                //get the row from the Y + row index
+                Span<Rgb24> sourceRow = sourceAccessor.GetRowSpan(areaToExtract.Y + row);
+                //Setup the target row
                 Span<Rgb24> targetRow = targetAccessor.GetRowSpan(row);
-
-                //Span<Rgba32> sourceRow = sourceImage.GetPixelRowSpan(sourceArea.Y + row);
-                //Span<Rgba32> targetRow = targetImage.GetPixelRowSpan(row);
-
+                //Copy the source to the target
+                //Copy the source to the target
                 sourceRow.Slice(areaToExtract.X, areaToExtract.Width).CopyTo(targetRow);
             }
         });
