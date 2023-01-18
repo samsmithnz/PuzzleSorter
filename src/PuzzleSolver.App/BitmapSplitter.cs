@@ -2,6 +2,13 @@
 {
     public class BitmapSplitter
     {
+        public Bitmap CropImage(Image img, Rectangle cropArea)
+        {
+            Bitmap bmpImage = new(img);
+            Bitmap bmpCrop = bmpImage.Clone(cropArea, bmpImage.PixelFormat);
+            return bmpCrop;
+        }
+
         public BitmapItem[] BitmapToArray(Bitmap inp, Point BlockSize)
         {
             if (BlockSize.X > inp.Width || BlockSize.Y > inp.Height)
@@ -27,7 +34,7 @@
             }
 
             //Operations for making an exact bitmap size
-            Bitmap Temp = new Bitmap(NW, NH);
+            Bitmap Temp = new(NW, NH);
             Graphics g = Graphics.FromImage(Temp);
             g.DrawImage(inp, 0, 0, new Rectangle(0, 0, Temp.Width, Temp.Height), GraphicsUnit.Pixel);
             g.Dispose(); //Cleaning up; Temp now has the exact bitmap size of what input BMP should has for devision.
