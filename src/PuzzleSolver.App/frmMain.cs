@@ -1,8 +1,5 @@
 using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.PixelFormats;
-using System.Drawing;
-using static PuzzleSolver.App.BitmapSplitter;
 
 namespace PuzzleSolver.App
 {
@@ -13,7 +10,7 @@ namespace PuzzleSolver.App
             InitializeComponent();
 
             //0. Setup
-            List<Rgb24> palette = ColorPalettes.GetPrimaryAndSecondaryColorsPalette();
+            List<Rgb24> palette = ColorPalettes.GetAllNamedColorsPalette();
 
             //1. Read in input image
             string sourceImageLocation = Environment.CurrentDirectory + @"/Images/st-john-beach.jpg";
