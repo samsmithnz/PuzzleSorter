@@ -5,7 +5,9 @@
         public BitmapItem[] BitmapToArray(Bitmap inp, Point BlockSize)
         {
             if (BlockSize.X > inp.Width || BlockSize.Y > inp.Height)
+            {
                 BlockSize.X = BlockSize.Y = 100;
+            }
 
             int NW;
             int NH;
@@ -34,6 +36,7 @@
 
             int Xpos = 0, Ypos;
             int counter = 0;
+            //Move left to right, top to bottom, like reading a book.
             for (int i = 0; i < tx; i++)
             {
                 Ypos = 0;
