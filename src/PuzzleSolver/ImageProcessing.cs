@@ -94,10 +94,8 @@ public class ImageProcessing
         return (int)Math.Sqrt(Math.Pow(color1.R - color2.R, 2) + Math.Pow(color1.G - color2.G, 2) + Math.Pow(color1.B - color2.B, 2));
     }
 
-    public static string BuildNamedColorsAndPercentsString(Dictionary<Rgb24, List<Rgb24>> colorGroups)
+    public static List<KeyValuePair<string, double>> BuildNamedColorsAndPercentList(Dictionary<Rgb24, List<Rgb24>> colorGroups)
     {
-        //loop through dictionary and calculate percents for each key
-        StringBuilder sb = new();
         List<KeyValuePair<string, double>> namePercents = new();
         //Calculate the name and percent and add it into a list
         foreach (KeyValuePair<Rgb24, List<Rgb24>> colorGroup in colorGroups)
@@ -105,8 +103,19 @@ public class ImageProcessing
             double percent = (double)colorGroup.Value.Count / (double)colorGroups.Sum(t => t.Value.Count);
             namePercents.Add(new KeyValuePair<string, double>(ColorPalettes.ToName(colorGroup.Key), percent));
         }
+        //Order the percents
+        namePercents = namePercents.OrderByDescending(t => t.Value).ThenBy(x => x.Key).ToList();
+        return namePercents;
+    }
+    
+    public static string BuildNamedColorsAndPercentsString(Dictionary<Rgb24, List<Rgb24>> colorGroups)
+    {
+        //loop through dictionary and calculate percents for each key
+        List<KeyValuePair<string, double>> namePercents = BuildNamedColorsAndPercentList(colorGroups);
+
         //Return the string ordered by percent
-        foreach (KeyValuePair<string, double> item in namePercents.OrderByDescending(x => x.Value).ThenBy(x => x.Key))
+        StringBuilder sb = new();
+        foreach (KeyValuePair<string, double> item in namePercents)
         {
             sb.AppendLine($"{item.Key}: {item.Value:0.00%}");
         }

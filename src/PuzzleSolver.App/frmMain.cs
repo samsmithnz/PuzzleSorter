@@ -21,31 +21,27 @@ namespace PuzzleSolver.App
             string sourceGroupedStatsString = ImageProcessing.BuildNamedColorsAndPercentsString(sourceGroupedStats);
             lblSourceImageStats.Text = sourceGroupedStatsString;
 
-            //2. Split apart image
-            //BitmapSplitter splitter = new();
+            //2. Split apart images
+
+            //Do bitmaps first
             List<Bitmap> bitmaps = SplitBitmapIntoPieces(picSourceImage.Image, 250, 250);
             lblSourceImageStats.Text = bitmaps.Count.ToString();
-            //System.Drawing.Rectangle bmpRectangle = new(0, 0, 250, 250);
-            //bitmaps.Add(splitter.CropImage(picSourceImage.Image, bmpRectangle));
-            //bmpRectangle = new(250, 0, 250, 250);
-            //bitmaps.Add(splitter.CropImage(picSourceImage.Image, bmpRectangle));
-            //bmpRectangle = new(500, 0, 250, 250);
-            //bitmaps.Add(splitter.CropImage(picSourceImage.Image, bmpRectangle));
-            ////BitmapItem[] bitmaps = splitter.BitmapToArray(new Bitmap(picSourceImage.Image), new System.Drawing.Point(250, 250));
-            ////pictureBox2.BackColor = System.Drawing.Color.Transparent;
 
+            //Do images second
             Image<Rgb24> sourceImg = SixLabors.ImageSharp.Image.Load<Rgb24>(sourceImageLocation);
             List<Image<Rgb24>> images = ImageProcessing.SplitImageIntoPieces(sourceImg, 250, 250);
-            //SixLabors.ImageSharp.Rectangle rectangle = new(0, 0, 250, 250);
-            //images.Add(ImageProcessing.CropImage(sourceImg, rectangle));
-            //rectangle = new(250, 0, 250, 250);
-            //images.Add(ImageProcessing.CropImage(sourceImg, rectangle));
-            //rectangle = new(500, 0, 250, 250);
-            //images.Add(ImageProcessing.CropImage(sourceImg, rectangle));
-            //string microPath = Environment.CurrentDirectory + @"/Images/micro-st-john-beach.png";
-            //microImage.SaveAsPng(microPath);
-            //Dictionary<Rgb24, List<Rgb24>> microSourceGroupedStats = imageProcessing.ProcessImageIntoColorGroups(null, microImage1);
-            //lblTest.Text = ImageProcessing.BuildNamedColorsAndPercentsString(microSourceGroupedStats) + bitmaps.Count;
+
+            //Do image stats third
+            //List<List<KeyValuePair<string, double>>> imageStats = new();
+            List<KeyValuePair<Image<Rgb24>, List<KeyValuePair<string, double>>>> imageAndStats = new();
+            foreach (Image<Rgb24> image in images)
+            {
+                Dictionary<Rgb24, List<Rgb24>> groupedStats = imageProcessing.ProcessImageIntoColorGroups(null,image);
+                List<KeyValuePair<string, double>> stats = ImageProcessing.BuildNamedColorsAndPercentList(groupedStats);
+                //imageStats.Add(stats);
+                imageAndStats.Add(new(image, stats));
+            }
+
 
             //Double check that all is well before continuing
             if (bitmaps.Count != images.Count)
@@ -53,60 +49,62 @@ namespace PuzzleSolver.App
                 MessageBox.Show($"Something is wrong. There are {bitmaps.Count} bitmaps and {images.Count} images - these should be equal");
             }
 
-            int startingX = 20;
-            int startingY = 20;
+            int containerStartingX = 20;
+            int containerStartingY = 20;
             int containerHeight = 420;
             int containerWidth = 800;
-            int tempi = 0;
-
-            //Rgb24 item = palette[i];
-            int x = startingX;
-            int y = (tempi * containerHeight) + (tempi * startingY) + startingY;
-            //Debug.WriteLine("X:" + x + ",Y:" + y);
-            GroupBox groupBox = new()
+            int i = 0;
+            foreach (KeyValuePair<Rgb24, List<Rgb24>> item in sourceGroupedStats)
             {
-                Height = containerHeight,
-                Width = containerWidth,
-                Text = "   " + "Static",// ColorPalettes.ToName(item),
-                Location = new System.Drawing.Point(x, y),
-                Parent = panColors,
-                Anchor = AnchorStyles.Top
-            };
+                //Rgb24 item = palette[i];
+                int x = containerStartingX;
+                int y = (i * containerHeight) + (i * containerStartingY) + containerStartingY;
+                //Create the groupbox container for the parent color
+                GroupBox groupBox = new()
+                {
+                    Height = containerHeight,
+                    Width = containerWidth,
+                    Text = "   " + ColorPalettes.ToName(item.Key),
+                    Location = new System.Drawing.Point(x, y),
+                    Parent = panColors,
+                    Anchor = AnchorStyles.Top
+                };
 
-            //Bitmap bitmap = new()
-            //SixLabors.ImageSharp.Image img = microImage.CloneAs<SixLabors.ImageSharp.Formats.Bmp>();
-            _ = new PictureBox()
-            {
-                Location = new System.Drawing.Point(6, 8),
-                Height = 20,
-                Width = 20,
-                //BackColor = System.Drawing.Color.FromName(ColorPalettes.ToName(item)),
-                //Image = new Bitmap(ToNetImage(ImageProcessing.ToArray(microImage))),
-                Parent = groupBox
-            };
-
-            for (int j = 0; j < bitmaps.Count; j++)
-            {
-                //Now we have to show the items that map to this parent
+                //Create a image with the color 
                 _ = new PictureBox()
                 {
-                    Location = new System.Drawing.Point(5 + (250 * j + (20 * j)), 35),
-                    Height = 250,
-                    Width = 250,
-                    Image = bitmaps[j],
+                    Location = new System.Drawing.Point(6, 8),
+                    Height = 20,
+                    Width = 20,
+                    BackColor = System.Drawing.Color.FromName(ColorPalettes.ToName(item.Key)),
                     Parent = groupBox
                 };
-                Dictionary<Rgb24, List<Rgb24>> microSourceGroupedStats = imageProcessing.ProcessImageIntoColorGroups(null, images[j]);
-                string text = ImageProcessing.BuildNamedColorsAndPercentsString(microSourceGroupedStats);
-                _ = new Label()
+
+                //Add all of the cropped images and their stats
+                for (int j = 0; j < bitmaps.Count; j++)
                 {
-                    AutoSize = false,
-                    Location = new System.Drawing.Point(6 + (250 * j + (20 * j)), 288),
-                    Height = 128,
-                    Width = 250,
-                    Text = text,
-                    Parent = groupBox
-                };
+                    //Now we have to show the items that map to this parent
+                    _ = new PictureBox()
+                    {
+                        Location = new System.Drawing.Point(5 + (250 * j + (20 * j)), 35),
+                        Height = 250,
+                        Width = 250,
+                        Image = bitmaps[j],
+                        Parent = groupBox
+                    };
+                    Dictionary<Rgb24, List<Rgb24>> microSourceGroupedStats = imageProcessing.ProcessImageIntoColorGroups(null, images[j]);
+                    string text = ImageProcessing.BuildNamedColorsAndPercentsString(microSourceGroupedStats);
+                    _ = new Label()
+                    {
+                        AutoSize = false,
+                        Location = new System.Drawing.Point(6 + (250 * j + (20 * j)), 288),
+                        Height = 128,
+                        Width = 250,
+                        Text = text,
+                        Parent = groupBox
+                    };
+                }
+                i++;
             }
 
             //3. Group images by biggest % 
