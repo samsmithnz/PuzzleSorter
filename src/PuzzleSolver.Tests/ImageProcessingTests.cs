@@ -442,7 +442,7 @@ MediumPurple: 0.03%
 LightSeaGreen: 0.03%
 DarkMagenta: 0.02%
 MediumAquamarine: 0.02%
-YellowGreen): 0.02%
+YellowGreen: 0.02%
 ForestGreen: 0.02%
 LightCoral: 0.02%
 SlateBlue: 0.01%
