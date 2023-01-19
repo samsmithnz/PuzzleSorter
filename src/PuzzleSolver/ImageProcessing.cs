@@ -114,7 +114,7 @@ public class ImageProcessing
     }
 
     //from https://docs.sixlabors.com/articles/imagesharp/pixelbuffers.html#efficient-pixel-manipulation
-    public static Image<Rgb24> ExtractSubImage(Image<Rgb24> sourceImage, Rectangle areaToExtract)
+    public static Image<Rgb24> CropImage(Image<Rgb24> sourceImage, Rectangle areaToExtract)
     {
         Image<Rgb24> targetImage = new(areaToExtract.Width, areaToExtract.Height);
         int height = areaToExtract.Height;
@@ -166,5 +166,19 @@ public class ImageProcessing
     //        return new System.Drawing.Bitmap(memoryStream);
     //    }
     //}
+
+    public static List<Image<Rgb24>> SplitImageIntoPieces(Image<Rgb24> sourceImage, int width, int height)
+    {
+        List<Image<Rgb24>> images = new();
+        for (int y = 0; y < (sourceImage.Height / height); y++)
+        {
+            for (int x = 0; x < (sourceImage.Width / width); x++)
+            {
+                Rectangle rectangle = new(x * width, y * height, width, height);
+                images.Add(CropImage(sourceImage, rectangle));
+            }
+        }
+        return images;
+    }
 
 }
