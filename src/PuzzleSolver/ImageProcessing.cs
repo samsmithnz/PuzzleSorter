@@ -115,7 +115,8 @@ public class ImageProcessing
         }
         //Order the percents
         namePercents = namePercents.OrderByDescending(t => t.Value).ThenBy(x => x.Key).ToList();
-        if (onlyShowTop3 == true && totalOtherPercent > 0)
+        //Add the other percent if needed
+        if (onlyShowTop3 == true && Math.Round(totalOtherPercent, 2) > 0)
         {
             namePercents.Add(new KeyValuePair<string, double>("Other", totalOtherPercent));
         }
