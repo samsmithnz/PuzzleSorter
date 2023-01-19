@@ -84,7 +84,7 @@ namespace PuzzleSolver.App
                     //Now we have to show the items that map to this parent
                     _ = new PictureBox()
                     {
-                        Location = new System.Drawing.Point(5 + (250 * j + (20 * j)), 35),
+                        Location = new System.Drawing.Point(5 + (250 * j + (20 * j)), 35), //5 + 250 for each column, with a 20 buffer for each column too.
                         Height = 250,
                         Width = 250,
                         Image = bitmaps[j],
