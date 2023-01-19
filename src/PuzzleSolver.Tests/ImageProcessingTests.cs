@@ -293,7 +293,7 @@ Turquoise: 0.53%
 Orchid: 0.53%
 PaleGreen: 0.53%
 Blue: 0.53%
-YellowGreen): 0.53%
+YellowGreen: 0.53%
 HotPink: 0.52%
 MistyRose: 0.52%
 Green: 0.52%
