@@ -10,7 +10,7 @@ namespace PuzzleSolver.App
             InitializeComponent();
 
             //0. Setup
-            List<Rgb24> palette = ColorPalettes.GetPrimaryAndSecondaryColorsPalette();
+            List<Rgb24> palette = ColorPalettes.GetAllNamedColorsPalette();
 
             //1. Read in input image
             string sourceImageLocation = Environment.CurrentDirectory + @"/Images/st-john-beach.jpg";
@@ -30,7 +30,6 @@ namespace PuzzleSolver.App
             bitmaps.Add(splitter.CropImage(picSourceImage.Image, bmpRectangle));
             //BitmapItem[] bitmaps = splitter.BitmapToArray(new Bitmap(picSourceImage.Image), new System.Drawing.Point(250, 250));
             //pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            picTest.Image = bitmaps[0];  //new Bitmap(ToNetImage(ImageProcessing.ToArray(microImage.SaveAsJpeg(), IImageFormat.)));
 
             Image<Rgb24> sourceImg = SixLabors.ImageSharp.Image.Load<Rgb24>(sourceImageLocation);
             List<Image<Rgb24>> images = new();

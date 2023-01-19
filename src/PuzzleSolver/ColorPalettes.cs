@@ -1,5 +1,6 @@
 ﻿using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.ColorSpaces;
 
 namespace PuzzleSolver
 {
@@ -25,6 +26,28 @@ namespace PuzzleSolver
                 Color.Orange.ToPixel<Rgb24>(),
                 Color.White.ToPixel<Rgb24>(),
                 Color.Black.ToPixel<Rgb24>() };
+        }
+
+        public static List<Rgb24> GetCGAColorPalette()
+        {
+            return new List<Rgb24> {
+                new Rgb24(0, 0, 0), //black
+                new Rgb24(85,85,85), //(dark) gray
+                new Rgb24(0, 0, 170), //blue
+                new Rgb24(85, 85, 255), //bright blue
+                new Rgb24(0, 170, 0), //green
+                new Rgb24(85, 255, 85), //bright green
+                new Rgb24(0, 170, 170), //cyan
+                new Rgb24(85, 255, 255), //bright cyan
+                new Rgb24(170, 0, 0), //red
+                new Rgb24(255, 85, 85), //bright red
+                new Rgb24(170, 0, 170), //magenta
+                new Rgb24(255, 85, 255), //bright magenta
+                new Rgb24(170, 85, 0), //brown
+                new Rgb24(255, 255, 85), //yellow
+                new Rgb24(170, 170, 170), //white (light gray)
+                new Rgb24(255, 255, 255), //bright white
+            };
         }
 
         public static List<Rgb24> GetAllNamedColorsPalette()
@@ -316,7 +339,25 @@ namespace PuzzleSolver
             else if (Color.White.ToPixel<Rgb24>() == rgb24) { return "White"; }
             else if (Color.WhiteSmoke.ToPixel<Rgb24>() == rgb24) { return "WhiteSmoke"; }
             else if (Color.Yellow.ToPixel<Rgb24>() == rgb24) { return "Yellow"; }
-            else if (Color.YellowGreen.ToPixel<Rgb24>() == rgb24) { return "YellowGreen)"; }
+            else if (Color.YellowGreen.ToPixel<Rgb24>() == rgb24) { return "YellowGreen"; }
+
+            //CGA colors
+            else if (new Rgb24(0, 0, 0) == rgb24) { return "black"; }
+            else if (new Rgb24(85, 85, 85) == rgb24) { return "(dark) gray"; }
+            else if (new Rgb24(0, 0, 170) == rgb24) { return "blue"; }
+            else if (new Rgb24(85, 85, 255) == rgb24) { return "bright blue"; }
+            else if (new Rgb24(0, 170, 0) == rgb24) { return "green"; }
+            else if (new Rgb24(85, 255, 85) == rgb24) { return "bright green"; }
+            else if (new Rgb24(0, 170, 170) == rgb24) { return "cyan"; }
+            else if (new Rgb24(85, 255, 255) == rgb24) { return "bright cyan"; }
+            else if (new Rgb24(170, 0, 0) == rgb24) { return "red"; }
+            else if (new Rgb24(255, 85, 85) == rgb24) { return "bright red"; }
+            else if (new Rgb24(170, 0, 170) == rgb24) { return "magenta"; }
+            else if (new Rgb24(255, 85, 255) == rgb24) { return "bright magenta"; }
+            else if (new Rgb24(170, 85, 0) == rgb24) { return "brown"; }
+            else if (new Rgb24(255, 255, 85) == rgb24) { return "yellow"; }
+            else if (new Rgb24(170, 170, 170) == rgb24) { return "white (light gray)"; }
+            else if (new Rgb24(255, 255, 255) == rgb24) { return "bright white"; }
             else { return ""; }
         }
     }
