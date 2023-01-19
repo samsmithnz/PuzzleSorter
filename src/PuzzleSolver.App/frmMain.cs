@@ -1,7 +1,5 @@
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
-using System.Drawing;
-using System.Windows.Forms;
 
 namespace PuzzleSolver.App
 {
