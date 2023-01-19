@@ -11,7 +11,7 @@ public class ImageProcessingTests
     public void FourPixelImageWithJustPrimaryPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetThreeColorPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get3ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
 
         //Act
@@ -31,7 +31,7 @@ Yellow: 25.00%
     public void FourPixelImageWithPrimaryAndSecondaryPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetEightColorPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get8ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
 
         //Act
@@ -48,7 +48,7 @@ Yellow: 25.00%
     public void FourPixelImageWithAllNamedColorsPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetAllNamedColorsPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get140ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
 
         //Act
@@ -63,7 +63,7 @@ Yellow: 25.00%
     public void PrimaryAndSecondaryColorsImageWithOnlyPrimaryPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetThreeColorPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get3ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/PrimaryAndSecondaryColors.png";
 
         //Act
@@ -85,7 +85,7 @@ Yellow: 33.33%
     public void PrimaryAndSecondaryColorsImageWithPrimaryAndSecondaryPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetEightColorPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get8ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/PrimaryAndSecondaryColors.png";
 
         //Act
@@ -105,7 +105,7 @@ Yellow: 33.33%
     public void PrimaryAndSecondaryColorsImageWithNamedColorsPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetAllNamedColorsPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get140ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/PrimaryAndSecondaryColors.png";
 
         //Act
@@ -148,7 +148,7 @@ Yellow: 33.33%
     public void RedToBlueBlendColorsImageTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetEightColorPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get8ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/RedToBlueBlend.jpg";
 
         //Act
@@ -172,7 +172,7 @@ Orange: 11.21%
     public void PuzzlePiecesImageTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetEightColorPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get8ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/PuzzlePieces.jpg";
 
         //Act
@@ -204,7 +204,7 @@ Yellow: 0.05%
     public void NamedColorImageTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetAllNamedColorsPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get140ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/NamedColors.jpg";
 
         //Act
@@ -358,7 +358,7 @@ NavajoWhite: 0.29%
     public void ColorfulPhotoImageTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetAllNamedColorsPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get140ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/ColorfulPhoto.jpg";
 
         //Act
