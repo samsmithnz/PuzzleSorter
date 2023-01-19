@@ -40,6 +40,8 @@ Yellow: 25.00%
         //Assert
         Assert.AreEqual(3, groupedColors.Count);
         Assert.AreEqual(2, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(1, groupedColors[Color.Yellow.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(1, groupedColors[Color.Blue.ToPixel<Rgb24>()].Count);
     }
 
     [TestMethod]

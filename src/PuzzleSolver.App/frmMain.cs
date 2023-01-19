@@ -1,6 +1,8 @@
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
- 
+using System.Drawing;
+using System.Windows.Forms;
+
 namespace PuzzleSolver.App
 {
     public partial class frmMain : Form
@@ -10,7 +12,7 @@ namespace PuzzleSolver.App
             InitializeComponent();
 
             //0. Setup
-            List<Rgb24> palette = ColorPalettes.GetAllNamedColorsPalette();
+            List<Rgb24> palette = ColorPalettes.GetPrimaryAndSecondaryColorsPalette();
 
             //1. Read in input image
             string sourceImageLocation = Environment.CurrentDirectory + @"/Images/st-john-beach.jpg";
@@ -20,16 +22,17 @@ namespace PuzzleSolver.App
             lblSourceImageStats.Text = sourceGroupedStatsString;
 
             //2. Split apart image
-            BitmapSplitter splitter = new();
-            List<Bitmap> bitmaps = new();
-            System.Drawing.Rectangle bmpRectangle = new(0, 0, 250, 250);
-            bitmaps.Add(splitter.CropImage(picSourceImage.Image, bmpRectangle));
-            bmpRectangle = new(250, 0, 250, 250);
-            bitmaps.Add(splitter.CropImage(picSourceImage.Image, bmpRectangle));
-            bmpRectangle = new(500, 0, 250, 250);
-            bitmaps.Add(splitter.CropImage(picSourceImage.Image, bmpRectangle));
-            //BitmapItem[] bitmaps = splitter.BitmapToArray(new Bitmap(picSourceImage.Image), new System.Drawing.Point(250, 250));
-            //pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            //BitmapSplitter splitter = new();
+            List<Bitmap> bitmaps = SplitBitmapIntoPieces(picSourceImage.Image, 250, 250);
+            lblSourceImageStats.Text = bitmaps.Count.ToString();
+            //System.Drawing.Rectangle bmpRectangle = new(0, 0, 250, 250);
+            //bitmaps.Add(splitter.CropImage(picSourceImage.Image, bmpRectangle));
+            //bmpRectangle = new(250, 0, 250, 250);
+            //bitmaps.Add(splitter.CropImage(picSourceImage.Image, bmpRectangle));
+            //bmpRectangle = new(500, 0, 250, 250);
+            //bitmaps.Add(splitter.CropImage(picSourceImage.Image, bmpRectangle));
+            ////BitmapItem[] bitmaps = splitter.BitmapToArray(new Bitmap(picSourceImage.Image), new System.Drawing.Point(250, 250));
+            ////pictureBox2.BackColor = System.Drawing.Color.Transparent;
 
             Image<Rgb24> sourceImg = SixLabors.ImageSharp.Image.Load<Rgb24>(sourceImageLocation);
             List<Image<Rgb24>> images = new();
@@ -159,6 +162,21 @@ namespace PuzzleSolver.App
             //}
 
 
+        }
+
+        private List<Bitmap> SplitBitmapIntoPieces(System.Drawing.Image sourceImage, int width, int height)
+        {
+            BitmapSplitter splitter = new();
+            List<Bitmap> bitmaps = new();
+            for (int y = 0; y < (sourceImage.Height / height); y++)
+            {
+                for (int x = 0; x < (sourceImage.Width / width); x++)
+                {
+                    System.Drawing.Rectangle rectangle = new(x * width, y * height, width, height);
+                    bitmaps.Add(splitter.CropImage(picSourceImage.Image, rectangle));
+                }
+            }
+            return bitmaps;
         }
 
         private System.Drawing.Image ToNetImage(byte[] byteArrayIn)
