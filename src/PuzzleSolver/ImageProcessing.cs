@@ -122,10 +122,10 @@ public class ImageProcessing
         return namePercents;
     }
 
-    public static string BuildNamedColorsAndPercentsString(Dictionary<Rgb24, List<Rgb24>> colorGroups)
+    public static string BuildNamedColorsAndPercentsString(Dictionary<Rgb24, List<Rgb24>> colorGroups, bool onlyShowTop3 = false)
     {
         //loop through dictionary and calculate percents for each key
-        List<KeyValuePair<string, double>> namePercents = BuildNamedColorsAndPercentList(colorGroups);
+        List<KeyValuePair<string, double>> namePercents = BuildNamedColorsAndPercentList(colorGroups, onlyShowTop3);
 
         //Return the string ordered by percent
         StringBuilder sb = new();

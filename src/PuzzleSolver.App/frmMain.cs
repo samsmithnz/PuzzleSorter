@@ -34,7 +34,7 @@ namespace PuzzleSolver.App
             List<KeyValuePair<Image<Rgb24>, List<KeyValuePair<string, double>>>> imageAndStats = new();
             foreach (Image<Rgb24> image in images)
             {
-                Dictionary<Rgb24, List<Rgb24>> groupedStats = imageProcessing.ProcessImageIntoColorGroups(null,image);
+                Dictionary<Rgb24, List<Rgb24>> groupedStats = imageProcessing.ProcessImageIntoColorGroups(null, image);
                 List<KeyValuePair<string, double>> stats = ImageProcessing.BuildNamedColorsAndPercentList(groupedStats, true);
                 //imageStats.Add(stats);
                 imageAndStats.Add(new(image, stats));
@@ -91,7 +91,7 @@ namespace PuzzleSolver.App
                         Parent = groupBox
                     };
                     Dictionary<Rgb24, List<Rgb24>> microSourceGroupedStats = imageProcessing.ProcessImageIntoColorGroups(null, images[j]);
-                    string text = ImageProcessing.BuildNamedColorsAndPercentsString(microSourceGroupedStats);
+                    string text = ImageProcessing.BuildNamedColorsAndPercentsString(microSourceGroupedStats,true);
                     _ = new Label()
                     {
                         AutoSize = false,
