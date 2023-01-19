@@ -69,28 +69,29 @@ namespace PuzzleSolver
         }
 
         /// <summary>
-        /// 16 colors (CGA palette!)
+        /// 16 colors
         /// </summary>
         /// <returns>List of Rgb24</returns>
         public static List<Rgb24> Get16ColorPalette()
         {
+            //https://htmlcolorcodes.com/
             return new List<Rgb24> {
-                new Rgb24(0, 0, 0), //black
-                new Rgb24(85,85,85), //(dark) gray
-                new Rgb24(0, 0, 170), //blue
-                new Rgb24(85, 85, 255), //bright blue
-                new Rgb24(0, 170, 0), //green
-                new Rgb24(85, 255, 85), //bright green
-                new Rgb24(0, 170, 170), //cyan
-                new Rgb24(85, 255, 255), //bright cyan
-                new Rgb24(170, 0, 0), //red
-                new Rgb24(255, 85, 85), //bright red
-                new Rgb24(170, 0, 170), //magenta
-                new Rgb24(255, 85, 255), //bright magenta
-                new Rgb24(170, 85, 0), //brown
-                new Rgb24(255, 255, 85), //yellow
-                new Rgb24(170, 170, 170), //white (light gray)
-                new Rgb24(255, 255, 255), //bright white
+                new Rgb24(255, 255, 255), //White
+                new Rgb24(192, 192, 192), //Silver
+                new Rgb24(128, 128, 128), //Gray
+                new Rgb24(0, 0, 0), //Black            
+                new Rgb24(255, 0, 0), //Red
+                new Rgb24(128, 0, 0), //Maroon  
+                new Rgb24(255, 255, 0), //Yellow 
+                new Rgb24(128, 128, 0), //Olive
+                new Rgb24(0, 255, 0), //Lime
+                new Rgb24(0, 128, 0), //Green
+                new Rgb24(0, 255, 255), //Aqua
+                new Rgb24(0, 128, 128), //Teal
+                new Rgb24(0, 0, 255), //Blue
+                new Rgb24(0, 0, 128), //Navy
+                new Rgb24(255, 0, 255), //Fuchsia         
+                new Rgb24(128, 0, 128), //Purple              
             };
         }
 
