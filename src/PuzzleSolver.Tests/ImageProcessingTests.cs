@@ -11,7 +11,7 @@ public class ImageProcessingTests
     public void FourPixelImageWithJustPrimaryPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetPrimaryColorsPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.GetThreeColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
 
         //Act
@@ -31,7 +31,7 @@ Yellow: 25.00%
     public void FourPixelImageWithPrimaryAndSecondaryPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetPrimaryAndSecondaryColorsPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.GetEightColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
 
         //Act
@@ -63,7 +63,7 @@ Yellow: 25.00%
     public void PrimaryAndSecondaryColorsImageWithOnlyPrimaryPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetPrimaryColorsPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.GetThreeColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/PrimaryAndSecondaryColors.png";
 
         //Act
@@ -85,7 +85,7 @@ Yellow: 33.33%
     public void PrimaryAndSecondaryColorsImageWithPrimaryAndSecondaryPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetPrimaryAndSecondaryColorsPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.GetEightColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/PrimaryAndSecondaryColors.png";
 
         //Act
@@ -148,7 +148,7 @@ Yellow: 33.33%
     public void RedToBlueBlendColorsImageTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetPrimaryAndSecondaryColorsPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.GetEightColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/RedToBlueBlend.jpg";
 
         //Act
@@ -172,7 +172,7 @@ Orange: 11.21%
     public void PuzzlePiecesImageTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetPrimaryAndSecondaryColorsPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.GetEightColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/PuzzlePieces.jpg";
 
         //Act

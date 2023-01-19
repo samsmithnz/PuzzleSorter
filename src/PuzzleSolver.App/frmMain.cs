@@ -12,7 +12,7 @@ namespace PuzzleSolver.App
             InitializeComponent();
 
             //0. Setup
-            List<Rgb24> palette = ColorPalettes.GetPrimaryAndSecondaryColorsPalette();
+            List<Rgb24> palette = ColorPalettes.GetEightColorPalette();
 
             //1. Read in input image
             string sourceImageLocation = Environment.CurrentDirectory + @"/Images/st-john-beach.jpg";

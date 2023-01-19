@@ -7,15 +7,59 @@ namespace PuzzleSolver
     public static class ColorPalettes
     {
 
-        public static List<Rgb24> GetPrimaryColorsPalette()
+
+
+
+        /// <summary>
+        /// Just Primary colors
+        /// </summary>
+        /// <returns>List of Rgb24</returns>
+        public static List<Rgb24> GetThreeColorPalette()
         {
             return new List<Rgb24> {
                 Color.Red.ToPixel<Rgb24>(),
                 Color.Blue.ToPixel<Rgb24>(),
-                Color.Yellow.ToPixel<Rgb24>()};
+                Color.Yellow.ToPixel<Rgb24>()
+            };
         }
 
-        public static List<Rgb24> GetPrimaryAndSecondaryColorsPalette()
+
+        /// <summary>
+        /// Primary colors + Black + White
+        /// </summary>
+        /// <returns>List of Rgb24</returns>
+        public static List<Rgb24> GetFiveColorPalette()
+        {
+            return new List<Rgb24> {
+                Color.Red.ToPixel<Rgb24>(),
+                Color.Blue.ToPixel<Rgb24>(),
+                Color.Yellow.ToPixel<Rgb24>(),
+                Color.White.ToPixel<Rgb24>(),
+                Color.Black.ToPixel<Rgb24>()
+            };
+        }
+
+        /// <summary>
+        /// Primary and Secondary colors 
+        /// </summary>
+        /// <returns>List of Rgb24</returns>
+        public static List<Rgb24> GetSixColorPalette()
+        {
+            return new List<Rgb24> {
+                Color.Red.ToPixel<Rgb24>(),
+                Color.Purple.ToPixel<Rgb24>(),
+                Color.Blue.ToPixel<Rgb24>(),
+                Color.Green.ToPixel<Rgb24>(),
+                Color.Yellow.ToPixel<Rgb24>(),
+                Color.Orange.ToPixel<Rgb24>()
+            };
+        }
+
+        /// <summary>
+        /// Primary and Secondary colors + Black + White
+        /// </summary>
+        /// <returns>List of Rgb24</returns>
+        public static List<Rgb24> GetEightColorPalette()
         {
             return new List<Rgb24> {
                 Color.Red.ToPixel<Rgb24>(),
@@ -25,10 +69,15 @@ namespace PuzzleSolver
                 Color.Yellow.ToPixel<Rgb24>(),
                 Color.Orange.ToPixel<Rgb24>(),
                 Color.White.ToPixel<Rgb24>(),
-                Color.Black.ToPixel<Rgb24>() };
+                Color.Black.ToPixel<Rgb24>()
+            };
         }
 
-        public static List<Rgb24> GetCGAColorPalette()
+        /// <summary>
+        /// Sixteen colors (CGA palette!)
+        /// </summary>
+        /// <returns>List of Rgb24</returns>
+        public static List<Rgb24> GetSixteenColorPalette()
         {
             return new List<Rgb24> {
                 new Rgb24(0, 0, 0), //black
@@ -49,6 +98,9 @@ namespace PuzzleSolver
                 new Rgb24(255, 255, 255), //bright white
             };
         }
+
+        //24
+        //32
 
         public static List<Rgb24> GetAllNamedColorsPalette()
         {
