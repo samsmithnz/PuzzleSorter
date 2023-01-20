@@ -48,9 +48,9 @@ public class ImageProcessing
                         if (!groupedColors.ContainsKey((Rgb24)colorGroup))
                         {
                             List<Rgb24> colorList = new()
-                                {
+                            {
                                 pixelSpan[col]
-                                };
+                            };
                             groupedColors[(Rgb24)colorGroup] = colorList;
                         }
                         else

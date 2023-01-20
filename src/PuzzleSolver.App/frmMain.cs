@@ -10,7 +10,7 @@ namespace PuzzleSolver.App
             InitializeComponent();
 
             //0. Setup
-            List<Rgb24> palette = ColorPalettes.Get8ColorPalette();
+            List<Rgb24> palette = ColorPalettes.Get3ColorPalette();
 
             //1. Read in input image
             string sourceImageLocation = Environment.CurrentDirectory + @"/Images/st-john-beach.jpg";
@@ -29,7 +29,7 @@ namespace PuzzleSolver.App
             Image<Rgb24> sourceImg = SixLabors.ImageSharp.Image.Load<Rgb24>(sourceImageLocation);
             List<Image<Rgb24>> images = ImageProcessing.SplitImageIntoPieces(sourceImg, 250, 250);
 
-            //Do image stats third
+            //Do image stats third and combine in one list
             List<KeyValuePair<Image<Rgb24>, List<KeyValuePair<string, double>>>> imageAndStats = new();
             foreach (Image<Rgb24> image in images)
             {
@@ -53,12 +53,19 @@ namespace PuzzleSolver.App
                 //Rgb24 item = palette[i];
                 int x = containerStartingX;
                 int y = (i * containerHeight) + (i * containerStartingY) + containerStartingY;
+                //foreach (KeyValuePair<Image<Rgb24>, List<KeyValuePair<string, double>>> item2 in imageAndStats)
+                //{
+                //    if (item2.Key == item.Key)
+                //    {
+                //   string count =      imageAndStats.Value.Count.ToString();
+                //    }
+                //}
                 //Create the groupbox container for the parent color
                 GroupBox groupBox = new()
                 {
                     Height = containerHeight,
                     Width = containerWidth,
-                    Text = "   " + ColorPalettes.ToName(item.Key),
+                    Text = "   " + ColorPalettes.ToName(item.Key) + " " ,//+ ,
                     Location = new System.Drawing.Point(x, y),
                     Parent = panColors,
                     Anchor = AnchorStyles.Top
@@ -87,7 +94,7 @@ namespace PuzzleSolver.App
                         Parent = groupBox
                     };
                     Dictionary<Rgb24, List<Rgb24>> microSourceGroupedStats = imageProcessing.ProcessImageIntoColorGroups(null, images[j]);
-                    string text = ImageProcessing.BuildNamedColorsAndPercentsString(microSourceGroupedStats,true);
+                    string text = ImageProcessing.BuildNamedColorsAndPercentsString(microSourceGroupedStats, true);
                     _ = new Label()
                     {
                         AutoSize = false,
