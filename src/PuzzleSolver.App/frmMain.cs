@@ -39,8 +39,6 @@ namespace PuzzleSolver.App
                 //imageStats.Add(stats);
                 imageAndStats.Add(new(image, stats));
             }
-
-
             //Double check that all is well before continuing
             if (bitmaps.Count != images.Count)
             {
