@@ -6,6 +6,11 @@ namespace PuzzleSolver
 {
     public class ImageStats
     {
+        public ImageStats(Image<Rgb24> image)
+        {
+            Image = image;
+        }
+
         public Image<Rgb24> Image { get; set; }
         public Dictionary<Rgb24, List<Rgb24>> ColorGroups { get; set; }
         public List<KeyValuePair<string, double>> NamedColorsAndPercentList { get; set; }

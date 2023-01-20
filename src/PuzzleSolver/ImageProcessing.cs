@@ -16,13 +16,11 @@ public class ImageProcessing
 
     public ImageStats ProcessStatsForImage(Image<Rgb24> image)
     {
-
-        ImageStats imageStats = new()
+        ImageStats imageStats = new(image)
         {
-            Image = image,
-            ColorGroups = ProcessImageIntoColorGroups(null, image),            
+            ColorGroups = ProcessImageIntoColorGroups(null, image)
         };
-        imageStats.NamedColorsAndPercentList = BuildNamedColorsAndPercentList(imageStats.ColorGroups,true);
+        imageStats.NamedColorsAndPercentList = BuildNamedColorsAndPercentList(imageStats.ColorGroups, true);
         return imageStats;
     }
 

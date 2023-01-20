@@ -16,8 +16,8 @@ namespace PuzzleSolver.App
             string sourceImageLocation = Environment.CurrentDirectory + @"/Images/st-john-beach.jpg";
             ImageProcessing imageProcessing = new(palette);
             Dictionary<Rgb24, List<Rgb24>> sourceGroupedStats = imageProcessing.ProcessImageIntoColorGroups(sourceImageLocation);
-            string sourceGroupedStatsString = ImageProcessing.BuildNamedColorsAndPercentsString(sourceGroupedStats);
-            lblSourceImageStats.Text = sourceGroupedStatsString;
+            //string sourceGroupedStatsString = ImageProcessing.BuildNamedColorsAndPercentsString(sourceGroupedStats);
+            lblSourceImageStats.Text = "tbd";// sourceGroupedStatsString;
 
             //2. Split apart images
 
@@ -53,7 +53,7 @@ namespace PuzzleSolver.App
                 //Rgb24 item = palette[i];
                 int x = containerStartingX;
                 int y = (i * containerHeight) + (i * containerStartingY) + containerStartingY;
-               
+
                 //Find all child images with the #1 % grouping spot               
                 //foreach (KeyValuePair<Image<Rgb24>, List<KeyValuePair<string, double>>> item2 in imageAndStats)
                 //{
@@ -67,7 +67,7 @@ namespace PuzzleSolver.App
                 {
                     Height = containerHeight,
                     Width = containerWidth,
-                    Text = "   " + ColorPalettes.ToName(item.Key) + " " ,//+ ,
+                    Text = "   " + ColorPalettes.ToName(item.Key) + " ",//+ ,
                     Location = new System.Drawing.Point(x, y),
                     Parent = panColors,
                     Anchor = AnchorStyles.Top
@@ -96,7 +96,7 @@ namespace PuzzleSolver.App
                         Parent = groupBox
                     };
                     Dictionary<Rgb24, List<Rgb24>> microSourceGroupedStats = imageProcessing.ProcessImageIntoColorGroups(null, images[j]);
-                    string text = ImageProcessing.BuildNamedColorsAndPercentsString(microSourceGroupedStats, true);
+                    string text = "tbd";// ImageProcessing.BuildNamedColorsAndPercentsString(microSourceGroupedStats, true);
                     _ = new Label()
                     {
                         AutoSize = false,
