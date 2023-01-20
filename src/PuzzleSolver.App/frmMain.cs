@@ -30,13 +30,11 @@ namespace PuzzleSolver.App
             List<Image<Rgb24>> images = ImageProcessing.SplitImageIntoPieces(sourceImg, 250, 250);
 
             //Do image stats third
-            //List<List<KeyValuePair<string, double>>> imageStats = new();
             List<KeyValuePair<Image<Rgb24>, List<KeyValuePair<string, double>>>> imageAndStats = new();
             foreach (Image<Rgb24> image in images)
             {
                 Dictionary<Rgb24, List<Rgb24>> groupedStats = imageProcessing.ProcessImageIntoColorGroups(null, image);
                 List<KeyValuePair<string, double>> stats = ImageProcessing.BuildNamedColorsAndPercentList(groupedStats, true);
-                //imageStats.Add(stats);
                 imageAndStats.Add(new(image, stats));
             }
             //Double check that all is well before continuing
