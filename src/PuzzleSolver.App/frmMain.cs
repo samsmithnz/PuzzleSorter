@@ -27,7 +27,7 @@ namespace PuzzleSolver.App
 
             //Do images second
             Image<Rgb24> sourceImg = SixLabors.ImageSharp.Image.Load<Rgb24>(sourceImageLocation);
-            List<Image<Rgb24>> images = ImageProcessing.SplitImageIntoPieces(sourceImg, 250, 250);
+            List<Image<Rgb24>> images = ImageProcessing.SplitImageIntoMultiplePieces(sourceImg, 250, 250);
 
             //Do image stats third and combine in one list
             List<KeyValuePair<Image<Rgb24>, List<KeyValuePair<string, double>>>> imageAndStats = new();
@@ -53,11 +53,13 @@ namespace PuzzleSolver.App
                 //Rgb24 item = palette[i];
                 int x = containerStartingX;
                 int y = (i * containerHeight) + (i * containerStartingY) + containerStartingY;
+               
+                //Find all child images with the #1 % grouping spot               
                 //foreach (KeyValuePair<Image<Rgb24>, List<KeyValuePair<string, double>>> item2 in imageAndStats)
                 //{
-                //    if (item2.Key == item.Key)
+                //    if (item.Key == item2.Value[0].Key)
                 //    {
-                //   string count =      imageAndStats.Value.Count.ToString();
+                //        string count = imageAndStats.Value.Count.ToString();
                 //    }
                 //}
                 //Create the groupbox container for the parent color

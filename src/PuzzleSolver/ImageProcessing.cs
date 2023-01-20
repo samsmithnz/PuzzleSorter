@@ -14,6 +14,18 @@ public class ImageProcessing
         ColorPalette = colorPalette;
     }
 
+    public ImageStats ProcessStatsForImage(Image<Rgb24> image)
+    {
+
+        ImageStats imageStats = new()
+        {
+            Image = image,
+            ColorGroups = ProcessImageIntoColorGroups(null, image),            
+        };
+        imageStats.NamedColorsAndPercentList = BuildNamedColorsAndPercentList(imageStats.ColorGroups,true);
+        return imageStats;
+    }
+
     public Dictionary<Rgb24, List<Rgb24>> ProcessImageIntoColorGroups(string? sourceFilename = null, Image<Rgb24>? image = null)
     {
         Dictionary<Rgb24, List<Rgb24>> groupedColors = new();
@@ -63,6 +75,9 @@ public class ImageProcessing
                 }
             }
         });
+
+        //Order with the most number of colors rolling up into the parent color first.
+        groupedColors = groupedColors.OrderByDescending(x => x.Value.Count).ToDictionary(x => x.Key, x => x.Value);
 
         return groupedColors;
     }
@@ -123,23 +138,15 @@ public class ImageProcessing
         return namePercents;
     }
 
-    public static string BuildNamedColorsAndPercentsString(Dictionary<Rgb24, List<Rgb24>> colorGroups, bool onlyShowTop3 = false)
-    {
-        //loop through dictionary and calculate percents for each key
-        List<KeyValuePair<string, double>> namePercents = BuildNamedColorsAndPercentList(colorGroups, onlyShowTop3);
-
-        //Return the string ordered by percent
-        StringBuilder sb = new();
-        foreach (KeyValuePair<string, double> item in namePercents)
-        {
-            sb.AppendLine($"{item.Key}: {item.Value:0.00%}");
-        }
-        return sb.ToString();
-    }
-
-    //from https://docs.sixlabors.com/articles/imagesharp/pixelbuffers.html#efficient-pixel-manipulation
+    /// <summary>
+    /// Crop/cut out a small piece of a larger image
+    /// </summary>
+    /// <param name="sourceImage"></param>
+    /// <param name="areaToExtract"></param>
+    /// <returns>Image<Rgb24></returns>
     public static Image<Rgb24> CropImage(Image<Rgb24> sourceImage, Rectangle areaToExtract)
     {
+        //from https://docs.sixlabors.com/articles/imagesharp/pixelbuffers.html#efficient-pixel-manipulation
         Image<Rgb24> targetImage = new(areaToExtract.Width, areaToExtract.Height);
         int height = areaToExtract.Height;
         sourceImage.ProcessPixelRows(targetImage, (sourceAccessor, targetAccessor) =>
@@ -159,39 +166,14 @@ public class ImageProcessing
         return targetImage;
     }
 
-    //public static byte[] ToArray(SixLabors.ImageSharp.Image imageIn)
-    //{
-    //    using (MemoryStream ms = new MemoryStream())
-    //    {
-    //        imageIn.Save(ms, JpegFormat.Instance);
-    //        return ms.ToArray();
-    //    }
-    //}
-
-    //public static byte[] ToArray(this SixLabors.ImageSharp.Image imageIn, IImageFormat fmt)
-    //{
-    //    using (MemoryStream ms = new MemoryStream())
-    //    {
-    //        imageIn.Save(ms, fmt);
-    //        return ms.ToArray();
-    //    }
-    //}
-
-
-    //public static System.Drawing.Bitmap ToBitmap<TPixel>(this Image<TPixel> image) where TPixel : unmanaged, IPixel<TPixel>
-    //{
-    //    using (var memoryStream = new MemoryStream())
-    //    {
-    //        var imageEncoder = image.GetConfiguration().ImageFormatsManager.FindEncoder(PngFormat.Instance);
-    //        image.Save(memoryStream, imageEncoder);
-
-    //        memoryStream.Seek(0, SeekOrigin.Begin);
-
-    //        return new System.Drawing.Bitmap(memoryStream);
-    //    }
-    //}
-
-    public static List<Image<Rgb24>> SplitImageIntoPieces(Image<Rgb24> sourceImage, int width, int height)
+    /// <summary>
+    /// Split a larger image into equal sized smaller pieces
+    /// </summary>
+    /// <param name="sourceImage"></param>
+    /// <param name="width"></param>
+    /// <param name="height"></param>
+    /// <returns>List<Image<Rgb24>></returns>
+    public static List<Image<Rgb24>> SplitImageIntoMultiplePieces(Image<Rgb24> sourceImage, int width, int height)
     {
         List<Image<Rgb24>> images = new();
         for (int y = 0; y < (sourceImage.Height / height); y++)
