@@ -53,19 +53,8 @@ namespace PuzzleSolver.App
             {
                 foreach (KeyValuePair<Rgb24, List<Rgb24>> item in sourceImageStats.ColorGroups)
                 {
-                    //Rgb24 item = palette[i];
                     int x = containerStartingX;
                     int y = (i * containerHeight) + (i * containerStartingY) + containerStartingY;
-
-                    //Find all child images with the #1 % grouping spot
-                    
-                    //foreach (KeyValuePair<Image<Rgb24>, List<KeyValuePair<string, double>>> item2 in subImages)
-                    //{
-                    //    //if (item.Key == item2.Value[0].Key)
-                    //    //{
-                    //    //    string count = subImages.Value.Count.ToString();
-                    //    //}
-                    //}
                     //Create the groupbox container for the parent color
                     GroupBox groupBox = new()
                     {
@@ -76,7 +65,6 @@ namespace PuzzleSolver.App
                         Parent = panColors,
                         Anchor = AnchorStyles.Top
                     };
-
                     //Create a image with the color 
                     _ = new PictureBox()
                     {
@@ -86,6 +74,15 @@ namespace PuzzleSolver.App
                         BackColor = System.Drawing.Color.FromName(ColorPalettes.ToName(item.Key)),
                         Parent = groupBox
                     };
+                    
+                    //Find all child images matching the top grouping spot
+                    foreach (ImageStats subItem in subImages)
+                    {
+                        if (item.Key == subItem.TopColorGroupColor)
+                        { 
+                        
+                        }
+                    }
 
                     //Add all of the cropped images and their stats
                     for (int j = 0; j < bitmaps.Count; j++)
