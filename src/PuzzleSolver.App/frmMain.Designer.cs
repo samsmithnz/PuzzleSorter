@@ -35,7 +35,7 @@
             this.panColors = new System.Windows.Forms.Panel();
             this.grpTest = new System.Windows.Forms.GroupBox();
             this.picTestColor = new System.Windows.Forms.PictureBox();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panTest = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -53,7 +53,7 @@
             this.panColors.SuspendLayout();
             this.grpTest.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picTestColor)).BeginInit();
-            this.panel2.SuspendLayout();
+            this.panTest.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picTest)).BeginInit();
@@ -98,7 +98,7 @@
             // grpTest
             // 
             this.grpTest.Controls.Add(this.picTestColor);
-            this.grpTest.Controls.Add(this.panel2);
+            this.grpTest.Controls.Add(this.panTest);
             this.grpTest.Location = new System.Drawing.Point(20, 20);
             this.grpTest.Name = "grpTest";
             this.grpTest.Size = new System.Drawing.Size(800, 470);
@@ -115,25 +115,25 @@
             this.picTestColor.TabIndex = 0;
             this.picTestColor.TabStop = false;
             // 
-            // panel2
+            // panTest
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.panTest.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.AutoScroll = true;
-            this.panel2.Controls.Add(this.label7);
-            this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.pictureBox2);
-            this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Controls.Add(this.lblTest);
-            this.panel2.Controls.Add(this.picTest);
-            this.panel2.Location = new System.Drawing.Point(3, 34);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(794, 430);
-            this.panel2.TabIndex = 7;
+            this.panTest.AutoScroll = true;
+            this.panTest.Controls.Add(this.label7);
+            this.panTest.Controls.Add(this.label6);
+            this.panTest.Controls.Add(this.label5);
+            this.panTest.Controls.Add(this.label4);
+            this.panTest.Controls.Add(this.label3);
+            this.panTest.Controls.Add(this.pictureBox2);
+            this.panTest.Controls.Add(this.pictureBox1);
+            this.panTest.Controls.Add(this.lblTest);
+            this.panTest.Controls.Add(this.picTest);
+            this.panTest.Location = new System.Drawing.Point(3, 34);
+            this.panTest.Name = "panTest";
+            this.panTest.Size = new System.Drawing.Size(794, 430);
+            this.panTest.TabIndex = 7;
             // 
             // label7
             // 
@@ -263,7 +263,7 @@
             this.panColors.ResumeLayout(false);
             this.grpTest.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picTestColor)).EndInit();
-            this.panel2.ResumeLayout(false);
+            this.panTest.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picTest)).EndInit();
@@ -287,7 +287,7 @@
         private Label label2;
         private Label lblSourceImageStats;
         private Panel panel1;
-        private Panel panel2;
+        private Panel panTest;
         private PictureBox pictureBox2;
         private PictureBox pictureBox1;
         private Label label7;

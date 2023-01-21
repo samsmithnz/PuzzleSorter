@@ -47,7 +47,7 @@ namespace PuzzleSolver.App
 
             int containerStartingX = 20;
             int containerStartingY = 20;
-            int containerHeight = 420;
+            int containerHeight = 470;
             int containerWidth = 800;
             int i = 0;
             if (sourceImageStats?.ColorGroups != null)
