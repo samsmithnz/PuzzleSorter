@@ -74,100 +74,35 @@ namespace PuzzleSolver.App
                         BackColor = System.Drawing.Color.FromName(ColorPalettes.ToName(item.Key)),
                         Parent = groupBox
                     };
-                    
+
                     //Find all child images matching the top grouping spot
-                    foreach (ImageStats subItem in subImages)
+                    for (int j = 0; j < subImages.Count; j++)
                     {
-                        if (item.Key == subItem.TopColorGroupColor)
-                        { 
-                        
+                        if (item.Key == subImages[j].TopColorGroupColor)
+                        {
+                            //Now we have to show the items that map to this parent
+                            _ = new PictureBox()
+                            {
+                                Location = new System.Drawing.Point(5 + (250 * j + (20 * j)), 35), //5 + 250 for each column, with a 20 buffer for each column too.
+                                Height = 250,
+                                Width = 250,
+                                Image = bitmaps[j],
+                                Parent = groupBox
+                            };
+                            string text = subImages[j].NamesToString;
+                            _ = new Label()
+                            {
+                                AutoSize = false,
+                                Location = new System.Drawing.Point(6 + (250 * j + (20 * j)), 288),
+                                Height = 128,
+                                Width = 250,
+                                Text = text,
+                                Parent = groupBox
+                            };
                         }
                     }
-
-                    //Add all of the cropped images and their stats
-                    for (int j = 0; j < bitmaps.Count; j++)
-                    {
-                        //Now we have to show the items that map to this parent
-                        _ = new PictureBox()
-                        {
-                            Location = new System.Drawing.Point(5 + (250 * j + (20 * j)), 35), //5 + 250 for each column, with a 20 buffer for each column too.
-                            Height = 250,
-                            Width = 250,
-                            Image = bitmaps[j],
-                            Parent = groupBox
-                        };
-                        //Dictionary<Rgb24, List<Rgb24>> microSourceGroupedStats = imageProcessing.ProcessImageIntoColorGroups(null, images[j]);
-                        string text = "tbd";// ImageProcessing.BuildNamedColorsAndPercentsString(microSourceGroupedStats, true);
-                        _ = new Label()
-                        {
-                            AutoSize = false,
-                            Location = new System.Drawing.Point(6 + (250 * j + (20 * j)), 288),
-                            Height = 128,
-                            Width = 250,
-                            Text = text,
-                            Parent = groupBox
-                        };
-                    }
-                    i++;
                 }
             }
-
-            //3. Group images by biggest % 
-            //4. Display grouped images
-            //int startingX = 20;
-            //int startingY = 20; //778;
-            //int containerHeight = 420;
-            //int containerWidth = 800;
-            //for (int i = 0; i < palette.Count; i++)
-            //{
-            //    Rgb24 item = palette[i];
-            //    int x = startingX;
-            //    int y = (i * containerHeight) + (i * startingY);
-            //    //Debug.WriteLine("X:" + x + ",Y:" + y);
-            //    GroupBox groupBox = new()
-            //    {
-            //        Height = containerHeight,
-            //        Width = containerWidth,
-            //        Text = "   " + ColorPalettes.ToName(item),
-            //        Location = new System.Drawing.Point(x, y),
-            //        Parent = panColors,
-            //        Anchor = AnchorStyles.Top
-            //    };
-
-            //    //Bitmap bitmap = new()
-            //    //SixLabors.ImageSharp.Image img = microImage.CloneAs<SixLabors.ImageSharp.Formats.Bmp>();
-            //    _ = new PictureBox()
-            //    {
-            //        Location = new System.Drawing.Point(6, 8),
-            //        Height = 20,
-            //        Width = 20,
-            //        //BackColor = System.Drawing.Color.FromName(ColorPalettes.ToName(item)),
-            //        Image = new Bitmap(ToNetImage(ImageProcessing.ToArray(microImage))),
-            //        Parent = groupBox
-            //    };
-
-            //    for (int j = 0; j < 3; j++)
-            //    {
-            //        //Now we have to show the items that map to this parent
-            //        _ = new PictureBox()
-            //        {
-            //            Location = new System.Drawing.Point(5 + (250 * j + (20 * j)), 35),
-            //            Height = 250,
-            //            Width = 250,
-            //            //BackColor = System.Drawing.Color.FromName(ColorPalettes.ToName(item)),
-            //            Parent = groupBox
-            //        };
-            //        _ = new Label()
-            //        {
-            //            Location = new System.Drawing.Point(6 + (250 * j + (20 * j)), 288),
-            //            Height = 128,
-            //            Width = 134,
-            //            Text = "56% Red\r\n34% Yellow\r\n12% Blue\r\n3% other",
-            //            Parent = groupBox
-            //        };
-            //    }
-
-            //}
 
 
         }
