@@ -442,23 +442,23 @@ namespace PuzzleSolver
             else if (Color.Yellow.ToPixel<Rgb24>() == rgb24) { return "Yellow"; }
             else if (Color.YellowGreen.ToPixel<Rgb24>() == rgb24) { return "YellowGreen"; }
 
-            //CGA colors
-            else if (new Rgb24(0, 0, 0) == rgb24) { return "black"; }
-            else if (new Rgb24(85, 85, 85) == rgb24) { return "(dark) gray"; }
-            else if (new Rgb24(0, 0, 170) == rgb24) { return "blue"; }
-            else if (new Rgb24(85, 85, 255) == rgb24) { return "bright blue"; }
-            else if (new Rgb24(0, 170, 0) == rgb24) { return "green"; }
-            else if (new Rgb24(85, 255, 85) == rgb24) { return "bright green"; }
-            else if (new Rgb24(0, 170, 170) == rgb24) { return "cyan"; }
-            else if (new Rgb24(85, 255, 255) == rgb24) { return "bright cyan"; }
-            else if (new Rgb24(170, 0, 0) == rgb24) { return "red"; }
-            else if (new Rgb24(255, 85, 85) == rgb24) { return "bright red"; }
-            else if (new Rgb24(170, 0, 170) == rgb24) { return "magenta"; }
-            else if (new Rgb24(255, 85, 255) == rgb24) { return "bright magenta"; }
-            else if (new Rgb24(170, 85, 0) == rgb24) { return "brown"; }
-            else if (new Rgb24(255, 255, 85) == rgb24) { return "yellow"; }
-            else if (new Rgb24(170, 170, 170) == rgb24) { return "white (light gray)"; }
-            else if (new Rgb24(255, 255, 255) == rgb24) { return "bright white"; }
+            ////CGA colors
+            //else if (new Rgb24(0, 0, 0) == rgb24) { return "black"; }
+            //else if (new Rgb24(85, 85, 85) == rgb24) { return "(dark) gray"; }
+            //else if (new Rgb24(0, 0, 170) == rgb24) { return "blue"; }
+            //else if (new Rgb24(85, 85, 255) == rgb24) { return "bright blue"; }
+            //else if (new Rgb24(0, 170, 0) == rgb24) { return "green"; }
+            //else if (new Rgb24(85, 255, 85) == rgb24) { return "bright green"; }
+            //else if (new Rgb24(0, 170, 170) == rgb24) { return "cyan"; }
+            //else if (new Rgb24(85, 255, 255) == rgb24) { return "bright cyan"; }
+            //else if (new Rgb24(170, 0, 0) == rgb24) { return "red"; }
+            //else if (new Rgb24(255, 85, 85) == rgb24) { return "bright red"; }
+            //else if (new Rgb24(170, 0, 170) == rgb24) { return "magenta"; }
+            //else if (new Rgb24(255, 85, 255) == rgb24) { return "bright magenta"; }
+            //else if (new Rgb24(170, 85, 0) == rgb24) { return "brown"; }
+            //else if (new Rgb24(255, 255, 85) == rgb24) { return "yellow"; }
+            //else if (new Rgb24(170, 170, 170) == rgb24) { return "white (light gray)"; }
+            //else if (new Rgb24(255, 255, 255) == rgb24) { return "bright white"; }
             else { return ""; }
         }
     }

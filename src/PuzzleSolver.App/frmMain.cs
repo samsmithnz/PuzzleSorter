@@ -1,5 +1,6 @@
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using System.Diagnostics;
 
 namespace PuzzleSolver.App
 {
@@ -78,6 +79,7 @@ namespace PuzzleSolver.App
                     //Find all child images matching the top grouping spot
                     for (int j = 0; j < subImages.Count; j++)
                     {
+                        Debug.WriteLine(subImages[j].TopColorGroupColor);
                         if (item.Key == subImages[j].TopColorGroupColor)
                         {
                             //Now we have to show the items that map to this parent
