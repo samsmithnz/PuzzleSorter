@@ -49,66 +49,69 @@ namespace PuzzleSolver.App
             int containerHeight = 420;
             int containerWidth = 800;
             int i = 0;
-            foreach (KeyValuePair<Rgb24, List<Rgb24>> item in sourceImageStats?.ColorGroups)
+            if (sourceImageStats?.ColorGroups != null)
             {
-                //Rgb24 item = palette[i];
-                int x = containerStartingX;
-                int y = (i * containerHeight) + (i * containerStartingY) + containerStartingY;
-
-                //Find all child images with the #1 % grouping spot               
-                //foreach (KeyValuePair<Image<Rgb24>, List<KeyValuePair<string, double>>> item2 in imageAndStats)
-                //{
-                //    if (item.Key == item2.Value[0].Key)
-                //    {
-                //        string count = imageAndStats.Value.Count.ToString();
-                //    }
-                //}
-                //Create the groupbox container for the parent color
-                GroupBox groupBox = new()
+                foreach (KeyValuePair<Rgb24, List<Rgb24>> item in sourceImageStats.ColorGroups)
                 {
-                    Height = containerHeight,
-                    Width = containerWidth,
-                    Text = "   " + ColorPalettes.ToName(item.Key) + " ",//+ ,
-                    Location = new System.Drawing.Point(x, y),
-                    Parent = panColors,
-                    Anchor = AnchorStyles.Top
-                };
+                    //Rgb24 item = palette[i];
+                    int x = containerStartingX;
+                    int y = (i * containerHeight) + (i * containerStartingY) + containerStartingY;
 
-                //Create a image with the color 
-                _ = new PictureBox()
-                {
-                    Location = new System.Drawing.Point(6, 8),
-                    Height = 20,
-                    Width = 20,
-                    BackColor = System.Drawing.Color.FromName(ColorPalettes.ToName(item.Key)),
-                    Parent = groupBox
-                };
+                    //Find all child images with the #1 % grouping spot               
+                    //foreach (KeyValuePair<Image<Rgb24>, List<KeyValuePair<string, double>>> item2 in imageAndStats)
+                    //{
+                    //    if (item.Key == item2.Value[0].Key)
+                    //    {
+                    //        string count = imageAndStats.Value.Count.ToString();
+                    //    }
+                    //}
+                    //Create the groupbox container for the parent color
+                    GroupBox groupBox = new()
+                    {
+                        Height = containerHeight,
+                        Width = containerWidth,
+                        Text = "   " + ColorPalettes.ToName(item.Key) + " ",//+ ,
+                        Location = new System.Drawing.Point(x, y),
+                        Parent = panColors,
+                        Anchor = AnchorStyles.Top
+                    };
 
-                //Add all of the cropped images and their stats
-                for (int j = 0; j < bitmaps.Count; j++)
-                {
-                    //Now we have to show the items that map to this parent
+                    //Create a image with the color 
                     _ = new PictureBox()
                     {
-                        Location = new System.Drawing.Point(5 + (250 * j + (20 * j)), 35), //5 + 250 for each column, with a 20 buffer for each column too.
-                        Height = 250,
-                        Width = 250,
-                        Image = bitmaps[j],
+                        Location = new System.Drawing.Point(6, 8),
+                        Height = 20,
+                        Width = 20,
+                        BackColor = System.Drawing.Color.FromName(ColorPalettes.ToName(item.Key)),
                         Parent = groupBox
                     };
-                    //Dictionary<Rgb24, List<Rgb24>> microSourceGroupedStats = imageProcessing.ProcessImageIntoColorGroups(null, images[j]);
-                    string text = "tbd";// ImageProcessing.BuildNamedColorsAndPercentsString(microSourceGroupedStats, true);
-                    _ = new Label()
+
+                    //Add all of the cropped images and their stats
+                    for (int j = 0; j < bitmaps.Count; j++)
                     {
-                        AutoSize = false,
-                        Location = new System.Drawing.Point(6 + (250 * j + (20 * j)), 288),
-                        Height = 128,
-                        Width = 250,
-                        Text = text,
-                        Parent = groupBox
-                    };
+                        //Now we have to show the items that map to this parent
+                        _ = new PictureBox()
+                        {
+                            Location = new System.Drawing.Point(5 + (250 * j + (20 * j)), 35), //5 + 250 for each column, with a 20 buffer for each column too.
+                            Height = 250,
+                            Width = 250,
+                            Image = bitmaps[j],
+                            Parent = groupBox
+                        };
+                        //Dictionary<Rgb24, List<Rgb24>> microSourceGroupedStats = imageProcessing.ProcessImageIntoColorGroups(null, images[j]);
+                        string text = "tbd";// ImageProcessing.BuildNamedColorsAndPercentsString(microSourceGroupedStats, true);
+                        _ = new Label()
+                        {
+                            AutoSize = false,
+                            Location = new System.Drawing.Point(6 + (250 * j + (20 * j)), 288),
+                            Height = 128,
+                            Width = 250,
+                            Text = text,
+                            Parent = groupBox
+                        };
+                    }
+                    i++;
                 }
-                i++;
             }
 
             //3. Group images by biggest % 
