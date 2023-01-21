@@ -20,7 +20,7 @@ public class ImageProcessingTests
         //Assert
         Assert.IsNotNull(imageStats);
         Assert.AreEqual(3, imageStats.ColorGroups.Count);
-        Assert.AreEqual(2,imageStats.ColorGroups[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(2, imageStats.ColorGroups[Color.Red.ToPixel<Rgb24>()].Count);
         string expected = @"Red: 50.00%
 Blue: 25.00%
 Yellow: 25.00%
@@ -40,10 +40,10 @@ Yellow: 25.00%
 
         //Assert
         Assert.IsNotNull(imageStats);
-        Assert.AreEqual(3,imageStats.ColorGroups.Count);
-        Assert.AreEqual(2,imageStats.ColorGroups[Color.Red.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(1,imageStats.ColorGroups[Color.Green.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(1,imageStats.ColorGroups[Color.Blue.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(3, imageStats.ColorGroups.Count);
+        Assert.AreEqual(2, imageStats.ColorGroups[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(1, imageStats.ColorGroups[Color.Green.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(1, imageStats.ColorGroups[Color.Blue.ToPixel<Rgb24>()].Count);
     }
 
     [TestMethod]
@@ -58,8 +58,8 @@ Yellow: 25.00%
 
         //Assert
         Assert.IsNotNull(imageStats);
-        Assert.AreEqual(3,imageStats.ColorGroups.Count);
-        Assert.AreEqual(2,imageStats.ColorGroups[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(3, imageStats.ColorGroups.Count);
+        Assert.AreEqual(2, imageStats.ColorGroups[Color.Red.ToPixel<Rgb24>()].Count);
     }
 
     [TestMethod]
@@ -74,10 +74,10 @@ Yellow: 25.00%
 
         //Assert
         Assert.IsNotNull(imageStats);
-        Assert.AreEqual(3,imageStats.ColorGroups.Count);
-        Assert.AreEqual(25 * 25 * 2,imageStats.ColorGroups[Color.Red.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(25 * 25 * 2,imageStats.ColorGroups[Color.Blue.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(25 * 25 * 2,imageStats.ColorGroups[Color.Yellow.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(3, imageStats.ColorGroups.Count);
+        Assert.AreEqual(25 * 25 * 2, imageStats.ColorGroups[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25 * 2, imageStats.ColorGroups[Color.Blue.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25 * 2, imageStats.ColorGroups[Color.Yellow.ToPixel<Rgb24>()].Count);
         string expected = @"Blue: 33.33%
 Red: 33.33%
 Yellow: 33.33%
@@ -97,13 +97,13 @@ Yellow: 33.33%
 
         //Assert
         Assert.IsNotNull(imageStats);
-        Assert.AreEqual(6,imageStats.ColorGroups.Count);
-        Assert.AreEqual(25 * 25,imageStats.ColorGroups[Color.Red.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(25 * 25,imageStats.ColorGroups[Color.Blue.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(25 * 25,imageStats.ColorGroups[Color.Yellow.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(25 * 25,imageStats.ColorGroups[Color.Purple.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(25 * 25,imageStats.ColorGroups[Color.Orange.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(25 * 25,imageStats.ColorGroups[Color.Green.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(6, imageStats.ColorGroups.Count);
+        Assert.AreEqual(25 * 25, imageStats.ColorGroups[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25, imageStats.ColorGroups[Color.Blue.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25, imageStats.ColorGroups[Color.Yellow.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25, imageStats.ColorGroups[Color.Purple.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25, imageStats.ColorGroups[Color.Orange.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25, imageStats.ColorGroups[Color.Green.ToPixel<Rgb24>()].Count);
     }
 
     [TestMethod]
@@ -117,9 +117,10 @@ Yellow: 33.33%
         ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir);
 
         //Assert
-        Assert.AreEqual(6,imageStats.ColorGroups.Count);
+        Assert.IsNotNull(imageStats);
+        Assert.AreEqual(6, imageStats.ColorGroups.Count);
         int i = 0;
-        foreach (KeyValuePair<Rgb24, List<Rgb24>> entry inimageStats.ColorGroups)
+        foreach (KeyValuePair<Rgb24, List<Rgb24>> entry in imageStats.ColorGroups)
         {
             if (i == 0)
             {
@@ -161,11 +162,11 @@ Yellow: 33.33%
 
         //Assert
         Assert.IsNotNull(imageStats);
-        Assert.AreEqual(4,imageStats.ColorGroups.Count);
-        Assert.AreEqual(59160,imageStats.ColorGroups[Color.Blue.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(118660,imageStats.ColorGroups[Color.White.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(29920,imageStats.ColorGroups[Color.Orange.ToPixel<Rgb24>()].Count); //one of the bars is closer to orange than white or red
-        Assert.AreEqual(59160,imageStats.ColorGroups[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(4, imageStats.ColorGroups.Count);
+        Assert.AreEqual(59160, imageStats.ColorGroups[Color.Blue.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(118660, imageStats.ColorGroups[Color.White.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(29920, imageStats.ColorGroups[Color.Orange.ToPixel<Rgb24>()].Count); //one of the bars is closer to orange than white or red
+        Assert.AreEqual(59160, imageStats.ColorGroups[Color.Red.ToPixel<Rgb24>()].Count);
         string expected = @"White: 44.46%
 Blue: 22.17%
 Red: 22.17%
@@ -186,15 +187,15 @@ Orange: 11.21%
 
         //Assert
         Assert.IsNotNull(imageStats);
-        Assert.AreEqual(8,imageStats.ColorGroups.Count);
-        Assert.AreEqual(167062,imageStats.ColorGroups[Color.Red.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(168713,imageStats.ColorGroups[Color.Blue.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(1576,imageStats.ColorGroups[Color.Yellow.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(182167,imageStats.ColorGroups[Color.Orange.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(9431,imageStats.ColorGroups[Color.Purple.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(186354,imageStats.ColorGroups[Color.Green.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(92385,imageStats.ColorGroups[Color.Black.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(2293112,imageStats.ColorGroups[Color.White.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(8, imageStats.ColorGroups.Count);
+        Assert.AreEqual(167062, imageStats.ColorGroups[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(168713, imageStats.ColorGroups[Color.Blue.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(1576, imageStats.ColorGroups[Color.Yellow.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(182167, imageStats.ColorGroups[Color.Orange.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(9431, imageStats.ColorGroups[Color.Purple.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(186354, imageStats.ColorGroups[Color.Green.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(92385, imageStats.ColorGroups[Color.Black.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(2293112, imageStats.ColorGroups[Color.White.ToPixel<Rgb24>()].Count);
         string expected = @"White: 73.95%
 Green: 6.01%
 Orange: 5.87%
@@ -219,7 +220,7 @@ Yellow: 0.05%
 
         //Assert
         Assert.IsNotNull(imageStats);
-        Assert.AreEqual(138,imageStats.ColorGroups.Count);
+        Assert.AreEqual(138, imageStats.ColorGroups.Count);
         string expected = @"White: 7.65%
 Snow: 4.37%
 MintCream: 2.74%
@@ -374,7 +375,7 @@ NavajoWhite: 0.29%
 
         //Assert
         Assert.IsNotNull(imageStats);
-        Assert.AreEqual(107,imageStats.ColorGroups.Count);
+        Assert.AreEqual(107, imageStats.ColorGroups.Count);
         string expected = @"LightSkyBlue: 14.32%
 DarkSlateGray: 7.58%
 DimGray: 6.94%

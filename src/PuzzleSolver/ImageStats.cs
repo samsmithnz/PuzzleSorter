@@ -12,14 +12,14 @@ namespace PuzzleSolver
         }
 
         public Image<Rgb24> Image { get; set; }
-        public Dictionary<Rgb24, List<Rgb24>> ColorGroups { get; set; }
-        public List<KeyValuePair<string, double>> NamedColorsAndPercentList { get; set; }
+        public Dictionary<Rgb24, List<Rgb24>>? ColorGroups { get; set; }
+        public List<KeyValuePair<string, double>>? NamedColorsAndPercentList { get; set; }
 
         public Rgb24? TopColorGroupColor
         {
             get
             {
-                return ColorGroups.FirstOrDefault().Key;
+                return ColorGroups?.FirstOrDefault().Key;
             }
         }
 
@@ -45,9 +45,12 @@ namespace PuzzleSolver
             {
                 //Return the string ordered by percent
                 StringBuilder sb = new();
-                foreach (KeyValuePair<string, double> item in NamedColorsAndPercentList)
+                if (NamedColorsAndPercentList != null)
                 {
-                    sb.AppendLine($"{item.Key}: {item.Value:0.00%}");
+                    foreach (KeyValuePair<string, double> item in NamedColorsAndPercentList)
+                    {
+                        sb.AppendLine($"{item.Key}: {item.Value:0.00%}");
+                    }
                 }
                 return sb.ToString();
             }
