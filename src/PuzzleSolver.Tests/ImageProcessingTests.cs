@@ -158,7 +158,7 @@ Yellow: 33.33%
         string imageDir = Environment.CurrentDirectory + @"/TestImages/RedToBlueBlend.jpg";
 
         //Act
-        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir);
+        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir, null, false);
 
         //Assert
         Assert.IsNotNull(imageStats);
