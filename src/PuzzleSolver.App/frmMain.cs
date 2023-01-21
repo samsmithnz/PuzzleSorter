@@ -64,7 +64,7 @@ namespace PuzzleSolver.App
                         Text = "   " + ColorPalettes.ToName(item.Key),
                         Location = new System.Drawing.Point(x, y),
                         Parent = panColors,
-                        Anchor = AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom | AnchorStyles.Left
+                        Anchor = AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Left
                     };
                     //Create a image with the color 
                     _ = new PictureBox()
