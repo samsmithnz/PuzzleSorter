@@ -363,7 +363,7 @@ Moccasin: 0.36%
 SeaShell: 0.32%
 NavajoWhite: 0.29%
 ";
-        Assert.AreEqual(expected, imageStats.NamesToString);
+        Assert.AreEqual(expected, imageStats?.NamesToString);
     }
 
     [TestMethod]
