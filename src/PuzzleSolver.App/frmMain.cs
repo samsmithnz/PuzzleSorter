@@ -24,15 +24,15 @@ namespace PuzzleSolver.App
             List<Bitmap> bitmaps = SplitBitmapIntoPieces(picSourceImage.Image, 250, 250);
             lblSourceImageStats.Text = bitmaps.Count.ToString();
 
-            //Do images second
+            //Crop the individual images next
             Image<Rgb24> sourceImg = SixLabors.ImageSharp.Image.Load<Rgb24>(sourceImageLocation);
             List<Image<Rgb24>> images = ImageProcessing.SplitImageIntoMultiplePieces(sourceImg, 250, 250);
 
-            //Do image stats third and combine in one list
+            //Get image stats for each individual image and combine in one list
             List<ImageStats> imageAndStats = new();
             foreach (Image<Rgb24> image in images)
             {
-                ImageStats subitemImageStats = imageProcessing.ProcessStatsForImage(null, image, true);
+                ImageStats? subitemImageStats = imageProcessing.ProcessStatsForImage(null, image, true);
                 if (subitemImageStats != null)
                 {
                     imageAndStats.Add(subitemImageStats);
