@@ -64,7 +64,7 @@ namespace PuzzleSolver.App
                         Text = "   " + ColorPalettes.ToName(item.Key),
                         Location = new System.Drawing.Point(x, y),
                         Parent = panColors,
-                        Anchor = AnchorStyles.Top
+                        Anchor = AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom | AnchorStyles.Left
                     };
                     //Create a image with the color 
                     _ = new PictureBox()
@@ -77,6 +77,7 @@ namespace PuzzleSolver.App
                     };
 
                     //Find all child images matching the top grouping spot
+                    int xLocation = 0;
                     for (int j = 0; j < subImages.Count; j++)
                     {
                         Debug.WriteLine(subImages[j].TopColorGroupColor);
@@ -85,7 +86,7 @@ namespace PuzzleSolver.App
                             //Now we have to show the items that map to this parent
                             _ = new PictureBox()
                             {
-                                Location = new System.Drawing.Point(5 + (250 * j + (20 * j)), 35), //5 + 250 for each column, with a 20 buffer for each column too.
+                                Location = new System.Drawing.Point(5 + (250 * xLocation + (20 * xLocation)), 35), //5 + 250 for each column, with a 20 buffer for each column too.
                                 Height = 250,
                                 Width = 250,
                                 Image = bitmaps[j],
@@ -95,12 +96,13 @@ namespace PuzzleSolver.App
                             _ = new Label()
                             {
                                 AutoSize = false,
-                                Location = new System.Drawing.Point(6 + (250 * j + (20 * j)), 288),
+                                Location = new System.Drawing.Point(6 + (250 * xLocation + (20 * xLocation)), 288),
                                 Height = 128,
                                 Width = 250,
                                 Text = text,
                                 Parent = groupBox
                             };
+                            xLocation++;
                         }
                     }
                     i++;
