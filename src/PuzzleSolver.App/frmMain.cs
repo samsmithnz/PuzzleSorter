@@ -15,9 +15,8 @@ namespace PuzzleSolver.App
             //1. Read in input image
             string sourceImageLocation = Environment.CurrentDirectory + @"/Images/st-john-beach.jpg";
             ImageProcessing imageProcessing = new(palette);
-            Dictionary<Rgb24, List<Rgb24>> sourceGroupedStats = imageProcessing.ProcessImageIntoColorGroups(sourceImageLocation);
-            //string sourceGroupedStatsString = ImageProcessing.BuildNamedColorsAndPercentsString(sourceGroupedStats);
-            lblSourceImageStats.Text = "tbd";// sourceGroupedStatsString;
+            ImageStats? sourceImageStats = imageProcessing.ProcessStatsForImage(sourceImageLocation, null, false);
+            lblSourceImageStats.Text = sourceImageStats?.NamesToString;
 
             //2. Split apart images
 
@@ -30,12 +29,14 @@ namespace PuzzleSolver.App
             List<Image<Rgb24>> images = ImageProcessing.SplitImageIntoMultiplePieces(sourceImg, 250, 250);
 
             //Do image stats third and combine in one list
-            List<KeyValuePair<Image<Rgb24>, List<KeyValuePair<string, double>>>> imageAndStats = new();
+            List<ImageStats> imageAndStats = new();
             foreach (Image<Rgb24> image in images)
             {
-                Dictionary<Rgb24, List<Rgb24>> groupedStats = imageProcessing.ProcessImageIntoColorGroups(null, image);
-                List<KeyValuePair<string, double>> stats = ImageProcessing.BuildNamedColorsAndPercentList(groupedStats, true);
-                imageAndStats.Add(new(image, stats));
+                ImageStats subitemImageStats = imageProcessing.ProcessStatsForImage(null, image, true);
+                if (subitemImageStats != null)
+                {
+                    imageAndStats.Add(subitemImageStats);
+                }
             }
             //Double check that all is well before continuing
             if (bitmaps.Count != images.Count)
@@ -48,7 +49,7 @@ namespace PuzzleSolver.App
             int containerHeight = 420;
             int containerWidth = 800;
             int i = 0;
-            foreach (KeyValuePair<Rgb24, List<Rgb24>> item in sourceGroupedStats)
+            foreach (KeyValuePair<Rgb24, List<Rgb24>> item in sourceImageStats?.ColorGroups)
             {
                 //Rgb24 item = palette[i];
                 int x = containerStartingX;
@@ -95,7 +96,7 @@ namespace PuzzleSolver.App
                         Image = bitmaps[j],
                         Parent = groupBox
                     };
-                    Dictionary<Rgb24, List<Rgb24>> microSourceGroupedStats = imageProcessing.ProcessImageIntoColorGroups(null, images[j]);
+                    //Dictionary<Rgb24, List<Rgb24>> microSourceGroupedStats = imageProcessing.ProcessImageIntoColorGroups(null, images[j]);
                     string text = "tbd";// ImageProcessing.BuildNamedColorsAndPercentsString(microSourceGroupedStats, true);
                     _ = new Label()
                     {
