@@ -25,7 +25,7 @@ public class ImageProcessingTests
 Blue: 25.00%
 Yellow: 25.00%
 ";
-        Assert.AreEqual(expected, imageStats.NamesToString);
+        Assert.AreEqual(expected, imageStats?.NamesToString);
     }
 
     [TestMethod]
