@@ -96,12 +96,20 @@ namespace PuzzleSolver.App
                         if (item.Key == subImages[j].TopColorGroupColor)
                         {
                             //Now we have to show the items that map to this parent
+                            _ = new Label()
+                            {
+                                Location = new System.Drawing.Point(5 + (250 * xLocation + (20 * xLocation)), 10),
+                                Size = new System.Drawing.Size(100, 30),
+                                Text = "#" + (j + 1).ToString(),
+                                Parent = panel
+                            };
                             _ = new PictureBox()
                             {
                                 Location = new System.Drawing.Point(5 + (250 * xLocation + (20 * xLocation)), 35), //5 + 250 for each column, with a 20 buffer for each column too.
-                                Height = 250,
-                                Width = 250,
+                                Width = smallImageWidth,
+                                Height = smallImageHeight,
                                 Image = bitmaps[j],
+                                BorderStyle = BorderStyle.FixedSingle,
                                 Parent = panel
                             };
                             string text = subImages[j].NamesToString;
