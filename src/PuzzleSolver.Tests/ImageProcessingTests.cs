@@ -216,7 +216,7 @@ Yellow: 0.05%
         string imageDir = Environment.CurrentDirectory + @"/TestImages/NamedColors.jpg";
 
         //Act
-        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir);
+        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir, null, false);
 
         //Assert
         Assert.IsNotNull(imageStats);
