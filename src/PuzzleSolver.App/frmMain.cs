@@ -54,7 +54,7 @@ namespace PuzzleSolver.App
             {
                 foreach (KeyValuePair<Rgb24, List<Rgb24>> item in sourceImageStats.ColorGroups)
                 {
-                    
+
                     int x = containerStartingX;
                     int y = (i * containerHeight) + (i * containerStartingY) + containerStartingY;
                     //Create the groupbox container for the parent color
@@ -67,6 +67,14 @@ namespace PuzzleSolver.App
                         Parent = panColors,
                         Anchor = AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Left
                     };
+                    //Create a panel to sit in the group - this will allow us to add a horizontal scrollbar
+                    Panel panel = new()
+                    {
+                        Location = new System.Drawing.Point(3, 34),
+                        Size = new System.Drawing.Size(794, 430),
+                        Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
+                        Parent = groupBox
+                    };
                     //Create a image with the color 
                     _ = new PictureBox()
                     {
@@ -74,7 +82,7 @@ namespace PuzzleSolver.App
                         Height = 20,
                         Width = 20,
                         BackColor = System.Drawing.Color.FromName(ColorPalettes.ToName(item.Key)),
-                        Parent = groupBox
+                        Parent = panel
                     };
 
                     //Find all child images matching the top grouping spot

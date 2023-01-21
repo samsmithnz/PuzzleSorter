@@ -36,28 +36,28 @@
             this.grpTest = new System.Windows.Forms.GroupBox();
             this.picTestColor = new System.Windows.Forms.PictureBox();
             this.panTest = new System.Windows.Forms.Panel();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lblTest = new System.Windows.Forms.Label();
+            this.lblTest3 = new System.Windows.Forms.Label();
+            this.lblTest2 = new System.Windows.Forms.Label();
+            this.lblTestStats3 = new System.Windows.Forms.Label();
+            this.lblTestStats2 = new System.Windows.Forms.Label();
+            this.lblTest1 = new System.Windows.Forms.Label();
+            this.picTest3 = new System.Windows.Forms.PictureBox();
+            this.picTest2 = new System.Windows.Forms.PictureBox();
+            this.lblTestStats1 = new System.Windows.Forms.Label();
             this.picTest = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblSourceTitle = new System.Windows.Forms.Label();
+            this.lblGroupsTitle = new System.Windows.Forms.Label();
             this.lblSourceImageStats = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panSource = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.picSourceImage)).BeginInit();
             this.panColors.SuspendLayout();
             this.grpTest.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picTestColor)).BeginInit();
             this.panTest.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picTest3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picTest2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picTest)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.panSource.SuspendLayout();
             this.SuspendLayout();
             // 
             // picSourceImage
@@ -105,6 +105,7 @@
             this.grpTest.TabIndex = 0;
             this.grpTest.TabStop = false;
             this.grpTest.Text = "   Test";
+            this.grpTest.Visible = false;
             // 
             // picTestColor
             // 
@@ -121,85 +122,85 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panTest.AutoScroll = true;
-            this.panTest.Controls.Add(this.label7);
-            this.panTest.Controls.Add(this.label6);
-            this.panTest.Controls.Add(this.label5);
-            this.panTest.Controls.Add(this.label4);
-            this.panTest.Controls.Add(this.label3);
-            this.panTest.Controls.Add(this.pictureBox2);
-            this.panTest.Controls.Add(this.pictureBox1);
-            this.panTest.Controls.Add(this.lblTest);
+            this.panTest.Controls.Add(this.lblTest3);
+            this.panTest.Controls.Add(this.lblTest2);
+            this.panTest.Controls.Add(this.lblTestStats3);
+            this.panTest.Controls.Add(this.lblTestStats2);
+            this.panTest.Controls.Add(this.lblTest1);
+            this.panTest.Controls.Add(this.picTest3);
+            this.panTest.Controls.Add(this.picTest2);
+            this.panTest.Controls.Add(this.lblTestStats1);
             this.panTest.Controls.Add(this.picTest);
             this.panTest.Location = new System.Drawing.Point(3, 34);
             this.panTest.Name = "panTest";
             this.panTest.Size = new System.Drawing.Size(794, 430);
             this.panTest.TabIndex = 7;
             // 
-            // label7
+            // lblTest3
             // 
-            this.label7.Location = new System.Drawing.Point(643, 10);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(100, 30);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "#3";
+            this.lblTest3.Location = new System.Drawing.Point(643, 10);
+            this.lblTest3.Name = "lblTest3";
+            this.lblTest3.Size = new System.Drawing.Size(100, 30);
+            this.lblTest3.TabIndex = 13;
+            this.lblTest3.Text = "#3";
             // 
-            // label6
+            // lblTest2
             // 
-            this.label6.Location = new System.Drawing.Point(325, 10);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(100, 30);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "#2";
+            this.lblTest2.Location = new System.Drawing.Point(325, 10);
+            this.lblTest2.Name = "lblTest2";
+            this.lblTest2.Size = new System.Drawing.Size(100, 30);
+            this.lblTest2.TabIndex = 12;
+            this.lblTest2.Text = "#2";
             // 
-            // label5
+            // lblTestStats3
             // 
-            this.label5.Location = new System.Drawing.Point(643, 296);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(250, 100);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "80% Blue\r\n15% White\r\n5% Other";
+            this.lblTestStats3.Location = new System.Drawing.Point(643, 296);
+            this.lblTestStats3.Name = "lblTestStats3";
+            this.lblTestStats3.Size = new System.Drawing.Size(250, 100);
+            this.lblTestStats3.TabIndex = 11;
+            this.lblTestStats3.Text = "80% Blue\r\n15% White\r\n5% Other";
             // 
-            // label4
+            // lblTestStats2
             // 
-            this.label4.Location = new System.Drawing.Point(325, 296);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(250, 100);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "80% Blue\r\n15% White\r\n5% Other";
+            this.lblTestStats2.Location = new System.Drawing.Point(325, 296);
+            this.lblTestStats2.Name = "lblTestStats2";
+            this.lblTestStats2.Size = new System.Drawing.Size(250, 100);
+            this.lblTestStats2.TabIndex = 10;
+            this.lblTestStats2.Text = "80% Blue\r\n15% White\r\n5% Other";
             // 
-            // label3
+            // lblTest1
             // 
-            this.label3.Location = new System.Drawing.Point(5, 10);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 30);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "#1";
+            this.lblTest1.Location = new System.Drawing.Point(5, 10);
+            this.lblTest1.Name = "lblTest1";
+            this.lblTest1.Size = new System.Drawing.Size(100, 30);
+            this.lblTest1.TabIndex = 9;
+            this.lblTest1.Text = "#1";
             // 
-            // pictureBox2
+            // picTest3
             // 
-            this.pictureBox2.BackgroundImage = global::PuzzleSolver.App.Properties.Resources.micro_st_john_beach;
-            this.pictureBox2.Location = new System.Drawing.Point(643, 43);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(250, 250);
-            this.pictureBox2.TabIndex = 8;
-            this.pictureBox2.TabStop = false;
+            this.picTest3.BackgroundImage = global::PuzzleSolver.App.Properties.Resources.micro_st_john_beach;
+            this.picTest3.Location = new System.Drawing.Point(643, 43);
+            this.picTest3.Name = "picTest3";
+            this.picTest3.Size = new System.Drawing.Size(250, 250);
+            this.picTest3.TabIndex = 8;
+            this.picTest3.TabStop = false;
             // 
-            // pictureBox1
+            // picTest2
             // 
-            this.pictureBox1.BackgroundImage = global::PuzzleSolver.App.Properties.Resources.micro_st_john_beach;
-            this.pictureBox1.Location = new System.Drawing.Point(325, 43);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(250, 250);
-            this.pictureBox1.TabIndex = 7;
-            this.pictureBox1.TabStop = false;
+            this.picTest2.BackgroundImage = global::PuzzleSolver.App.Properties.Resources.micro_st_john_beach;
+            this.picTest2.Location = new System.Drawing.Point(325, 43);
+            this.picTest2.Name = "picTest2";
+            this.picTest2.Size = new System.Drawing.Size(250, 250);
+            this.picTest2.TabIndex = 7;
+            this.picTest2.TabStop = false;
             // 
-            // lblTest
+            // lblTestStats1
             // 
-            this.lblTest.Location = new System.Drawing.Point(3, 296);
-            this.lblTest.Name = "lblTest";
-            this.lblTest.Size = new System.Drawing.Size(250, 100);
-            this.lblTest.TabIndex = 6;
-            this.lblTest.Text = "80% Blue\r\n15% White\r\n5% Other";
+            this.lblTestStats1.Location = new System.Drawing.Point(3, 296);
+            this.lblTestStats1.Name = "lblTestStats1";
+            this.lblTestStats1.Size = new System.Drawing.Size(250, 100);
+            this.lblTestStats1.TabIndex = 6;
+            this.lblTestStats1.Text = "80% Blue\r\n15% White\r\n5% Other";
             // 
             // picTest
             // 
@@ -210,23 +211,23 @@
             this.picTest.TabIndex = 1;
             this.picTest.TabStop = false;
             // 
-            // label1
+            // lblSourceTitle
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(168, 32);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Source picture";
+            this.lblSourceTitle.AutoSize = true;
+            this.lblSourceTitle.Location = new System.Drawing.Point(22, 9);
+            this.lblSourceTitle.Name = "lblSourceTitle";
+            this.lblSourceTitle.Size = new System.Drawing.Size(168, 32);
+            this.lblSourceTitle.TabIndex = 4;
+            this.lblSourceTitle.Text = "Source picture";
             // 
-            // label2
+            // lblGroupsTitle
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(1052, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(190, 32);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Grouped images";
+            this.lblGroupsTitle.AutoSize = true;
+            this.lblGroupsTitle.Location = new System.Drawing.Point(1052, 9);
+            this.lblGroupsTitle.Name = "lblGroupsTitle";
+            this.lblGroupsTitle.Size = new System.Drawing.Size(190, 32);
+            this.lblGroupsTitle.TabIndex = 5;
+            this.lblGroupsTitle.Text = "Grouped images";
             // 
             // lblSourceImageStats
             // 
@@ -237,25 +238,25 @@
             this.lblSourceImageStats.TabIndex = 7;
             this.lblSourceImageStats.Text = "56% Red\r\n34% Yellow\r\n12% Blue\r\n3% other";
             // 
-            // panel1
+            // panSource
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.lblSourceImageStats);
-            this.panel1.Controls.Add(this.picSourceImage);
-            this.panel1.Location = new System.Drawing.Point(22, 44);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1024, 895);
-            this.panel1.TabIndex = 8;
+            this.panSource.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panSource.Controls.Add(this.lblSourceImageStats);
+            this.panSource.Controls.Add(this.picSourceImage);
+            this.panSource.Location = new System.Drawing.Point(22, 44);
+            this.panSource.Name = "panSource";
+            this.panSource.Size = new System.Drawing.Size(1024, 895);
+            this.panSource.TabIndex = 8;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1984, 958);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblGroupsTitle);
+            this.Controls.Add(this.lblSourceTitle);
             this.Controls.Add(this.panColors);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panSource);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Puzzle Solver tester";
@@ -264,11 +265,11 @@
             this.grpTest.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picTestColor)).EndInit();
             this.panTest.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picTest3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picTest2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picTest)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.panSource.ResumeLayout(false);
+            this.panSource.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -282,18 +283,18 @@
         private GroupBox grpTest;
         private PictureBox picTest;
         private PictureBox picTestColor;
-        private Label lblTest;
-        private Label label1;
-        private Label label2;
+        private Label lblTestStats1;
+        private Label lblSourceTitle;
+        private Label lblGroupsTitle;
         private Label lblSourceImageStats;
-        private Panel panel1;
+        private Panel panSource;
         private Panel panTest;
-        private PictureBox pictureBox2;
-        private PictureBox pictureBox1;
-        private Label label7;
-        private Label label6;
-        private Label label5;
-        private Label label4;
-        private Label label3;
+        private PictureBox picTest3;
+        private PictureBox picTest2;
+        private Label lblTest3;
+        private Label lblTest2;
+        private Label lblTestStats3;
+        private Label lblTestStats2;
+        private Label lblTest1;
     }
 }
