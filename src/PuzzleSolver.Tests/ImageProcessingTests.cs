@@ -487,6 +487,6 @@ DarkBlue: 0.00%
 LightGreen: 0.00%
 OldLace: 0.00%
 ";
-        Assert.AreEqual(expected, imageStats.NamesToString);
+        Assert.AreEqual(expected, imageStats?.NamesToString);
     }
 }
