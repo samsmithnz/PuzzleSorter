@@ -15,7 +15,7 @@ public class ImageProcessingTests
         string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
 
         //Act
-        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir);
+        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir, null, false);
 
         //Assert
         Assert.IsNotNull(imageStats);
