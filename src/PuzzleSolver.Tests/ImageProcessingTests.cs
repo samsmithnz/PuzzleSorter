@@ -82,7 +82,7 @@ Yellow: 25.00%
 Red: 33.33%
 Yellow: 33.33%
 ";
-        Assert.AreEqual(expected, imageStats.NamesToString);
+        Assert.AreEqual(expected, imageStats?.NamesToString);
     }
 
     [TestMethod]
