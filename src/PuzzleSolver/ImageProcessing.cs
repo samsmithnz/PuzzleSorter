@@ -1,6 +1,5 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
-using System.Text;
 
 namespace PuzzleSolver;
 
@@ -14,21 +13,9 @@ public class ImageProcessing
         ColorPalette = colorPalette;
     }
 
-    public ImageStats ProcessStatsForImage(Image<Rgb24> image)
+    public ImageStats? ProcessStatsForImage(string? sourceFilename = null, Image<Rgb24>? image = null)
     {
-        ImageStats imageStats = new(image)
-        {
-            ColorGroups = ProcessImageIntoColorGroups(null, image)
-        };
-        imageStats.NamedColorsAndPercentList = BuildNamedColorsAndPercentList(imageStats.ColorGroups, true);
-        return imageStats;
-    }
-
-    public Dictionary<Rgb24, List<Rgb24>> ProcessImageIntoColorGroups(string? sourceFilename = null, Image<Rgb24>? image = null)
-    {
-        Dictionary<Rgb24, List<Rgb24>> groupedColors = new();
-        //string destFilename = Path.GetFileNameWithoutExtension(srcFile.Name) + "_sorted.jpg";
-
+        ImageStats? imageStats = null;
         Image<Rgb24>? sourceImage = null;
         if (sourceFilename != null)
         {
@@ -40,12 +27,27 @@ public class ImageProcessing
             sourceImage = image;
         }
 
+        if (sourceImage != null)
+        {
+            imageStats = new(sourceImage)
+            {
+                ColorGroups = ProcessImageIntoColorGroups(sourceImage)
+            };
+            imageStats.NamedColorsAndPercentList = BuildNamedColorsAndPercentList(imageStats.ColorGroups, true);
+        }
+        return imageStats;
+    }
+
+    private Dictionary<Rgb24, List<Rgb24>> ProcessImageIntoColorGroups(Image<Rgb24>? image)
+    {
+        Dictionary<Rgb24, List<Rgb24>> groupedColors = new();
+
         //using var destImg = new Image<Rgb24>(srcWidth, srcHeight);
         //Dictionary<Rgb24, int> pixels = new();
-        sourceImage?.ProcessPixelRows(accessor =>
+        image?.ProcessPixelRows(accessor =>
         {
             //int srcWidth = sourceImg.Size().Width;
-            int srcHeight = sourceImage.Size().Height;
+            int srcHeight = image.Size().Height;
 
             for (var row = 0; row < srcHeight; row++)
             {
@@ -107,7 +109,7 @@ public class ImageProcessing
         return (int)Math.Sqrt(Math.Pow(color1.R - color2.R, 2) + Math.Pow(color1.G - color2.G, 2) + Math.Pow(color1.B - color2.B, 2));
     }
 
-    public static List<KeyValuePair<string, double>> BuildNamedColorsAndPercentList(Dictionary<Rgb24, List<Rgb24>> colorGroups, bool onlyShowTop3 = false)
+    private static List<KeyValuePair<string, double>> BuildNamedColorsAndPercentList(Dictionary<Rgb24, List<Rgb24>> colorGroups, bool onlyShowTop3 = false)
     {
         List<KeyValuePair<string, double>> namePercents = new();
         //Calculate the name and percent and add it into a list
