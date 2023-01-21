@@ -13,7 +13,7 @@ public class ImageProcessing
         ColorPalette = colorPalette;
     }
 
-    public ImageStats? ProcessStatsForImage(string? sourceFilename = null, Image<Rgb24>? image = null)
+    public ImageStats? ProcessStatsForImage(string? sourceFilename = null, Image<Rgb24>? image = null, bool onlyShowTop3 = true)
     {
         ImageStats? imageStats = null;
         Image<Rgb24>? sourceImage = null;
@@ -33,7 +33,7 @@ public class ImageProcessing
             {
                 ColorGroups = ProcessImageIntoColorGroups(sourceImage)
             };
-            imageStats.NamedColorsAndPercentList = BuildNamedColorsAndPercentList(imageStats.ColorGroups, true);
+            imageStats.NamedColorsAndPercentList = BuildNamedColorsAndPercentList(imageStats.ColorGroups, onlyShowTop3);
         }
         return imageStats;
     }
@@ -109,7 +109,7 @@ public class ImageProcessing
         return (int)Math.Sqrt(Math.Pow(color1.R - color2.R, 2) + Math.Pow(color1.G - color2.G, 2) + Math.Pow(color1.B - color2.B, 2));
     }
 
-    private static List<KeyValuePair<string, double>> BuildNamedColorsAndPercentList(Dictionary<Rgb24, List<Rgb24>> colorGroups, bool onlyShowTop3 = false)
+    private static List<KeyValuePair<string, double>> BuildNamedColorsAndPercentList(Dictionary<Rgb24, List<Rgb24>> colorGroups, bool onlyShowTop3)
     {
         List<KeyValuePair<string, double>> namePercents = new();
         //Calculate the name and percent and add it into a list
