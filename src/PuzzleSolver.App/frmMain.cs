@@ -147,20 +147,5 @@ namespace PuzzleSolver.App
             return bitmaps;
         }
 
-        //private System.Drawing.Image ToNetImage(byte[] byteArrayIn)
-        //{
-        //    using (MemoryStream ms = new(byteArrayIn))
-        //    {
-        //        System.Drawing.Image returnImage = System.Drawing.Image.FromStream(ms);
-        //        return returnImage;
-        //    }
-        //}
-
-        //public static Image ImageToJPG(this SixLabors.ImageSharp.Image imageIn)
-        //{
-        //    byte[] bytes = ToArray(imageIn);
-        //    return ToImage(bytes);
-        //}
-
     }
 }
