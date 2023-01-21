@@ -11,7 +11,7 @@ namespace PuzzleSolver.App
             InitializeComponent();
 
             //0. Setup
-            List<Rgb24> palette = ColorPalettes.Get3ColorPalette();
+            List<Rgb24> palette = ColorPalettes.Get6ColorPalette();
             int subImageWidth = 100;
             int subImageHeight = 100;
 
