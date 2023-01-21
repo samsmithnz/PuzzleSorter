@@ -11,9 +11,9 @@ namespace PuzzleSolver.App
             InitializeComponent();
 
             //0. Setup
-            List<Rgb24> palette = ColorPalettes.Get6ColorPalette();
-            int subImageWidth = 100;
-            int subImageHeight = 100;
+            List<Rgb24> palette = ColorPalettes.Get16ColorPalette();
+            int subImageWidth = 250;
+            int subImageHeight = 250;
 
             //1. Read in input image
             string sourceImageLocation = Environment.CurrentDirectory + @"/Images/st-john-beach.jpg";
