@@ -11,134 +11,145 @@ public class ImageProcessingTests
     public void FourPixelImageWithJustPrimaryPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetPrimaryColorsPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get3ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
 
         //Act
-        Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
+        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir, null, false);
 
         //Assert
-        Assert.AreEqual(3, groupedColors.Count);
-        Assert.AreEqual(2, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.IsNotNull(imageStats);
+        Assert.AreEqual(3, imageStats?.ColorGroups?.Count);
+        Assert.AreEqual(2, imageStats?.ColorGroups?[Color.Red.ToPixel<Rgb24>()].Count);
         string expected = @"Red: 50.00%
 Blue: 25.00%
 Yellow: 25.00%
 ";
-        Assert.AreEqual(expected, ImageProcessing.BuildNamedColorsAndPercentsString(groupedColors));
+        Assert.AreEqual(expected, imageStats?.NamesToString);
     }
 
     [TestMethod]
     public void FourPixelImageWithPrimaryAndSecondaryPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetPrimaryAndSecondaryColorsPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get8ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
 
         //Act
-        Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
+        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir);
 
         //Assert
-        Assert.AreEqual(3, groupedColors.Count);
-        Assert.AreEqual(2, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.IsNotNull(imageStats);
+        Assert.AreEqual(3, imageStats?.ColorGroups?.Count);
+        Assert.AreEqual(2, imageStats?.ColorGroups?[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(1, imageStats?.ColorGroups?[Color.Green.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(1, imageStats?.ColorGroups?[Color.Blue.ToPixel<Rgb24>()].Count);
     }
 
     [TestMethod]
     public void FourPixelImageWithAllNamedColorsPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetAllNamedColorsPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get140ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
 
         //Act
-        Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
+        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir);
 
         //Assert
-        Assert.AreEqual(3, groupedColors.Count);
-        Assert.AreEqual(2, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.IsNotNull(imageStats);
+        Assert.AreEqual(3, imageStats?.ColorGroups?.Count);
+        Assert.AreEqual(2, imageStats?.ColorGroups?[Color.Red.ToPixel<Rgb24>()].Count);
     }
 
     [TestMethod]
     public void PrimaryAndSecondaryColorsImageWithOnlyPrimaryPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetPrimaryColorsPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get3ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/PrimaryAndSecondaryColors.png";
 
         //Act
-        Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
+        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir, null, false);
 
         //Assert
-        Assert.AreEqual(3, groupedColors.Count);
-        Assert.AreEqual(25 * 25 * 2, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(25 * 25 * 2, groupedColors[Color.Blue.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(25 * 25 * 2, groupedColors[Color.Yellow.ToPixel<Rgb24>()].Count);
+        Assert.IsNotNull(imageStats);
+        Assert.AreEqual(3, imageStats?.ColorGroups?.Count);
+        Assert.AreEqual(25 * 25 * 2, imageStats?.ColorGroups?[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25 * 2, imageStats?.ColorGroups?[Color.Blue.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25 * 2, imageStats?.ColorGroups?[Color.Yellow.ToPixel<Rgb24>()].Count);
         string expected = @"Blue: 33.33%
 Red: 33.33%
 Yellow: 33.33%
 ";
-        Assert.AreEqual(expected, ImageProcessing.BuildNamedColorsAndPercentsString(groupedColors));
+        Assert.AreEqual(expected, imageStats?.NamesToString);
     }
 
     [TestMethod]
     public void PrimaryAndSecondaryColorsImageWithPrimaryAndSecondaryPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetPrimaryAndSecondaryColorsPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get8ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/PrimaryAndSecondaryColors.png";
 
         //Act
-        Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
+        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir);
 
         //Assert
-        Assert.AreEqual(6, groupedColors.Count);
-        Assert.AreEqual(25 * 25, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(25 * 25, groupedColors[Color.Blue.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(25 * 25, groupedColors[Color.Yellow.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(25 * 25, groupedColors[Color.Purple.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(25 * 25, groupedColors[Color.Orange.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(25 * 25, groupedColors[Color.Green.ToPixel<Rgb24>()].Count);
+        Assert.IsNotNull(imageStats);
+        Assert.AreEqual(6, imageStats?.ColorGroups?.Count);
+        Assert.AreEqual(25 * 25, imageStats?.ColorGroups?[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25, imageStats?.ColorGroups?[Color.Blue.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25, imageStats?.ColorGroups?[Color.Yellow.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25, imageStats?.ColorGroups?[Color.Purple.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25, imageStats?.ColorGroups?[Color.Orange.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(25 * 25, imageStats?.ColorGroups?[Color.Green.ToPixel<Rgb24>()].Count);
     }
 
     [TestMethod]
     public void PrimaryAndSecondaryColorsImageWithNamedColorsPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetAllNamedColorsPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get140ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/PrimaryAndSecondaryColors.png";
 
         //Act
-        Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
+        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir);
 
         //Assert
-        Assert.AreEqual(6, groupedColors.Count);
+        Assert.IsNotNull(imageStats);
+        Assert.AreEqual(6, imageStats?.ColorGroups?.Count);
         int i = 0;
-        foreach (KeyValuePair<Rgb24, List<Rgb24>> entry in groupedColors)
+        if (imageStats?.ColorGroups != null)
         {
-            if (i == 0)
+            foreach (KeyValuePair<Rgb24, List<Rgb24>> entry in imageStats.ColorGroups)
             {
-                Assert.AreEqual("Crimson", ColorPalettes.ToName(entry.Key));
+                if (i == 0)
+                {
+                    Assert.AreEqual("Crimson", ColorPalettes.ToName(entry.Key));
+                }
+                else if (i == 1)
+                {
+                    Assert.AreEqual("RoyalBlue", ColorPalettes.ToName(entry.Key));
+                }
+                else if (i == 2)
+                {
+                    Assert.AreEqual("Yellow", ColorPalettes.ToName(entry.Key));
+                }
+                else if (i == 3)
+                {
+                    Assert.AreEqual("DarkOrchid", ColorPalettes.ToName(entry.Key));
+                }
+                else if (i == 4)
+                {
+                    Assert.AreEqual("LimeGreen", ColorPalettes.ToName(entry.Key));
+                }
+                else if (i == 5)
+                {
+                    Assert.AreEqual("Coral", ColorPalettes.ToName(entry.Key));
+                }
+                i++;
             }
-            else if (i == 1)
-            {
-                Assert.AreEqual("RoyalBlue", ColorPalettes.ToName(entry.Key));
-            }
-            else if (i == 2)
-            {
-                Assert.AreEqual("Yellow", ColorPalettes.ToName(entry.Key));
-            }
-            else if (i == 3)
-            {
-                Assert.AreEqual("DarkOrchid", ColorPalettes.ToName(entry.Key));
-            }
-            else if (i == 4)
-            {
-                Assert.AreEqual("LimeGreen", ColorPalettes.ToName(entry.Key));
-            }
-            else if (i == 5)
-            {
-                Assert.AreEqual("Coral", ColorPalettes.ToName(entry.Key));
-            }
-            i++;
         }
     }
 
@@ -146,46 +157,48 @@ Yellow: 33.33%
     public void RedToBlueBlendColorsImageTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetPrimaryAndSecondaryColorsPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get8ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/RedToBlueBlend.jpg";
 
         //Act
-        Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
+        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir, null, false);
 
         //Assert
-        Assert.AreEqual(4, groupedColors.Count);
-        Assert.AreEqual(59160, groupedColors[Color.Blue.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(118660, groupedColors[Color.White.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(29920, groupedColors[Color.Orange.ToPixel<Rgb24>()].Count); //one of the bars is closer to orange than white or red
-        Assert.AreEqual(59160, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.IsNotNull(imageStats);
+        Assert.AreEqual(4, imageStats?.ColorGroups?.Count);
+        Assert.AreEqual(59160, imageStats?.ColorGroups?[Color.Blue.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(118660, imageStats?.ColorGroups?[Color.White.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(29920, imageStats?.ColorGroups?[Color.Orange.ToPixel<Rgb24>()].Count); //one of the bars is closer to orange than white or red
+        Assert.AreEqual(59160, imageStats?.ColorGroups?[Color.Red.ToPixel<Rgb24>()].Count);
         string expected = @"White: 44.46%
 Blue: 22.17%
 Red: 22.17%
 Orange: 11.21%
 ";
-        Assert.AreEqual(expected, ImageProcessing.BuildNamedColorsAndPercentsString(groupedColors));
+        Assert.AreEqual(expected, imageStats?.NamesToString);
     }
 
     [TestMethod]
     public void PuzzlePiecesImageTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetPrimaryAndSecondaryColorsPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get8ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/PuzzlePieces.jpg";
 
         //Act
-        Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
+        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir, null, false);
 
         //Assert
-        Assert.AreEqual(8, groupedColors.Count);
-        Assert.AreEqual(167062, groupedColors[Color.Red.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(168713, groupedColors[Color.Blue.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(1576, groupedColors[Color.Yellow.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(182167, groupedColors[Color.Orange.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(9431, groupedColors[Color.Purple.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(186354, groupedColors[Color.Green.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(92385, groupedColors[Color.Black.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual(2293112, groupedColors[Color.White.ToPixel<Rgb24>()].Count);
+        Assert.IsNotNull(imageStats);
+        Assert.AreEqual(8, imageStats?.ColorGroups?.Count);
+        Assert.AreEqual(167062, imageStats?.ColorGroups?[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(168713, imageStats?.ColorGroups?[Color.Blue.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(1576, imageStats?.ColorGroups?[Color.Yellow.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(182167, imageStats?.ColorGroups?[Color.Orange.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(9431, imageStats?.ColorGroups?[Color.Purple.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(186354, imageStats?.ColorGroups?[Color.Green.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(92385, imageStats?.ColorGroups?[Color.Black.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(2293112, imageStats?.ColorGroups?[Color.White.ToPixel<Rgb24>()].Count);
         string expected = @"White: 73.95%
 Green: 6.01%
 Orange: 5.87%
@@ -195,21 +208,22 @@ Black: 2.98%
 Purple: 0.30%
 Yellow: 0.05%
 ";
-        Assert.AreEqual(expected, ImageProcessing.BuildNamedColorsAndPercentsString(groupedColors));
+        Assert.AreEqual(expected, imageStats?.NamesToString);
     }
 
     [TestMethod]
     public void NamedColorImageTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetAllNamedColorsPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get140ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/NamedColors.jpg";
 
         //Act
-        Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
+        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir, null, false);
 
         //Assert
-        Assert.AreEqual(138, groupedColors.Count);
+        Assert.IsNotNull(imageStats);
+        Assert.AreEqual(138, imageStats?.ColorGroups?.Count);
         string expected = @"White: 7.65%
 Snow: 4.37%
 MintCream: 2.74%
@@ -291,7 +305,7 @@ Turquoise: 0.53%
 Orchid: 0.53%
 PaleGreen: 0.53%
 Blue: 0.53%
-YellowGreen): 0.53%
+YellowGreen: 0.53%
 HotPink: 0.52%
 MistyRose: 0.52%
 Green: 0.52%
@@ -349,21 +363,22 @@ Moccasin: 0.36%
 SeaShell: 0.32%
 NavajoWhite: 0.29%
 ";
-        Assert.AreEqual(expected, ImageProcessing.BuildNamedColorsAndPercentsString(groupedColors));
+        Assert.AreEqual(expected, imageStats?.NamesToString);
     }
 
     [TestMethod]
     public void ColorfulPhotoImageTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.GetAllNamedColorsPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get140ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/ColorfulPhoto.jpg";
 
         //Act
-        Dictionary<Rgb24, List<Rgb24>> groupedColors = imageProcessing.ProcessImageIntoColorGroups(imageDir);
+        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir, null, false);
 
         //Assert
-        Assert.AreEqual(107, groupedColors.Count);
+        Assert.IsNotNull(imageStats);
+        Assert.AreEqual(107, imageStats?.ColorGroups?.Count);
         string expected = @"LightSkyBlue: 14.32%
 DarkSlateGray: 7.58%
 DimGray: 6.94%
@@ -440,7 +455,7 @@ MediumPurple: 0.03%
 LightSeaGreen: 0.03%
 DarkMagenta: 0.02%
 MediumAquamarine: 0.02%
-YellowGreen): 0.02%
+YellowGreen: 0.02%
 ForestGreen: 0.02%
 LightCoral: 0.02%
 SlateBlue: 0.01%
@@ -472,6 +487,6 @@ DarkBlue: 0.00%
 LightGreen: 0.00%
 OldLace: 0.00%
 ";
-        Assert.AreEqual(expected, ImageProcessing.BuildNamedColorsAndPercentsString(groupedColors));
+        Assert.AreEqual(expected, imageStats?.NamesToString);
     }
 }

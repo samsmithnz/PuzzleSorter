@@ -1,6 +1,5 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
-using System.Text;
 
 namespace PuzzleSolver;
 
@@ -14,21 +13,42 @@ public class ImageProcessing
         ColorPalette = colorPalette;
     }
 
-    public Dictionary<Rgb24, List<Rgb24>> ProcessImageIntoColorGroups(string srcFilename)
+    public ImageStats? ProcessStatsForImage(string? sourceFilename = null, Image<Rgb24>? image = null, bool onlyShowTop3 = true)
+    {
+        ImageStats? imageStats = null;
+        Image<Rgb24>? sourceImage = null;
+        if (sourceFilename != null)
+        {
+            FileInfo srcFile = new(sourceFilename);
+            sourceImage = Image.Load<Rgb24>(srcFile.FullName);
+        }
+        else if (image != null)
+        {
+            sourceImage = image;
+        }
+
+        if (sourceImage != null)
+        {
+            imageStats = new(sourceImage)
+            {
+                ColorGroups = ProcessImageIntoColorGroups(sourceImage)
+            };
+            imageStats.NamedColorsAndPercentList = BuildNamedColorsAndPercentList(imageStats.ColorGroups, onlyShowTop3);
+        }
+        return imageStats;
+    }
+
+    private Dictionary<Rgb24, List<Rgb24>> ProcessImageIntoColorGroups(Image<Rgb24>? image)
     {
         Dictionary<Rgb24, List<Rgb24>> groupedColors = new();
-        FileInfo srcFile = new(srcFilename);
-        string destFilename = Path.GetFileNameWithoutExtension(srcFile.Name) + "_sorted.jpg";
-
-        using Image<Rgb24> srcImg = Image.Load<Rgb24>(srcFile.FullName);
-
-        int srcWidth = srcImg.Size().Width;
-        int srcHeight = srcImg.Size().Height;
 
         //using var destImg = new Image<Rgb24>(srcWidth, srcHeight);
-        Dictionary<Rgb24, int> pixels = new();
-        srcImg.ProcessPixelRows(accessor =>
+        //Dictionary<Rgb24, int> pixels = new();
+        image?.ProcessPixelRows(accessor =>
         {
+            //int srcWidth = sourceImg.Size().Width;
+            int srcHeight = image.Size().Height;
+
             for (var row = 0; row < srcHeight; row++)
             {
                 Span<Rgb24> pixelSpan = accessor.GetRowSpan(row);
@@ -56,6 +76,9 @@ public class ImageProcessing
             }
         });
 
+        //Order with the most number of colors rolling up into the parent color first.
+        groupedColors = groupedColors.OrderByDescending(x => x.Value.Count).ToDictionary(x => x.Key, x => x.Value);
+
         return groupedColors;
     }
 
@@ -81,28 +104,87 @@ public class ImageProcessing
     }
 
     //Since it uses Sqrt, it always returns a postive number
-    private int GetColorDifference(Rgb24 color1, Rgb24 color2)
+    private static int GetColorDifference(Rgb24 color1, Rgb24 color2)
     {
         return (int)Math.Sqrt(Math.Pow(color1.R - color2.R, 2) + Math.Pow(color1.G - color2.G, 2) + Math.Pow(color1.B - color2.B, 2));
     }
 
-    public static string BuildNamedColorsAndPercentsString(Dictionary<Rgb24, List<Rgb24>> colorGroups)
+    private static List<KeyValuePair<string, double>> BuildNamedColorsAndPercentList(Dictionary<Rgb24, List<Rgb24>> colorGroups, bool onlyShowTop3)
     {
-        //loop through dictionary and calculate percents for each key
-        StringBuilder sb = new();
         List<KeyValuePair<string, double>> namePercents = new();
         //Calculate the name and percent and add it into a list
+        int count = 0;
+        double totalOtherPercent = 0;
         foreach (KeyValuePair<Rgb24, List<Rgb24>> colorGroup in colorGroups)
         {
+            count++;
             double percent = (double)colorGroup.Value.Count / (double)colorGroups.Sum(t => t.Value.Count);
-             namePercents.Add(new KeyValuePair<string, double>(ColorPalettes.ToName(colorGroup.Key), percent));
+            if (onlyShowTop3 == true && count > 2)
+            {
+                totalOtherPercent += percent;
+            }
+            else
+            {
+                namePercents.Add(new KeyValuePair<string, double>(ColorPalettes.ToName(colorGroup.Key), percent));
+            }
         }
-        //Return the string ordered by percent
-        foreach (KeyValuePair<string, double> item in namePercents.OrderByDescending(x => x.Value).ThenBy(x => x.Key))
+        //Order the percents
+        namePercents = namePercents.OrderByDescending(t => t.Value).ThenBy(x => x.Key).ToList();
+        //Add the other percent if needed
+        if (onlyShowTop3 == true && Math.Round(totalOtherPercent, 2) > 0)
         {
-            sb.AppendLine($"{item.Key}: {item.Value:0.00%}");
+            namePercents.Add(new KeyValuePair<string, double>("Other", totalOtherPercent));
         }
-        return sb.ToString();
+        return namePercents;
+    }
+
+    /// <summary>
+    /// Crop/cut out a small piece of a larger image
+    /// </summary>
+    /// <param name="sourceImage"></param>
+    /// <param name="areaToExtract"></param>
+    /// <returns>Image<Rgb24></returns>
+    public static Image<Rgb24> CropImage(Image<Rgb24> sourceImage, Rectangle areaToExtract)
+    {
+        //from https://docs.sixlabors.com/articles/imagesharp/pixelbuffers.html#efficient-pixel-manipulation
+        Image<Rgb24> targetImage = new(areaToExtract.Width, areaToExtract.Height);
+        int height = areaToExtract.Height;
+        sourceImage.ProcessPixelRows(targetImage, (sourceAccessor, targetAccessor) =>
+        {
+            for (int row = 0; row < height; row++)
+            {
+                //get the row from the Y + row index
+                Span<Rgb24> sourceRow = sourceAccessor.GetRowSpan(areaToExtract.Y + row);
+                //Setup the target row
+                Span<Rgb24> targetRow = targetAccessor.GetRowSpan(row);
+                //Copy the source to the target
+                //Copy the source to the target
+                sourceRow.Slice(areaToExtract.X, areaToExtract.Width).CopyTo(targetRow);
+            }
+        });
+
+        return targetImage;
+    }
+
+    /// <summary>
+    /// Split a larger image into equal sized smaller pieces
+    /// </summary>
+    /// <param name="sourceImage"></param>
+    /// <param name="width"></param>
+    /// <param name="height"></param>
+    /// <returns>List<Image<Rgb24>></returns>
+    public static List<Image<Rgb24>> SplitImageIntoMultiplePieces(Image<Rgb24> sourceImage, int width, int height)
+    {
+        List<Image<Rgb24>> images = new();
+        for (int y = 0; y < (sourceImage.Height / height); y++)
+        {
+            for (int x = 0; x < (sourceImage.Width / width); x++)
+            {
+                Rectangle rectangle = new(x * width, y * height, width, height);
+                images.Add(CropImage(sourceImage, rectangle));
+            }
+        }
+        return images;
     }
 
 }

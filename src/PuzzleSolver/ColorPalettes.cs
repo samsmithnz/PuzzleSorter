@@ -1,20 +1,60 @@
-﻿using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp;
+﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace PuzzleSolver
 {
     public static class ColorPalettes
     {
-
-        public static List<Rgb24> GetPrimaryColorsPalette()
+        /// <summary>
+        /// Just Primary colors
+        /// </summary>
+        /// <returns>List of Rgb24</returns>
+        public static List<Rgb24> Get3ColorPalette()
         {
             return new List<Rgb24> {
                 Color.Red.ToPixel<Rgb24>(),
                 Color.Blue.ToPixel<Rgb24>(),
-                Color.Yellow.ToPixel<Rgb24>()};
+                Color.Yellow.ToPixel<Rgb24>()
+            };
         }
 
-        public static List<Rgb24> GetPrimaryAndSecondaryColorsPalette()
+
+        /// <summary>
+        /// Primary colors + Black + White
+        /// </summary>
+        /// <returns>List of Rgb24</returns>
+        public static List<Rgb24> Get5ColorPalette()
+        {
+            return new List<Rgb24> {
+                Color.Red.ToPixel<Rgb24>(),
+                Color.Blue.ToPixel<Rgb24>(),
+                Color.Yellow.ToPixel<Rgb24>(),
+                Color.White.ToPixel<Rgb24>(),
+                Color.Black.ToPixel<Rgb24>()
+            };
+        }
+
+        /// <summary>
+        /// Primary and Secondary colors 
+        /// </summary>
+        /// <returns>List of Rgb24</returns>
+        public static List<Rgb24> Get6ColorPalette()
+        {
+            return new List<Rgb24> {
+                Color.Red.ToPixel<Rgb24>(),
+                Color.Purple.ToPixel<Rgb24>(),
+                Color.Blue.ToPixel<Rgb24>(),
+                Color.Green.ToPixel<Rgb24>(),
+                Color.Yellow.ToPixel<Rgb24>(),
+                Color.Orange.ToPixel<Rgb24>()
+            };
+        }
+
+        /// <summary>
+        /// Primary and Secondary colors + Black + White
+        /// </summary>
+        /// <returns>List of Rgb24</returns>
+        public static List<Rgb24> Get8ColorPalette()
         {
             return new List<Rgb24> {
                 Color.Red.ToPixel<Rgb24>(),
@@ -24,10 +64,94 @@ namespace PuzzleSolver
                 Color.Yellow.ToPixel<Rgb24>(),
                 Color.Orange.ToPixel<Rgb24>(),
                 Color.White.ToPixel<Rgb24>(),
-                Color.Black.ToPixel<Rgb24>() };
+                Color.Black.ToPixel<Rgb24>()
+            };
         }
 
-        public static List<Rgb24> GetAllNamedColorsPalette()
+        /// <summary>
+        /// 16 colors
+        /// </summary>
+        /// <returns>List of Rgb24</returns>
+        public static List<Rgb24> Get16ColorPalette()
+        {
+            //https://htmlcolorcodes.com/
+            return new List<Rgb24> {
+                new Rgb24(255, 255, 255), //White
+                new Rgb24(192, 192, 192), //Silver
+                new Rgb24(128, 128, 128), //Gray
+                new Rgb24(0, 0, 0), //Black            
+                new Rgb24(255, 0, 0), //Red
+                new Rgb24(128, 0, 0), //Maroon  
+                new Rgb24(255, 255, 0), //Yellow 
+                new Rgb24(128, 128, 0), //Olive
+                new Rgb24(0, 255, 0), //Lime
+                new Rgb24(0, 128, 0), //Green
+                new Rgb24(0, 255, 255), //Aqua
+                new Rgb24(0, 128, 128), //Teal
+                new Rgb24(0, 0, 255), //Blue
+                new Rgb24(0, 0, 128), //Navy
+                new Rgb24(255, 0, 255), //Fuchsia         
+                new Rgb24(128, 0, 128), //Purple              
+            };
+        }
+
+        ///// <summary>
+        ///// 24 colors 
+        ///// </summary>
+        ///// <returns>List of Rgb24</returns>
+        //public static List<Rgb24> Get24ColorPalette()
+        //{
+        //    return new List<Rgb24> {
+        //        new Rgb24(0, 0, 0), //black
+        //        new Rgb24(85,85,85), //(dark) gray
+        //        new Rgb24(0, 0, 170), //blue
+        //        new Rgb24(85, 85, 255), //bright blue
+        //        new Rgb24(0, 170, 0), //green
+        //        new Rgb24(85, 255, 85), //bright green
+        //        new Rgb24(0, 170, 170), //cyan
+        //        new Rgb24(85, 255, 255), //bright cyan
+        //        new Rgb24(170, 0, 0), //red
+        //        new Rgb24(255, 85, 85), //bright red
+        //        new Rgb24(170, 0, 170), //magenta
+        //        new Rgb24(255, 85, 255), //bright magenta
+        //        new Rgb24(170, 85, 0), //brown
+        //        new Rgb24(255, 255, 85), //yellow
+        //        new Rgb24(170, 170, 170), //white (light gray)
+        //        new Rgb24(255, 255, 255), //bright white
+        //    };
+        //}
+
+        ///// <summary>
+        ///// 32 colors 
+        ///// </summary>
+        ///// <returns>List of Rgb24</returns>
+        //public static List<Rgb24> Get32ColorPalette()
+        //{
+        //    return new List<Rgb24> {
+        //        new Rgb24(0, 0, 0), //black
+        //        new Rgb24(85,85,85), //(dark) gray
+        //        new Rgb24(0, 0, 170), //blue
+        //        new Rgb24(85, 85, 255), //bright blue
+        //        new Rgb24(0, 170, 0), //green
+        //        new Rgb24(85, 255, 85), //bright green
+        //        new Rgb24(0, 170, 170), //cyan
+        //        new Rgb24(85, 255, 255), //bright cyan
+        //        new Rgb24(170, 0, 0), //red
+        //        new Rgb24(255, 85, 85), //bright red
+        //        new Rgb24(170, 0, 170), //magenta
+        //        new Rgb24(255, 85, 255), //bright magenta
+        //        new Rgb24(170, 85, 0), //brown
+        //        new Rgb24(255, 255, 85), //yellow
+        //        new Rgb24(170, 170, 170), //white (light gray)
+        //        new Rgb24(255, 255, 255), //bright white
+        //    };
+        //}
+
+        /// <summary>
+        /// 140 colors (All C# named colors)
+        /// </summary>
+        /// <returns>List of Rgb24</returns>
+        public static List<Rgb24> Get140ColorPalette()
         {
             return new List<Rgb24> {
                 Color.AliceBlue.ToPixel<Rgb24>(),
@@ -316,7 +440,25 @@ namespace PuzzleSolver
             else if (Color.White.ToPixel<Rgb24>() == rgb24) { return "White"; }
             else if (Color.WhiteSmoke.ToPixel<Rgb24>() == rgb24) { return "WhiteSmoke"; }
             else if (Color.Yellow.ToPixel<Rgb24>() == rgb24) { return "Yellow"; }
-            else if (Color.YellowGreen.ToPixel<Rgb24>() == rgb24) { return "YellowGreen)"; }
+            else if (Color.YellowGreen.ToPixel<Rgb24>() == rgb24) { return "YellowGreen"; }
+
+            ////CGA colors
+            //else if (new Rgb24(0, 0, 0) == rgb24) { return "black"; }
+            //else if (new Rgb24(85, 85, 85) == rgb24) { return "(dark) gray"; }
+            //else if (new Rgb24(0, 0, 170) == rgb24) { return "blue"; }
+            //else if (new Rgb24(85, 85, 255) == rgb24) { return "bright blue"; }
+            //else if (new Rgb24(0, 170, 0) == rgb24) { return "green"; }
+            //else if (new Rgb24(85, 255, 85) == rgb24) { return "bright green"; }
+            //else if (new Rgb24(0, 170, 170) == rgb24) { return "cyan"; }
+            //else if (new Rgb24(85, 255, 255) == rgb24) { return "bright cyan"; }
+            //else if (new Rgb24(170, 0, 0) == rgb24) { return "red"; }
+            //else if (new Rgb24(255, 85, 85) == rgb24) { return "bright red"; }
+            //else if (new Rgb24(170, 0, 170) == rgb24) { return "magenta"; }
+            //else if (new Rgb24(255, 85, 255) == rgb24) { return "bright magenta"; }
+            //else if (new Rgb24(170, 85, 0) == rgb24) { return "brown"; }
+            //else if (new Rgb24(255, 255, 85) == rgb24) { return "yellow"; }
+            //else if (new Rgb24(170, 170, 170) == rgb24) { return "white (light gray)"; }
+            //else if (new Rgb24(255, 255, 255) == rgb24) { return "bright white"; }
             else { return ""; }
         }
     }
