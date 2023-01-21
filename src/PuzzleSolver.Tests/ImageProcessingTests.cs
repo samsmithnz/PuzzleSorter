@@ -70,7 +70,7 @@ Yellow: 25.00%
         string imageDir = Environment.CurrentDirectory + @"/TestImages/PrimaryAndSecondaryColors.png";
 
         //Act
-        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir);
+        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir, null, false);
 
         //Assert
         Assert.IsNotNull(imageStats);
