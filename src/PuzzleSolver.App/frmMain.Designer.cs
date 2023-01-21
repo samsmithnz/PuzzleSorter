@@ -34,9 +34,17 @@
             this.imglistTargetImages = new System.Windows.Forms.ImageList(this.components);
             this.panColors = new System.Windows.Forms.Panel();
             this.grpTest = new System.Windows.Forms.GroupBox();
+            this.picTestColor = new System.Windows.Forms.PictureBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTest = new System.Windows.Forms.Label();
             this.picTest = new System.Windows.Forms.PictureBox();
-            this.picTestColor = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblSourceImageStats = new System.Windows.Forms.Label();
@@ -44,8 +52,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.picSourceImage)).BeginInit();
             this.panColors.SuspendLayout();
             this.grpTest.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picTest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picTestColor)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picTest)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -86,32 +97,14 @@
             // 
             // grpTest
             // 
-            this.grpTest.Controls.Add(this.lblTest);
-            this.grpTest.Controls.Add(this.picTest);
             this.grpTest.Controls.Add(this.picTestColor);
+            this.grpTest.Controls.Add(this.panel2);
             this.grpTest.Location = new System.Drawing.Point(20, 20);
             this.grpTest.Name = "grpTest";
-            this.grpTest.Size = new System.Drawing.Size(800, 420);
+            this.grpTest.Size = new System.Drawing.Size(800, 470);
             this.grpTest.TabIndex = 0;
             this.grpTest.TabStop = false;
             this.grpTest.Text = "   Test";
-            this.grpTest.Visible = false;
-            // 
-            // lblTest
-            // 
-            this.lblTest.Location = new System.Drawing.Point(6, 288);
-            this.lblTest.Name = "lblTest";
-            this.lblTest.Size = new System.Drawing.Size(250, 128);
-            this.lblTest.TabIndex = 6;
-            this.lblTest.Text = "56% Red\r\n34% Yellow\r\n12% Blue\r\n3% other";
-            // 
-            // picTest
-            // 
-            this.picTest.Location = new System.Drawing.Point(5, 35);
-            this.picTest.Name = "picTest";
-            this.picTest.Size = new System.Drawing.Size(250, 250);
-            this.picTest.TabIndex = 1;
-            this.picTest.TabStop = false;
             // 
             // picTestColor
             // 
@@ -121,6 +114,101 @@
             this.picTestColor.Size = new System.Drawing.Size(20, 20);
             this.picTestColor.TabIndex = 0;
             this.picTestColor.TabStop = false;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.AutoScroll = true;
+            this.panel2.Controls.Add(this.label7);
+            this.panel2.Controls.Add(this.label6);
+            this.panel2.Controls.Add(this.label5);
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.pictureBox2);
+            this.panel2.Controls.Add(this.pictureBox1);
+            this.panel2.Controls.Add(this.lblTest);
+            this.panel2.Controls.Add(this.picTest);
+            this.panel2.Location = new System.Drawing.Point(3, 34);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(794, 430);
+            this.panel2.TabIndex = 7;
+            // 
+            // label7
+            // 
+            this.label7.Location = new System.Drawing.Point(643, 10);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(100, 30);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "#3";
+            // 
+            // label6
+            // 
+            this.label6.Location = new System.Drawing.Point(325, 10);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(100, 30);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "#2";
+            // 
+            // label5
+            // 
+            this.label5.Location = new System.Drawing.Point(643, 296);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(250, 100);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "80% Blue\r\n15% White\r\n5% Other";
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(325, 296);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(250, 100);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "80% Blue\r\n15% White\r\n5% Other";
+            // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(5, 10);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(100, 30);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "#1";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackgroundImage = global::PuzzleSolver.App.Properties.Resources.micro_st_john_beach;
+            this.pictureBox2.Location = new System.Drawing.Point(643, 43);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(250, 250);
+            this.pictureBox2.TabIndex = 8;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = global::PuzzleSolver.App.Properties.Resources.micro_st_john_beach;
+            this.pictureBox1.Location = new System.Drawing.Point(325, 43);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(250, 250);
+            this.pictureBox1.TabIndex = 7;
+            this.pictureBox1.TabStop = false;
+            // 
+            // lblTest
+            // 
+            this.lblTest.Location = new System.Drawing.Point(3, 296);
+            this.lblTest.Name = "lblTest";
+            this.lblTest.Size = new System.Drawing.Size(250, 100);
+            this.lblTest.TabIndex = 6;
+            this.lblTest.Text = "80% Blue\r\n15% White\r\n5% Other";
+            // 
+            // picTest
+            // 
+            this.picTest.BackgroundImage = global::PuzzleSolver.App.Properties.Resources.micro_st_john_beach;
+            this.picTest.Location = new System.Drawing.Point(3, 43);
+            this.picTest.Name = "picTest";
+            this.picTest.Size = new System.Drawing.Size(250, 250);
+            this.picTest.TabIndex = 1;
+            this.picTest.TabStop = false;
             // 
             // label1
             // 
@@ -174,8 +262,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.picSourceImage)).EndInit();
             this.panColors.ResumeLayout(false);
             this.grpTest.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picTest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picTestColor)).EndInit();
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picTest)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -196,5 +287,13 @@
         private Label label2;
         private Label lblSourceImageStats;
         private Panel panel1;
+        private Panel panel2;
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox1;
+        private Label label7;
+        private Label label6;
+        private Label label5;
+        private Label label4;
+        private Label label3;
     }
 }

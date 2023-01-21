@@ -54,6 +54,7 @@ namespace PuzzleSolver.App
             {
                 foreach (KeyValuePair<Rgb24, List<Rgb24>> item in sourceImageStats.ColorGroups)
                 {
+                    
                     int x = containerStartingX;
                     int y = (i * containerHeight) + (i * containerStartingY) + containerStartingY;
                     //Create the groupbox container for the parent color
