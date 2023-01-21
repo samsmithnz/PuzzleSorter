@@ -29,13 +29,13 @@ namespace PuzzleSolver.App
             List<Image<Rgb24>> images = ImageProcessing.SplitImageIntoMultiplePieces(sourceImg, 250, 250);
 
             //Get image stats for each individual image and combine in one list
-            List<ImageStats> imageAndStats = new();
+            List<ImageStats> subImages = new();
             foreach (Image<Rgb24> image in images)
             {
                 ImageStats? subitemImageStats = imageProcessing.ProcessStatsForImage(null, image, true);
                 if (subitemImageStats != null)
                 {
-                    imageAndStats.Add(subitemImageStats);
+                    subImages.Add(subitemImageStats);
                 }
             }
             //Double check that all is well before continuing
@@ -57,13 +57,14 @@ namespace PuzzleSolver.App
                     int x = containerStartingX;
                     int y = (i * containerHeight) + (i * containerStartingY) + containerStartingY;
 
-                    //Find all child images with the #1 % grouping spot               
-                    //foreach (KeyValuePair<Image<Rgb24>, List<KeyValuePair<string, double>>> item2 in imageAndStats)
+                    //Find all child images with the #1 % grouping spot
+                    
+                    //foreach (KeyValuePair<Image<Rgb24>, List<KeyValuePair<string, double>>> item2 in subImages)
                     //{
-                    //    if (item.Key == item2.Value[0].Key)
-                    //    {
-                    //        string count = imageAndStats.Value.Count.ToString();
-                    //    }
+                    //    //if (item.Key == item2.Value[0].Key)
+                    //    //{
+                    //    //    string count = subImages.Value.Count.ToString();
+                    //    //}
                     //}
                     //Create the groupbox container for the parent color
                     GroupBox groupBox = new()
