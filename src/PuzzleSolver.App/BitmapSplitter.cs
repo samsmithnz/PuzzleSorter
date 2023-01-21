@@ -69,7 +69,7 @@
         {
             public Point start_location;
 
-            public Bitmap Bitmap;
+            public Bitmap? Bitmap;
         }
     }
 }
