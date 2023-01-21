@@ -60,7 +60,7 @@ namespace PuzzleSolver.App
                     {
                         Height = containerHeight,
                         Width = containerWidth,
-                        Text = "   " + ColorPalettes.ToName(item.Key) + " ",//+ ,
+                        Text = "   " + sourceImageStats.NamesToString,
                         Location = new System.Drawing.Point(x, y),
                         Parent = panColors,
                         Anchor = AnchorStyles.Top
@@ -101,6 +101,7 @@ namespace PuzzleSolver.App
                             };
                         }
                     }
+                    i++;
                 }
             }
 
