@@ -105,7 +105,7 @@ namespace PuzzleSolver.App
                             };
                             _ = new PictureBox()
                             {
-                                Location = new System.Drawing.Point(5 + (250 * xLocation + (20 * xLocation)), 35), //5 + 250 for each column, with a 20 buffer for each column too.
+                                Location = new System.Drawing.Point(5 + (250 * xLocation + (20 * xLocation)), 43), //5 + 250 for each column, with a 20 buffer for each column too.
                                 Width = subImageWidth,
                                 Height = subImageHeight,
                                 Image = bitmaps[j],
