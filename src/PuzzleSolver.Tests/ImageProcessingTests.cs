@@ -120,33 +120,36 @@ Yellow: 33.33%
         Assert.IsNotNull(imageStats);
         Assert.AreEqual(6, imageStats?.ColorGroups?.Count);
         int i = 0;
-        foreach (KeyValuePair<Rgb24, List<Rgb24>> entry in imageStats?.ColorGroups?)
+        if (imageStats?.ColorGroups != null)
         {
-            if (i == 0)
+            foreach (KeyValuePair<Rgb24, List<Rgb24>> entry in imageStats.ColorGroups)
             {
-                Assert.AreEqual("Crimson", ColorPalettes.ToName(entry.Key));
+                if (i == 0)
+                {
+                    Assert.AreEqual("Crimson", ColorPalettes.ToName(entry.Key));
+                }
+                else if (i == 1)
+                {
+                    Assert.AreEqual("RoyalBlue", ColorPalettes.ToName(entry.Key));
+                }
+                else if (i == 2)
+                {
+                    Assert.AreEqual("Yellow", ColorPalettes.ToName(entry.Key));
+                }
+                else if (i == 3)
+                {
+                    Assert.AreEqual("DarkOrchid", ColorPalettes.ToName(entry.Key));
+                }
+                else if (i == 4)
+                {
+                    Assert.AreEqual("LimeGreen", ColorPalettes.ToName(entry.Key));
+                }
+                else if (i == 5)
+                {
+                    Assert.AreEqual("Coral", ColorPalettes.ToName(entry.Key));
+                }
+                i++;
             }
-            else if (i == 1)
-            {
-                Assert.AreEqual("RoyalBlue", ColorPalettes.ToName(entry.Key));
-            }
-            else if (i == 2)
-            {
-                Assert.AreEqual("Yellow", ColorPalettes.ToName(entry.Key));
-            }
-            else if (i == 3)
-            {
-                Assert.AreEqual("DarkOrchid", ColorPalettes.ToName(entry.Key));
-            }
-            else if (i == 4)
-            {
-                Assert.AreEqual("LimeGreen", ColorPalettes.ToName(entry.Key));
-            }
-            else if (i == 5)
-            {
-                Assert.AreEqual("Coral", ColorPalettes.ToName(entry.Key));
-            }
-            i++;
         }
     }
 
