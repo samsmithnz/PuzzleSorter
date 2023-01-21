@@ -175,7 +175,7 @@ Blue: 22.17%
 Red: 22.17%
 Orange: 11.21%
 ";
-        Assert.AreEqual(expected, imageStats.NamesToString);
+        Assert.AreEqual(expected, imageStats?.NamesToString);
     }
 
     [TestMethod]
