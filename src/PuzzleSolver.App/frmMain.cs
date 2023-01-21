@@ -22,7 +22,7 @@ namespace PuzzleSolver.App
 
             //Do bitmaps first
             List<Bitmap> bitmaps = SplitBitmapIntoPieces(picSourceImage.Image, 250, 250);
-            lblSourceImageStats.Text = bitmaps.Count.ToString();
+            lblSourceImageStats.Text = sourceImageStats?.NamesToString;
 
             //Crop the individual images next
             Image<Rgb24> sourceImg = SixLabors.ImageSharp.Image.Load<Rgb24>(sourceImageLocation);
@@ -60,7 +60,7 @@ namespace PuzzleSolver.App
                     {
                         Height = containerHeight,
                         Width = containerWidth,
-                        Text = "   " + sourceImageStats.NamesToString,
+                        Text = "   " + ColorPalettes.ToName(item.Key),
                         Location = new System.Drawing.Point(x, y),
                         Parent = panColors,
                         Anchor = AnchorStyles.Top
