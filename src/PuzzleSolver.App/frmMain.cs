@@ -11,7 +11,9 @@ namespace PuzzleSolver.App
             InitializeComponent();
 
             //0. Setup
-            List<Rgb24> palette = ColorPalettes.Get6ColorPalette();
+            List<Rgb24> palette = ColorPalettes.Get3ColorPalette();
+            int smallImageWidth = 100;
+            int smallImageHeight = 100;
 
             //1. Read in input image
             string sourceImageLocation = Environment.CurrentDirectory + @"/Images/st-john-beach.jpg";
@@ -22,12 +24,12 @@ namespace PuzzleSolver.App
             //2. Split apart images
 
             //Do bitmaps first
-            List<Bitmap> bitmaps = SplitBitmapIntoPieces(picSourceImage.Image, 250, 250);
+            List<Bitmap> bitmaps = SplitBitmapIntoPieces(picSourceImage.Image, smallImageWidth, smallImageHeight);
             lblSourceImageStats.Text = sourceImageStats?.NamesToString;
 
             //Crop the individual images next
             Image<Rgb24> sourceImg = SixLabors.ImageSharp.Image.Load<Rgb24>(sourceImageLocation);
-            List<Image<Rgb24>> images = ImageProcessing.SplitImageIntoMultiplePieces(sourceImg, 250, 250);
+            List<Image<Rgb24>> images = ImageProcessing.SplitImageIntoMultiplePieces(sourceImg, smallImageWidth, smallImageHeight);
 
             //Get image stats for each individual image and combine in one list
             List<ImageStats> subImages = new();
@@ -73,16 +75,17 @@ namespace PuzzleSolver.App
                         Location = new System.Drawing.Point(3, 34),
                         Size = new System.Drawing.Size(794, 430),
                         Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
+                        AutoScroll = true,
                         Parent = groupBox
                     };
-                    //Create a image with the color 
+                    //Create a image with the color that lives in the title of the groupbox
                     _ = new PictureBox()
                     {
                         Location = new System.Drawing.Point(6, 8),
                         Height = 20,
                         Width = 20,
                         BackColor = System.Drawing.Color.FromName(ColorPalettes.ToName(item.Key)),
-                        Parent = panel
+                        Parent = groupBox
                     };
 
                     //Find all child images matching the top grouping spot
@@ -99,17 +102,17 @@ namespace PuzzleSolver.App
                                 Height = 250,
                                 Width = 250,
                                 Image = bitmaps[j],
-                                Parent = groupBox
+                                Parent = panel
                             };
                             string text = subImages[j].NamesToString;
                             _ = new Label()
                             {
                                 AutoSize = false,
-                                Location = new System.Drawing.Point(6 + (250 * xLocation + (20 * xLocation)), 288),
-                                Height = 128,
+                                Location = new System.Drawing.Point(6 + (250 * xLocation + (20 * xLocation)), 296),
+                                Height = 100,
                                 Width = 250,
                                 Text = text,
-                                Parent = groupBox
+                                Parent = panel
                             };
                             xLocation++;
                         }
