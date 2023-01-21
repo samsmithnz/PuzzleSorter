@@ -208,7 +208,7 @@ Black: 2.98%
 Purple: 0.30%
 Yellow: 0.05%
 ";
-        Assert.AreEqual(expected, imageStats.NamesToString);
+        Assert.AreEqual(expected, imageStats?.NamesToString);
     }
 
     [TestMethod]
