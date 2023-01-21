@@ -12,8 +12,8 @@ namespace PuzzleSolver.App
 
             //0. Setup
             List<Rgb24> palette = ColorPalettes.Get3ColorPalette();
-            int smallImageWidth = 100;
-            int smallImageHeight = 100;
+            int subImageWidth = 100;
+            int subImageHeight = 100;
 
             //1. Read in input image
             string sourceImageLocation = Environment.CurrentDirectory + @"/Images/st-john-beach.jpg";
@@ -24,12 +24,12 @@ namespace PuzzleSolver.App
             //2. Split apart images
 
             //Do bitmaps first
-            List<Bitmap> bitmaps = SplitBitmapIntoPieces(picSourceImage.Image, smallImageWidth, smallImageHeight);
+            List<Bitmap> bitmaps = SplitBitmapIntoPieces(picSourceImage.Image, subImageWidth, subImageHeight);
             lblSourceImageStats.Text = sourceImageStats?.NamesToString;
 
             //Crop the individual images next
             Image<Rgb24> sourceImg = SixLabors.ImageSharp.Image.Load<Rgb24>(sourceImageLocation);
-            List<Image<Rgb24>> images = ImageProcessing.SplitImageIntoMultiplePieces(sourceImg, smallImageWidth, smallImageHeight);
+            List<Image<Rgb24>> images = ImageProcessing.SplitImageIntoMultiplePieces(sourceImg, subImageWidth, subImageHeight);
 
             //Get image stats for each individual image and combine in one list
             List<ImageStats> subImages = new();
@@ -106,8 +106,8 @@ namespace PuzzleSolver.App
                             _ = new PictureBox()
                             {
                                 Location = new System.Drawing.Point(5 + (250 * xLocation + (20 * xLocation)), 35), //5 + 250 for each column, with a 20 buffer for each column too.
-                                Width = smallImageWidth,
-                                Height = smallImageHeight,
+                                Width = subImageWidth,
+                                Height = subImageHeight,
                                 Image = bitmaps[j],
                                 BorderStyle = BorderStyle.FixedSingle,
                                 Parent = panel
