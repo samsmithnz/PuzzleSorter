@@ -1,8 +1,10 @@
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PuzzleSolver.Tests;
 
+[ExcludeFromCodeCoverage]
 [TestClass]
 public class ImageProcessingTests
 {

@@ -1,7 +1,9 @@
 using SixLabors.ImageSharp.PixelFormats;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PuzzleSolver.Tests;
 
+[ExcludeFromCodeCoverage]
 [TestClass]
 public class ColorPaletteTests
 {
