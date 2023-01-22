@@ -49,10 +49,10 @@ Yellow: 25.00%
     }
 
     [TestMethod]
-    public void FourPixelImageWithAllNamedColorsPaletteTest()
+    public void FourPixelImageWith16ColorsPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.Get140ColorPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get16ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
 
         //Act
@@ -372,7 +372,7 @@ NavajoWhite: 0.29%
     public void ColorfulPhotoImageTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.Get140ColorPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get16ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/ColorfulPhoto.jpg";
 
         //Act
@@ -380,114 +380,21 @@ NavajoWhite: 0.29%
 
         //Assert
         Assert.IsNotNull(imageStats);
-        Assert.AreEqual(107, imageStats?.ColorGroups?.Count);
-        string expected = @"LightSkyBlue: 14.32%
-DarkSlateGray: 7.58%
-DimGray: 6.94%
-Black: 6.21%
-RosyBrown: 5.41%
-SaddleBrown: 5.38%
-Gray: 5.32%
-LightBlue: 4.99%
-Sienna: 4.37%
-DarkGray: 3.71%
-Maroon: 3.49%
-DarkOliveGreen: 3.34%
-Chocolate: 3.20%
-Firebrick: 1.67%
-Peru: 1.64%
-IndianRed: 1.59%
-DarkGoldenrod: 1.54%
-DarkOrange: 1.46%
-LightSlateGray: 1.40%
-MidnightBlue: 1.28%
-DarkRed: 1.14%
-Teal: 0.97%
-SandyBrown: 0.84%
-SlateGray: 0.83%
-Olive: 0.64%
-NavajoWhite: 0.61%
-DarkSlateBlue: 0.60%
-Orange: 0.55%
-Silver: 0.55%
-BurlyWood: 0.54%
-DarkSalmon: 0.50%
-Brown: 0.45%
-OrangeRed: 0.44%
-Tan: 0.41%
-PaleVioletRed: 0.36%
-Goldenrod: 0.35%
-SteelBlue: 0.34%
-DarkCyan: 0.33%
-Red: 0.28%
-LightSteelBlue: 0.28%
-Khaki: 0.26%
-CadetBlue: 0.25%
-Tomato: 0.21%
-Coral: 0.21%
-LightSalmon: 0.20%
-MediumOrchid: 0.20%
-DarkOrchid: 0.19%
-DarkKhaki: 0.19%
-SeaGreen: 0.19%
-PeachPuff: 0.18%
-MistyRose: 0.17%
-DarkGreen: 0.14%
-Wheat: 0.13%
-SkyBlue: 0.13%
-Gold: 0.12%
-Bisque: 0.12%
-CornflowerBlue: 0.11%
-MediumVioletRed: 0.09%
-Thistle: 0.08%
-OliveDrab: 0.08%
-LightPink: 0.07%
-Pink: 0.07%
-AntiqueWhite: 0.07%
-RoyalBlue: 0.07%
-Purple: 0.06%
-MediumSeaGreen: 0.06%
-Moccasin: 0.05%
-Gainsboro: 0.05%
-PaleGoldenrod: 0.04%
-DarkSeaGreen: 0.04%
-LightGray: 0.04%
-DodgerBlue: 0.03%
-MediumPurple: 0.03%
-LightSeaGreen: 0.03%
-DarkMagenta: 0.02%
-MediumAquamarine: 0.02%
-YellowGreen: 0.02%
-ForestGreen: 0.02%
-LightCoral: 0.02%
-SlateBlue: 0.01%
-Indigo: 0.01%
-Salmon: 0.01%
-BlanchedAlmond: 0.01%
-LavenderBlush: 0.01%
-Crimson: 0.00%
-Lavender: 0.00%
-Linen: 0.00%
-Plum: 0.00%
-MediumTurquoise: 0.00%
-DarkTurquoise: 0.00%
-GhostWhite: 0.00%
-Yellow: 0.00%
-Green: 0.00%
-MediumSlateBlue: 0.00%
-SeaShell: 0.00%
-Snow: 0.00%
-Cornsilk: 0.00%
-Navy: 0.00%
-PowderBlue: 0.00%
-WhiteSmoke: 0.00%
-PapayaWhip: 0.00%
-White: 0.00%
-AliceBlue: 0.00%
-Beige: 0.00%
-DarkBlue: 0.00%
-LightGreen: 0.00%
-OldLace: 0.00%
+        Assert.AreEqual(14, imageStats?.ColorGroups?.Count);
+        string expected = @"Gray: 28.43%
+Silver: 27.45%
+Olive: 12.90%
+Maroon: 11.75%
+Black: 8.73%
+Teal: 3.12%
+Red: 2.20%
+Navy: 1.86%
+Yellow: 1.74%
+Purple: 1.26%
+White: 0.32%
+Green: 0.21%
+Aqua: 0.02%
+Blue: 0.00%
 ";
         Assert.AreEqual(expected, imageStats?.NamesToString);
     }
