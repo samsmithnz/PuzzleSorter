@@ -217,7 +217,7 @@ Yellow: 0.05%
     public void NamedColorImageTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.Get140ColorPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get16ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/NamedColors.jpg";
 
         //Act
@@ -225,7 +225,7 @@ Yellow: 0.05%
 
         //Assert
         Assert.IsNotNull(imageStats);
-        Assert.AreEqual(138, imageStats?.ColorGroups?.Count);
+        Assert.AreEqual(16, imageStats?.ColorGroups?.Count);
         string expected = @"White: 7.65%
 Snow: 4.37%
 MintCream: 2.74%
