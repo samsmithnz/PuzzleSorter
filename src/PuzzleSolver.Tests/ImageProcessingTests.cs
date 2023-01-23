@@ -214,7 +214,7 @@ Yellow: 0.05%
     }
 
     [TestMethod]
-    public void NamedColorImageTest()
+    public void NamedColorImageWith16ColorPaletteTest()
     {
         //Arrange
         ImageColorGroups imageProcessing = new(ColorPalettes.Get16ColorPalette());
