@@ -93,7 +93,7 @@ public class ImageProcessing
         //Order the results and save over itself
         results = results.OrderBy(t => t.Value).ToList();
 
-        //Check if the largest postive or negative value is closer
+        //Check if the largest positive or negative value is closer
         if (results.Count > 0)
         {
             closestColorGroup = results[0].Key;
@@ -101,7 +101,7 @@ public class ImageProcessing
         return closestColorGroup;
     }
 
-    //Since it uses Sqrt, it always returns a postive number
+    //Since it uses Sqrt, it always returns a positive number
     private static int GetColorDifference(Rgb24 color1, Rgb24 color2)
     {
         return (int)Math.Sqrt(Math.Pow(color1.R - color2.R, 2) + Math.Pow(color1.G - color2.G, 2) + Math.Pow(color1.B - color2.B, 2));
