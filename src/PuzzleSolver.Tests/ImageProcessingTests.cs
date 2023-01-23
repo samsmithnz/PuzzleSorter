@@ -65,7 +65,7 @@ Yellow: 25.00%
     }
 
     [TestMethod]
-    public void PrimaryAndSecondaryColorsImageWithOnlyPrimaryPaletteTest()
+    public void PrimaryAndSecondaryColorsImageWith3ColorPaletteTest()
     {
         //Arrange
         ImageColorGroups imageProcessing = new(ColorPalettes.Get3ColorPalette());
