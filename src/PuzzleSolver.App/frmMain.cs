@@ -149,7 +149,6 @@ namespace PuzzleSolver.App
 
         private List<Bitmap> SplitBitmapIntoPieces(System.Drawing.Image sourceImage, int width, int height)
         {
-            BitmapSplitter splitter = new();
             List<Bitmap> bitmaps = new();
             for (int y = 0; y < (sourceImage.Height / height); y++)
             {
