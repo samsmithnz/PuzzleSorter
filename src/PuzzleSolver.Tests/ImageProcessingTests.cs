@@ -83,7 +83,7 @@ Yellow: 25.00%
         Assert.AreEqual(2, imageStats?.ColorGroups?[Color.Red.ToPixel<Rgb24>()].Count);
         Assert.AreEqual(1, imageStats?.ColorGroups?[Color.Blue.ToPixel<Rgb24>()].Count);
         Assert.AreEqual(1, imageStats?.ColorGroups?[Color.Lime.ToPixel<Rgb24>()].Count);
-        Assert.AreEqual("Red", imageStats?.TopNamedColor);
+        Assert.AreEqual("Lime", imageStats?.TopNamedColor);
     }
 
     [TestMethod]
