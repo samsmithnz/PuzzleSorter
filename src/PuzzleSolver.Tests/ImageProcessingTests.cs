@@ -287,7 +287,7 @@ Blue: 0.00%
 
         //Act
         Image<Rgb24> image = Image.Load<Rgb24>(imageDir);
-        List<Image<Rgb24>> images = ImageColorGroups.SplitImageIntoMultiplePieces(image, 390, 390);
+        List<Image<Rgb24>> images = ImageCropping.SplitImageIntoMultiplePieces(image, 390, 390);
 
         //Assert
         Assert.IsNotNull(images);

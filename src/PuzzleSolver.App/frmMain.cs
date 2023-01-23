@@ -29,7 +29,7 @@ namespace PuzzleSolver.App
 
             //Crop the individual images next
             Image<Rgb24> sourceImg = SixLabors.ImageSharp.Image.Load<Rgb24>(sourceImageLocation);
-            List<Image<Rgb24>> images = ImageColorGroups.SplitImageIntoMultiplePieces(sourceImg, subImageWidth, subImageHeight);
+            List<Image<Rgb24>> images = ImageCropping.SplitImageIntoMultiplePieces(sourceImg, subImageWidth, subImageHeight);
 
             //Get image stats for each individual image and combine in one list
             List<ImageStats> subImages = new();
