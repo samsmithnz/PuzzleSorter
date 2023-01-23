@@ -10,7 +10,7 @@ public class ImageProcessingTests
 {
 
     [TestMethod]
-    public void FourPixelImageWithJustPrimaryPaletteTest()
+    public void FourPixelImageWith3ColorPaletteTest()
     {
         //Arrange
         ImageColorGroups imageProcessing = new(ColorPalettes.Get3ColorPalette());
