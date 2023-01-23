@@ -5,12 +5,20 @@ namespace PuzzleSolver;
 
 public class ImageColorGroups
 {
+    public SortedList<int, Rgb24> PriorityColorPalette { get; set; }
     public List<Rgb24> ColorPalette { get; set; }
 
-    public ImageColorGroups(List<Rgb24> colorPalette)
+    public ImageColorGroups(List<Rgb24> colorPalette, SortedList<int, Rgb24>? priorityColorPalette = null)
     {
-        //Add the primary and secondary colors, with black and white for initial buckets
         ColorPalette = colorPalette;
+        if (priorityColorPalette == null)
+        {
+            PriorityColorPalette = new();
+        }
+        else
+        {
+            PriorityColorPalette = priorityColorPalette;
+        }
     }
 
     /// <summary>
@@ -37,7 +45,8 @@ public class ImageColorGroups
         {
             imageStats = new(sourceImage)
             {
-                ColorGroups = ProcessImageIntoColorGroups(sourceImage)
+                ColorGroups = ProcessImageIntoColorGroups(sourceImage),
+                PriorityColorPalette = PriorityColorPalette
             };
             imageStats.NamedColorsAndPercentList = BuildNamedColorsAndPercentList(imageStats.ColorGroups, onlyShowTop3);
         }
