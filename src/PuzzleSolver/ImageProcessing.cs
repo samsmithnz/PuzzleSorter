@@ -128,7 +128,7 @@ public class ImageProcessing
                 namePercents.Add(new KeyValuePair<string, double>(ColorPalettes.ToName(colorGroup.Key), percent));
             }
         }
-        //Order the percents
+        //Order the percent list
         namePercents = namePercents.OrderByDescending(t => t.Value).ThenBy(x => x.Key).ToList();
         //Add the other percent if needed
         if (onlyShowTop3 == true && Math.Round(totalOtherPercent, 2) > 0)
