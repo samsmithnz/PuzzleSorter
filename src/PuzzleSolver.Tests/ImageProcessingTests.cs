@@ -87,6 +87,27 @@ Yellow: 25.00%
     }
 
     [TestMethod]
+    public void FourPixelImageWith16ColorPaletteWithNoPriorityColorTest()
+    {
+        //Arrange
+        SortedList<int, Rgb24> priorityColorPalette = new();
+
+        ImageColorGroups imageProcessing = new(ColorPalettes.Get16ColorPalette(), priorityColorPalette);
+        string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
+
+        //Act
+        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir);
+
+        //Assert
+        Assert.IsNotNull(imageStats);
+        Assert.AreEqual(3, imageStats?.ColorGroups?.Count);
+        Assert.AreEqual(2, imageStats?.ColorGroups?[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(1, imageStats?.ColorGroups?[Color.Blue.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(1, imageStats?.ColorGroups?[Color.Lime.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual("Red", imageStats?.TopNamedColor);
+    }
+
+    [TestMethod]
     public void PrimaryAndSecondaryColorsImageWith3ColorPaletteTest()
     {
         //Arrange
