@@ -112,7 +112,7 @@ Yellow: 33.33%
     public void PrimaryAndSecondaryColorsImageWithNamedColorsPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.Get140ColorPalette());
+        ImageProcessing imageProcessing = new(ColorPalettes.Get141ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/PrimaryAndSecondaryColors.png";
 
         //Act

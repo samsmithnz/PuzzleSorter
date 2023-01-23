@@ -89,6 +89,22 @@ public class ColorPaletteTests
     }
 
     [TestMethod]
+    public void Verify141ColorPaletteTest()
+    {
+        //Arrange
+        List<Rgb24> colors = ColorPalettes.Get141ColorPalette();
+
+        //Act
+
+        //Assert
+        Assert.AreEqual(141, colors.Count);
+        foreach (Rgb24 color in colors)
+        {
+            Assert.IsFalse(string.IsNullOrEmpty(ColorPalettes.ToName(color)));
+        }
+    }
+
+    [TestMethod]
     public void VerifyColorWithNoNameTest()
     {
         //Arrange

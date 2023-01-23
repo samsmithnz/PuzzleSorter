@@ -148,10 +148,10 @@ namespace PuzzleSolver
         //}
 
         /// <summary>
-        /// 140 colors (All C# named colors)
+        /// 141 colors (All C# named colors)
         /// </summary>
         /// <returns>List of Rgb24</returns>
-        public static List<Rgb24> Get140ColorPalette()
+        public static List<Rgb24> Get141ColorPalette()
         {
             return new List<Rgb24> {
                 Color.AliceBlue.ToPixel<Rgb24>(),
