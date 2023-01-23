@@ -156,7 +156,7 @@ namespace PuzzleSolver.App
                 for (int x = 0; x < (sourceImage.Width / width); x++)
                 {
                     System.Drawing.Rectangle rectangle = new(x * width, y * height, width, height);
-                    bitmaps.Add(splitter.CropImage(picSourceImage.Image, rectangle));
+                    bitmaps.Add(BitmapSplitter.CropImage(picSourceImage.Image, rectangle));
                 }
             }
             return bitmaps;
