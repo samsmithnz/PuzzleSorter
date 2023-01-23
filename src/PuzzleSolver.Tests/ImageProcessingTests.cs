@@ -276,4 +276,19 @@ Blue: 0.00%
 ";
         Assert.AreEqual(expected, imageStats?.NamesToString);
     }
+
+    [TestMethod]
+    public void SplitColorfulPhotoImageTest()
+    {
+        //Arrange
+        string imageDir = Environment.CurrentDirectory + @"/TestImages/ColorfulPhoto.jpg";
+
+        //Act
+        Image<Rgb24> image = Image.Load<Rgb24>(imageDir);
+        List<Image<Rgb24>> images = ImageProcessing.SplitImageIntoMultiplePieces(image, 390, 390);
+
+        //Assert
+        Assert.IsNotNull(images);
+        Assert.AreEqual(6, images.Count);
+    }
 }
