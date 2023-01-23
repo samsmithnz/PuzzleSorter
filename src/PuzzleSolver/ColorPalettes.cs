@@ -320,7 +320,7 @@ namespace PuzzleSolver
             else if (Color.CornflowerBlue.ToPixel<Rgb24>() == rgb24) { return "CornflowerBlue"; }
             else if (Color.Cornsilk.ToPixel<Rgb24>() == rgb24) { return "Cornsilk"; }
             else if (Color.Crimson.ToPixel<Rgb24>() == rgb24) { return "Crimson"; }
-            else if (Color.Cyan.ToPixel<Rgb24>() == rgb24) { return "Cyan"; }
+            //else if (Color.Cyan.ToPixel<Rgb24>() == rgb24) { return "Cyan"; }
             else if (Color.DarkBlue.ToPixel<Rgb24>() == rgb24) { return "DarkBlue"; }
             else if (Color.DarkCyan.ToPixel<Rgb24>() == rgb24) { return "DarkCyan"; }
             else if (Color.DarkGoldenrod.ToPixel<Rgb24>() == rgb24) { return "DarkGoldenrod"; }
@@ -379,7 +379,7 @@ namespace PuzzleSolver
             else if (Color.Lime.ToPixel<Rgb24>() == rgb24) { return "Lime"; }
             else if (Color.LimeGreen.ToPixel<Rgb24>() == rgb24) { return "LimeGreen"; }
             else if (Color.Linen.ToPixel<Rgb24>() == rgb24) { return "Linen"; }
-            else if (Color.Magenta.ToPixel<Rgb24>() == rgb24) { return "Magenta"; }
+            //else if (Color.Magenta.ToPixel<Rgb24>() == rgb24) { return "Magenta"; }
             else if (Color.Maroon.ToPixel<Rgb24>() == rgb24) { return "Maroon"; }
             else if (Color.MediumAquamarine.ToPixel<Rgb24>() == rgb24) { return "MediumAquamarine"; }
             else if (Color.MediumBlue.ToPixel<Rgb24>() == rgb24) { return "MediumBlue"; }
