@@ -275,6 +275,8 @@ Aqua: 0.02%
 Blue: 0.00%
 ";
         Assert.AreEqual(expected, imageStats?.NamesToString);
+        Assert.AreEqual(new Rgb24(128, 128, 128), imageStats?.TopColorGroupColor);
+        Assert.AreEqual("Gray", imageStats?.TopNamedColor);
     }
 
     [TestMethod]
