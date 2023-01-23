@@ -109,7 +109,7 @@ public class ImageProcessing
 
     private static List<KeyValuePair<string, double>> BuildNamedColorsAndPercentList(Dictionary<Rgb24, List<Rgb24>> colorGroups, bool onlyShowTop3)
     {
-        List<KeyValuePair<string, double>> namePercents = new();
+        List<KeyValuePair<string, double>> namePercentList = new();
         //Calculate the name and percent and add it into a list
         int count = 0;
         double totalOtherPercent = 0;
@@ -123,17 +123,17 @@ public class ImageProcessing
             }
             else
             {
-                namePercents.Add(new KeyValuePair<string, double>(ColorPalettes.ToName(colorGroup.Key), percent));
+                namePercentList.Add(new KeyValuePair<string, double>(ColorPalettes.ToName(colorGroup.Key), percent));
             }
         }
         //Order the percent list
-        namePercents = namePercents.OrderByDescending(t => t.Value).ThenBy(x => x.Key).ToList();
+        namePercentList = namePercentList.OrderByDescending(t => t.Value).ThenBy(x => x.Key).ToList();
         //Add the other percent if needed
         if (onlyShowTop3 == true && Math.Round(totalOtherPercent, 2) > 0)
         {
-            namePercents.Add(new KeyValuePair<string, double>("Other", totalOtherPercent));
+            namePercentList.Add(new KeyValuePair<string, double>("Other", totalOtherPercent));
         }
-        return namePercents;
+        return namePercentList;
     }
 
     /// <summary>
