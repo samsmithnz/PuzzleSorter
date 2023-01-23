@@ -128,221 +128,221 @@ namespace PuzzleSolver
         public static List<Rgb24> GetLegoColorPalette()
         {
             return new List<Rgb24> {
-new Rgb24(114, 14, 15), //Dark Red
-new Rgb24(254, 186, 189), //Light Salmon
-new Rgb24(254, 204, 207), //Light Pink
-new Rgb24(189, 125, 133), //Modulex Violet
-new Rgb24(255, 135, 156), //Duplo Pink
-new Rgb24(214, 0, 38), //Pearl Red
-new Rgb24(252, 151, 172), //Pink
-new Rgb24(255, 105, 143), //Coral
-new Rgb24(247, 133, 177), //Medium Dark Pink
-new Rgb24(247, 133, 177), //Modulex Pink
-new Rgb24(223, 102, 149), //Glitter Trans-Dark Pink
-new Rgb24(223, 102, 149), //Trans-Dark Pink
-new Rgb24(254, 120, 176), //Clikits Pink
-new Rgb24(205, 98, 152), //Light Purple
-new Rgb24(228, 173, 200), //Bright Pink
-new Rgb24(228, 173, 200), //Trans-Pink
-new Rgb24(200, 112, 160), //Dark Pink
-new Rgb24(206, 29, 155), //Trans-Medium Reddish Violet Opal
-new Rgb24(146, 57, 120), //Magenta
-new Rgb24(170, 77, 142), //Chrome Pink
-new Rgb24(129, 0, 123), //Purple
-new Rgb24(132, 94, 132), //Sand Purple
-new Rgb24(142, 85, 151), //Reddish Lilac
-new Rgb24(150, 112, 159), //Trans-Light Purple
-new Rgb24(172, 120, 186), //Medium Lavender
-new Rgb24(131, 32, 183), //Trans-Purple Opal
-new Rgb24(75, 0, 130), //Modulex Foil Violet
-new Rgb24(225, 213, 237), //Lavender
-new Rgb24(77, 76, 82), //Modulex Black
-new Rgb24(63, 54, 145), //Dark Purple
-new Rgb24(147, 145, 0), //Medium Violet
-new Rgb24(165, 165, 203), //Trans-Purple
-new Rgb24(165, 165, 203), //Glitter Trans-Purple
-new Rgb24(201, 202, 226), //Light Violet
-new Rgb24(32, 50, 176), //Dark Blue-Violet
-new Rgb24(104, 116, 202), //Medium Bluish Violet
-new Rgb24(76, 97, 219), //Royal Blue
-new Rgb24(0, 32, 160), //Trans-Dark Blue Opal
-new Rgb24(0, 32, 160), //Trans-Dark Blue
-new Rgb24(67, 84, 163), //Violet
-new Rgb24(175, 181, 199), //Modulex Light Bluish Gray
-new Rgb24(10, 19, 39), //Pearl Black
-new Rgb24(96, 116, 161), //Sand Blue
-new Rgb24(121, 136, 161), //Metal Blue
-new Rgb24(0, 85, 191), //Blue
-new Rgb24(90, 147, 219), //Medium Blue
-new Rgb24(10, 52, 99), //Dark Blue
-new Rgb24(180, 212, 247), //Trans-Light Royal Blue
-new Rgb24(207, 226, 247), //Trans-Medium Blue
-new Rgb24(97, 175, 255), //Modulex Medium Blue
-new Rgb24(159, 195, 233), //Bright Light Blue
-new Rgb24(0, 87, 166), //Modulex Tile Blue
-new Rgb24(0, 87, 166), //Modulex Foil Dark Blue
-new Rgb24(108, 150, 191), //Chrome Blue
-new Rgb24(0, 89, 163), //Pearl Blue
-new Rgb24(89, 93, 96), //Modulex Charcoal Gray
-new Rgb24(89, 93, 96), //Modulex Foil Dark Gray
-new Rgb24(5, 19, 29), //Speckle Black-Copper
-new Rgb24(5, 19, 29), //Speckle Black-Silver
-new Rgb24(5, 19, 29), //Speckle Black-Gold
-new Rgb24(180, 210, 227), //Light Blue
-new Rgb24(193, 223, 240), //Trans-Very Lt Blue
-new Rgb24(53, 146, 195), //Maersk Blue
-new Rgb24(7, 139, 201), //Dark Azure
-new Rgb24(104, 174, 206), //Modulex Foil Light Blue
-new Rgb24(104, 174, 206), //Modulex Pastel Blue
-new Rgb24(70, 112, 131), //Modulex Teal Blue
-new Rgb24(125, 191, 221), //Sky Blue
-new Rgb24(62, 149, 182), //Duplo Medium Blue
-new Rgb24(0, 158, 206), //Duplo Blue
-new Rgb24(3, 156, 189), //Vintage Blue
-new Rgb24(90, 196, 218), //Pastel Blue
-new Rgb24(54, 174, 191), //Medium Azure
-new Rgb24(85, 165, 175), //Light Turquoise
-new Rgb24(104, 188, 197), //Glitter Trans-Light Blue
-new Rgb24(104, 188, 197), //Trans-Blue Opal
-new Rgb24(0, 143, 155), //Dark Turquoise
-new Rgb24(174, 239, 236), //Trans-Light Blue
-new Rgb24(39, 134, 126), //Modulex Aqua Green
-new Rgb24(173, 195, 192), //Light Aqua
-new Rgb24(179, 215, 209), //Aqua
-new Rgb24(24, 70, 50), //Dark Green
-new Rgb24(60, 179, 113), //Chrome Green
-new Rgb24(115, 220, 161), //Medium Green
-new Rgb24(0, 142, 60), //Pearl Green
-new Rgb24(160, 188, 172), //Sand Green
-new Rgb24(70, 138, 95), //Duplo Medium Green
-new Rgb24(35, 120, 65), //Green
-new Rgb24(148, 229, 171), //Trans-Light Green
-new Rgb24(96, 186, 118), //Duplo Light Green
-new Rgb24(132, 182, 141), //Trans-Green
-new Rgb24(132, 182, 141), //Trans-Green Opal
-new Rgb24(100, 0, 0), //Modulex Foil Dark Green
-new Rgb24(30, 96, 30), //Vintage Green
-new Rgb24(120, 252, 120), //Fabuland Lime
-new Rgb24(75, 159, 74), //Bright Green
-new Rgb24(194, 218, 184), //Light Green
-new Rgb24(125, 181, 56), //Modulex Foil Light Green
-new Rgb24(125, 181, 56), //Modulex Pastel Green
-new Rgb24(189, 198, 173), //Glow In Dark Trans
-new Rgb24(108, 110, 104), //Speckle DBGray-Silver
-new Rgb24(124, 144, 81), //Modulex Olive Green
-new Rgb24(201, 231, 136), //Trans-Light Bright Green
-new Rgb24(106, 121, 68), //Pearl Lime
-new Rgb24(137, 155, 95), //Metallic Green
-new Rgb24(192, 245, 0), //Glitter Trans-Neon Green
-new Rgb24(187, 233, 11), //Lime
-new Rgb24(223, 238, 165), //Yellowish Green
-new Rgb24(217, 228, 167), //Light Lime
-new Rgb24(217, 228, 167), //Trans-Bright Green
-new Rgb24(199, 210, 60), //Medium Lime
-new Rgb24(212, 213, 201), //Glow In Dark Opaque
-new Rgb24(189, 198, 24), //Modulex Lemon
-new Rgb24(155, 154, 90), //Olive Green
-new Rgb24(255, 242, 48), //Duplo Lime
-new Rgb24(248, 241, 132), //Trans-Neon Green
-new Rgb24(235, 216, 0), //Vibrant Yellow
-new Rgb24(255, 240, 58), //Bright Light Yellow
-new Rgb24(187, 165, 61), //Chrome Gold
-new Rgb24(251, 232, 144), //Trans-Fire Yellow
-new Rgb24(218, 176, 0), //Trans-Neon Yellow
-new Rgb24(243, 195, 5), //Vintage Yellow
-new Rgb24(245, 205, 47), //Trans-Yellow
-new Rgb24(242, 205, 55), //Yellow
-new Rgb24(255, 227, 113), //Modulex Light Yellow
-new Rgb24(251, 230, 150), //Light Yellow
-new Rgb24(254, 213, 87), //Modulex Ochre Yellow
-new Rgb24(254, 213, 87), //Modulex Foil Yellow
-new Rgb24(99, 95, 82), //Trans-Black IR Lens
-new Rgb24(219, 172, 52), //Metallic Gold
-new Rgb24(92, 80, 48), //Modulex Terracotta
-new Rgb24(248, 187, 61), //Bright Light Orange
-new Rgb24(228, 205, 158), //Tan
-new Rgb24(149, 138, 115), //Dark Tan
-new Rgb24(170, 127, 46), //Pearl Gold
-new Rgb24(220, 188, 129), //Pearl Light Gold
-new Rgb24(255, 167, 11), //Medium Orange
-new Rgb24(222, 198, 156), //Modulex Buff
-new Rgb24(53, 33, 0), //Dark Brown
-new Rgb24(221, 152, 46), //Curry
-new Rgb24(243, 201, 136), //Light Tan
-new Rgb24(180, 106, 0), //Metallic Copper
-new Rgb24(250, 156, 28), //Earth Orange
-new Rgb24(249, 186, 97), //Light Orange
-new Rgb24(172, 130, 71), //Reddish Gold
-new Rgb24(243, 207, 155), //Very Light Orange
-new Rgb24(100, 90, 76), //Chrome Antique Brass
-new Rgb24(144, 116, 80), //Modulex Brown
-new Rgb24(240, 143, 28), //Glitter Trans-Orange
-new Rgb24(240, 143, 28), //Trans-Orange
-new Rgb24(239, 145, 33), //Fabuland Orange
-new Rgb24(204, 163, 115), //Warm Tan
-new Rgb24(246, 215, 179), //Light Nougat
-new Rgb24(252, 183, 109), //Trans-Flame Yellowish Orange
-new Rgb24(169, 85, 0), //Dark Orange
-new Rgb24(254, 138, 24), //Orange
-new Rgb24(247, 173, 99), //Modulex Foil Orange
-new Rgb24(247, 173, 99), //Modulex Light Orange
-new Rgb24(180, 132, 85), //Flat Dark Gold
-new Rgb24(115, 114, 113), //Two-tone Silver
-new Rgb24(255, 128, 13), //Trans-Neon Orange
-new Rgb24(255, 128, 20), //Fabuland Red
-new Rgb24(170, 125, 85), //Medium Nougat
-new Rgb24(182, 123, 80), //Fabuland Brown
-new Rgb24(117, 89, 69), //Medium Brown
-new Rgb24(171, 103, 58), //Two-tone Gold
-new Rgb24(208, 145, 104), //Nougat
-new Rgb24(244, 123, 48), //Modulex Orange
-new Rgb24(88, 57, 39), //Trans-Brown Opal
-new Rgb24(88, 57, 39), //Brown
-new Rgb24(174, 122, 89), //Copper
-new Rgb24(88, 42, 18), //Reddish Brown
-new Rgb24(124, 80, 58), //Light Brown
-new Rgb24(173, 97, 64), //Dark Nougat
-new Rgb24(87, 57, 44), //Pearl Brown
-new Rgb24(135, 43, 23), //Rust Orange
-new Rgb24(238, 84, 52), //Reddish Orange
-new Rgb24(244, 92, 64), //Modulex Pink Red
-new Rgb24(202, 31, 8), //Vintage Red
-new Rgb24(242, 112, 94), //Salmon
-new Rgb24(148, 81, 72), //Two-tone Copper
-new Rgb24(201, 26, 9), //Red
-new Rgb24(201, 26, 9), //Trans-Red
-new Rgb24(179, 16, 4), //Rust
-new Rgb24(181, 44, 32), //Modulex Red
-new Rgb24(214, 117, 114), //Sand Red
-new Rgb24(139, 0, 0), //Modulex Foil Red
-new Rgb24(51, 0, 0), //Modulex Tile Brown
-new Rgb24(255, 255, 255), //Milky White
-new Rgb24(252, 252, 252), //Trans-Clear
-new Rgb24(242, 243, 242), //Pearl White
-new Rgb24(230, 227, 218), //Very Light Gray
-new Rgb24(230, 227, 224), //Very Light Bluish Gray
-new Rgb24(224, 224, 224), //Chrome Silver
-new Rgb24(165, 169, 180), //Metallic Silver
-new Rgb24(171, 173, 172), //Pearl Very Light Gray
-new Rgb24(160, 165, 169), //Light Bluish Gray
-new Rgb24(156, 163, 168), //Pearl Light Gray
-new Rgb24(155, 161, 157), //Light Gray
-new Rgb24(137, 135, 136), //Flat Silver
-new Rgb24(109, 110, 92), //Dark Gray
-new Rgb24(108, 110, 104), //Dark Bluish Gray
-new Rgb24(99, 95, 82), //Trans-Black
-new Rgb24(87, 88, 87), //Pearl Dark Gray
-new Rgb24(27, 42, 52), //Chrome Black
-new Rgb24(107, 90, 90), //Modulex Tile Gray
-new Rgb24(5, 19, 29), //Black
-new Rgb24(255, 255, 255), //Glitter Trans-Clear
-new Rgb24(255, 255, 255), //White
-new Rgb24(255, 255, 255), //Modulex Clear
-new Rgb24(252, 252, 252), //Trans-Clear Opal
-new Rgb24(244, 244, 244), //Modulex White
-new Rgb24(217, 217, 217), //Glow in Dark White
-new Rgb24(156, 156, 156), //Modulex Foil Light Gray
-new Rgb24(156, 156, 156), //Modulex Light Gray
+                new Rgb24(114, 14, 15), //Dark Red
+                new Rgb24(254, 186, 189), //Light Salmon
+                new Rgb24(254, 204, 207), //Light Pink
+                new Rgb24(189, 125, 133), //Modulex Violet
+                new Rgb24(255, 135, 156), //Duplo Pink
+                new Rgb24(214, 0, 38), //Pearl Red
+                new Rgb24(252, 151, 172), //Pink
+                new Rgb24(255, 105, 143), //Coral
+                new Rgb24(247, 133, 177), //Medium Dark Pink
+                new Rgb24(247, 133, 177), //Modulex Pink
+                new Rgb24(223, 102, 149), //Glitter Trans-Dark Pink
+                new Rgb24(223, 102, 149), //Trans-Dark Pink
+                new Rgb24(254, 120, 176), //Clikits Pink
+                new Rgb24(205, 98, 152), //Light Purple
+                new Rgb24(228, 173, 200), //Bright Pink
+                new Rgb24(228, 173, 200), //Trans-Pink
+                new Rgb24(200, 112, 160), //Dark Pink
+                new Rgb24(206, 29, 155), //Trans-Medium Reddish Violet Opal
+                new Rgb24(146, 57, 120), //Magenta
+                new Rgb24(170, 77, 142), //Chrome Pink
+                new Rgb24(129, 0, 123), //Purple
+                new Rgb24(132, 94, 132), //Sand Purple
+                new Rgb24(142, 85, 151), //Reddish Lilac
+                new Rgb24(150, 112, 159), //Trans-Light Purple
+                new Rgb24(172, 120, 186), //Medium Lavender
+                new Rgb24(131, 32, 183), //Trans-Purple Opal
+                new Rgb24(75, 0, 130), //Modulex Foil Violet
+                new Rgb24(225, 213, 237), //Lavender
+                new Rgb24(77, 76, 82), //Modulex Black
+                new Rgb24(63, 54, 145), //Dark Purple
+                new Rgb24(147, 145, 0), //Medium Violet
+                new Rgb24(165, 165, 203), //Trans-Purple
+                new Rgb24(165, 165, 203), //Glitter Trans-Purple
+                new Rgb24(201, 202, 226), //Light Violet
+                new Rgb24(32, 50, 176), //Dark Blue-Violet
+                new Rgb24(104, 116, 202), //Medium Bluish Violet
+                new Rgb24(76, 97, 219), //Royal Blue
+                new Rgb24(0, 32, 160), //Trans-Dark Blue Opal
+                new Rgb24(0, 32, 160), //Trans-Dark Blue
+                new Rgb24(67, 84, 163), //Violet
+                new Rgb24(175, 181, 199), //Modulex Light Bluish Gray
+                new Rgb24(10, 19, 39), //Pearl Black
+                new Rgb24(96, 116, 161), //Sand Blue
+                new Rgb24(121, 136, 161), //Metal Blue
+                new Rgb24(0, 85, 191), //Blue
+                new Rgb24(90, 147, 219), //Medium Blue
+                new Rgb24(10, 52, 99), //Dark Blue
+                new Rgb24(180, 212, 247), //Trans-Light Royal Blue
+                new Rgb24(207, 226, 247), //Trans-Medium Blue
+                new Rgb24(97, 175, 255), //Modulex Medium Blue
+                new Rgb24(159, 195, 233), //Bright Light Blue
+                new Rgb24(0, 87, 166), //Modulex Tile Blue
+                new Rgb24(0, 87, 166), //Modulex Foil Dark Blue
+                new Rgb24(108, 150, 191), //Chrome Blue
+                new Rgb24(0, 89, 163), //Pearl Blue
+                new Rgb24(89, 93, 96), //Modulex Charcoal Gray
+                new Rgb24(89, 93, 96), //Modulex Foil Dark Gray
+                new Rgb24(5, 19, 29), //Speckle Black-Copper
+                new Rgb24(5, 19, 29), //Speckle Black-Silver
+                new Rgb24(5, 19, 29), //Speckle Black-Gold
+                new Rgb24(180, 210, 227), //Light Blue
+                new Rgb24(193, 223, 240), //Trans-Very Lt Blue
+                new Rgb24(53, 146, 195), //Maersk Blue
+                new Rgb24(7, 139, 201), //Dark Azure
+                new Rgb24(104, 174, 206), //Modulex Foil Light Blue
+                new Rgb24(104, 174, 206), //Modulex Pastel Blue
+                new Rgb24(70, 112, 131), //Modulex Teal Blue
+                new Rgb24(125, 191, 221), //Sky Blue
+                new Rgb24(62, 149, 182), //Duplo Medium Blue
+                new Rgb24(0, 158, 206), //Duplo Blue
+                new Rgb24(3, 156, 189), //Vintage Blue
+                new Rgb24(90, 196, 218), //Pastel Blue
+                new Rgb24(54, 174, 191), //Medium Azure
+                new Rgb24(85, 165, 175), //Light Turquoise
+                new Rgb24(104, 188, 197), //Glitter Trans-Light Blue
+                new Rgb24(104, 188, 197), //Trans-Blue Opal
+                new Rgb24(0, 143, 155), //Dark Turquoise
+                new Rgb24(174, 239, 236), //Trans-Light Blue
+                new Rgb24(39, 134, 126), //Modulex Aqua Green
+                new Rgb24(173, 195, 192), //Light Aqua
+                new Rgb24(179, 215, 209), //Aqua
+                new Rgb24(24, 70, 50), //Dark Green
+                new Rgb24(60, 179, 113), //Chrome Green
+                new Rgb24(115, 220, 161), //Medium Green
+                new Rgb24(0, 142, 60), //Pearl Green
+                new Rgb24(160, 188, 172), //Sand Green
+                new Rgb24(70, 138, 95), //Duplo Medium Green
+                new Rgb24(35, 120, 65), //Green
+                new Rgb24(148, 229, 171), //Trans-Light Green
+                new Rgb24(96, 186, 118), //Duplo Light Green
+                new Rgb24(132, 182, 141), //Trans-Green
+                new Rgb24(132, 182, 141), //Trans-Green Opal
+                new Rgb24(100, 0, 0), //Modulex Foil Dark Green
+                new Rgb24(30, 96, 30), //Vintage Green
+                new Rgb24(120, 252, 120), //Fabuland Lime
+                new Rgb24(75, 159, 74), //Bright Green
+                new Rgb24(194, 218, 184), //Light Green
+                new Rgb24(125, 181, 56), //Modulex Foil Light Green
+                new Rgb24(125, 181, 56), //Modulex Pastel Green
+                new Rgb24(189, 198, 173), //Glow In Dark Trans
+                new Rgb24(108, 110, 104), //Speckle DBGray-Silver
+                new Rgb24(124, 144, 81), //Modulex Olive Green
+                new Rgb24(201, 231, 136), //Trans-Light Bright Green
+                new Rgb24(106, 121, 68), //Pearl Lime
+                new Rgb24(137, 155, 95), //Metallic Green
+                new Rgb24(192, 245, 0), //Glitter Trans-Neon Green
+                new Rgb24(187, 233, 11), //Lime
+                new Rgb24(223, 238, 165), //Yellowish Green
+                new Rgb24(217, 228, 167), //Light Lime
+                new Rgb24(217, 228, 167), //Trans-Bright Green
+                new Rgb24(199, 210, 60), //Medium Lime
+                new Rgb24(212, 213, 201), //Glow In Dark Opaque
+                new Rgb24(189, 198, 24), //Modulex Lemon
+                new Rgb24(155, 154, 90), //Olive Green
+                new Rgb24(255, 242, 48), //Duplo Lime
+                new Rgb24(248, 241, 132), //Trans-Neon Green
+                new Rgb24(235, 216, 0), //Vibrant Yellow
+                new Rgb24(255, 240, 58), //Bright Light Yellow
+                new Rgb24(187, 165, 61), //Chrome Gold
+                new Rgb24(251, 232, 144), //Trans-Fire Yellow
+                new Rgb24(218, 176, 0), //Trans-Neon Yellow
+                new Rgb24(243, 195, 5), //Vintage Yellow
+                new Rgb24(245, 205, 47), //Trans-Yellow
+                new Rgb24(242, 205, 55), //Yellow
+                new Rgb24(255, 227, 113), //Modulex Light Yellow
+                new Rgb24(251, 230, 150), //Light Yellow
+                new Rgb24(254, 213, 87), //Modulex Ochre Yellow
+                new Rgb24(254, 213, 87), //Modulex Foil Yellow
+                new Rgb24(99, 95, 82), //Trans-Black IR Lens
+                new Rgb24(219, 172, 52), //Metallic Gold
+                new Rgb24(92, 80, 48), //Modulex Terracotta
+                new Rgb24(248, 187, 61), //Bright Light Orange
+                new Rgb24(228, 205, 158), //Tan
+                new Rgb24(149, 138, 115), //Dark Tan
+                new Rgb24(170, 127, 46), //Pearl Gold
+                new Rgb24(220, 188, 129), //Pearl Light Gold
+                new Rgb24(255, 167, 11), //Medium Orange
+                new Rgb24(222, 198, 156), //Modulex Buff
+                new Rgb24(53, 33, 0), //Dark Brown
+                new Rgb24(221, 152, 46), //Curry
+                new Rgb24(243, 201, 136), //Light Tan
+                new Rgb24(180, 106, 0), //Metallic Copper
+                new Rgb24(250, 156, 28), //Earth Orange
+                new Rgb24(249, 186, 97), //Light Orange
+                new Rgb24(172, 130, 71), //Reddish Gold
+                new Rgb24(243, 207, 155), //Very Light Orange
+                new Rgb24(100, 90, 76), //Chrome Antique Brass
+                new Rgb24(144, 116, 80), //Modulex Brown
+                new Rgb24(240, 143, 28), //Glitter Trans-Orange
+                new Rgb24(240, 143, 28), //Trans-Orange
+                new Rgb24(239, 145, 33), //Fabuland Orange
+                new Rgb24(204, 163, 115), //Warm Tan
+                new Rgb24(246, 215, 179), //Light Nougat
+                new Rgb24(252, 183, 109), //Trans-Flame Yellowish Orange
+                new Rgb24(169, 85, 0), //Dark Orange
+                new Rgb24(254, 138, 24), //Orange
+                new Rgb24(247, 173, 99), //Modulex Foil Orange
+                new Rgb24(247, 173, 99), //Modulex Light Orange
+                new Rgb24(180, 132, 85), //Flat Dark Gold
+                new Rgb24(115, 114, 113), //Two-tone Silver
+                new Rgb24(255, 128, 13), //Trans-Neon Orange
+                new Rgb24(255, 128, 20), //Fabuland Red
+                new Rgb24(170, 125, 85), //Medium Nougat
+                new Rgb24(182, 123, 80), //Fabuland Brown
+                new Rgb24(117, 89, 69), //Medium Brown
+                new Rgb24(171, 103, 58), //Two-tone Gold
+                new Rgb24(208, 145, 104), //Nougat
+                new Rgb24(244, 123, 48), //Modulex Orange
+                new Rgb24(88, 57, 39), //Trans-Brown Opal
+                new Rgb24(88, 57, 39), //Brown
+                new Rgb24(174, 122, 89), //Copper
+                new Rgb24(88, 42, 18), //Reddish Brown
+                new Rgb24(124, 80, 58), //Light Brown
+                new Rgb24(173, 97, 64), //Dark Nougat
+                new Rgb24(87, 57, 44), //Pearl Brown
+                new Rgb24(135, 43, 23), //Rust Orange
+                new Rgb24(238, 84, 52), //Reddish Orange
+                new Rgb24(244, 92, 64), //Modulex Pink Red
+                new Rgb24(202, 31, 8), //Vintage Red
+                new Rgb24(242, 112, 94), //Salmon
+                new Rgb24(148, 81, 72), //Two-tone Copper
+                new Rgb24(201, 26, 9), //Red
+                new Rgb24(201, 26, 9), //Trans-Red
+                new Rgb24(179, 16, 4), //Rust
+                new Rgb24(181, 44, 32), //Modulex Red
+                new Rgb24(214, 117, 114), //Sand Red
+                new Rgb24(139, 0, 0), //Modulex Foil Red
+                new Rgb24(51, 0, 0), //Modulex Tile Brown
+                new Rgb24(255, 255, 255), //Milky White
+                new Rgb24(252, 252, 252), //Trans-Clear
+                new Rgb24(242, 243, 242), //Pearl White
+                new Rgb24(230, 227, 218), //Very Light Gray
+                new Rgb24(230, 227, 224), //Very Light Bluish Gray
+                new Rgb24(224, 224, 224), //Chrome Silver
+                new Rgb24(165, 169, 180), //Metallic Silver
+                new Rgb24(171, 173, 172), //Pearl Very Light Gray
+                new Rgb24(160, 165, 169), //Light Bluish Gray
+                new Rgb24(156, 163, 168), //Pearl Light Gray
+                new Rgb24(155, 161, 157), //Light Gray
+                new Rgb24(137, 135, 136), //Flat Silver
+                new Rgb24(109, 110, 92), //Dark Gray
+                new Rgb24(108, 110, 104), //Dark Bluish Gray
+                new Rgb24(99, 95, 82), //Trans-Black
+                new Rgb24(87, 88, 87), //Pearl Dark Gray
+                new Rgb24(27, 42, 52), //Chrome Black
+                new Rgb24(107, 90, 90), //Modulex Tile Gray
+                new Rgb24(5, 19, 29), //Black
+                new Rgb24(255, 255, 255), //Glitter Trans-Clear
+                new Rgb24(255, 255, 255), //White
+                new Rgb24(255, 255, 255), //Modulex Clear
+                new Rgb24(252, 252, 252), //Trans-Clear Opal
+                new Rgb24(244, 244, 244), //Modulex White
+                new Rgb24(217, 217, 217), //Glow in Dark White
+                new Rgb24(156, 156, 156), //Modulex Foil Light Gray
+                new Rgb24(156, 156, 156), //Modulex Light Gray
 
             };
         }
