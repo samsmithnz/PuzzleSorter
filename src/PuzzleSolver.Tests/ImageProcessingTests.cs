@@ -247,7 +247,7 @@ Blue: 0.95%
     }
 
     [TestMethod]
-    public void ColorfulPhotoImageTest()
+    public void ColorfulPhotoImageWith16ColorPaletteTest()
     {
         //Arrange
         ImageColorGroups imageProcessing = new(ColorPalettes.Get16ColorPalette());
