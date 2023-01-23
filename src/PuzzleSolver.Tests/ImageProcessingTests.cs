@@ -156,7 +156,7 @@ Yellow: 33.33%
     }
 
     [TestMethod]
-    public void RedToBlueBlendImageWith8ColorsImageTest()
+    public void RedToBlueBlendImageWith8ColorImageTest()
     {
         //Arrange
         ImageColorGroups imageProcessing = new(ColorPalettes.Get8ColorPalette());
@@ -181,7 +181,7 @@ Orange: 11.21%
     }
 
     [TestMethod]
-    public void PuzzlePiecesImageTest()
+    public void PuzzlePiecesImageWith8ColorPaletteTest()
     {
         //Arrange
         ImageColorGroups imageProcessing = new(ColorPalettes.Get8ColorPalette());
