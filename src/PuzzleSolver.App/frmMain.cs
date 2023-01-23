@@ -60,7 +60,7 @@ namespace PuzzleSolver.App
                     {
                         int x = containerStartingX;
                         int y = (i * containerHeight) + (i * containerStartingY) + containerStartingY;
-                        //Create the groupbox container for the parent color
+                        //Create the group container for the parent color
                         GroupBox groupBox = new()
                         {
                             Height = containerHeight,
