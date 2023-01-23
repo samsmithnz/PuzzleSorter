@@ -42,8 +42,6 @@ public class ImageProcessing
     {
         Dictionary<Rgb24, List<Rgb24>> groupedColors = new();
 
-        //using var destImg = new Image<Rgb24>(srcWidth, srcHeight);
-        //Dictionary<Rgb24, int> pixels = new();
         image?.ProcessPixelRows(accessor =>
         {
             //int srcWidth = sourceImg.Size().Width;
