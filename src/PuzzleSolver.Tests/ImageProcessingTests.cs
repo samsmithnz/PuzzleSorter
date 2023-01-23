@@ -10,7 +10,7 @@ public class ImageProcessingTests
 {
 
     [TestMethod]
-    public void FourPixelImageWithJustPrimaryPaletteTest()
+    public void FourPixelImageWith3ColorPaletteTest()
     {
         //Arrange
         ImageColorGroups imageProcessing = new(ColorPalettes.Get3ColorPalette());
@@ -31,10 +31,10 @@ Yellow: 25.00%
     }
 
     [TestMethod]
-    public void FourPixelImageWithPrimaryAndSecondaryPaletteTest()
+    public void FourPixelImageWith6ColorPaletteTest()
     {
         //Arrange
-        ImageColorGroups imageProcessing = new(ColorPalettes.Get8ColorPalette());
+        ImageColorGroups imageProcessing = new(ColorPalettes.Get6ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
 
         //Act
@@ -49,7 +49,7 @@ Yellow: 25.00%
     }
 
     [TestMethod]
-    public void FourPixelImageWith16ColorsPaletteTest()
+    public void FourPixelImageWith16ColorPaletteTest()
     {
         //Arrange
         ImageColorGroups imageProcessing = new(ColorPalettes.Get16ColorPalette());
@@ -65,7 +65,50 @@ Yellow: 25.00%
     }
 
     [TestMethod]
-    public void PrimaryAndSecondaryColorsImageWithOnlyPrimaryPaletteTest()
+    public void FourPixelImageWith16ColorPaletteWithPriorityColorTest()
+    {
+        //Arrange
+        SortedList<int, Rgb24> priorityColorPalette = new();
+        priorityColorPalette.Add(1, Color.Lime.ToPixel<Rgb24>());
+
+        ImageColorGroups imageProcessing = new(ColorPalettes.Get16ColorPalette(), priorityColorPalette);
+        string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
+
+        //Act
+        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir);
+
+        //Assert
+        Assert.IsNotNull(imageStats);
+        Assert.AreEqual(3, imageStats?.ColorGroups?.Count);
+        Assert.AreEqual(2, imageStats?.ColorGroups?[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(1, imageStats?.ColorGroups?[Color.Blue.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(1, imageStats?.ColorGroups?[Color.Lime.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual("Lime", imageStats?.TopNamedColor);
+    }
+
+    [TestMethod]
+    public void FourPixelImageWith16ColorPaletteWithNoPriorityColorTest()
+    {
+        //Arrange
+        SortedList<int, Rgb24> priorityColorPalette = new();
+
+        ImageColorGroups imageProcessing = new(ColorPalettes.Get16ColorPalette(), priorityColorPalette);
+        string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
+
+        //Act
+        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir);
+
+        //Assert
+        Assert.IsNotNull(imageStats);
+        Assert.AreEqual(3, imageStats?.ColorGroups?.Count);
+        Assert.AreEqual(2, imageStats?.ColorGroups?[Color.Red.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(1, imageStats?.ColorGroups?[Color.Blue.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual(1, imageStats?.ColorGroups?[Color.Lime.ToPixel<Rgb24>()].Count);
+        Assert.AreEqual("Red", imageStats?.TopNamedColor);
+    }
+
+    [TestMethod]
+    public void PrimaryAndSecondaryColorsImageWith3ColorPaletteTest()
     {
         //Arrange
         ImageColorGroups imageProcessing = new(ColorPalettes.Get3ColorPalette());
@@ -88,10 +131,10 @@ Yellow: 33.33%
     }
 
     [TestMethod]
-    public void PrimaryAndSecondaryColorsImageWithPrimaryAndSecondaryPaletteTest()
+    public void PrimaryAndSecondaryColorsImageWith6ColorPaletteTest()
     {
         //Arrange
-        ImageColorGroups imageProcessing = new(ColorPalettes.Get8ColorPalette());
+        ImageColorGroups imageProcessing = new(ColorPalettes.Get6ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/PrimaryAndSecondaryColors.png";
 
         //Act
@@ -109,7 +152,7 @@ Yellow: 33.33%
     }
 
     [TestMethod]
-    public void PrimaryAndSecondaryColorsImageWithNamedColorsPaletteTest()
+    public void PrimaryAndSecondaryColorsImageWith141ColorPaletteTest()
     {
         //Arrange
         ImageColorGroups imageProcessing = new(ColorPalettes.Get141ColorPalette());
@@ -120,6 +163,8 @@ Yellow: 33.33%
 
         //Assert
         Assert.IsNotNull(imageStats);
+        Assert.AreEqual(3, imageStats?.NamedColorsAndPercentList?.Count);
+        Assert.AreEqual("Other", imageStats?.NamedColorsAndPercentList?[2].Name);
         Assert.AreEqual(6, imageStats?.ColorGroups?.Count);
         int i = 0;
         if (imageStats?.ColorGroups != null)
@@ -153,10 +198,11 @@ Yellow: 33.33%
                 i++;
             }
         }
+
     }
 
     [TestMethod]
-    public void RedToBlueBlendColorsImageTest()
+    public void RedToBlueBlendImageWith8ColorImageTest()
     {
         //Arrange
         ImageColorGroups imageProcessing = new(ColorPalettes.Get8ColorPalette());
@@ -181,7 +227,7 @@ Orange: 11.21%
     }
 
     [TestMethod]
-    public void PuzzlePiecesImageTest()
+    public void PuzzlePiecesImageWith8ColorPaletteTest()
     {
         //Arrange
         ImageColorGroups imageProcessing = new(ColorPalettes.Get8ColorPalette());
@@ -214,7 +260,7 @@ Yellow: 0.05%
     }
 
     [TestMethod]
-    public void NamedColorImageTest()
+    public void NamedColorImageWith16ColorPaletteTest()
     {
         //Arrange
         ImageColorGroups imageProcessing = new(ColorPalettes.Get16ColorPalette());
@@ -247,7 +293,7 @@ Blue: 0.95%
     }
 
     [TestMethod]
-    public void ColorfulPhotoImageTest()
+    public void ColorfulPhotoImageWith16ColorPaletteTest()
     {
         //Arrange
         ImageColorGroups imageProcessing = new(ColorPalettes.Get16ColorPalette());
