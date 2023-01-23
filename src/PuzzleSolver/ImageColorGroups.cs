@@ -48,7 +48,7 @@ public class ImageColorGroups
                 ColorGroups = ProcessImageIntoColorGroups(sourceImage),
                 PriorityColorPalette = PriorityColorPalette
             };
-            imageStats.NamedColorsAndPercentList = BuildNamedColorsAndPercentList(imageStats.ColorGroups, onlyShowTop3);
+            imageStats.NamedColorsAndPercentList = BuildNamedColorsAndPercentList(imageStats.ColorGroups, imageStats.PriorityColorPalette, onlyShowTop3);
         }
         return imageStats;
     }
@@ -122,9 +122,17 @@ public class ImageColorGroups
         return (int)Math.Sqrt(Math.Pow(color1.R - color2.R, 2) + Math.Pow(color1.G - color2.G, 2) + Math.Pow(color1.B - color2.B, 2));
     }
 
-    private static List<KeyValuePair<string, double>> BuildNamedColorsAndPercentList(Dictionary<Rgb24, List<Rgb24>> colorGroups, bool onlyShowTop3)
+    private static List<ColorStats> BuildNamedColorsAndPercentList(
+        Dictionary<Rgb24, List<Rgb24>> colorGroups,
+        SortedList<int, Rgb24> priorityColorPalette,
+        bool onlyShowTop3)
     {
-        List<KeyValuePair<string, double>> namePercentList = new();
+        ////If there are priority items, we use this first
+        //if (PriorityColorPalette.Count > 0)
+        //{
+
+        //}
+        List<ColorStats> namePercentList = new();
         //Calculate the name and percent and add it into a list
         int count = 0;
         double totalOtherPercent = 0;
@@ -138,15 +146,15 @@ public class ImageColorGroups
             }
             else
             {
-                namePercentList.Add(new KeyValuePair<string, double>(ColorPalettes.ToName(colorGroup.Key), percent));
+                namePercentList.Add(new(ColorPalettes.ToName(colorGroup.Key), percent));
             }
         }
         //Order the percent list
-        namePercentList = namePercentList.OrderByDescending(t => t.Value).ThenBy(x => x.Key).ToList();
+        namePercentList = namePercentList.OrderBy(t => t.Order).ThenByDescending(x => x.Percent).ThenBy(x => x.Name).ToList();
         //Add the other percent if needed
         if (onlyShowTop3 == true && Math.Round(totalOtherPercent, 2) > 0)
         {
-            namePercentList.Add(new KeyValuePair<string, double>("Other", totalOtherPercent));
+            namePercentList.Add(new("Other", totalOtherPercent));
         }
         return namePercentList;
     }

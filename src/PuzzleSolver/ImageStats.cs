@@ -14,7 +14,7 @@ namespace PuzzleSolver
         public Image<Rgb24> Image { get; set; }
         public Dictionary<Rgb24, List<Rgb24>>? ColorGroups { get; set; }
         public SortedList<int, Rgb24> PriorityColorPalette { get; set; }
-        public List<KeyValuePair<string, double>>? NamedColorsAndPercentList { get; set; }
+        public List<ColorStats>? NamedColorsAndPercentList { get; set; }
 
         public Rgb24? TopColorGroupColor
         {
@@ -31,7 +31,7 @@ namespace PuzzleSolver
                 if (NamedColorsAndPercentList != null &&
                     NamedColorsAndPercentList.Count > 0)
                 {
-                    return NamedColorsAndPercentList[0].Key;
+                    return NamedColorsAndPercentList[0].Name;
                 }
                 else
                 {
@@ -48,9 +48,9 @@ namespace PuzzleSolver
                 StringBuilder sb = new();
                 if (NamedColorsAndPercentList != null)
                 {
-                    foreach (KeyValuePair<string, double> item in NamedColorsAndPercentList)
+                    foreach (ColorStats item in NamedColorsAndPercentList)
                     {
-                        sb.AppendLine($"{item.Key}: {item.Value:0.00%}");
+                        sb.AppendLine($"{item.Name}: {item.Percent:0.00%}");
                     }
                 }
                 return sb.ToString();
