@@ -88,20 +88,20 @@ public class ColorPaletteTests
         }
     }
 
-    //[TestMethod]
-    //public void Verify24ColorPaletteTest()
-    //{
-    //    //Arrange
-    //    List<Rgb24> colors = ColorPalettes.Get24ColorPalette();
+    [TestMethod]
+    public void VerifyColorWithNoNameTest()
+    {
+        //Arrange
+        List<Rgb24> colors = new() { new Rgb24(1,1,1)};
 
-    //    //Act
+        //Act
 
-    //    //Assert
-    //    Assert.AreEqual(24, colors.Count);
-    //    foreach (Rgb24 color in colors)
-    //    {
-    //        Assert.IsFalse(string.IsNullOrEmpty(ColorPalettes.ToName(color)));
-    //    }
-    //}
+        //Assert
+        Assert.AreEqual(1, colors.Count);
+        foreach (Rgb24 color in colors)
+        {
+            Assert.IsTrue(string.IsNullOrEmpty(ColorPalettes.ToName(color)));
+        }
+    }
 
 }
