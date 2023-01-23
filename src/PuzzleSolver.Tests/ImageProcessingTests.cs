@@ -88,10 +88,10 @@ Yellow: 33.33%
     }
 
     [TestMethod]
-    public void PrimaryAndSecondaryColorsImageWithPrimaryAndSecondaryPaletteTest()
+    public void PrimaryAndSecondaryColorsImageWith6ColorPaletteTest()
     {
         //Arrange
-        ImageColorGroups imageProcessing = new(ColorPalettes.Get8ColorPalette());
+        ImageColorGroups imageProcessing = new(ColorPalettes.Get6ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/PrimaryAndSecondaryColors.png";
 
         //Act
@@ -109,7 +109,7 @@ Yellow: 33.33%
     }
 
     [TestMethod]
-    public void PrimaryAndSecondaryColorsImageWithNamedColorsPaletteTest()
+    public void PrimaryAndSecondaryColorsImageWith141ColorPaletteTest()
     {
         //Arrange
         ImageColorGroups imageProcessing = new(ColorPalettes.Get141ColorPalette());
@@ -156,7 +156,7 @@ Yellow: 33.33%
     }
 
     [TestMethod]
-    public void RedToBlueBlendColorsImageTest()
+    public void RedToBlueBlendImageWith8ColorsImageTest()
     {
         //Arrange
         ImageColorGroups imageProcessing = new(ColorPalettes.Get8ColorPalette());
