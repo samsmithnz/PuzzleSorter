@@ -31,10 +31,10 @@ Yellow: 25.00%
     }
 
     [TestMethod]
-    public void FourPixelImageWithPrimaryAndSecondaryPaletteTest()
+    public void FourPixelImageWith6ColorPaletteTest()
     {
         //Arrange
-        ImageColorGroups imageProcessing = new(ColorPalettes.Get8ColorPalette());
+        ImageColorGroups imageProcessing = new(ColorPalettes.Get6ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
 
         //Act
@@ -49,7 +49,7 @@ Yellow: 25.00%
     }
 
     [TestMethod]
-    public void FourPixelImageWith16ColorsPaletteTest()
+    public void FourPixelImageWith16ColorPaletteTest()
     {
         //Arrange
         ImageColorGroups imageProcessing = new(ColorPalettes.Get16ColorPalette());
