@@ -1,15 +1,15 @@
 ﻿namespace PuzzleSolver.App
 {
-    public class BitmapSplitter
+    public static class BitmapSplitter
     {
-        public Bitmap CropImage(Image img, Rectangle cropArea)
+        public static Bitmap CropImage(Image img, Rectangle cropArea)
         {
             Bitmap bmpImage = new(img);
             Bitmap bmpCrop = bmpImage.Clone(cropArea, bmpImage.PixelFormat);
             return bmpCrop;
         }
 
-        public BitmapItem[] BitmapToArray(Bitmap inp, Point BlockSize)
+        public static BitmapItem[] BitmapToArray(Bitmap inp, Point BlockSize)
         {
             if (BlockSize.X > inp.Width || BlockSize.Y > inp.Height)
             {
@@ -39,9 +39,10 @@
             g.DrawImage(inp, 0, 0, new Rectangle(0, 0, Temp.Width, Temp.Height), GraphicsUnit.Pixel);
             g.Dispose(); //Cleaning up; Temp now has the exact bitmap size of what input BMP should has for devision.
 
-            BitmapItem[] T = new BitmapItem[(tx * ty) + 1]; //Array for Bitmap MatriX
+            BitmapItem[] T = new BitmapItem[(tx * ty) + 1]; //Array for Bitmap Matrix
 
-            int Xpos = 0, Ypos;
+            int Xpos = 0;
+            int Ypos;
             int counter = 0;
             //Move left to right, top to bottom, like reading a book.
             for (int i = 0; i < tx; i++)
@@ -49,9 +50,11 @@
                 Ypos = 0;
                 for (int j = 0; j < ty; j++)
                 {
-                    BitmapItem t = new();
-                    t.start_location = new Point(Xpos, Ypos);
-                    t.Bitmap = new Bitmap(BlockSize.X, BlockSize.Y);
+                    BitmapItem t = new()
+                    {
+                        start_location = new Point(Xpos, Ypos),
+                        Bitmap = new Bitmap(BlockSize.X, BlockSize.Y)
+                    };
                     Graphics gt = Graphics.FromImage(t.Bitmap);
                     gt.DrawImage(Temp, Xpos, Ypos, new Rectangle(0, 0, t.Bitmap.Width, t.Bitmap.Height), GraphicsUnit.Pixel);
                     gt.Dispose();

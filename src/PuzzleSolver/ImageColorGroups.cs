@@ -3,24 +3,30 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace PuzzleSolver;
 
-public class ImageProcessing
+public class ImageColorGroups
 {
     public List<Rgb24> ColorPalette { get; set; }
 
-    public ImageProcessing(List<Rgb24> colorPalette)
+    public ImageColorGroups(List<Rgb24> colorPalette)
     {
         //Add the primary and secondary colors, with black and white for initial buckets
         ColorPalette = colorPalette;
     }
 
+    /// <summary>
+    /// Get Images Statistics for target image
+    /// </summary>
+    /// <param name="sourceFilename"></param>
+    /// <param name="image"></param>
+    /// <param name="onlyShowTop3"></param>
+    /// <returns></returns>
     public ImageStats? ProcessStatsForImage(string? sourceFilename = null, Image<Rgb24>? image = null, bool onlyShowTop3 = true)
     {
         ImageStats? imageStats = null;
         Image<Rgb24>? sourceImage = null;
         if (sourceFilename != null)
         {
-            FileInfo srcFile = new(sourceFilename);
-            sourceImage = Image.Load<Rgb24>(srcFile.FullName);
+            sourceImage = Image.Load<Rgb24>(sourceFilename);
         }
         else if (image != null)
         {
@@ -42,8 +48,6 @@ public class ImageProcessing
     {
         Dictionary<Rgb24, List<Rgb24>> groupedColors = new();
 
-        //using var destImg = new Image<Rgb24>(srcWidth, srcHeight);
-        //Dictionary<Rgb24, int> pixels = new();
         image?.ProcessPixelRows(accessor =>
         {
             //int srcWidth = sourceImg.Size().Width;
@@ -95,7 +99,7 @@ public class ImageProcessing
         //Order the results and save over itself
         results = results.OrderBy(t => t.Value).ToList();
 
-        //Check if the largest postive or negative value is closer
+        //Check if the largest positive or negative value is closer
         if (results.Count > 0)
         {
             closestColorGroup = results[0].Key;
@@ -103,7 +107,7 @@ public class ImageProcessing
         return closestColorGroup;
     }
 
-    //Since it uses Sqrt, it always returns a postive number
+    //Since it uses Sqrt, it always returns a positive number
     private static int GetColorDifference(Rgb24 color1, Rgb24 color2)
     {
         return (int)Math.Sqrt(Math.Pow(color1.R - color2.R, 2) + Math.Pow(color1.G - color2.G, 2) + Math.Pow(color1.B - color2.B, 2));
@@ -111,7 +115,7 @@ public class ImageProcessing
 
     private static List<KeyValuePair<string, double>> BuildNamedColorsAndPercentList(Dictionary<Rgb24, List<Rgb24>> colorGroups, bool onlyShowTop3)
     {
-        List<KeyValuePair<string, double>> namePercents = new();
+        List<KeyValuePair<string, double>> namePercentList = new();
         //Calculate the name and percent and add it into a list
         int count = 0;
         double totalOtherPercent = 0;
@@ -125,66 +129,16 @@ public class ImageProcessing
             }
             else
             {
-                namePercents.Add(new KeyValuePair<string, double>(ColorPalettes.ToName(colorGroup.Key), percent));
+                namePercentList.Add(new KeyValuePair<string, double>(ColorPalettes.ToName(colorGroup.Key), percent));
             }
         }
-        //Order the percents
-        namePercents = namePercents.OrderByDescending(t => t.Value).ThenBy(x => x.Key).ToList();
+        //Order the percent list
+        namePercentList = namePercentList.OrderByDescending(t => t.Value).ThenBy(x => x.Key).ToList();
         //Add the other percent if needed
         if (onlyShowTop3 == true && Math.Round(totalOtherPercent, 2) > 0)
         {
-            namePercents.Add(new KeyValuePair<string, double>("Other", totalOtherPercent));
+            namePercentList.Add(new KeyValuePair<string, double>("Other", totalOtherPercent));
         }
-        return namePercents;
+        return namePercentList;
     }
-
-    /// <summary>
-    /// Crop/cut out a small piece of a larger image
-    /// </summary>
-    /// <param name="sourceImage"></param>
-    /// <param name="areaToExtract"></param>
-    /// <returns>Image<Rgb24></returns>
-    public static Image<Rgb24> CropImage(Image<Rgb24> sourceImage, Rectangle areaToExtract)
-    {
-        //from https://docs.sixlabors.com/articles/imagesharp/pixelbuffers.html#efficient-pixel-manipulation
-        Image<Rgb24> targetImage = new(areaToExtract.Width, areaToExtract.Height);
-        int height = areaToExtract.Height;
-        sourceImage.ProcessPixelRows(targetImage, (sourceAccessor, targetAccessor) =>
-        {
-            for (int row = 0; row < height; row++)
-            {
-                //get the row from the Y + row index
-                Span<Rgb24> sourceRow = sourceAccessor.GetRowSpan(areaToExtract.Y + row);
-                //Setup the target row
-                Span<Rgb24> targetRow = targetAccessor.GetRowSpan(row);
-                //Copy the source to the target
-                //Copy the source to the target
-                sourceRow.Slice(areaToExtract.X, areaToExtract.Width).CopyTo(targetRow);
-            }
-        });
-
-        return targetImage;
-    }
-
-    /// <summary>
-    /// Split a larger image into equal sized smaller pieces
-    /// </summary>
-    /// <param name="sourceImage"></param>
-    /// <param name="width"></param>
-    /// <param name="height"></param>
-    /// <returns>List<Image<Rgb24>></returns>
-    public static List<Image<Rgb24>> SplitImageIntoMultiplePieces(Image<Rgb24> sourceImage, int width, int height)
-    {
-        List<Image<Rgb24>> images = new();
-        for (int y = 0; y < (sourceImage.Height / height); y++)
-        {
-            for (int x = 0; x < (sourceImage.Width / width); x++)
-            {
-                Rectangle rectangle = new(x * width, y * height, width, height);
-                images.Add(CropImage(sourceImage, rectangle));
-            }
-        }
-        return images;
-    }
-
 }

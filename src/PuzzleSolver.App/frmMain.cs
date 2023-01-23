@@ -1,6 +1,5 @@
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
-using System.Diagnostics;
 
 namespace PuzzleSolver.App
 {
@@ -17,7 +16,7 @@ namespace PuzzleSolver.App
 
             //1. Read in input image
             string sourceImageLocation = Environment.CurrentDirectory + @"/Images/st-john-beach.jpg";
-            ImageProcessing imageProcessing = new(palette);
+            ImageColorGroups imageProcessing = new(palette);
             ImageStats? sourceImageStats = imageProcessing.ProcessStatsForImage(sourceImageLocation, null, false);
             lblSourceImageStats.Text = sourceImageStats?.NamesToString;
 
@@ -29,7 +28,7 @@ namespace PuzzleSolver.App
 
             //Crop the individual images next
             Image<Rgb24> sourceImg = SixLabors.ImageSharp.Image.Load<Rgb24>(sourceImageLocation);
-            List<Image<Rgb24>> images = ImageProcessing.SplitImageIntoMultiplePieces(sourceImg, subImageWidth, subImageHeight);
+            List<Image<Rgb24>> images = ImageCropping.SplitImageIntoMultiplePieces(sourceImg, subImageWidth, subImageHeight);
 
             //Get image stats for each individual image and combine in one list
             List<ImageStats> subImages = new();
@@ -60,7 +59,7 @@ namespace PuzzleSolver.App
                     {
                         int x = containerStartingX;
                         int y = (i * containerHeight) + (i * containerStartingY) + containerStartingY;
-                        //Create the groupbox container for the parent color
+                        //Create the group container for the parent color
                         GroupBox groupBox = new()
                         {
                             Height = containerHeight,
@@ -79,7 +78,7 @@ namespace PuzzleSolver.App
                             AutoScroll = true,
                             Parent = groupBox
                         };
-                        //Create a image with the color that lives in the title of the groupbox
+                        //Create a image with the color that lives in the title of the group container
                         _ = new PictureBox()
                         {
                             Location = new System.Drawing.Point(6, 8),
@@ -93,7 +92,6 @@ namespace PuzzleSolver.App
                         int xLocation = 0;
                         for (int j = 0; j < subImages.Count; j++)
                         {
-                            Debug.WriteLine(subImages[j].TopColorGroupColor);
                             if (item.Key == subImages[j].TopColorGroupColor)
                             {
                                 //Now we have to show the items that map to this parent
@@ -134,7 +132,7 @@ namespace PuzzleSolver.App
 
         }
 
-        private bool CheckIfColorGroupUsed(Rgb24 color, List<ImageStats> subImages)
+        private static bool CheckIfColorGroupUsed(Rgb24 color, List<ImageStats> subImages)
         {
             bool result = false;
             foreach (ImageStats item in subImages)
@@ -151,14 +149,13 @@ namespace PuzzleSolver.App
 
         private List<Bitmap> SplitBitmapIntoPieces(System.Drawing.Image sourceImage, int width, int height)
         {
-            BitmapSplitter splitter = new();
             List<Bitmap> bitmaps = new();
             for (int y = 0; y < (sourceImage.Height / height); y++)
             {
                 for (int x = 0; x < (sourceImage.Width / width); x++)
                 {
                     System.Drawing.Rectangle rectangle = new(x * width, y * height, width, height);
-                    bitmaps.Add(splitter.CropImage(picSourceImage.Image, rectangle));
+                    bitmaps.Add(BitmapSplitter.CropImage(picSourceImage.Image, rectangle));
                 }
             }
             return bitmaps;
