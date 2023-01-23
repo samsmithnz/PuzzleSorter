@@ -433,7 +433,7 @@ namespace PuzzleSolver
             else if (Color.Teal.ToPixel<Rgb24>() == rgb24) { return "Teal"; }
             else if (Color.Thistle.ToPixel<Rgb24>() == rgb24) { return "Thistle"; }
             else if (Color.Tomato.ToPixel<Rgb24>() == rgb24) { return "Tomato"; }
-            else if (Color.Transparent.ToPixel<Rgb24>() == rgb24) { return "Transparent"; }
+            //else if (Color.Transparent.ToPixel<Rgb24>() == rgb24) { return "Transparent"; }
             else if (Color.Turquoise.ToPixel<Rgb24>() == rgb24) { return "Turquoise"; }
             else if (Color.Violet.ToPixel<Rgb24>() == rgb24) { return "Violet"; }
             else if (Color.Wheat.ToPixel<Rgb24>() == rgb24) { return "Wheat"; }
