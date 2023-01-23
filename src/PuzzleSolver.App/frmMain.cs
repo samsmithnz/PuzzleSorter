@@ -79,7 +79,7 @@ namespace PuzzleSolver.App
                             AutoScroll = true,
                             Parent = groupBox
                         };
-                        //Create a image with the color that lives in the title of the groupbox
+                        //Create a image with the color that lives in the title of the group container
                         _ = new PictureBox()
                         {
                             Location = new System.Drawing.Point(6, 8),
