@@ -127,11 +127,6 @@ public class ImageColorGroups
         SortedList<int, Rgb24> priorityColorPalette,
         bool onlyShowTop3)
     {
-        ////If there are priority items, we use this first
-        //if (PriorityColorPalette.Count > 0)
-        //{
-
-        //}
         List<ColorStats> namePercentList = new();
         //Calculate the name and percent and add it into a list
         int count = 0;
@@ -140,13 +135,25 @@ public class ImageColorGroups
         {
             count++;
             double percent = (double)colorGroup.Value.Count / (double)colorGroups.Sum(t => t.Value.Count);
-            if (onlyShowTop3 == true && count > 2)
+            //if (onlyShowTop3 == true && count > 2)
+            //{
+            //    totalOtherPercent += percent;
+            //}
+            //else
+            //{
+                namePercentList.Add(new(colorGroup.Key, ColorPalettes.ToName(colorGroup.Key), percent));
+            //}
+        }
+        //If there are priority items, update the order
+        if (priorityColorPalette.Count > 0)
+        {
+            foreach (KeyValuePair<int, Rgb24> priorityItem in priorityColorPalette)
             {
-                totalOtherPercent += percent;
-            }
-            else
-            {
-                namePercentList.Add(new(ColorPalettes.ToName(colorGroup.Key), percent));
+                ColorStats? priorityColorStats = namePercentList.Where(x => x.Rgb == priorityItem.Value).FirstOrDefault();
+                if (priorityColorStats != null)
+                {
+                    priorityColorStats.Order = priorityItem.Key;
+                }
             }
         }
         //Order the percent list
@@ -154,7 +161,7 @@ public class ImageColorGroups
         //Add the other percent if needed
         if (onlyShowTop3 == true && Math.Round(totalOtherPercent, 2) > 0)
         {
-            namePercentList.Add(new("Other", totalOtherPercent));
+            namePercentList.Add(new(null, "Other", totalOtherPercent));
         }
         return namePercentList;
     }

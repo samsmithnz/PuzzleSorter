@@ -142,6 +142,7 @@ Yellow: 33.33%
 
         //Assert
         Assert.IsNotNull(imageStats);
+        Assert.AreEqual(6, imageStats?.NamedColorsAndPercentList?.Count);
         Assert.AreEqual(6, imageStats?.ColorGroups?.Count);
         int i = 0;
         if (imageStats?.ColorGroups != null)
@@ -175,6 +176,7 @@ Yellow: 33.33%
                 i++;
             }
         }
+
     }
 
     [TestMethod]
