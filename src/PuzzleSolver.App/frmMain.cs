@@ -134,7 +134,7 @@ namespace PuzzleSolver.App
 
         }
 
-        private bool CheckIfColorGroupUsed(Rgb24 color, List<ImageStats> subImages)
+        private static bool CheckIfColorGroupUsed(Rgb24 color, List<ImageStats> subImages)
         {
             bool result = false;
             foreach (ImageStats item in subImages)
