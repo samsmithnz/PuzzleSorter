@@ -13,7 +13,7 @@ public class ImageProcessingTests
     public void FourPixelImageWithJustPrimaryPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.Get3ColorPalette());
+        ImageColorGroups imageProcessing = new(ColorPalettes.Get3ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
 
         //Act
@@ -34,7 +34,7 @@ Yellow: 25.00%
     public void FourPixelImageWithPrimaryAndSecondaryPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.Get8ColorPalette());
+        ImageColorGroups imageProcessing = new(ColorPalettes.Get8ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
 
         //Act
@@ -52,7 +52,7 @@ Yellow: 25.00%
     public void FourPixelImageWith16ColorsPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.Get16ColorPalette());
+        ImageColorGroups imageProcessing = new(ColorPalettes.Get16ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
 
         //Act
@@ -68,7 +68,7 @@ Yellow: 25.00%
     public void PrimaryAndSecondaryColorsImageWithOnlyPrimaryPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.Get3ColorPalette());
+        ImageColorGroups imageProcessing = new(ColorPalettes.Get3ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/PrimaryAndSecondaryColors.png";
 
         //Act
@@ -91,7 +91,7 @@ Yellow: 33.33%
     public void PrimaryAndSecondaryColorsImageWithPrimaryAndSecondaryPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.Get8ColorPalette());
+        ImageColorGroups imageProcessing = new(ColorPalettes.Get8ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/PrimaryAndSecondaryColors.png";
 
         //Act
@@ -112,7 +112,7 @@ Yellow: 33.33%
     public void PrimaryAndSecondaryColorsImageWithNamedColorsPaletteTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.Get141ColorPalette());
+        ImageColorGroups imageProcessing = new(ColorPalettes.Get141ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/PrimaryAndSecondaryColors.png";
 
         //Act
@@ -159,7 +159,7 @@ Yellow: 33.33%
     public void RedToBlueBlendColorsImageTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.Get8ColorPalette());
+        ImageColorGroups imageProcessing = new(ColorPalettes.Get8ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/RedToBlueBlend.jpg";
 
         //Act
@@ -184,7 +184,7 @@ Orange: 11.21%
     public void PuzzlePiecesImageTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.Get8ColorPalette());
+        ImageColorGroups imageProcessing = new(ColorPalettes.Get8ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/PuzzlePieces.jpg";
 
         //Act
@@ -217,7 +217,7 @@ Yellow: 0.05%
     public void NamedColorImageTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.Get16ColorPalette());
+        ImageColorGroups imageProcessing = new(ColorPalettes.Get16ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/NamedColors.jpg";
 
         //Act
@@ -250,7 +250,7 @@ Blue: 0.95%
     public void ColorfulPhotoImageTest()
     {
         //Arrange
-        ImageProcessing imageProcessing = new(ColorPalettes.Get16ColorPalette());
+        ImageColorGroups imageProcessing = new(ColorPalettes.Get16ColorPalette());
         string imageDir = Environment.CurrentDirectory + @"/TestImages/ColorfulPhoto.jpg";
 
         //Act
@@ -287,7 +287,7 @@ Blue: 0.00%
 
         //Act
         Image<Rgb24> image = Image.Load<Rgb24>(imageDir);
-        List<Image<Rgb24>> images = ImageProcessing.SplitImageIntoMultiplePieces(image, 390, 390);
+        List<Image<Rgb24>> images = ImageColorGroups.SplitImageIntoMultiplePieces(image, 390, 390);
 
         //Assert
         Assert.IsNotNull(images);

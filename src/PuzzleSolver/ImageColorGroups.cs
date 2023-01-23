@@ -3,11 +3,11 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace PuzzleSolver;
 
-public class ImageProcessing
+public class ImageColorGroups
 {
     public List<Rgb24> ColorPalette { get; set; }
 
-    public ImageProcessing(List<Rgb24> colorPalette)
+    public ImageColorGroups(List<Rgb24> colorPalette)
     {
         //Add the primary and secondary colors, with black and white for initial buckets
         ColorPalette = colorPalette;

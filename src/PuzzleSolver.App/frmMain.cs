@@ -17,7 +17,7 @@ namespace PuzzleSolver.App
 
             //1. Read in input image
             string sourceImageLocation = Environment.CurrentDirectory + @"/Images/st-john-beach.jpg";
-            ImageProcessing imageProcessing = new(palette);
+            ImageColorGroups imageProcessing = new(palette);
             ImageStats? sourceImageStats = imageProcessing.ProcessStatsForImage(sourceImageLocation, null, false);
             lblSourceImageStats.Text = sourceImageStats?.NamesToString;
 
@@ -29,7 +29,7 @@ namespace PuzzleSolver.App
 
             //Crop the individual images next
             Image<Rgb24> sourceImg = SixLabors.ImageSharp.Image.Load<Rgb24>(sourceImageLocation);
-            List<Image<Rgb24>> images = ImageProcessing.SplitImageIntoMultiplePieces(sourceImg, subImageWidth, subImageHeight);
+            List<Image<Rgb24>> images = ImageColorGroups.SplitImageIntoMultiplePieces(sourceImg, subImageWidth, subImageHeight);
 
             //Get image stats for each individual image and combine in one list
             List<ImageStats> subImages = new();
