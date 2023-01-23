@@ -127,7 +127,7 @@ public class ImageColorGroups
         SortedList<int, Rgb24> priorityColorPalette,
         bool onlyShowTop3)
     {
-        List<ColorStats> namePercentList = new();
+        List<ColorStats> roughNamePercentList = new();
         //Calculate the name and percent and add it into a list
         int count = 0;
         double totalOtherPercent = 0;
@@ -141,7 +141,7 @@ public class ImageColorGroups
             //}
             //else
             //{
-                namePercentList.Add(new(colorGroup.Key, ColorPalettes.ToName(colorGroup.Key), percent));
+            roughNamePercentList.Add(new(colorGroup.Key, ColorPalettes.ToName(colorGroup.Key), percent));
             //}
         }
         //If there are priority items, update the order
@@ -149,7 +149,7 @@ public class ImageColorGroups
         {
             foreach (KeyValuePair<int, Rgb24> priorityItem in priorityColorPalette)
             {
-                ColorStats? priorityColorStats = namePercentList.Where(x => x.Rgb == priorityItem.Value).FirstOrDefault();
+                ColorStats? priorityColorStats = roughNamePercentList.Where(x => x.Rgb == priorityItem.Value).FirstOrDefault();
                 if (priorityColorStats != null)
                 {
                     priorityColorStats.Order = priorityItem.Key;
@@ -157,12 +157,40 @@ public class ImageColorGroups
             }
         }
         //Order the percent list
-        namePercentList = namePercentList.OrderBy(t => t.Order).ThenByDescending(x => x.Percent).ThenBy(x => x.Name).ToList();
+        roughNamePercentList = roughNamePercentList.OrderBy(t => t.Order).ThenByDescending(x => x.Percent).ThenBy(x => x.Name).ToList();
+
         //Add the other percent if needed
-        if (onlyShowTop3 == true && Math.Round(totalOtherPercent, 2) > 0)
+        List<ColorStats> finalNamePercentList = new();
+        if (onlyShowTop3 == true)
         {
-            namePercentList.Add(new(null, "Other", totalOtherPercent));
+            count = 0;
+            totalOtherPercent = 0;
+            foreach (ColorStats item in roughNamePercentList)
+            {
+                if (onlyShowTop3 == true && count < 2)
+                {
+                    finalNamePercentList.Add(item);
+                    count++;
+                }
+                else
+                {
+                    totalOtherPercent += item.Percent;
+                }
+            }
+            if (Math.Round(totalOtherPercent, 2) > 0)
+            {
+                finalNamePercentList.Add(new(null, "Other", totalOtherPercent));
+            }
         }
-        return namePercentList;
+        else
+        {
+            finalNamePercentList = roughNamePercentList;
+        }
+
+        //if (onlyShowTop3 == true && Math.Round(totalOtherPercent, 2) > 0)
+        //{
+        //    roughNamePercentList.Add(new(null, "Other", totalOtherPercent));
+        //}
+        return finalNamePercentList;
     }
 }
