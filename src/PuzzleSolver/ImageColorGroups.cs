@@ -129,20 +129,10 @@ public class ImageColorGroups
     {
         List<ColorStats> roughNamePercentList = new();
         //Calculate the name and percent and add it into a list
-        int count = 0;
-        double totalOtherPercent = 0;
         foreach (KeyValuePair<Rgb24, List<Rgb24>> colorGroup in colorGroups)
         {
-            count++;
             double percent = (double)colorGroup.Value.Count / (double)colorGroups.Sum(t => t.Value.Count);
-            //if (onlyShowTop3 == true && count > 2)
-            //{
-            //    totalOtherPercent += percent;
-            //}
-            //else
-            //{
             roughNamePercentList.Add(new(colorGroup.Key, ColorPalettes.ToName(colorGroup.Key), percent));
-            //}
         }
         //If there are priority items, update the order
         if (priorityColorPalette.Count > 0)
@@ -163,8 +153,8 @@ public class ImageColorGroups
         List<ColorStats> finalNamePercentList = new();
         if (onlyShowTop3 == true)
         {
-            count = 0;
-            totalOtherPercent = 0;
+            int count = 0;
+            double totalOtherPercent = 0;
             foreach (ColorStats item in roughNamePercentList)
             {
                 if (onlyShowTop3 == true && count < 2)
@@ -177,6 +167,7 @@ public class ImageColorGroups
                     totalOtherPercent += item.Percent;
                 }
             }
+            //If there is an other percent over 0, add it
             if (Math.Round(totalOtherPercent, 2) > 0)
             {
                 finalNamePercentList.Add(new(null, "Other", totalOtherPercent));
@@ -187,10 +178,6 @@ public class ImageColorGroups
             finalNamePercentList = roughNamePercentList;
         }
 
-        //if (onlyShowTop3 == true && Math.Round(totalOtherPercent, 2) > 0)
-        //{
-        //    roughNamePercentList.Add(new(null, "Other", totalOtherPercent));
-        //}
         return finalNamePercentList;
     }
 }
