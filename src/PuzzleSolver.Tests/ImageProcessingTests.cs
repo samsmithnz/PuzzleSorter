@@ -326,6 +326,39 @@ Blue: 0.00%
     }
 
     [TestMethod]
+    public void LegoPhotoImageWith16ColorPaletteTest()
+    {
+        //Arrange
+        ImageColorGroups imageProcessing = new(ColorPalettes.GetLegoColorPalette());
+        string imageDir = Environment.CurrentDirectory + @"/TestImages/lego.jpg";
+
+        //Act
+        ImageStats? imageStats = imageProcessing.ProcessStatsForImage(imageDir, null, false);
+
+        //Assert
+        Assert.IsNotNull(imageStats);
+        Assert.AreEqual(186, imageStats?.ColorGroups?.Count);
+//        string expected = @"Gray: 28.43%
+//Silver: 27.45%
+//Olive: 12.90%
+//Maroon: 11.75%
+//Black: 8.73%
+//Teal: 3.12%
+//Red: 2.20%
+//Navy: 1.86%
+//Yellow: 1.74%
+//Purple: 1.26%
+//White: 0.32%
+//Green: 0.21%
+//Aqua: 0.02%
+//Blue: 0.00%
+//";
+//        Assert.AreEqual(expected, imageStats?.NamesToString);
+//        Assert.AreEqual(new Rgb24(128, 128, 128), imageStats?.TopColorGroupColor);
+//        Assert.AreEqual("Gray", imageStats?.TopNamedColor);
+    }
+
+    [TestMethod]
     public void SplitColorfulPhotoImageTest()
     {
         //Arrange
