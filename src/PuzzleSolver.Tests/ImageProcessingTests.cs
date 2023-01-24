@@ -325,6 +325,7 @@ Blue: 0.00%
         Assert.AreEqual("Gray", imageStats?.TopNamedColor);
     }
 
+    //This is a slow test
     [TestMethod]
     public void LegoPhotoImageWith16ColorPaletteTest()
     {
