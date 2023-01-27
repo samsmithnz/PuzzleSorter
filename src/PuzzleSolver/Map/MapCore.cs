@@ -1,8 +1,4 @@
-﻿using Battle.Logic.Encounters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
+﻿using System.Numerics;
 using System.Text;
 
 namespace Battle.Logic.Map
@@ -79,49 +75,49 @@ namespace Battle.Logic.Map
 
             //For each border tile, draw a line from the starting point to the border
             HashSet<Vector3> results = new HashSet<Vector3>();
-            foreach (Vector3 borderItem in borderTiles)
-            {
-                List<Vector3> singleLineCheck = FieldOfView.GetPointsOnLine(new Vector3(startingX, 0, startingZ), borderItem);
-                if (singleLineCheck.Count > 0 &&
-                    singleLineCheck[singleLineCheck.Count - 1].X == startingX &&
-                    singleLineCheck[singleLineCheck.Count - 1].Z == startingZ)
-                {
-                    //Reverse the list, so that items are in order from source to destination
-                    singleLineCheck.Reverse();
-                }
-                double lineLength = GetLengthOfLine(singleLineCheck[0], singleLineCheck[singleLineCheck.Count - 1], 1);
-                double lineSegment = lineLength / singleLineCheck.Count;
-                double currentLength = 0;
-                for (int i = 0; i < singleLineCheck.Count; i++)
-                {
-                    currentLength += lineSegment;
-                    Vector3 fovItem = singleLineCheck[i];
-                    if (fovItem.X >= 0 && fovItem.Y >= 0 && fovItem.Z >= 0)
-                    {
-                        //If we find an object, stop adding tiles
-                        if (lookingForFOV && map[(int)fovItem.X, (int)fovItem.Y, (int)fovItem.Z] == CoverType.FullCover)
-                        {
-                            //Add the wall
-                            results.Add(fovItem);
-                            //Then break!
-                            break;
-                        }
-                        else if ((int)fovItem.X == startingX && (int)fovItem.Z == startingZ)
-                        {
-                            //Don't add this one, it's the origin/ where the character is looking from
-                        }
-                        else
-                        {
-                            results.Add(fovItem);
-                        }
-                    }
-                    //We don't round, so this will extend the range a tiny part - but I think that is ok.
-                    if (currentLength >= range)
-                    {
-                        break;
-                    }
-                }
-            }
+            //foreach (Vector3 borderItem in borderTiles)
+            //{
+            //    List<Vector3> singleLineCheck = FieldOfView.GetPointsOnLine(new Vector3(startingX, 0, startingZ), borderItem);
+            //    if (singleLineCheck.Count > 0 &&
+            //        singleLineCheck[singleLineCheck.Count - 1].X == startingX &&
+            //        singleLineCheck[singleLineCheck.Count - 1].Z == startingZ)
+            //    {
+            //        //Reverse the list, so that items are in order from source to destination
+            //        singleLineCheck.Reverse();
+            //    }
+            //    double lineLength = GetLengthOfLine(singleLineCheck[0], singleLineCheck[singleLineCheck.Count - 1], 1);
+            //    double lineSegment = lineLength / singleLineCheck.Count;
+            //    double currentLength = 0;
+            //    for (int i = 0; i < singleLineCheck.Count; i++)
+            //    {
+            //        currentLength += lineSegment;
+            //        Vector3 fovItem = singleLineCheck[i];
+            //        if (fovItem.X >= 0 && fovItem.Y >= 0 && fovItem.Z >= 0)
+            //        {
+            //            //If we find an object, stop adding tiles
+            //            if (lookingForFOV && map[(int)fovItem.X, (int)fovItem.Y, (int)fovItem.Z] == CoverType.FullCover)
+            //            {
+            //                //Add the wall
+            //                results.Add(fovItem);
+            //                //Then break!
+            //                break;
+            //            }
+            //            else if ((int)fovItem.X == startingX && (int)fovItem.Z == startingZ)
+            //            {
+            //                //Don't add this one, it's the origin/ where the character is looking from
+            //            }
+            //            else
+            //            {
+            //                results.Add(fovItem);
+            //            }
+            //        }
+            //        //We don't round, so this will extend the range a tiny part - but I think that is ok.
+            //        if (currentLength >= range)
+            //        {
+            //            break;
+            //        }
+            //    }
+            //}
             if (includeSourceLocation)
             {
                 results.Add(sourceLocation);
@@ -213,29 +209,6 @@ namespace Battle.Logic.Map
 
             string mapString = MapCore.GetMapString(mapNew);
             return mapString;
-        }
-
-        //public static string GetMapStringWithAIValuesFirst(string[,,] mapTemplate, List<KeyValuePair<Vector3, int>> list)
-        //{
-        //    string[,,] map = (string[,,])mapTemplate.Clone();
-        //    foreach (KeyValuePair<Vector3, int> item in list)
-        //    {
-        //        map[(int)item.Key.X, (int)item.Key.Y, (int)item.Key.Z] = item.Value.ToString();
-        //    }
-        //    return MapCore.GetMapString(map);
-        //}
-
-        public static string GetMapStringWithAIValuesSecond(string[,,] mapTemplate, List<KeyValuePair<Vector3, AIAction>> list)
-        {
-            string[,,] map = (string[,,])mapTemplate.Clone();
-            if (list != null)
-            {
-                foreach (KeyValuePair<Vector3, AIAction> item in list)
-                {
-                    map[(int)item.Key.X, (int)item.Key.Y, (int)item.Key.Z] = item.Value.Score.ToString();
-                }
-            }
-            return MapCore.GetMapString(map, true);
         }
 
         public static string GetMapStringWithMapMask(string[,,] map, string[,,] mapMask)

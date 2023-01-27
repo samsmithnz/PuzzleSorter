@@ -1,11 +1,8 @@
-﻿using Battle.Logic.Utility;
-using System;
-
-namespace Battle.Logic.Map
+﻿namespace Battle.Logic.Map
 {
     public static class MapGeneration
     {
-        public static string[,,] GenerateRandomMap(string[,,] map, int probOfMapBeingBlocked)
+        public static string[,,] GenerateMap(string[,,] map)
         {
             int width = map.GetLength(0);
             int height = map.GetLength(1);
@@ -15,9 +12,20 @@ namespace Battle.Logic.Map
             {
                 for (int x = 0; x < width; x++)
                 {
-                    if (((x != 0 && z != 0) || (x != width - 1 && z != height - 1)) && probOfMapBeingBlocked > RandomNumber.GenerateRandomNumber(1, 100))
+                    if (x == 0 && y == 0 ||
+                        x == 0 && y == 2 ||
+                        x == 0 && y == 4 ||
+                        x == 2 && y == 0 ||
+                        x == 2 && y == 4 ||
+                        x == 4 && y == 0 ||
+                        x == 4 && y == 2 ||
+                        x == 4 && y == 4)
                     {
-                        map[x, y, z] = CoverType.FullCover;
+                        map[x, y, z] = "d"; //drop zone
+                    }
+                    else if (x == 2 && y == 2)
+                    {
+                        map[x, y, z] = "p"; //pickup zone
                     }
                 }
             }
