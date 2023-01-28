@@ -31,19 +31,18 @@
             return map;
         }
 
-        public static void DebugPrintOutMap(string[,,] map)
+        public static void DebugPrintOutMap(string[,] map)
         {
             int width = map.GetLength(0);
-            //int height = map.GetLength(1);
             int breadth = map.GetLength(2);
             int y = 0;
             for (int z = 0; z < breadth; z++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    if (map[x, y, z] != "")
+                    if (map[x, z] != "")
                     {
-                        Console.WriteLine(" this.map[" + x + ", " + z + "] = " + map[x, y, z] + ";");
+                        Console.WriteLine(" this.map[" + x + ", " + z + "] = " + map[x, z] + ";");
                     }
                 }
             }
