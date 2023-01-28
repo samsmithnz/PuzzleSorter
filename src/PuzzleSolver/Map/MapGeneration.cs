@@ -6,7 +6,7 @@
         {
             string[,] map = MapCore.InitializeMap(5, 5);
             int width = map.GetLength(0);
-            int breadth = map.GetLength(2);
+            int breadth = map.GetLength(1);
             int y = 0;
             for (int z = 0; z < breadth; z++)
             {

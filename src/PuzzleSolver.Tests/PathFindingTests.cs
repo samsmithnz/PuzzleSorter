@@ -18,8 +18,6 @@ namespace PuzzleSolver.Tests
             //  . S ■ # F 
             //  . . . . . 
             //  . . . . . 
-            int xMax = 5;
-            int zMax = 5;
             string[,] map = MapGeneration.GenerateMap();
             map[2, 2] = "p";
             Vector2 startLocation = new(1, 2);
