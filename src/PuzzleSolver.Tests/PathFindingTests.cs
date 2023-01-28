@@ -20,10 +20,10 @@ namespace PuzzleSolver.Tests
             //  . . . . . 
             int xMax = 5;
             int zMax = 5;
-            string[,,] map = MapCore.InitializeMap(xMax, 1, zMax);
-            map[2, 0, 2] = "p";
-            Vector3 startLocation = new(1, 0, 2);
-            Vector3 endLocation = new(4, 0, 2);
+            string[,] map = MapCore.InitializeMap(xMax,zMax);
+            map[2, 2] = "p";
+            Vector2 startLocation = new(1, 2);
+            Vector2 endLocation = new(4, 2);
             string expectedMapString = @"
 . . . . . 
 . . . . . 
@@ -41,11 +41,11 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(PathFindingResult.Path);
             Assert.IsTrue(PathFindingResult.Path.Any());
             Assert.AreEqual(5, PathFindingResult.Path.Count);
-            Assert.AreEqual("<1, 0, 3>", PathFindingResult.Path[0].ToString());
-            Assert.AreEqual("<2, 0, 3>", PathFindingResult.Path[1].ToString());
-            Assert.AreEqual("<3, 0, 3>", PathFindingResult.Path[2].ToString());
-            Assert.AreEqual("<4, 0, 3>", PathFindingResult.Path[3].ToString());
-            Assert.AreEqual("<4, 0, 2>", PathFindingResult.Path[4].ToString());
+            Assert.AreEqual("<1, 3>", PathFindingResult.Path[0].ToString());
+            Assert.AreEqual("<2, 3>", PathFindingResult.Path[1].ToString());
+            Assert.AreEqual("<3, 3>", PathFindingResult.Path[2].ToString());
+            Assert.AreEqual("<4, 3>", PathFindingResult.Path[3].ToString());
+            Assert.AreEqual("<4, 2>", PathFindingResult.Path[4].ToString());
             Assert.AreEqual(expectedMapString, mapString);
         }
 
@@ -60,14 +60,14 @@ namespace PuzzleSolver.Tests
         //    //  . . . * * . .
 
         //    // Path: 1,2 ; 2,1 ; 3,0 ; 4,0 ; 5,1 ; 5,2
-        //    Vector3 startLocation = new(1, 0, 2);
-        //    Vector3 endLocation = new(5, 0, 2);
+        //    Vector3 startLocation = new(1, 2);
+        //    Vector3 endLocation = new(5, 2);
         //    string[,,] map = MapCore.InitializeMap(7, 1, 5);
-        //    map[3, 0, 4] = CoverType.FullCover;
-        //    map[3, 0, 3] = CoverType.FullCover;
-        //    map[3, 0, 2] = CoverType.FullCover;
-        //    map[3, 0, 1] = CoverType.FullCover;
-        //    map[4, 0, 1] = CoverType.FullCover;
+        //    map[3, 4] = CoverType.FullCover;
+        //    map[3, 3] = CoverType.FullCover;
+        //    map[3, 2] = CoverType.FullCover;
+        //    map[3, 1] = CoverType.FullCover;
+        //    map[4, 1] = CoverType.FullCover;
 
         //    //Act
         //    PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
@@ -92,14 +92,14 @@ namespace PuzzleSolver.Tests
         //    //  . . . ■ . . .
 
         //    // No path
-        //    Vector3 startLocation = new(1, 0, 2);
-        //    Vector3 endLocation = new(5, 0, 2);
+        //    Vector3 startLocation = new(1, 2);
+        //    Vector3 endLocation = new(5, 2);
         //    string[,,] map = MapCore.InitializeMap(7, 1, 5);
-        //    map[3, 0, 4] = CoverType.FullCover;
-        //    map[3, 0, 3] = CoverType.FullCover;
-        //    map[3, 0, 2] = CoverType.FullCover;
-        //    map[3, 0, 1] = CoverType.FullCover;
-        //    map[3, 0, 0] = CoverType.FullCover;
+        //    map[3, 4] = CoverType.FullCover;
+        //    map[3, 3] = CoverType.FullCover;
+        //    map[3, 2] = CoverType.FullCover;
+        //    map[3, 1] = CoverType.FullCover;
+        //    map[3, 0] = CoverType.FullCover;
 
         //    //Act
         //    PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
@@ -123,27 +123,27 @@ namespace PuzzleSolver.Tests
         //    //  ■ . ■ ■ ■ . ■
 
         //    // long path
-        //    Vector3 startLocation = new(0, 0, 4);
-        //    Vector3 endLocation = new(6, 0, 4);
+        //    Vector3 startLocation = new(0, 4);
+        //    Vector3 endLocation = new(6, 4);
         //    string[,,] map = MapCore.InitializeMap(7, 1, 5);
-        //    map[0, 0, 0] = CoverType.FullCover;
-        //    map[1, 0, 4] = CoverType.FullCover;
-        //    map[1, 0, 3] = CoverType.FullCover;
-        //    map[1, 0, 2] = CoverType.FullCover;
-        //    map[1, 0, 1] = CoverType.FullCover;
-        //    map[2, 0, 4] = CoverType.FullCover;
-        //    map[2, 0, 0] = CoverType.FullCover;
-        //    map[3, 0, 3] = CoverType.FullCover;
-        //    map[3, 0, 2] = CoverType.FullCover;
-        //    map[3, 0, 1] = CoverType.FullCover;
-        //    map[3, 0, 0] = CoverType.FullCover;
-        //    map[4, 0, 4] = CoverType.FullCover;
-        //    map[4, 0, 0] = CoverType.FullCover;
-        //    map[5, 0, 4] = CoverType.FullCover;
-        //    map[5, 0, 3] = CoverType.FullCover;
-        //    map[5, 0, 2] = CoverType.FullCover;
-        //    map[5, 0, 1] = CoverType.FullCover;
-        //    map[6, 0, 0] = CoverType.FullCover;
+        //    map[0, 0] = CoverType.FullCover;
+        //    map[1, 4] = CoverType.FullCover;
+        //    map[1, 3] = CoverType.FullCover;
+        //    map[1, 2] = CoverType.FullCover;
+        //    map[1, 1] = CoverType.FullCover;
+        //    map[2, 4] = CoverType.FullCover;
+        //    map[2, 0] = CoverType.FullCover;
+        //    map[3, 3] = CoverType.FullCover;
+        //    map[3, 2] = CoverType.FullCover;
+        //    map[3, 1] = CoverType.FullCover;
+        //    map[3, 0] = CoverType.FullCover;
+        //    map[4, 4] = CoverType.FullCover;
+        //    map[4, 0] = CoverType.FullCover;
+        //    map[5, 4] = CoverType.FullCover;
+        //    map[5, 3] = CoverType.FullCover;
+        //    map[5, 2] = CoverType.FullCover;
+        //    map[5, 1] = CoverType.FullCover;
+        //    map[6, 0] = CoverType.FullCover;
 
         //    //Act
         //    PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
@@ -162,8 +162,8 @@ namespace PuzzleSolver.Tests
         //public void Test_GiantRandomMap_WithInefficentPath()
         //{
         //    //Arrange
-        //    Vector3 startLocation = new(0, 0, 0);
-        //    Vector3 endLocation = new(69, 0, 39);
+        //    Vector3 startLocation = new(0, 0);
+        //    Vector3 endLocation = new(69, 39);
         //    string[,,] map = CreateGiantMap();
 
         //    //Act
@@ -191,16 +191,16 @@ namespace PuzzleSolver.Tests
         //    int height = 5;
         //    int width = 5;
         //    string[,,] map = MapCore.InitializeMap(width, 1, height);
-        //    map[1, 0, 1] = CoverType.FullCover;
-        //    map[1, 0, 2] = CoverType.FullCover;
-        //    map[1, 0, 3] = CoverType.FullCover;
-        //    map[2, 0, 1] = CoverType.FullCover;
-        //    map[2, 0, 3] = CoverType.FullCover;
-        //    map[3, 0, 1] = CoverType.FullCover;
-        //    map[3, 0, 2] = CoverType.FullCover;
-        //    map[3, 0, 3] = CoverType.FullCover;
-        //    Vector3 startLocation = new(2, 0, 2);
-        //    Vector3 endLocation = new(2, 0, 4);
+        //    map[1, 1] = CoverType.FullCover;
+        //    map[1, 2] = CoverType.FullCover;
+        //    map[1, 3] = CoverType.FullCover;
+        //    map[2, 1] = CoverType.FullCover;
+        //    map[2, 3] = CoverType.FullCover;
+        //    map[3, 1] = CoverType.FullCover;
+        //    map[3, 2] = CoverType.FullCover;
+        //    map[3, 3] = CoverType.FullCover;
+        //    Vector3 startLocation = new(2, 2);
+        //    Vector3 endLocation = new(2, 4);
 
         //    //Act
         //    PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
@@ -224,19 +224,19 @@ namespace PuzzleSolver.Tests
         //    //   0 1 2 3 4 
 
         //    //Arrange
-        //    Vector3 startLocation = new(2, 0, 2);
-        //    Vector3 endLocation = new(2, 0, 2);
+        //    Vector3 startLocation = new(2, 2);
+        //    Vector3 endLocation = new(2, 2);
         //    int height = 5;
         //    int width = 5;
         //    string[,,] map = MapCore.InitializeMap(width, 1, height);
-        //    map[1, 0, 1] = CoverType.FullCover;
-        //    map[1, 0, 2] = CoverType.FullCover;
-        //    map[1, 0, 3] = CoverType.FullCover;
-        //    map[2, 0, 1] = CoverType.FullCover;
-        //    map[2, 0, 3] = CoverType.FullCover;
-        //    map[3, 0, 1] = CoverType.FullCover;
-        //    map[3, 0, 2] = CoverType.FullCover;
-        //    map[3, 0, 3] = CoverType.FullCover;
+        //    map[1, 1] = CoverType.FullCover;
+        //    map[1, 2] = CoverType.FullCover;
+        //    map[1, 3] = CoverType.FullCover;
+        //    map[2, 1] = CoverType.FullCover;
+        //    map[2, 3] = CoverType.FullCover;
+        //    map[3, 1] = CoverType.FullCover;
+        //    map[3, 2] = CoverType.FullCover;
+        //    map[3, 3] = CoverType.FullCover;
 
         //    //Act
         //    PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
@@ -275,7 +275,7 @@ namespace PuzzleSolver.Tests
         //    {
         //        if (i == 0)
         //        {
-        //            mapDebug[0, 0, 0] = " S";
+        //            mapDebug[0, 0] = " S";
         //        }
         //        if (i == path.Count - 1)
         //        {
@@ -306,7 +306,7 @@ namespace PuzzleSolver.Tests
         //public void TileTest()
         //{
         //    //Arrange
-        //    MapTile tile = new(3, 0, 3, "", new(6, 0, 6));
+        //    MapTile tile = new(3, 3, "", new(6, 6));
 
         //    //Act
         //    string result = tile.ToString();
@@ -320,8 +320,8 @@ namespace PuzzleSolver.Tests
         //public void Test_WithoutWalls_CanFindPathNextDoor()
         //{
         //    //Arrange
-        //    Vector3 startLocation = new(25, 0, 30);
-        //    Vector3 endLocation = new(25, 0, 29);
+        //    Vector3 startLocation = new(25, 30);
+        //    Vector3 endLocation = new(25, 29);
         //    string[,,] map = MapCore.InitializeMap(50, 1, 50);
 
         //    //Act
@@ -332,15 +332,15 @@ namespace PuzzleSolver.Tests
         //    Assert.IsNotNull(PathFindingResult.Path);
         //    Assert.IsTrue(PathFindingResult.Path.Any());
         //    Assert.AreEqual(1, PathFindingResult.Path.Count);
-        //    Assert.AreEqual("<25, 0, 29>", PathFindingResult.Path[0].ToString());
+        //    Assert.AreEqual("<25, 29>", PathFindingResult.Path[0].ToString());
         //}
 
         //[TestMethod]
         //public void Test_WithoutWalls_NoMovement()
         //{
         //    //Arrange
-        //    Vector3 startLocation = new(1, 0, 2);
-        //    Vector3 endLocation = new(1, 0, 2);
+        //    Vector3 startLocation = new(1, 2);
+        //    Vector3 endLocation = new(1, 2);
         //    string[,,] map = MapCore.InitializeMap(7, 1, 5);
 
         //    //Act
