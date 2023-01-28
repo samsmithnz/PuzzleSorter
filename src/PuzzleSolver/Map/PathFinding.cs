@@ -6,7 +6,6 @@ namespace Battle.Logic.Map
     public static class PathFinding
     {
         private static int _width;
-        private static int _height;
         private static int _breadth;
         private static MapTile[,] _tiles;
         private static Vector2 _endLocation;
@@ -52,15 +51,13 @@ namespace Battle.Logic.Map
         private static void InitializeTiles(string[,] map)
         {
             _width = map.GetLength(0);
-            _height = map.GetLength(1);
             _breadth = map.GetLength(2);
             _tiles = new MapTile[_width, _breadth];
-            int y = 0;
             for (int z = 0; z < _breadth; z++)
             {
                 for (int x = 0; x < _width; x++)
                 {
-                    _tiles[x, z] = new MapTile(x, y, z, map[x, z], _endLocation);
+                    _tiles[x, z] = new MapTile(x, z, map[x, z], _endLocation);
                 }
             }
         }
