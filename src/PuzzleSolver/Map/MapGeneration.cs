@@ -2,10 +2,9 @@
 {
     public static class MapGeneration
     {
-        public static string[,,] GenerateMap(string[,,] map)
+        public static string[,] GenerateMap(string[,] map)
         {
             int width = map.GetLength(0);
-            int height = map.GetLength(1);
             int breadth = map.GetLength(2);
             int y = 0;
             for (int z = 0; z < breadth; z++)
@@ -21,11 +20,11 @@
                         x == 4 && y == 2 ||
                         x == 4 && y == 4)
                     {
-                        map[x, y, z] = "d"; //drop zone
+                        map[x, z] = "d"; //drop zone
                     }
                     else if (x == 2 && y == 2)
                     {
-                        map[x, y, z] = "p"; //pickup zone
+                        map[x, z] = "p"; //pickup zone
                     }
                 }
             }

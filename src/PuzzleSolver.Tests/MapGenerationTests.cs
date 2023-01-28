@@ -14,7 +14,7 @@ namespace PuzzleSolver.Tests
             //Arrange
             int xMax = 5;
             int zMax = 5;
-            string[,,] map = MapCore.InitializeMap(xMax, 1, zMax);
+            string[,] map = MapCore.InitializeMap(xMax, zMax);
 
             //Act
             map = MapGeneration.GenerateMap(map);
