@@ -161,18 +161,18 @@ namespace Battle.Logic.Map
         /// </summary>
         /// <param name="fromLocation">The location from which to return all adjacent points</param>
         /// <returns>The locations as an IEnumerable of Points</returns>
-        private static IEnumerable<Vector3> GetAdjacentLocations(Vector3 fromLocation)
+        private static IEnumerable<Vector2> GetAdjacentLocations(Vector2 fromLocation)
         {
-            return new Vector3[]
+            return new Vector2[]
             {
-                //new Vector3(fromLocation.X - 1,0, fromLocation.Z - 1),
-                new Vector3(fromLocation.X - 1, 0,fromLocation.Z  ),
-                //new Vector3(fromLocation.X - 1, 0,fromLocation.Z + 1),
-                new Vector3(fromLocation.X,   0,fromLocation.Z + 1),
-                //new Vector3(fromLocation.X + 1, 0,fromLocation.Z + 1),
-                new Vector3(fromLocation.X + 1, 0,fromLocation.Z  ),
-                //new Vector3(fromLocation.X + 1, 0,fromLocation.Z - 1),
-                new Vector3(fromLocation.X,   0,fromLocation.Z - 1)
+                //new Vector2(fromLocation.X - 1,0, fromLocation.Z - 1),
+                new Vector2(fromLocation.X - 1, 0,fromLocation.Z  ),
+                //new Vector2(fromLocation.X - 1, 0,fromLocation.Z + 1),
+                new Vector2(fromLocation.X,   0,fromLocation.Z + 1),
+                //new Vector2(fromLocation.X + 1, 0,fromLocation.Z + 1),
+                new Vector2(fromLocation.X + 1, 0,fromLocation.Z  ),
+                //new Vector2(fromLocation.X + 1, 0,fromLocation.Z - 1),
+                new Vector2(fromLocation.X,   0,fromLocation.Z - 1)
             };
         }
     }
