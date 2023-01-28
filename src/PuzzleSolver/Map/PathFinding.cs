@@ -6,7 +6,7 @@ namespace PuzzleSolver.Map
     public static class PathFinding
     {
         private static int _width;
-        private static int _breadth;
+        private static int _height;
         private static MapTile[,] _tiles;
         private static Vector2 _endLocation;
 
@@ -51,9 +51,9 @@ namespace PuzzleSolver.Map
         private static void InitializeTiles(string[,] map)
         {
             _width = map.GetLength(0);
-            _breadth = map.GetLength(1);
-            _tiles = new MapTile[_width, _breadth];
-            for (int y = 0; y < _breadth; y++)
+            _height = map.GetLength(1);
+            _tiles = new MapTile[_width, _height];
+            for (int y = 0; y < _height; y++)
             {
                 for (int x = 0; x < _width; x++)
                 {
@@ -112,7 +112,7 @@ namespace PuzzleSolver.Map
                 int y = (int)location.Y;
 
                 // Stay within the grid's boundaries
-                if (x < 0 || x >= _width || y < 0 || y >= _breadth)
+                if (x < 0 || x >= _width || y < 0 || y >= _height)
                 {
                     continue;
                 }
