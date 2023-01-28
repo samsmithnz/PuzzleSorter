@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using PuzzleSolver.Map;
+using System.Numerics;
 using System.Reflection;
 
 namespace PuzzleSolver.Tests
