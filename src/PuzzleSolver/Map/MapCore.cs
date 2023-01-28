@@ -9,11 +9,10 @@ namespace Battle.Logic.Map
         /// Initialize a map array
         /// </summary>
         /// <param name="xMax">x size</param>
-        /// <param name="yMax">y size</param>
         /// <param name="zMax">z size</param>
         /// <param name="initialString">The initial string to initialize the map with - usually ""</param>
         /// <returns>The populated map/array</returns>
-        public static string[,,] InitializeMap(int xMax, int yMax, int zMax, string initialString = "")
+        public static string[,,] InitializeMap(int xMax, int zMax, string initialString = "")
         {
             string[,,] map = new string[xMax, yMax, zMax];
 
