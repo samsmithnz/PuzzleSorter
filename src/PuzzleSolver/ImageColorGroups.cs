@@ -101,7 +101,7 @@ namespace PuzzleSolver
         //Group RGB colors into multiple groups
         private Rgb24 FindClosestColorGroup(Rgb24 colorToTest)
         {
-            Rgb24 closestColorGroup = null;
+            Rgb24? closestColorGroup = null;
             List<KeyValuePair<Rgb24, int>> results = new List<KeyValuePair<Rgb24, int>>();
             foreach (Rgb24 color in ColorPalette)
             {
