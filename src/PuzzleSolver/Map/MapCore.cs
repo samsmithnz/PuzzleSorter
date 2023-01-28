@@ -30,7 +30,7 @@ namespace Battle.Logic.Map
         }
 
 
-        public static List<Vector3> GetMapArea(string[,,] map, Vector3 sourceLocation, int range, bool lookingForFOV = true, bool includeSourceLocation = false)
+        public static List<Vector3> GetMapArea(string[,] map, Vector3 sourceLocation, int range, bool lookingForFOV = true, bool includeSourceLocation = false)
         {
             int startingX = (int)sourceLocation.X;
             int startingZ = (int)sourceLocation.Z;
@@ -131,7 +131,7 @@ namespace Battle.Logic.Map
             return Math.Round(lineLength, decimals);
         }
 
-        public static string GetMapString(string[,,] map, bool stripOutBlanks = false)
+        public static string GetMapString(string[,] map, bool stripOutBlanks = false)
         {
             int xMax = map.GetLength(0);
             //int yMax = map.GetLength(1);
@@ -172,7 +172,7 @@ namespace Battle.Logic.Map
             return sb.ToString();
         }
 
-        public static string[,,] ApplyListToMap(string[,,] map, List<Vector3> list, string tile)
+        public static string[,] ApplyListToMap(string[,] map, List<Vector3> list, string tile)
         {
             foreach (Vector3 item in list)
             {
@@ -185,7 +185,7 @@ namespace Battle.Logic.Map
             return map;
         }
 
-        public static string[,,] ApplyListToExistingMap(string[,,] map, List<Vector3> list, string tile)
+        public static string[,] ApplyListToExistingMap(string[,] map, List<Vector3> list, string tile)
         {
             foreach (Vector3 item in list)
             {
@@ -194,23 +194,23 @@ namespace Battle.Logic.Map
             return map;
         }
 
-        public static string GetMapStringWithItems(string[,,] map, List<Vector3> list)
+        public static string GetMapStringWithItems(string[,] map, List<Vector3> list)
         {
-            string[,,] mapNew = MapCore.ApplyListToMap((string[,,])map.Clone(), list, "o");
+            string[,] mapNew = MapCore.ApplyListToMap((string[,])map.Clone(), list, "o");
             string mapString = MapCore.GetMapString(mapNew);
             return mapString;
         }
 
-        public static string GetMapStringWithItemLayers(string[,,] map, List<Vector3> baseList, List<Vector3> overlayList)
+        public static string GetMapStringWithItemLayers(string[,] map, List<Vector3> baseList, List<Vector3> overlayList)
         {
-            string[,,] mapNew = MapCore.ApplyListToMap((string[,,])map.Clone(), baseList, "o");
+            string[,] mapNew = MapCore.ApplyListToMap((string[,])map.Clone(), baseList, "o");
             mapNew = MapCore.ApplyListToExistingMap(mapNew, overlayList, "O");
 
             string mapString = MapCore.GetMapString(mapNew);
             return mapString;
         }
 
-        public static string GetMapStringWithMapMask(string[,,] map, string[,,] mapMask)
+        public static string GetMapStringWithMapMask(string[,] map, string[,] mapMask)
         {
             int xMax = map.GetLength(0);
             //int yMax = map.GetLength(1);
@@ -251,7 +251,7 @@ namespace Battle.Logic.Map
             return sb.ToString();
         }
 
-        public static List<Vector3> FindAdjacentTile(string[,,] map, Vector3 currentLocation, string tileToFind)
+        public static List<Vector3> FindAdjacentTile(string[,] map, Vector3 currentLocation, string tileToFind)
         {
             int width = map.GetLength(0);
             //int height = map.GetLength(1);
