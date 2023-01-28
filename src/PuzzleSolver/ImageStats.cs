@@ -14,11 +14,11 @@ namespace PuzzleSolver
         }
 
         public Image<Rgb24> Image { get; set; }
-        public Dictionary<Rgb24, List<Rgb24>>? ColorGroups { get; set; }
+        public Dictionary<Rgb24, List<Rgb24>> ColorGroups { get; set; }
         public SortedList<int, Rgb24> PriorityColorPalette { get; set; }
-        public List<ColorStats>? NamedColorsAndPercentList { get; set; }
+        public List<ColorStats> NamedColorsAndPercentList { get; set; }
 
-        public Rgb24? TopColorGroupColor
+        public Rgb24 TopColorGroupColor
         {
             get
             {
