@@ -1,7 +1,7 @@
 ﻿using System.Numerics;
 using System.Text;
 
-namespace Battle.Logic.Map
+namespace PuzzleSolver.Map
 {
     public static class MapCore
     {

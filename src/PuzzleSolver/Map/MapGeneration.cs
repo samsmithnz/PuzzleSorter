@@ -1,9 +1,10 @@
-﻿namespace Battle.Logic.Map
+﻿namespace PuzzleSolver.Map
 {
     public static class MapGeneration
     {
-        public static string[,] GenerateMap(string[,] map)
+        public static string[,] GenerateMap()
         {
+            string[,] map = MapCore.InitializeMap(5, 5);
             int width = map.GetLength(0);
             int breadth = map.GetLength(2);
             int y = 0;

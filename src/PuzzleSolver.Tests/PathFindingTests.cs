@@ -20,7 +20,7 @@ namespace PuzzleSolver.Tests
             //  . . . . . 
             int xMax = 5;
             int zMax = 5;
-            string[,] map = MapCore.InitializeMap(xMax,zMax);
+            string[,] map = MapGeneration.GenerateMap();
             map[2, 2] = "p";
             Vector2 startLocation = new(1, 2);
             Vector2 endLocation = new(4, 2);
