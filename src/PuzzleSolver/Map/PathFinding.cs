@@ -51,7 +51,7 @@ namespace PuzzleSolver.Map
         private static void InitializeTiles(string[,] map)
         {
             _width = map.GetLength(0);
-            _breadth = map.GetLength(2);
+            _breadth = map.GetLength(1);
             _tiles = new MapTile[_width, _breadth];
             for (int z = 0; z < _breadth; z++)
             {
