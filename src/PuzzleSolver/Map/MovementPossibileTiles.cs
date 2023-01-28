@@ -5,7 +5,7 @@ namespace Battle.Logic.Map
 {
     public static class MovementPossibileTiles
     {
-        public static List<KeyValuePair<Vector2, int>> GetMovementPossibileTiles(string[,,] map, Vector2 sourceLocation, int range, int actionPoints)
+        public static List<KeyValuePair<Vector2, int>> GetMovementPossibileTiles(string[,] map, Vector2 sourceLocation, int range, int actionPoints)
         {
             List<KeyValuePair<Vector2, int>> results = new List<KeyValuePair<Vector2, int>>();
             List<Vector2> verifiedTiles = new List<Vector2>();
