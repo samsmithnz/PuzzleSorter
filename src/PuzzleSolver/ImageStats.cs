@@ -22,7 +22,7 @@ namespace PuzzleSolver
         {
             get
             {
-                return ColorGroups?.FirstOrDefault().Key;
+                return ColorGroups.FirstOrDefault().Key;
             }
         }
 
