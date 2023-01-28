@@ -12,9 +12,9 @@ namespace Battle.Logic.Map
         /// <param name="zMax">z size</param>
         /// <param name="initialString">The initial string to initialize the map with - usually ""</param>
         /// <returns>The populated map/array</returns>
-        public static string[,,] InitializeMap(int xMax, int zMax, string initialString = "")
+        public static string[,] InitializeMap(int xMax, int zMax, string initialString = "")
         {
-            string[,,] map = new string[xMax, yMax, zMax];
+            string[,] map = new string[xMax, zMax];
 
             //Initialize the map
             int y = 0;
@@ -22,7 +22,7 @@ namespace Battle.Logic.Map
             {
                 for (int x = 0; x < xMax; x++)
                 {
-                    map[x, y, z] = initialString;
+                    map[x, z] = initialString;
                 }
             }
 
