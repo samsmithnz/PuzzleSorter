@@ -153,7 +153,7 @@ namespace PuzzleSolver
             roughNamePercentList = roughNamePercentList.OrderBy(t => t.Order).ThenByDescending(x => x.Percent).ThenBy(x => x.Name).ToList();
 
             //Add the other percent if needed
-            List<ColorStats> finalNamePercentList = new();
+            List<ColorStats> finalNamePercentList = new List<ColorStats>();
             if (onlyShowTop3 == true)
             {
                 int count = 0;
@@ -173,7 +173,7 @@ namespace PuzzleSolver
                 //If there is an other percent over 0, add it
                 if (Math.Round(totalOtherPercent, 2) > 0)
                 {
-                    finalNamePercentList.Add(new(null, "Other", totalOtherPercent));
+                    finalNamePercentList.Add(new ColorStats(null, "Other", totalOtherPercent));
                 }
             }
             else
