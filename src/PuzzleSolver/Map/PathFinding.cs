@@ -8,20 +8,20 @@ namespace Battle.Logic.Map
         private static int _width;
         private static int _height;
         private static int _breadth;
-        private static MapTile[,,] _tiles;
-        private static Vector3 _endLocation;
+        private static MapTile[,] _tiles;
+        private static Vector2 _endLocation;
 
         /// <summary>
         /// Attempts to find a path from the start location to the end location based on the supplied SearchParameters
         /// </summary>
         /// <returns>A List of Points representing the path. If no path was found, the returned list is empty.</returns>
-        public static PathFindingResult FindPath(string[,,] map, Vector3 startLocation, Vector3 endLocation)
+        public static PathFindingResult FindPath(string[,,] map, Vector2 startLocation, Vector2 endLocation)
         {
             _endLocation = endLocation;
             InitializeTiles(map);
-            MapTile startTile = _tiles[(int)startLocation.X, (int)startLocation.Y, (int)startLocation.Z];
+            MapTile startTile = _tiles[(int)startLocation.X, (int)startLocation.Y];
             startTile.State = TileState.Open;
-            MapTile endTile = _tiles[(int)endLocation.X, (int)endLocation.Y, (int)endLocation.Z];
+            MapTile endTile = _tiles[(int)endLocation.X, (int)endLocation.Y];
 
             // The start tile is the first entry in the 'open' list
             PathFindingResult result = new PathFindingResult();
@@ -49,18 +49,18 @@ namespace Battle.Logic.Map
         /// Builds the tile grid from a simple grid of booleans indicating areas which are and aren't walkable
         /// </summary>
         /// <param name="map">A boolean representation of a grid in which true = walkable and false = not walkable</param>
-        private static void InitializeTiles(string[,,] map)
+        private static void InitializeTiles(string[,] map)
         {
             _width = map.GetLength(0);
             _height = map.GetLength(1);
             _breadth = map.GetLength(2);
-            _tiles = new MapTile[_width, _height, _breadth];
+            _tiles = new MapTile[_width, _breadth];
             int y = 0;
             for (int z = 0; z < _breadth; z++)
             {
                 for (int x = 0; x < _width; x++)
                 {
-                    _tiles[x, y, z] = new MapTile(x, y, z, map[x, y, z], _endLocation);
+                    _tiles[x, z] = new MapTile(x, y, z, map[x, z], _endLocation);
                 }
             }
         }
@@ -107,13 +107,12 @@ namespace Battle.Logic.Map
         private static List<MapTile> GetAdjacentWalkableTiles(MapTile fromTile)
         {
             List<MapTile> walkableTiles = new List<MapTile>();
-            IEnumerable<Vector3> nextLocations = GetAdjacentLocations(fromTile.Location);
+            IEnumerable<Vector2> nextLocations = GetAdjacentLocations(fromTile.Location);
 
-            foreach (var location in nextLocations)
+            foreach (Vector2 location in nextLocations)
             {
                 int x = (int)location.X;
-                int y = (int)location.Y;
-                int z = (int)location.Z;
+                int z = (int)location.Y;
 
                 // Stay within the grid's boundaries
                 if (x < 0 || x >= _width || z < 0 || z >= _breadth)
@@ -121,7 +120,7 @@ namespace Battle.Logic.Map
                     continue;
                 }
 
-                MapTile tile = _tiles[x, y, z];
+                MapTile tile = _tiles[x, z];
                 // Ignore non-walkable tiles
                 if (tile.TileType != "")
                 {
