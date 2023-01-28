@@ -1,5 +1,6 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using System;
 
 namespace PuzzleSolver;
 
@@ -14,7 +15,7 @@ public class ImageCropping
     public static Image<Rgb24> CropImage(Image<Rgb24> sourceImage, Rectangle areaToExtract)
     {
         //from https://docs.sixlabors.com/articles/imagesharp/pixelbuffers.html#efficient-pixel-manipulation
-        Image<Rgb24> targetImage = new(areaToExtract.Width, areaToExtract.Height);
+        Image<Rgb24> targetImage = new Image<Rgb24>(areaToExtract.Width, areaToExtract.Height);
         int height = areaToExtract.Height;
         sourceImage.ProcessPixelRows(targetImage, (sourceAccessor, targetAccessor) =>
         {
