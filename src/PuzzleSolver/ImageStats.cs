@@ -45,7 +45,7 @@ namespace PuzzleSolver
             get
             {
                 //Return the string ordered by percent
-                StringBuilder sb = new();
+                StringBuilder sb = new StringBuilder();
                 if (NamedColorsAndPercentList != null)
                 {
                     foreach (ColorStats item in NamedColorsAndPercentList)
