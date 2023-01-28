@@ -15,7 +15,7 @@ public class ImageColorGroups
         ColorPalette = colorPalette;
         if (priorityColorPalette == null)
         {
-            PriorityColorPalette = new();
+            PriorityColorPalette = new SortedList<int, Rgb24>();
         }
         else
         {
