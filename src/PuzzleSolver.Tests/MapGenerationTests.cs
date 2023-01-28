@@ -17,7 +17,7 @@ namespace PuzzleSolver.Tests
             string[,] map = MapCore.InitializeMap(xMax, zMax);
 
             //Act
-            map = MapGeneration.GenerateMap(map);
+            map = MapGeneration.GenerateMap();
             MapGeneration.DebugPrintOutMap(map);
             
             //Assert
