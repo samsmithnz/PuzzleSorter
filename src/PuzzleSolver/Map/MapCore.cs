@@ -250,12 +250,12 @@ namespace Battle.Logic.Map
             return sb.ToString();
         }
 
-        public static List<Vector3> FindAdjacentTile(string[,] map, Vector3 currentLocation, string tileToFind)
+        public static List<Vector2> FindAdjacentTile(string[,] map, Vector3 currentLocation, string tileToFind)
         {
             int width = map.GetLength(0);
             //int height = map.GetLength(1);
             int breadth = map.GetLength(2);
-            List<Vector3> result = new List<Vector3>();
+            List<Vector2> result = new List<Vector2>();
 
             //Make adjustments to ensure that the search doesn't go off the edges of the map
             int xMin = Convert.ToInt32(currentLocation.X) - 1;
@@ -282,19 +282,19 @@ namespace Battle.Logic.Map
             //Get possible tiles, within constraints of map, including only square titles from current position (not diagonally)
             if (map[Convert.ToInt32(currentLocation.X), zMax] == tileToFind)
             {
-                result.Add(new Vector3(currentLocation.X, 0f, zMax));
+                result.Add(new Vector2(currentLocation.X, 0f, zMax));
             }
             if (map[xMax, Convert.ToInt32(currentLocation.Z)] == tileToFind)
             {
-                result.Add(new Vector3(xMax, currentLocation.Z));
+                result.Add(new Vector2(xMax, currentLocation.Z));
             }
             if (map[Convert.ToInt32(currentLocation.X), zMin] == tileToFind)
             {
-                result.Add(new Vector3(currentLocation.X, zMin));
+                result.Add(new Vector2(currentLocation.X, zMin));
             }
             if (map[xMin, Convert.ToInt32(currentLocation.Z)] == tileToFind)
             {
-                result.Add(new Vector3(xMin, currentLocation.Z));
+                result.Add(new Vector2(xMin, currentLocation.Z));
             }
             return result;
         }
