@@ -137,7 +137,7 @@ namespace PuzzleSolver.Map
         public static string GetMapString(string[,] map, bool stripOutBlanks = false)
         {
             int xMax = map.GetLength(0);
-            int zMax = map.GetLength(2);
+            int zMax = map.GetLength(1);
             StringBuilder sb = new StringBuilder();
             sb.Append(Environment.NewLine);
             int y = 0;
