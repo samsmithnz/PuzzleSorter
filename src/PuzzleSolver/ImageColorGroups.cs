@@ -2,6 +2,7 @@
 using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PuzzleSolver
 {
@@ -57,7 +58,7 @@ namespace PuzzleSolver
 
         private Dictionary<Rgb24, List<Rgb24>> ProcessImageIntoColorGroups(Image<Rgb24> image)
         {
-            Dictionary<Rgb24, List<Rgb24>> groupedColors = new();
+            Dictionary<Rgb24, List<Rgb24>> groupedColors = new Dictionary<Rgb24, List<Rgb24>>();
 
             image.ProcessPixelRows(accessor =>
             {
@@ -74,7 +75,7 @@ namespace PuzzleSolver
                         {
                             if (!groupedColors.ContainsKey((Rgb24)colorGroup))
                             {
-                                List<Rgb24> colorList = new()
+                                List<Rgb24> colorList = new List<Rgb24>()
                                 {
                                 pixelSpan[col]
                                 };
@@ -101,7 +102,7 @@ namespace PuzzleSolver
         private Rgb24 FindClosestColorGroup(Rgb24 colorToTest)
         {
             Rgb24 closestColorGroup = null;
-            List<KeyValuePair<Rgb24, int>> results = new();
+            List<KeyValuePair<Rgb24, int>> results = new List<KeyValuePair<Rgb24, int>>();
             foreach (Rgb24 color in ColorPalette)
             {
                 int colorDifference = GetColorDifference(color, colorToTest);
@@ -129,12 +130,12 @@ namespace PuzzleSolver
             SortedList<int, Rgb24> priorityColorPalette,
             bool onlyShowTop3)
         {
-            List<ColorStats> roughNamePercentList = new();
+            List<ColorStats> roughNamePercentList = new List<ColorStats>();
             //Calculate the name and percent and add it into a list
             foreach (KeyValuePair<Rgb24, List<Rgb24>> colorGroup in colorGroups)
             {
                 double percent = (double)colorGroup.Value.Count / (double)colorGroups.Sum(t => t.Value.Count);
-                roughNamePercentList.Add(new(colorGroup.Key, ColorPalettes.ToName(colorGroup.Key), percent));
+                roughNamePercentList.Add(new ColorStats(colorGroup.Key, ColorPalettes.ToName(colorGroup.Key), percent));
             }
             //If there are priority items, update the order
             if (priorityColorPalette.Count > 0)
