@@ -70,7 +70,7 @@ namespace PuzzleSolver
                     Span<Rgb24> pixelSpan = accessor.GetRowSpan(row);
                     for (var col = 0; col < pixelSpan.Length; col++)
                     {
-                        Rgb24 colorGroup = FindClosestColorGroup(pixelSpan[col]);
+                        Rgb24? colorGroup = FindClosestColorGroup(pixelSpan[col]);
                         if (colorGroup != null)
                         {
                             if (!groupedColors.ContainsKey((Rgb24)colorGroup))
