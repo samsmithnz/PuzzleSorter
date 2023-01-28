@@ -8,7 +8,7 @@ public class ImageColorGroups
     public SortedList<int, Rgb24> PriorityColorPalette { get; set; }
     public List<Rgb24> ColorPalette { get; set; }
 
-    public ImageColorGroups(List<Rgb24> colorPalette, SortedList<int, Rgb24>? priorityColorPalette = null)
+    public ImageColorGroups(List<Rgb24> colorPalette, SortedList<int, Rgb24> priorityColorPalette = null)
     {
         ColorPalette = colorPalette;
         if (priorityColorPalette == null)
@@ -28,10 +28,10 @@ public class ImageColorGroups
     /// <param name="image"></param>
     /// <param name="onlyShowTop3"></param>
     /// <returns></returns>
-    public ImageStats? ProcessStatsForImage(string? sourceFilename = null, Image<Rgb24>? image = null, bool onlyShowTop3 = true)
+    public ImageStats ProcessStatsForImage(string sourceFilename = null, Image<Rgb24> image = null, bool onlyShowTop3 = true)
     {
-        ImageStats? imageStats = null;
-        Image<Rgb24>? sourceImage = null;
+        ImageStats imageStats = null;
+        Image<Rgb24> sourceImage = null;
         if (sourceFilename != null)
         {
             sourceImage = Image.Load<Rgb24>(sourceFilename);
@@ -40,10 +40,10 @@ public class ImageColorGroups
         {
             sourceImage = image;
         }
-
+        
         if (sourceImage != null)
         {
-            imageStats = new(sourceImage)
+            imageStats = new ImageStats(sourceImage)
             {
                 ColorGroups = ProcessImageIntoColorGroups(sourceImage),
                 PriorityColorPalette = PriorityColorPalette
@@ -53,11 +53,11 @@ public class ImageColorGroups
         return imageStats;
     }
 
-    private Dictionary<Rgb24, List<Rgb24>> ProcessImageIntoColorGroups(Image<Rgb24>? image)
+    private Dictionary<Rgb24, List<Rgb24>> ProcessImageIntoColorGroups(Image<Rgb24> image)
     {
         Dictionary<Rgb24, List<Rgb24>> groupedColors = new();
 
-        image?.ProcessPixelRows(accessor =>
+        image.ProcessPixelRows(accessor =>
         {
             //int srcWidth = sourceImg.Size().Width;
             int srcHeight = image.Size().Height;
@@ -67,7 +67,7 @@ public class ImageColorGroups
                 Span<Rgb24> pixelSpan = accessor.GetRowSpan(row);
                 for (var col = 0; col < pixelSpan.Length; col++)
                 {
-                    Rgb24? colorGroup = FindClosestColorGroup(pixelSpan[col]);
+                    Rgb24 colorGroup = FindClosestColorGroup(pixelSpan[col]);
                     if (colorGroup != null)
                     {
                         if (!groupedColors.ContainsKey((Rgb24)colorGroup))
@@ -96,9 +96,9 @@ public class ImageColorGroups
     }
 
     //Group RGB colors into multiple groups
-    private Rgb24? FindClosestColorGroup(Rgb24 colorToTest)
+    private Rgb24 FindClosestColorGroup(Rgb24 colorToTest)
     {
-        Rgb24? closestColorGroup = null;
+        Rgb24 closestColorGroup = null;
         List<KeyValuePair<Rgb24, int>> results = new();
         foreach (Rgb24 color in ColorPalette)
         {
@@ -139,7 +139,7 @@ public class ImageColorGroups
         {
             foreach (KeyValuePair<int, Rgb24> priorityItem in priorityColorPalette)
             {
-                ColorStats? priorityColorStats = roughNamePercentList.Where(x => x.Rgb == priorityItem.Value).FirstOrDefault();
+                ColorStats priorityColorStats = roughNamePercentList.Where(x => x.Rgb == priorityItem.Value).FirstOrDefault();
                 if (priorityColorStats != null)
                 {
                     priorityColorStats.Order = priorityItem.Key;
