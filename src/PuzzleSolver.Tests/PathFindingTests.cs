@@ -44,6 +44,8 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual("<1, 0, 3>", PathFindingResult.Path[0].ToString());
             Assert.AreEqual("<2, 0, 3>", PathFindingResult.Path[1].ToString());
             Assert.AreEqual("<3, 0, 3>", PathFindingResult.Path[2].ToString());
+            Assert.AreEqual("<4, 0, 3>", PathFindingResult.Path[3].ToString());
+            Assert.AreEqual("<4, 0, 2>", PathFindingResult.Path[4].ToString());
             Assert.AreEqual(expectedMapString, mapString);
         }
 
