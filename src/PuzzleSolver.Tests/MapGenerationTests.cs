@@ -1,5 +1,4 @@
-﻿using Battle.Logic.Map;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace PuzzleSolver.Tests
 {
