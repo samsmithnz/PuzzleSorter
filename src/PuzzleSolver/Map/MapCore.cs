@@ -134,7 +134,6 @@ namespace Battle.Logic.Map
         public static string GetMapString(string[,] map, bool stripOutBlanks = false)
         {
             int xMax = map.GetLength(0);
-            //int yMax = map.GetLength(1);
             int zMax = map.GetLength(2);
             StringBuilder sb = new StringBuilder();
             sb.Append(Environment.NewLine);
@@ -144,9 +143,9 @@ namespace Battle.Logic.Map
                 StringBuilder sbLine = new StringBuilder();
                 for (int x = 0; x < xMax; x++)
                 {
-                    if (map[x, y, z] != "")
+                    if (map[x, z] != "")
                     {
-                        sbLine.Append(map[x, y, z] + " ");
+                        sbLine.Append(map[x, z] + " ");
                     }
                     else
                     {
@@ -177,9 +176,9 @@ namespace Battle.Logic.Map
             foreach (Vector3 item in list)
             {
                 //Check that the square is empty - we don't want to overwrite something that exists and only put a tile on an unused tile
-                if (map[(int)item.X, (int)item.Y, (int)item.Z] == "")
+                if (map[(int)item.X, (int)item.Z] == "")
                 {
-                    map[(int)item.X, (int)item.Y, (int)item.Z] = tile;
+                    map[(int)item.X, (int)item.Z] = tile;
                 }
             }
             return map;
@@ -189,7 +188,7 @@ namespace Battle.Logic.Map
         {
             foreach (Vector3 item in list)
             {
-                map[(int)item.X, (int)item.Y, (int)item.Z] = tile;
+                map[(int)item.X, (int)item.Z] = tile;
             }
             return map;
         }
