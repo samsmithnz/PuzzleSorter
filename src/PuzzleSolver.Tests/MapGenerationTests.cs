@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using PuzzleSolver.Map;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PuzzleSolver.Tests
 {
