@@ -53,11 +53,11 @@ namespace PuzzleSolver.Map
             _width = map.GetLength(0);
             _breadth = map.GetLength(1);
             _tiles = new MapTile[_width, _breadth];
-            for (int z = 0; z < _breadth; z++)
+            for (int y = 0; y < _breadth; y++)
             {
                 for (int x = 0; x < _width; x++)
                 {
-                    _tiles[x, z] = new MapTile(x, z, map[x, z], _endLocation);
+                    _tiles[x, y] = new MapTile(x, y, map[x, y], _endLocation);
                 }
             }
         }
@@ -109,15 +109,15 @@ namespace PuzzleSolver.Map
             foreach (Vector2 location in nextLocations)
             {
                 int x = (int)location.X;
-                int z = (int)location.Y;
+                int y = (int)location.Y;
 
                 // Stay within the grid's boundaries
-                if (x < 0 || x >= _width || z < 0 || z >= _breadth)
+                if (x < 0 || x >= _width || y < 0 || y >= _breadth)
                 {
                     continue;
                 }
 
-                MapTile tile = _tiles[x, z];
+                MapTile tile = _tiles[x, y];
                 // Ignore non-walkable tiles
                 if (tile.TileType != "")
                 {
