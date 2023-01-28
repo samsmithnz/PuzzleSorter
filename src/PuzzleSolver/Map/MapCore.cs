@@ -229,15 +229,15 @@ namespace Battle.Logic.Map
             {
                 for (int x = 0; x < xMax; x++)
                 {
-                    if (mapMask[x, y, z] != "")
+                    if (mapMask[x, z] != "")
                     {
-                        sb.Append(mapMask[x, y, z] + " ");
+                        sb.Append(mapMask[x, z] + " ");
                     }
                     else
                     {
-                        if (map[x, y, z] != "")
+                        if (map[x, z] != "")
                         {
-                            sb.Append(map[x, y, z] + " ");
+                            sb.Append(map[x, z] + " ");
                         }
                         else
                         {
