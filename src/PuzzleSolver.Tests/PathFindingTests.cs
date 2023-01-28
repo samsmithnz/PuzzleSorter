@@ -1,5 +1,4 @@
-﻿using Battle.Logic.Map;
-using System.Numerics;
+﻿using System.Numerics;
 using System.Reflection;
 
 namespace PuzzleSolver.Tests
