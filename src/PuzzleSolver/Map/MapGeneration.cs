@@ -1,4 +1,6 @@
-﻿namespace PuzzleSolver.Map
+﻿using System;
+
+namespace PuzzleSolver.Map
 {
     public static class MapGeneration
     {
