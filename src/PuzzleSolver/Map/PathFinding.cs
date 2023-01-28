@@ -157,7 +157,7 @@ namespace Battle.Logic.Map
         }
 
         /// <summary>
-        /// Returns the eight locations immediately adjacent (orthogonally and diagonally) to <paramref name="fromLocation"/>
+        /// Returns the 4 locations immediately adjacent (not diagonally) to <paramref name="fromLocation"/>
         /// </summary>
         /// <param name="fromLocation">The location from which to return all adjacent points</param>
         /// <returns>The locations as an IEnumerable of Points</returns>
@@ -165,14 +165,10 @@ namespace Battle.Logic.Map
         {
             return new Vector2[]
             {
-                //new Vector2(fromLocation.X - 1,0, fromLocation.Z - 1),
-                new Vector2(fromLocation.X - 1, 0,fromLocation.Z  ),
-                //new Vector2(fromLocation.X - 1, 0,fromLocation.Z + 1),
-                new Vector2(fromLocation.X,   0,fromLocation.Z + 1),
-                //new Vector2(fromLocation.X + 1, 0,fromLocation.Z + 1),
-                new Vector2(fromLocation.X + 1, 0,fromLocation.Z  ),
-                //new Vector2(fromLocation.X + 1, 0,fromLocation.Z - 1),
-                new Vector2(fromLocation.X,   0,fromLocation.Z - 1)
+                new Vector2(fromLocation.X - 1, fromLocation.Y),
+                new Vector2(fromLocation.X, fromLocation.Y + 1),
+                new Vector2(fromLocation.X + 1, fromLocation.Y),
+                new Vector2(fromLocation.X, fromLocation.Y - 1)
             };
         }
     }
