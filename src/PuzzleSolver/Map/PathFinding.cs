@@ -166,13 +166,13 @@ namespace Battle.Logic.Map
         {
             return new Vector3[]
             {
-                new Vector3(fromLocation.X - 1,0, fromLocation.Z - 1),
+                //new Vector3(fromLocation.X - 1,0, fromLocation.Z - 1),
                 new Vector3(fromLocation.X - 1, 0,fromLocation.Z  ),
-                new Vector3(fromLocation.X - 1, 0,fromLocation.Z + 1),
+                //new Vector3(fromLocation.X - 1, 0,fromLocation.Z + 1),
                 new Vector3(fromLocation.X,   0,fromLocation.Z + 1),
-                new Vector3(fromLocation.X + 1, 0,fromLocation.Z + 1),
+                //new Vector3(fromLocation.X + 1, 0,fromLocation.Z + 1),
                 new Vector3(fromLocation.X + 1, 0,fromLocation.Z  ),
-                new Vector3(fromLocation.X + 1, 0,fromLocation.Z - 1),
+                //new Vector3(fromLocation.X + 1, 0,fromLocation.Z - 1),
                 new Vector3(fromLocation.X,   0,fromLocation.Z - 1)
             };
         }
