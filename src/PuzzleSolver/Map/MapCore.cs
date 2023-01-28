@@ -280,21 +280,21 @@ namespace Battle.Logic.Map
             }
 
             //Get possible tiles, within constraints of map, including only square titles from current position (not diagonally)
-            if (map[Convert.ToInt32(currentLocation.X), 0, zMax] == tileToFind)
+            if (map[Convert.ToInt32(currentLocation.X), zMax] == tileToFind)
             {
                 result.Add(new Vector3(currentLocation.X, 0f, zMax));
             }
-            if (map[xMax, 0, Convert.ToInt32(currentLocation.Z)] == tileToFind)
+            if (map[xMax, Convert.ToInt32(currentLocation.Z)] == tileToFind)
             {
-                result.Add(new Vector3(xMax, 0f, currentLocation.Z));
+                result.Add(new Vector3(xMax, currentLocation.Z));
             }
-            if (map[Convert.ToInt32(currentLocation.X), 0, zMin] == tileToFind)
+            if (map[Convert.ToInt32(currentLocation.X), zMin] == tileToFind)
             {
-                result.Add(new Vector3(currentLocation.X, 0f, zMin));
+                result.Add(new Vector3(currentLocation.X, zMin));
             }
-            if (map[xMin, 0, Convert.ToInt32(currentLocation.Z)] == tileToFind)
+            if (map[xMin, Convert.ToInt32(currentLocation.Z)] == tileToFind)
             {
-                result.Add(new Vector3(xMin, 0f, currentLocation.Z));
+                result.Add(new Vector3(xMin, currentLocation.Z));
             }
             return result;
         }
