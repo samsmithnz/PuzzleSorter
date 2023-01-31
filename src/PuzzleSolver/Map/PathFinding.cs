@@ -9,13 +9,13 @@ namespace PuzzleSolver.Map
         private static int _height;
         private static int _breadth;
         private static MapTile[,,] _tiles;
-        private static Vector3 _endLocation;
+        private static Vector2 _endLocation;
 
         /// <summary>
         /// Attempts to find a path from the start location to the end location based on the supplied SearchParameters
         /// </summary>
         /// <returns>A List of Points representing the path. If no path was found, the returned list is empty.</returns>
-        public static PathFindingResult FindPath(string[,,] map, Vector3 startLocation, Vector3 endLocation)
+        public static PathFindingResult FindPath(string[,,] map, Vector2 startLocation, Vector2 endLocation)
         {
             _endLocation = endLocation;
             // Initializes a tile grid from a simple grid of booleans indicating areas which are and aren't walkable
@@ -102,19 +102,19 @@ namespace PuzzleSolver.Map
         {
             List<MapTile> walkableTiles = new List<MapTile>();
             // Returns the four locations immediately adjacent (orthogonally and NOT diagonally) from the source "fromTile"
-            IEnumerable<Vector3> nextLocations = new Vector3[]
+            IEnumerable<Vector2> nextLocations = new Vector2[]
                 {
-                    //new Vector3(fromLocation.X - 1,0, fromLocation.Z - 1),
-                    new Vector3(fromTile.Location.X - 1, 0,fromTile.Location.Z  ),
-                    //new Vector3(fromLocation.X - 1, 0,fromLocation.Z + 1),
-                    new Vector3(fromTile.Location.X,   0,fromTile.Location.Z + 1),
-                    //new Vector3(fromLocation.X + 1, 0,fromLocation.Z + 1),
-                    new Vector3(fromTile.Location.X + 1, 0,fromTile.Location.Z  ),
-                    //new Vector3(fromLocation.X + 1, 0,fromLocation.Z - 1),
-                    new Vector3(fromTile.Location.X,   0,fromTile.Location.Z - 1)
+                    //new Vector2(fromLocation.X - 1,0, fromLocation.Z - 1),
+                    new Vector2(fromTile.Location.X - 1, 0,fromTile.Location.Z  ),
+                    //new Vector2(fromLocation.X - 1, 0,fromLocation.Z + 1),
+                    new Vector2(fromTile.Location.X,   0,fromTile.Location.Z + 1),
+                    //new Vector2(fromLocation.X + 1, 0,fromLocation.Z + 1),
+                    new Vector2(fromTile.Location.X + 1, 0,fromTile.Location.Z  ),
+                    //new Vector2(fromLocation.X + 1, 0,fromLocation.Z - 1),
+                    new Vector2(fromTile.Location.X,   0,fromTile.Location.Z - 1)
                 };
 
-            foreach (Vector3 location in nextLocations)
+            foreach (Vector2 location in nextLocations)
             {
                 int x = (int)location.X;
                 int y = (int)location.Y;
