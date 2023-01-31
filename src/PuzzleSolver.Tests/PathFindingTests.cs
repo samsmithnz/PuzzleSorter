@@ -1,9 +1,11 @@
 ﻿using PuzzleSolver.Map;
+using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using System.Reflection;
 
 namespace PuzzleSolver.Tests
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     [TestCategory("L0")]
     public class PathFindingTests
