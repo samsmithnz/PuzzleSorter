@@ -15,7 +15,7 @@ namespace PuzzleSolver.Map
         /// Attempts to find a path from the start location to the end location based on the supplied SearchParameters
         /// </summary>
         /// <returns>A List of Points representing the path. If no path was found, the returned list is empty.</returns>
-        public static PathFindingResult FindPath(string[,,] map, Vector2 startLocation, Vector2 endLocation)
+        public static PathFindingResult FindPath(string[,] map, Vector2 startLocation, Vector2 endLocation)
         {
             _endLocation = endLocation;
             // Initializes a tile grid from a simple grid of booleans indicating areas which are and aren't walkable
