@@ -101,24 +101,24 @@ namespace PuzzleSolver.Map
             // Returns the four locations immediately adjacent (orthogonally and NOT diagonally) from the source "fromTile"
             IEnumerable<Vector2> nextLocations = new Vector2[]
                 {
-                    new Vector2(fromTile.Location.X - 1, fromTile.Location.Z),
-                    new Vector2(fromTile.Location.X, fromTile.Location.Z + 1),
-                    new Vector2(fromTile.Location.X + 1, fromTile.Location.Z),
-                    new Vector2(fromTile.Location.X,  fromTile.Location.Z - 1)
+                    new Vector2(fromTile.Location.X - 1, fromTile.Location.Y),
+                    new Vector2(fromTile.Location.X, fromTile.Location.Y + 1),
+                    new Vector2(fromTile.Location.X + 1, fromTile.Location.Y),
+                    new Vector2(fromTile.Location.X,  fromTile.Location.Y - 1)
                 };
 
             foreach (Vector2 location in nextLocations)
             {
                 int x = (int)location.X;
-                int z = (int)location.Z;
-
+                int y = (int)location.Y;
+                
                 // Stay within the grid's boundaries
-                if (x < 0 || x >= _width || z < 0 || z >= _breadth)
+                if (x < 0 || x >= _width || y < 0 || y >= _height)
                 {
                     continue;
                 }
 
-                MapTile tile = _tiles[x, z];
+                MapTile tile = _tiles[x, y];
                 // Ignore non-walkable tiles
                 if (tile.TileType != "")
                 {
