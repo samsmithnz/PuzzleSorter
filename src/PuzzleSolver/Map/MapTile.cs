@@ -24,7 +24,7 @@ namespace PuzzleSolver.Map
         /// <summary>
         /// The node's location in the grid
         /// </summary>
-        public Vector3 Location { get; private set; }
+        public Vector2 Location { get; private set; }
 
         /// <summary>
         /// True when the node may be traversed, otherwise false
@@ -86,11 +86,11 @@ namespace PuzzleSolver.Map
         /// <summary>
         /// Gets the distance between two points
         /// </summary>
-        internal static float GetTraversalCost(Vector3 location, Vector3 otherLocation)
+        internal static float GetTraversalCost(Vector2 location, Vector2 otherLocation)
         {
             float deltaX = otherLocation.X - location.X;
-            float deltaZ = otherLocation.Z - location.Z;
-            float result = (float)Math.Sqrt(deltaX * deltaX + deltaZ * deltaZ);
+            float deltaY = otherLocation.Y - location.Y;
+            float result = (float)Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
             //System.Diagnostics.Debug.WriteLine("GetTraversalCost:" + result);
             return result;
         }
