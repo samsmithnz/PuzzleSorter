@@ -154,7 +154,6 @@ namespace PuzzleSolver.Map
         }
 
         /// <summary>
-        /// Returns the 4 locations immediately adjacent (not diagonally) to <paramref name="fromLocation"/>
         /// </summary>
         /// <param name="fromLocation">The location from which to return all adjacent points</param>
         /// <returns>The locations as an IEnumerable of Points</returns>
