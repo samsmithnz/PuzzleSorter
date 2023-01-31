@@ -18,7 +18,7 @@ namespace PuzzleSolver.Map
         public static PathFindingResult FindPath(string[,,] map, Vector3 startLocation, Vector3 endLocation)
         {
             _endLocation = endLocation;
-            // Builds the tile grid from a simple grid of booleans indicating areas which are and aren't walkable
+            // Initializes a tile grid from a simple grid of booleans indicating areas which are and aren't walkable
             _width = map.GetLength(0);
             _height = map.GetLength(1);
             _breadth = map.GetLength(2);
@@ -31,11 +31,13 @@ namespace PuzzleSolver.Map
                     _tiles[x, y, z] = new MapTile(x, y, z, map[x, y, z], _endLocation);
                 }
             }
+            
+            //Establish the start and end tiles
             MapTile startTile = _tiles[(int)startLocation.X, (int)startLocation.Y, (int)startLocation.Z];
             startTile.State = TileState.Open;
             MapTile endTile = _tiles[(int)endLocation.X, (int)endLocation.Y, (int)endLocation.Z];
 
-            // The start tile is the first entry in the 'open' list
+            // The start tile is the first entry in the 'open' list. Now search all of the open tiles for the shortest path
             PathFindingResult result = new PathFindingResult();
             bool success = Search(startTile, endTile);
             if (success)

@@ -23,7 +23,7 @@ namespace PuzzleSolver.Map
                         x == 4 && z == 2 ||
                         x == 4 && z == 4)
                     {
-                        map[x, y, z] = "D"; //drop zone
+                        //map[x, y, z] = "D"; //drop zone
                     }
                     else if (x == 2 && z == 2)
                     {
