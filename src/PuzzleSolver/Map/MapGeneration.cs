@@ -36,15 +36,14 @@ namespace PuzzleSolver.Map
         public static void DebugPrintOutMap(string[,] map)
         {
             int width = map.GetLength(0);
-            int breadth = map.GetLength(1);
-            int y = 0;
-            for (int z = 0; z < breadth; z++)
+            int height = map.GetLength(1);
+            for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    if (map[x, y, z] != "")
+                    if (map[x, y] != "")
                     {
-                        Console.WriteLine(" this.map[" + x + ", " + z + "] = " + map[x, y, z] + ";");
+                        Console.WriteLine(" this.map[" + x + ", " + y + "] = " + map[x, y] + ";");
                     }
                 }
             }
