@@ -70,7 +70,7 @@ namespace PuzzleSolver.Map
 
             // Sort by F-value so that the shortest possible routes are considered first
             nextTiles.Sort((tile1, tile2) => tile1.F.CompareTo(tile2.F));
-            foreach (var nextTile in nextTiles)
+            foreach (MapTile nextTile in nextTiles)
             {
                 // Check whether the end tile has been reached
                 if (nextTile.Location == endTile.Location)
