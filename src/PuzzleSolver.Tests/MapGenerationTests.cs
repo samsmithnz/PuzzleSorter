@@ -12,12 +12,9 @@ namespace PuzzleSolver.Tests
         public void RandomMapTest()
         {
             //Arrange
-            int xMax = 5;
-            int yMax = 5;
-            string[,] map = MapCore.InitializeMap(xMax, yMax);
+            string[,] map = MapGeneration.GenerateMap();
 
             //Act
-            map = MapGeneration.GenerateMap();
             MapGeneration.DebugPrintOutMap(map);
             
             //Assert
