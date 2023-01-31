@@ -101,7 +101,7 @@ namespace PuzzleSolver.Map
         private static List<MapTile> GetAdjacentWalkableTiles(MapTile fromTile)
         {
             List<MapTile> walkableTiles = new List<MapTile>();
-            // Returns the eight locations immediately adjacent (orthogonally and diagonally) to fromTile
+            // Returns the four locations immediately adjacent (orthogonally and NOT diagonally) from the source "fromTile"
             IEnumerable<Vector3> nextLocations = new Vector3[]
                 {
                     //new Vector3(fromLocation.X - 1,0, fromLocation.Z - 1),
