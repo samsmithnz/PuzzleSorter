@@ -7,7 +7,6 @@ namespace PuzzleSolver.Map
     {
         private static int _width;
         private static int _height;
-        private static int _breadth;
         private static MapTile[,] _tiles;
         private static Vector2 _endLocation;
 
@@ -21,20 +20,19 @@ namespace PuzzleSolver.Map
             // Initializes a tile grid from a simple grid of booleans indicating areas which are and aren't walkable
             _width = map.GetLength(0);
             _height = map.GetLength(1);
-            _breadth = map.GetLength(2);
-            _tiles = new MapTile[_width, _height, _breadth];
-            for (int z = 0; z < _breadth; z++)
+            _tiles = new MapTile[_width, _height];
+            for (int y = 0; y < _height; y++)
             {
                 for (int x = 0; x < _width; x++)
                 {
-                    _tiles[x, z] = new MapTile(x, z, map[x, z], _endLocation);
+                    _tiles[x, y] = new MapTile(x, y, map[x, y], _endLocation);
                 }
             }
             
             //Establish the start and end tiles
-            MapTile startTile = _tiles[(int)startLocation.X, (int)startLocation.Y, (int)startLocation.Z];
+            MapTile startTile = _tiles[(int)startLocation.X, (int)startLocation.Y];
             startTile.State = TileState.Open;
-            MapTile endTile = _tiles[(int)endLocation.X, (int)endLocation.Z];
+            MapTile endTile = _tiles[(int)endLocation.X, (int)endLocation.Y];
 
             // The start tile is the first entry in the 'open' list. Now search all of the open tiles for the shortest path
             PathFindingResult result = new PathFindingResult();
