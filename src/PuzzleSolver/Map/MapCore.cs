@@ -15,9 +15,9 @@ namespace PuzzleSolver.Map
         /// <param name="zMax">z size</param>
         /// <param name="initialString">The initial string to initialize the map with - usually ""</param>
         /// <returns>The populated map/array</returns>
-        public static string[,] InitializeMap(int xMax, int zMax, string initialString = "")
+        public static string[,,] InitializeMap(int xMax, int yMax, int zMax, string initialString = "")
         {
-            string[,] map = new string[xMax, zMax];
+            string[,,] map = new string[xMax, yMax, zMax];
 
             //Initialize the map
             int y = 0;
@@ -25,7 +25,7 @@ namespace PuzzleSolver.Map
             {
                 for (int x = 0; x < xMax; x++)
                 {
-                    map[x, z] = initialString;
+                    map[x, y, z] = initialString;
                 }
             }
 
@@ -33,10 +33,10 @@ namespace PuzzleSolver.Map
         }
 
 
-        public static List<Vector2> GetMapArea(string[,] map, Vector2 sourceLocation, int range, bool lookingForFOV = true, bool includeSourceLocation = false)
+        public static List<Vector3> GetMapArea(string[,,] map, Vector3 sourceLocation, int range, bool lookingForFOV = true, bool includeSourceLocation = false)
         {
             int startingX = (int)sourceLocation.X;
-            int startingZ = (int)sourceLocation.Y;
+            int startingZ = (int)sourceLocation.Z;
 
             //Use the range to find the borders in each primary direction from the starting location
             int minX = startingX - range;
@@ -61,25 +61,25 @@ namespace PuzzleSolver.Map
             }
 
             //Get a list of all border squares
-            HashSet<Vector2> borderTiles = new HashSet<Vector2>();
+            HashSet<Vector3> borderTiles = new HashSet<Vector3>();
             //Add the top and bottom rows
             for (int x = minX; x <= maxX; x++)
             {
-                borderTiles.Add(new Vector2(x,minZ));
-                borderTiles.Add(new Vector2(x,maxZ));
+                borderTiles.Add(new Vector3(x, 0, minZ));
+                borderTiles.Add(new Vector3(x, 0, maxZ));
             }
             //Add the left and right sides
             for (int z = minZ; z < maxZ; z++)
             {
-                borderTiles.Add(new Vector2(minX,z));
-                borderTiles.Add(new Vector2(maxX,z));
+                borderTiles.Add(new Vector3(minX, 0, z));
+                borderTiles.Add(new Vector3(maxX, 0, z));
             }
 
             //For each border tile, draw a line from the starting point to the border
-            HashSet<Vector2> results = new HashSet<Vector2>();
-            //foreach (Vector2 borderItem in borderTiles)
+            HashSet<Vector3> results = new HashSet<Vector3>();
+            //foreach (Vector3 borderItem in borderTiles)
             //{
-            //    List<Vector2> singleLineCheck = FieldOfView.GetPointsOnLine(new Vector2(startingX,startingZ), borderItem);
+            //    List<Vector3> singleLineCheck = FieldOfView.GetPointsOnLine(new Vector3(startingX, 0, startingZ), borderItem);
             //    if (singleLineCheck.Count > 0 &&
             //        singleLineCheck[singleLineCheck.Count - 1].X == startingX &&
             //        singleLineCheck[singleLineCheck.Count - 1].Z == startingZ)
@@ -93,7 +93,7 @@ namespace PuzzleSolver.Map
             //    for (int i = 0; i < singleLineCheck.Count; i++)
             //    {
             //        currentLength += lineSegment;
-            //        Vector2 fovItem = singleLineCheck[i];
+            //        Vector3 fovItem = singleLineCheck[i];
             //        if (fovItem.X >= 0 && fovItem.Y >= 0 && fovItem.Z >= 0)
             //        {
             //            //If we find an object, stop adding tiles
@@ -128,16 +128,17 @@ namespace PuzzleSolver.Map
             return results.ToList();
         }
 
-        public static double GetLengthOfLine(Vector2 start, Vector2 end, int decimals = 0)
+        public static double GetLengthOfLine(Vector3 start, Vector3 end, int decimals = 0)
         {
-            double lineLength = Math.Sqrt(Math.Pow((end.X - start.X), 2) + Math.Pow((end.Y - start.Y), 2));
+            double lineLength = Math.Sqrt(Math.Pow((end.X - start.X), 2) + Math.Pow((end.Z - start.Z), 2));
             return Math.Round(lineLength, decimals);
         }
 
-        public static string GetMapString(string[,] map, bool stripOutBlanks = false)
+        public static string GetMapString(string[,,] map, bool stripOutBlanks = false)
         {
             int xMax = map.GetLength(0);
-            int zMax = map.GetLength(1);
+            //int yMax = map.GetLength(1);
+            int zMax = map.GetLength(2);
             StringBuilder sb = new StringBuilder();
             sb.Append(Environment.NewLine);
             int y = 0;
@@ -146,9 +147,9 @@ namespace PuzzleSolver.Map
                 StringBuilder sbLine = new StringBuilder();
                 for (int x = 0; x < xMax; x++)
                 {
-                    if (map[x, z] != "")
+                    if (map[x, y, z] != "")
                     {
-                        sbLine.Append(map[x, z] + " ");
+                        sbLine.Append(map[x, y, z] + " ");
                     }
                     else
                     {
@@ -174,91 +175,114 @@ namespace PuzzleSolver.Map
             return sb.ToString();
         }
 
-        public static string[,] ApplyListToMap(string[,] map, List<Vector2> list, string tile)
+        public static string[,,] ApplyListToMap(string[,,] map, List<Vector3> list, string tile)
         {
-            foreach (Vector2 item in list)
+            foreach (Vector3 item in list)
             {
                 //Check that the square is empty - we don't want to overwrite something that exists and only put a tile on an unused tile
-                if (map[(int)item.X, (int)item.Y] == "")
+                if (map[(int)item.X, (int)item.Y, (int)item.Z] == "")
                 {
-                    map[(int)item.X, (int)item.Y] = tile;
+                    map[(int)item.X, (int)item.Y, (int)item.Z] = tile;
                 }
             }
             return map;
         }
 
-        public static string[,] ApplyListToExistingMap(string[,] map, List<Vector2> list, string tile)
+        public static string[,,] ApplyListToExistingMap(string[,,] map, List<Vector3> list, string tile)
         {
-            foreach (Vector2 item in list)
+            foreach (Vector3 item in list)
             {
-                map[(int)item.X, (int)item.Y] = tile;
+                map[(int)item.X, (int)item.Y, (int)item.Z] = tile;
             }
             return map;
         }
 
-        public static string GetMapStringWithItems(string[,] map, List<Vector2> list)
+        public static string GetMapStringWithItems(string[,,] map, List<Vector3> list)
         {
-            string[,] mapNew = MapCore.ApplyListToMap((string[,])map.Clone(), list, "o");
+            string[,,] mapNew = MapCore.ApplyListToMap((string[,,])map.Clone(), list, "o");
             string mapString = MapCore.GetMapString(mapNew);
             return mapString;
         }
 
-        public static string GetMapStringWithItemLayers(string[,] map, List<Vector2> baseList, List<Vector2> overlayList)
+        public static string GetMapStringWithItemLayers(string[,,] map, List<Vector3> baseList, List<Vector3> overlayList)
         {
-            string[,] mapNew = MapCore.ApplyListToMap((string[,])map.Clone(), baseList, "o");
+            string[,,] mapNew = MapCore.ApplyListToMap((string[,,])map.Clone(), baseList, "o");
             mapNew = MapCore.ApplyListToExistingMap(mapNew, overlayList, "O");
 
             string mapString = MapCore.GetMapString(mapNew);
             return mapString;
         }
 
-        public static string GetMapStringWithMapMask(string[,] map, string[,] mapMask)
-        {
-            int xMax = map.GetLength(0);
-            //int yMax = map.GetLength(1);
-            int zMax = map.GetLength(2);
-            int xMaskMax = map.GetLength(0);
-            //int yMaskMax = map.GetLength(1);
-            int zMaskMax = map.GetLength(2);
-            if (xMax != xMaskMax && zMax != zMaskMax)
-            {
-                throw new Exception("Mask map is not the same size as the parent map");
-            }
+        //public static string GetMapStringWithAIValuesFirst(string[,,] mapTemplate, List<KeyValuePair<Vector3, int>> list)
+        //{
+        //    string[,,] map = (string[,,])mapTemplate.Clone();
+        //    foreach (KeyValuePair<Vector3, int> item in list)
+        //    {
+        //        map[(int)item.Key.X, (int)item.Key.Y, (int)item.Key.Z] = item.Value.ToString();
+        //    }
+        //    return MapCore.GetMapString(map);
+        //}
 
-            StringBuilder sb = new StringBuilder();
-            sb.Append(Environment.NewLine);
-            int y = 0;
-            for (int z = zMax - 1; z >= 0; z--)
-            {
-                for (int x = 0; x < xMax; x++)
-                {
-                    if (mapMask[x, z] != "")
-                    {
-                        sb.Append(mapMask[x, z] + " ");
-                    }
-                    else
-                    {
-                        if (map[x, z] != "")
-                        {
-                            sb.Append(map[x, z] + " ");
-                        }
-                        else
-                        {
-                            sb.Append(". ");
-                        }
-                    }
-                }
-                sb.Append(Environment.NewLine);
-            }
-            return sb.ToString();
-        }
+        //public static string GetMapStringWithAIValuesSecond(string[,,] mapTemplate, List<KeyValuePair<Vector3, AIAction>> list)
+        //{
+        //    string[,,] map = (string[,,])mapTemplate.Clone();
+        //    if (list != null)
+        //    {
+        //        foreach (KeyValuePair<Vector3, AIAction> item in list)
+        //        {
+        //            map[(int)item.Key.X, (int)item.Key.Y, (int)item.Key.Z] = item.Value.Score.ToString();
+        //        }
+        //    }
+        //    return MapCore.GetMapString(map, true);
+        //}
 
-        public static List<Vector2> FindAdjacentTile(string[,] map, Vector2 currentLocation, string tileToFind)
+        //public static string GetMapStringWithMapMask(string[,,] map, string[,,] mapMask)
+        //{
+        //    int xMax = map.GetLength(0);
+        //    //int yMax = map.GetLength(1);
+        //    int zMax = map.GetLength(2);
+        //    int xMaskMax = map.GetLength(0);
+        //    //int yMaskMax = map.GetLength(1);
+        //    int zMaskMax = map.GetLength(2);
+        //    if (xMax != xMaskMax && zMax != zMaskMax)
+        //    {
+        //        throw new Exception("Mask map is not the same size as the parent map");
+        //    }
+
+        //    StringBuilder sb = new StringBuilder();
+        //    sb.Append(Environment.NewLine);
+        //    int y = 0;
+        //    for (int z = zMax - 1; z >= 0; z--)
+        //    {
+        //        for (int x = 0; x < xMax; x++)
+        //        {
+        //            if (mapMask[x, y, z] != "")
+        //            {
+        //                sb.Append(mapMask[x, y, z] + " ");
+        //            }
+        //            else
+        //            {
+        //                if (map[x, y, z] != "")
+        //                {
+        //                    sb.Append(map[x, y, z] + " ");
+        //                }
+        //                else
+        //                {
+        //                    sb.Append(". ");
+        //                }
+        //            }
+        //        }
+        //        sb.Append(Environment.NewLine);
+        //    }
+        //    return sb.ToString();
+        //}
+
+        public static List<Vector3> FindAdjacentTile(string[,,] map, Vector3 currentLocation, string tileToFind)
         {
             int width = map.GetLength(0);
             //int height = map.GetLength(1);
             int breadth = map.GetLength(2);
-            List<Vector2> result = new List<Vector2>();
+            List<Vector3> result = new List<Vector3>();
 
             //Make adjustments to ensure that the search doesn't go off the edges of the map
             int xMin = Convert.ToInt32(currentLocation.X) - 1;
@@ -271,33 +295,33 @@ namespace PuzzleSolver.Map
             {
                 xMax = width - 1;
             }
-            int zMin = Convert.ToInt32(currentLocation.Y) - 1;
+            int zMin = Convert.ToInt32(currentLocation.Z) - 1;
             if (zMin < 0)
             {
                 zMin = 0;
             }
-            int zMax = Convert.ToInt32(currentLocation.Y) + 1;
+            int zMax = Convert.ToInt32(currentLocation.Z) + 1;
             if (zMax > breadth - 1)
             {
                 zMax = breadth - 1;
             }
 
             //Get possible tiles, within constraints of map, including only square titles from current position (not diagonally)
-            if (map[Convert.ToInt32(currentLocation.X), zMax] == tileToFind)
+            if (map[Convert.ToInt32(currentLocation.X), 0, zMax] == tileToFind)
             {
-                result.Add(new Vector2(currentLocation.X, zMax));
+                result.Add(new Vector3(currentLocation.X, 0f, zMax));
             }
-            if (map[xMax, Convert.ToInt32(currentLocation.Y)] == tileToFind)
+            if (map[xMax, 0, Convert.ToInt32(currentLocation.Z)] == tileToFind)
             {
-                result.Add(new Vector2(xMax, currentLocation.Y));
+                result.Add(new Vector3(xMax, 0f, currentLocation.Z));
             }
-            if (map[Convert.ToInt32(currentLocation.X), zMin] == tileToFind)
+            if (map[Convert.ToInt32(currentLocation.X), 0, zMin] == tileToFind)
             {
-                result.Add(new Vector2(currentLocation.X, zMin));
+                result.Add(new Vector3(currentLocation.X, 0f, zMin));
             }
-            if (map[xMin, Convert.ToInt32(currentLocation.Y)] == tileToFind)
+            if (map[xMin, 0, Convert.ToInt32(currentLocation.Z)] == tileToFind)
             {
-                result.Add(new Vector2(xMin, currentLocation.Y));
+                result.Add(new Vector3(xMin, 0f, currentLocation.Z));
             }
             return result;
         }

@@ -13,9 +13,9 @@ namespace PuzzleSolver.Map
         /// <param name="z">The node's location along the Z axis</param>
         /// <param name="isWalkable">True if the node can be traversed, false if the node is a wall</param>
         /// <param name="endLocation">The location of the destination node</param>
-        public MapTile(int x, int z, string tileType, Vector2 endLocation)
+        public MapTile(int x, int y, int z, string tileType, Vector3 endLocation)
         {
-            this.Location = new Vector2(x, z);
+            this.Location = new Vector3(x, y, z);
             this.State = TileState.Untested;
             this.TileType = tileType;
             this.H = GetTraversalCost(this.Location, endLocation);
@@ -25,7 +25,7 @@ namespace PuzzleSolver.Map
         /// <summary>
         /// The node's location in the grid
         /// </summary>
-        public Vector2 Location { get; private set; }
+        public Vector3 Location { get; private set; }
 
         /// <summary>
         /// True when the node may be traversed, otherwise false
@@ -87,10 +87,10 @@ namespace PuzzleSolver.Map
         /// <summary>
         /// Gets the distance between two points
         /// </summary>
-        internal static float GetTraversalCost(Vector2 location, Vector2 otherLocation)
+        internal static float GetTraversalCost(Vector3 location, Vector3 otherLocation)
         {
             float deltaX = otherLocation.X - location.X;
-            float deltaZ = otherLocation.Y - location.Y;
+            float deltaZ = otherLocation.Z - location.Z;
             float result = (float)Math.Sqrt(deltaX * deltaX + deltaZ * deltaZ);
             //System.Diagnostics.Debug.WriteLine("GetTraversalCost:" + result);
             return result;

@@ -4,37 +4,37 @@ namespace PuzzleSolver.Map
 {
     public static class MapGeneration
     {
-        public static string[,] GenerateMap()
+        public static string[,,] GenerateMap()
         {
-            string[,] map = MapCore.InitializeMap(5, 5);
+            string[,,] map = MapCore.InitializeMap(5, 1, 5);
             int width = map.GetLength(0);
-            int breadth = map.GetLength(1);
+            int breadth = map.GetLength(2);
             int y = 0;
             for (int z = 0; z < breadth; z++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    if (x == 0 && y == 0 ||
-                        x == 0 && y == 2 ||
-                        x == 0 && y == 4 ||
-                        x == 2 && y == 0 ||
-                        x == 2 && y == 4 ||
-                        x == 4 && y == 0 ||
-                        x == 4 && y == 2 ||
-                        x == 4 && y == 4)
+                    if (x == 0 && z == 0 ||
+                        x == 0 && z == 2 ||
+                        x == 0 && z == 4 ||
+                        x == 2 && z == 0 ||
+                        x == 2 && z == 4 ||
+                        x == 4 && z == 0 ||
+                        x == 4 && z == 2 ||
+                        x == 4 && z == 4)
                     {
-                        map[x, z] = "d"; //drop zone
+                        map[x, y, z] = "D"; //drop zone
                     }
-                    else if (x == 2 && y == 2)
+                    else if (x == 2 && z == 2)
                     {
-                        map[x, z] = "p"; //pickup zone
+                        map[x, y, z] = "P"; //pickup zone
                     }
                 }
             }
             return map;
         }
 
-        public static void DebugPrintOutMap(string[,] map)
+        public static void DebugPrintOutMap(string[,,] map)
         {
             int width = map.GetLength(0);
             int breadth = map.GetLength(1);
@@ -43,9 +43,9 @@ namespace PuzzleSolver.Map
             {
                 for (int x = 0; x < width; x++)
                 {
-                    if (map[x, z] != "")
+                    if (map[x, y, z] != "")
                     {
-                        Console.WriteLine(" this.map[" + x + ", " + z + "] = " + map[x, z] + ";");
+                        Console.WriteLine(" this.map[" + x + ", " + z + "] = " + map[x, y, z] + ";");
                     }
                 }
             }

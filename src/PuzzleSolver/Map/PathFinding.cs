@@ -7,20 +7,21 @@ namespace PuzzleSolver.Map
     {
         private static int _width;
         private static int _height;
-        private static MapTile[,] _tiles;
-        private static Vector2 _endLocation;
+        private static int _breadth;
+        private static MapTile[,,] _tiles;
+        private static Vector3 _endLocation;
 
         /// <summary>
         /// Attempts to find a path from the start location to the end location based on the supplied SearchParameters
         /// </summary>
         /// <returns>A List of Points representing the path. If no path was found, the returned list is empty.</returns>
-        public static PathFindingResult FindPath(string[,] map, Vector2 startLocation, Vector2 endLocation)
+        public static PathFindingResult FindPath(string[,,] map, Vector3 startLocation, Vector3 endLocation)
         {
             _endLocation = endLocation;
             InitializeTiles(map);
-            MapTile startTile = _tiles[(int)startLocation.X, (int)startLocation.Y];
+            MapTile startTile = _tiles[(int)startLocation.X, (int)startLocation.Y, (int)startLocation.Z];
             startTile.State = TileState.Open;
-            MapTile endTile = _tiles[(int)endLocation.X, (int)endLocation.Y];
+            MapTile endTile = _tiles[(int)endLocation.X, (int)endLocation.Y, (int)endLocation.Z];
 
             // The start tile is the first entry in the 'open' list
             PathFindingResult result = new PathFindingResult();
@@ -48,16 +49,18 @@ namespace PuzzleSolver.Map
         /// Builds the tile grid from a simple grid of booleans indicating areas which are and aren't walkable
         /// </summary>
         /// <param name="map">A boolean representation of a grid in which true = walkable and false = not walkable</param>
-        private static void InitializeTiles(string[,] map)
+        private static void InitializeTiles(string[,,] map)
         {
             _width = map.GetLength(0);
             _height = map.GetLength(1);
-            _tiles = new MapTile[_width, _height];
-            for (int y = 0; y < _height; y++)
+            _breadth = map.GetLength(2);
+            _tiles = new MapTile[_width, _height, _breadth];
+            int y = 0;
+            for (int z = 0; z < _breadth; z++)
             {
                 for (int x = 0; x < _width; x++)
                 {
-                    _tiles[x, y] = new MapTile(x, y, map[x, y], _endLocation);
+                    _tiles[x, y, z] = new MapTile(x, y, z, map[x, y, z], _endLocation);
                 }
             }
         }
@@ -104,20 +107,21 @@ namespace PuzzleSolver.Map
         private static List<MapTile> GetAdjacentWalkableTiles(MapTile fromTile)
         {
             List<MapTile> walkableTiles = new List<MapTile>();
-            IEnumerable<Vector2> nextLocations = GetAdjacentLocations(fromTile.Location);
+            IEnumerable<Vector3> nextLocations = GetAdjacentLocations(fromTile.Location);
 
-            foreach (Vector2 location in nextLocations)
+            foreach (var location in nextLocations)
             {
                 int x = (int)location.X;
                 int y = (int)location.Y;
+                int z = (int)location.Z;
 
                 // Stay within the grid's boundaries
-                if (x < 0 || x >= _width || y < 0 || y >= _height)
+                if (x < 0 || x >= _width || z < 0 || z >= _breadth)
                 {
                     continue;
                 }
 
-                MapTile tile = _tiles[x, y];
+                MapTile tile = _tiles[x, y, z];
                 // Ignore non-walkable tiles
                 if (tile.TileType != "")
                 {
@@ -154,17 +158,22 @@ namespace PuzzleSolver.Map
         }
 
         /// <summary>
+        /// Returns the eight locations immediately adjacent (orthogonally and diagonally) to <paramref name="fromLocation"/>
         /// </summary>
         /// <param name="fromLocation">The location from which to return all adjacent points</param>
         /// <returns>The locations as an IEnumerable of Points</returns>
-        private static IEnumerable<Vector2> GetAdjacentLocations(Vector2 fromLocation)
+        private static IEnumerable<Vector3> GetAdjacentLocations(Vector3 fromLocation)
         {
-            return new Vector2[]
+            return new Vector3[]
             {
-                new Vector2(fromLocation.X - 1, fromLocation.Y),
-                new Vector2(fromLocation.X, fromLocation.Y + 1),
-                new Vector2(fromLocation.X + 1, fromLocation.Y),
-                new Vector2(fromLocation.X, fromLocation.Y - 1)
+                //new Vector3(fromLocation.X - 1,0, fromLocation.Z - 1),
+                new Vector3(fromLocation.X - 1, 0,fromLocation.Z  ),
+                //new Vector3(fromLocation.X - 1, 0,fromLocation.Z + 1),
+                new Vector3(fromLocation.X,   0,fromLocation.Z + 1),
+                //new Vector3(fromLocation.X + 1, 0,fromLocation.Z + 1),
+                new Vector3(fromLocation.X + 1, 0,fromLocation.Z  ),
+                //new Vector3(fromLocation.X + 1, 0,fromLocation.Z - 1),
+                new Vector3(fromLocation.X,   0,fromLocation.Z - 1)
             };
         }
     }

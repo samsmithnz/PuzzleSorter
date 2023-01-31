@@ -8,11 +8,11 @@ namespace PuzzleSolver.Map
         public PathFindingResult()
         {
             Tiles = new List<MapTile>();
-            Path = new List<Vector2>();
+            Path = new List<Vector3>();
         }
 
         public List<MapTile> Tiles { get; set; }
-        public List<Vector2> Path { get; set; }
+        public List<Vector3> Path { get; set; }
 
         public MapTile GetLastTile()
         {

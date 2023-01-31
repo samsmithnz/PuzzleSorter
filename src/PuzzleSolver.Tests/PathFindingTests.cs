@@ -15,17 +15,17 @@ namespace PuzzleSolver.Tests
             //Arrange
             //  . . . . . 
             //  . * * * . 
-            //  . S ■ # F 
+            //  . S ■ * F 
             //  . . . . . 
             //  . . . . . 
-            string[,] map = MapGeneration.GenerateMap();
-            map[2, 2] = "p";
-            Vector2 startLocation = new(1, 2);
-            Vector2 endLocation = new(4, 2);
+            string[,,] map = MapGeneration.GenerateMap();
+            //map[2, 0, 2] = "P";
+            Vector3 startLocation = new(1, 0, 2);
+            Vector3 endLocation = new(4, 0, 2);
             string expectedMapString = @"
 . . . . . 
 . . . . . 
-. . p . . 
+. . P . . 
 . . . . . 
 . . . . . 
 ";
@@ -39,11 +39,11 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(PathFindingResult.Path);
             Assert.IsTrue(PathFindingResult.Path.Any());
             Assert.AreEqual(5, PathFindingResult.Path.Count);
-            Assert.AreEqual("<1, 3>", PathFindingResult.Path[0].ToString());
-            Assert.AreEqual("<2, 3>", PathFindingResult.Path[1].ToString());
-            Assert.AreEqual("<3, 3>", PathFindingResult.Path[2].ToString());
-            Assert.AreEqual("<4, 3>", PathFindingResult.Path[3].ToString());
-            Assert.AreEqual("<4, 2>", PathFindingResult.Path[4].ToString());
+            Assert.AreEqual("<1, 0, 3>", PathFindingResult.Path[0].ToString());
+            Assert.AreEqual("<2, 0, 3>", PathFindingResult.Path[1].ToString());
+            Assert.AreEqual("<3, 0, 3>", PathFindingResult.Path[2].ToString());
+            Assert.AreEqual("<4, 0, 3>", PathFindingResult.Path[3].ToString());
+            Assert.AreEqual("<4, 0, 2>", PathFindingResult.Path[4].ToString());
             Assert.AreEqual(expectedMapString, mapString);
         }
 
