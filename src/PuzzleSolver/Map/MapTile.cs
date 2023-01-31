@@ -13,9 +13,9 @@ namespace PuzzleSolver.Map
         /// <param name="z">The node's location along the Z axis</param>
         /// <param name="isWalkable">True if the node can be traversed, false if the node is a wall</param>
         /// <param name="endLocation">The location of the destination node</param>
-        public MapTile(int x, int y, int z, string tileType, Vector3 endLocation)
+        public MapTile(int x, int y, string tileType, Vector2 endLocation)
         {
-            this.Location = new Vector3(x, y, z);
+            this.Location = new Vector2(x, y);
             this.State = TileState.Untested;
             this.TileType = tileType;
             this.H = GetTraversalCost(this.Location, endLocation);
