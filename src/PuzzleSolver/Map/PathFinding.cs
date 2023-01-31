@@ -114,7 +114,7 @@ namespace PuzzleSolver.Map
                     new Vector3(fromTile.Location.X,   0,fromTile.Location.Z - 1)
                 };
 
-            foreach (var location in nextLocations)
+            foreach (Vector3 location in nextLocations)
             {
                 int x = (int)location.X;
                 int y = (int)location.Y;
