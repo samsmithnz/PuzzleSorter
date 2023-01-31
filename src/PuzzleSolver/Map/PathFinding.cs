@@ -18,7 +18,19 @@ namespace PuzzleSolver.Map
         public static PathFindingResult FindPath(string[,,] map, Vector3 startLocation, Vector3 endLocation)
         {
             _endLocation = endLocation;
-            InitializeTiles(map);
+            // Builds the tile grid from a simple grid of booleans indicating areas which are and aren't walkable
+            _width = map.GetLength(0);
+            _height = map.GetLength(1);
+            _breadth = map.GetLength(2);
+            _tiles = new MapTile[_width, _height, _breadth];
+            int y = 0;
+            for (int z = 0; z < _breadth; z++)
+            {
+                for (int x = 0; x < _width; x++)
+                {
+                    _tiles[x, y, z] = new MapTile(x, y, z, map[x, y, z], _endLocation);
+                }
+            }
             MapTile startTile = _tiles[(int)startLocation.X, (int)startLocation.Y, (int)startLocation.Z];
             startTile.State = TileState.Open;
             MapTile endTile = _tiles[(int)endLocation.X, (int)endLocation.Y, (int)endLocation.Z];
@@ -43,26 +55,6 @@ namespace PuzzleSolver.Map
             }
 
             return result;
-        }
-
-        /// <summary>
-        /// Builds the tile grid from a simple grid of booleans indicating areas which are and aren't walkable
-        /// </summary>
-        /// <param name="map">A boolean representation of a grid in which true = walkable and false = not walkable</param>
-        private static void InitializeTiles(string[,,] map)
-        {
-            _width = map.GetLength(0);
-            _height = map.GetLength(1);
-            _breadth = map.GetLength(2);
-            _tiles = new MapTile[_width, _height, _breadth];
-            int y = 0;
-            for (int z = 0; z < _breadth; z++)
-            {
-                for (int x = 0; x < _width; x++)
-                {
-                    _tiles[x, y, z] = new MapTile(x, y, z, map[x, y, z], _endLocation);
-                }
-            }
         }
 
         /// <summary>
@@ -107,7 +99,18 @@ namespace PuzzleSolver.Map
         private static List<MapTile> GetAdjacentWalkableTiles(MapTile fromTile)
         {
             List<MapTile> walkableTiles = new List<MapTile>();
-            IEnumerable<Vector3> nextLocations = GetAdjacentLocations(fromTile.Location);
+            // Returns the eight locations immediately adjacent (orthogonally and diagonally) to fromTile
+            IEnumerable<Vector3> nextLocations = new Vector3[]
+                {
+                    //new Vector3(fromLocation.X - 1,0, fromLocation.Z - 1),
+                    new Vector3(fromTile.Location.X - 1, 0,fromTile.Location.Z  ),
+                    //new Vector3(fromLocation.X - 1, 0,fromLocation.Z + 1),
+                    new Vector3(fromTile.Location.X,   0,fromTile.Location.Z + 1),
+                    //new Vector3(fromLocation.X + 1, 0,fromLocation.Z + 1),
+                    new Vector3(fromTile.Location.X + 1, 0,fromTile.Location.Z  ),
+                    //new Vector3(fromLocation.X + 1, 0,fromLocation.Z - 1),
+                    new Vector3(fromTile.Location.X,   0,fromTile.Location.Z - 1)
+                };
 
             foreach (var location in nextLocations)
             {
@@ -157,24 +160,5 @@ namespace PuzzleSolver.Map
             return walkableTiles;
         }
 
-        /// <summary>
-        /// Returns the eight locations immediately adjacent (orthogonally and diagonally) to <paramref name="fromLocation"/>
-        /// </summary>
-        /// <param name="fromLocation">The location from which to return all adjacent points</param>
-        /// <returns>The locations as an IEnumerable of Points</returns>
-        private static IEnumerable<Vector3> GetAdjacentLocations(Vector3 fromLocation)
-        {
-            return new Vector3[]
-            {
-                //new Vector3(fromLocation.X - 1,0, fromLocation.Z - 1),
-                new Vector3(fromLocation.X - 1, 0,fromLocation.Z  ),
-                //new Vector3(fromLocation.X - 1, 0,fromLocation.Z + 1),
-                new Vector3(fromLocation.X,   0,fromLocation.Z + 1),
-                //new Vector3(fromLocation.X + 1, 0,fromLocation.Z + 1),
-                new Vector3(fromLocation.X + 1, 0,fromLocation.Z  ),
-                //new Vector3(fromLocation.X + 1, 0,fromLocation.Z - 1),
-                new Vector3(fromLocation.X,   0,fromLocation.Z - 1)
-            };
-        }
     }
 }

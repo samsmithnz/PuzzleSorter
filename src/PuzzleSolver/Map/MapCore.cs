@@ -33,106 +33,106 @@ namespace PuzzleSolver.Map
         }
 
 
-        public static List<Vector3> GetMapArea(string[,,] map, Vector3 sourceLocation, int range, bool lookingForFOV = true, bool includeSourceLocation = false)
-        {
-            int startingX = (int)sourceLocation.X;
-            int startingZ = (int)sourceLocation.Z;
+        //public static List<Vector3> GetMapArea(string[,,] map, Vector3 sourceLocation, int range, bool lookingForFOV = true, bool includeSourceLocation = false)
+        //{
+        //    int startingX = (int)sourceLocation.X;
+        //    int startingZ = (int)sourceLocation.Z;
 
-            //Use the range to find the borders in each primary direction from the starting location
-            int minX = startingX - range;
-            if (minX < 0)
-            {
-                minX = 0;
-            }
-            int maxX = startingX + range;
-            if (maxX > map.GetLength(0) - 1)
-            {
-                maxX = map.GetLength(0) - 1;
-            }
-            int minZ = startingZ - range;
-            if (minZ < 0)
-            {
-                minZ = 0;
-            }
-            int maxZ = startingZ + range;
-            if (maxZ > map.GetLength(2) - 1)
-            {
-                maxZ = map.GetLength(2) - 1;
-            }
+        //    //Use the range to find the borders in each primary direction from the starting location
+        //    int minX = startingX - range;
+        //    if (minX < 0)
+        //    {
+        //        minX = 0;
+        //    }
+        //    int maxX = startingX + range;
+        //    if (maxX > map.GetLength(0) - 1)
+        //    {
+        //        maxX = map.GetLength(0) - 1;
+        //    }
+        //    int minZ = startingZ - range;
+        //    if (minZ < 0)
+        //    {
+        //        minZ = 0;
+        //    }
+        //    int maxZ = startingZ + range;
+        //    if (maxZ > map.GetLength(2) - 1)
+        //    {
+        //        maxZ = map.GetLength(2) - 1;
+        //    }
 
-            //Get a list of all border squares
-            HashSet<Vector3> borderTiles = new HashSet<Vector3>();
-            //Add the top and bottom rows
-            for (int x = minX; x <= maxX; x++)
-            {
-                borderTiles.Add(new Vector3(x, 0, minZ));
-                borderTiles.Add(new Vector3(x, 0, maxZ));
-            }
-            //Add the left and right sides
-            for (int z = minZ; z < maxZ; z++)
-            {
-                borderTiles.Add(new Vector3(minX, 0, z));
-                borderTiles.Add(new Vector3(maxX, 0, z));
-            }
+        //    //Get a list of all border squares
+        //    HashSet<Vector3> borderTiles = new HashSet<Vector3>();
+        //    //Add the top and bottom rows
+        //    for (int x = minX; x <= maxX; x++)
+        //    {
+        //        borderTiles.Add(new Vector3(x, 0, minZ));
+        //        borderTiles.Add(new Vector3(x, 0, maxZ));
+        //    }
+        //    //Add the left and right sides
+        //    for (int z = minZ; z < maxZ; z++)
+        //    {
+        //        borderTiles.Add(new Vector3(minX, 0, z));
+        //        borderTiles.Add(new Vector3(maxX, 0, z));
+        //    }
 
-            //For each border tile, draw a line from the starting point to the border
-            HashSet<Vector3> results = new HashSet<Vector3>();
-            //foreach (Vector3 borderItem in borderTiles)
-            //{
-            //    List<Vector3> singleLineCheck = FieldOfView.GetPointsOnLine(new Vector3(startingX, 0, startingZ), borderItem);
-            //    if (singleLineCheck.Count > 0 &&
-            //        singleLineCheck[singleLineCheck.Count - 1].X == startingX &&
-            //        singleLineCheck[singleLineCheck.Count - 1].Z == startingZ)
-            //    {
-            //        //Reverse the list, so that items are in order from source to destination
-            //        singleLineCheck.Reverse();
-            //    }
-            //    double lineLength = GetLengthOfLine(singleLineCheck[0], singleLineCheck[singleLineCheck.Count - 1], 1);
-            //    double lineSegment = lineLength / singleLineCheck.Count;
-            //    double currentLength = 0;
-            //    for (int i = 0; i < singleLineCheck.Count; i++)
-            //    {
-            //        currentLength += lineSegment;
-            //        Vector3 fovItem = singleLineCheck[i];
-            //        if (fovItem.X >= 0 && fovItem.Y >= 0 && fovItem.Z >= 0)
-            //        {
-            //            //If we find an object, stop adding tiles
-            //            if (lookingForFOV && map[(int)fovItem.X, (int)fovItem.Y, (int)fovItem.Z] == CoverType.FullCover)
-            //            {
-            //                //Add the wall
-            //                results.Add(fovItem);
-            //                //Then break!
-            //                break;
-            //            }
-            //            else if ((int)fovItem.X == startingX && (int)fovItem.Z == startingZ)
-            //            {
-            //                //Don't add this one, it's the origin/ where the character is looking from
-            //            }
-            //            else
-            //            {
-            //                results.Add(fovItem);
-            //            }
-            //        }
-            //        //We don't round, so this will extend the range a tiny part - but I think that is ok.
-            //        if (currentLength >= range)
-            //        {
-            //            break;
-            //        }
-            //    }
-            //}
-            if (includeSourceLocation)
-            {
-                results.Add(sourceLocation);
-            }
+        //    //For each border tile, draw a line from the starting point to the border
+        //    HashSet<Vector3> results = new HashSet<Vector3>();
+        //    //foreach (Vector3 borderItem in borderTiles)
+        //    //{
+        //    //    List<Vector3> singleLineCheck = FieldOfView.GetPointsOnLine(new Vector3(startingX, 0, startingZ), borderItem);
+        //    //    if (singleLineCheck.Count > 0 &&
+        //    //        singleLineCheck[singleLineCheck.Count - 1].X == startingX &&
+        //    //        singleLineCheck[singleLineCheck.Count - 1].Z == startingZ)
+        //    //    {
+        //    //        //Reverse the list, so that items are in order from source to destination
+        //    //        singleLineCheck.Reverse();
+        //    //    }
+        //    //    double lineLength = GetLengthOfLine(singleLineCheck[0], singleLineCheck[singleLineCheck.Count - 1], 1);
+        //    //    double lineSegment = lineLength / singleLineCheck.Count;
+        //    //    double currentLength = 0;
+        //    //    for (int i = 0; i < singleLineCheck.Count; i++)
+        //    //    {
+        //    //        currentLength += lineSegment;
+        //    //        Vector3 fovItem = singleLineCheck[i];
+        //    //        if (fovItem.X >= 0 && fovItem.Y >= 0 && fovItem.Z >= 0)
+        //    //        {
+        //    //            //If we find an object, stop adding tiles
+        //    //            if (lookingForFOV && map[(int)fovItem.X, (int)fovItem.Y, (int)fovItem.Z] == CoverType.FullCover)
+        //    //            {
+        //    //                //Add the wall
+        //    //                results.Add(fovItem);
+        //    //                //Then break!
+        //    //                break;
+        //    //            }
+        //    //            else if ((int)fovItem.X == startingX && (int)fovItem.Z == startingZ)
+        //    //            {
+        //    //                //Don't add this one, it's the origin/ where the character is looking from
+        //    //            }
+        //    //            else
+        //    //            {
+        //    //                results.Add(fovItem);
+        //    //            }
+        //    //        }
+        //    //        //We don't round, so this will extend the range a tiny part - but I think that is ok.
+        //    //        if (currentLength >= range)
+        //    //        {
+        //    //            break;
+        //    //        }
+        //    //    }
+        //    //}
+        //    if (includeSourceLocation)
+        //    {
+        //        results.Add(sourceLocation);
+        //    }
 
-            return results.ToList();
-        }
+        //    return results.ToList();
+        //}
 
-        public static double GetLengthOfLine(Vector3 start, Vector3 end, int decimals = 0)
-        {
-            double lineLength = Math.Sqrt(Math.Pow((end.X - start.X), 2) + Math.Pow((end.Z - start.Z), 2));
-            return Math.Round(lineLength, decimals);
-        }
+        //public static double GetLengthOfLine(Vector3 start, Vector3 end, int decimals = 0)
+        //{
+        //    double lineLength = Math.Sqrt(Math.Pow((end.X - start.X), 2) + Math.Pow((end.Z - start.Z), 2));
+        //    return Math.Round(lineLength, decimals);
+        //}
 
         public static string GetMapString(string[,,] map, bool stripOutBlanks = false)
         {
@@ -197,21 +197,21 @@ namespace PuzzleSolver.Map
             return map;
         }
 
-        public static string GetMapStringWithItems(string[,,] map, List<Vector3> list)
-        {
-            string[,,] mapNew = MapCore.ApplyListToMap((string[,,])map.Clone(), list, "o");
-            string mapString = MapCore.GetMapString(mapNew);
-            return mapString;
-        }
+        //public static string GetMapStringWithItems(string[,,] map, List<Vector3> list)
+        //{
+        //    string[,,] mapNew = MapCore.ApplyListToMap((string[,,])map.Clone(), list, "o");
+        //    string mapString = MapCore.GetMapString(mapNew);
+        //    return mapString;
+        //}
 
-        public static string GetMapStringWithItemLayers(string[,,] map, List<Vector3> baseList, List<Vector3> overlayList)
-        {
-            string[,,] mapNew = MapCore.ApplyListToMap((string[,,])map.Clone(), baseList, "o");
-            mapNew = MapCore.ApplyListToExistingMap(mapNew, overlayList, "O");
+        //public static string GetMapStringWithItemLayers(string[,,] map, List<Vector3> baseList, List<Vector3> overlayList)
+        //{
+        //    string[,,] mapNew = MapCore.ApplyListToMap((string[,,])map.Clone(), baseList, "o");
+        //    mapNew = MapCore.ApplyListToExistingMap(mapNew, overlayList, "O");
 
-            string mapString = MapCore.GetMapString(mapNew);
-            return mapString;
-        }
+        //    string mapString = MapCore.GetMapString(mapNew);
+        //    return mapString;
+        //}
 
         //public static string GetMapStringWithAIValuesFirst(string[,,] mapTemplate, List<KeyValuePair<Vector3, int>> list)
         //{
@@ -277,53 +277,53 @@ namespace PuzzleSolver.Map
         //    return sb.ToString();
         //}
 
-        public static List<Vector3> FindAdjacentTile(string[,,] map, Vector3 currentLocation, string tileToFind)
-        {
-            int width = map.GetLength(0);
-            //int height = map.GetLength(1);
-            int breadth = map.GetLength(2);
-            List<Vector3> result = new List<Vector3>();
+        //public static List<Vector3> FindAdjacentTile(string[,,] map, Vector3 currentLocation, string tileToFind)
+        //{
+        //    int width = map.GetLength(0);
+        //    //int height = map.GetLength(1);
+        //    int breadth = map.GetLength(2);
+        //    List<Vector3> result = new List<Vector3>();
 
-            //Make adjustments to ensure that the search doesn't go off the edges of the map
-            int xMin = Convert.ToInt32(currentLocation.X) - 1;
-            if (xMin < 0)
-            {
-                xMin = 0;
-            }
-            int xMax = Convert.ToInt32(currentLocation.X) + 1;
-            if (xMax > width - 1)
-            {
-                xMax = width - 1;
-            }
-            int zMin = Convert.ToInt32(currentLocation.Z) - 1;
-            if (zMin < 0)
-            {
-                zMin = 0;
-            }
-            int zMax = Convert.ToInt32(currentLocation.Z) + 1;
-            if (zMax > breadth - 1)
-            {
-                zMax = breadth - 1;
-            }
+        //    //Make adjustments to ensure that the search doesn't go off the edges of the map
+        //    int xMin = Convert.ToInt32(currentLocation.X) - 1;
+        //    if (xMin < 0)
+        //    {
+        //        xMin = 0;
+        //    }
+        //    int xMax = Convert.ToInt32(currentLocation.X) + 1;
+        //    if (xMax > width - 1)
+        //    {
+        //        xMax = width - 1;
+        //    }
+        //    int zMin = Convert.ToInt32(currentLocation.Z) - 1;
+        //    if (zMin < 0)
+        //    {
+        //        zMin = 0;
+        //    }
+        //    int zMax = Convert.ToInt32(currentLocation.Z) + 1;
+        //    if (zMax > breadth - 1)
+        //    {
+        //        zMax = breadth - 1;
+        //    }
 
-            //Get possible tiles, within constraints of map, including only square titles from current position (not diagonally)
-            if (map[Convert.ToInt32(currentLocation.X), 0, zMax] == tileToFind)
-            {
-                result.Add(new Vector3(currentLocation.X, 0f, zMax));
-            }
-            if (map[xMax, 0, Convert.ToInt32(currentLocation.Z)] == tileToFind)
-            {
-                result.Add(new Vector3(xMax, 0f, currentLocation.Z));
-            }
-            if (map[Convert.ToInt32(currentLocation.X), 0, zMin] == tileToFind)
-            {
-                result.Add(new Vector3(currentLocation.X, 0f, zMin));
-            }
-            if (map[xMin, 0, Convert.ToInt32(currentLocation.Z)] == tileToFind)
-            {
-                result.Add(new Vector3(xMin, 0f, currentLocation.Z));
-            }
-            return result;
-        }
+        //    //Get possible tiles, within constraints of map, including only square titles from current position (not diagonally)
+        //    if (map[Convert.ToInt32(currentLocation.X), 0, zMax] == tileToFind)
+        //    {
+        //        result.Add(new Vector3(currentLocation.X, 0f, zMax));
+        //    }
+        //    if (map[xMax, 0, Convert.ToInt32(currentLocation.Z)] == tileToFind)
+        //    {
+        //        result.Add(new Vector3(xMax, 0f, currentLocation.Z));
+        //    }
+        //    if (map[Convert.ToInt32(currentLocation.X), 0, zMin] == tileToFind)
+        //    {
+        //        result.Add(new Vector3(currentLocation.X, 0f, zMin));
+        //    }
+        //    if (map[xMin, 0, Convert.ToInt32(currentLocation.Z)] == tileToFind)
+        //    {
+        //        result.Add(new Vector3(xMin, 0f, currentLocation.Z));
+        //    }
+        //    return result;
+        //}
     }
 }
