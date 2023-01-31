@@ -9,8 +9,7 @@ namespace PuzzleSolver.Map
         /// Creates a new instance of MapTile.
         /// </summary>
         /// <param name="x">The node's location along the X axis</param>
-        /// <param name="y">The node's location along the Y axis</param>
-        /// <param name="z">The node's location along the Z axis</param>
+        /// <param name="y">The node's location along the Y axis</param>=
         /// <param name="isWalkable">True if the node can be traversed, false if the node is a wall</param>
         /// <param name="endLocation">The location of the destination node</param>
         public MapTile(int x, int y, string tileType, Vector2 endLocation)
