@@ -18,7 +18,7 @@ namespace PuzzleSolver.Tests
             //  . S ■ * F 
             //  . . . . . 
             //  . . . . . 
-            string[,,] map = MapGeneration.GenerateMap();
+            string[,] map = MapGeneration.GenerateMap();
             //map[2, 0, 2] = "P";
             Vector2 startLocation = new(1, 0, 2);
             Vector2 endLocation = new(4, 0, 2);
@@ -60,7 +60,7 @@ namespace PuzzleSolver.Tests
         //    // Path: 1,2 ; 2,1 ; 3,0 ; 4,0 ; 5,1 ; 5,2
         //    Vector2 startLocation = new(1, 2);
         //    Vector2 endLocation = new(5, 2);
-        //    string[,,] map = MapCore.InitializeMap(7, 1, 5);
+        //    string[,] map = MapCore.InitializeMap(7, 1, 5);
         //    map[3, 4] = CoverType.FullCover;
         //    map[3, 3] = CoverType.FullCover;
         //    map[3, 2] = CoverType.FullCover;
@@ -92,7 +92,7 @@ namespace PuzzleSolver.Tests
         //    // No path
         //    Vector2 startLocation = new(1, 2);
         //    Vector2 endLocation = new(5, 2);
-        //    string[,,] map = MapCore.InitializeMap(7, 1, 5);
+        //    string[,] map = MapCore.InitializeMap(7, 1, 5);
         //    map[3, 4] = CoverType.FullCover;
         //    map[3, 3] = CoverType.FullCover;
         //    map[3, 2] = CoverType.FullCover;
@@ -123,7 +123,7 @@ namespace PuzzleSolver.Tests
         //    // long path
         //    Vector2 startLocation = new(0, 4);
         //    Vector2 endLocation = new(6, 4);
-        //    string[,,] map = MapCore.InitializeMap(7, 1, 5);
+        //    string[,] map = MapCore.InitializeMap(7, 1, 5);
         //    map[0, 0] = CoverType.FullCover;
         //    map[1, 4] = CoverType.FullCover;
         //    map[1, 3] = CoverType.FullCover;
@@ -162,7 +162,7 @@ namespace PuzzleSolver.Tests
         //    //Arrange
         //    Vector2 startLocation = new(0, 0);
         //    Vector2 endLocation = new(69, 39);
-        //    string[,,] map = CreateGiantMap();
+        //    string[,] map = CreateGiantMap();
 
         //    //Act
         //    PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
@@ -188,7 +188,7 @@ namespace PuzzleSolver.Tests
         //    //Arrange
         //    int height = 5;
         //    int width = 5;
-        //    string[,,] map = MapCore.InitializeMap(width, 1, height);
+        //    string[,] map = MapCore.InitializeMap(width, 1, height);
         //    map[1, 1] = CoverType.FullCover;
         //    map[1, 2] = CoverType.FullCover;
         //    map[1, 3] = CoverType.FullCover;
@@ -226,7 +226,7 @@ namespace PuzzleSolver.Tests
         //    Vector2 endLocation = new(2, 2);
         //    int height = 5;
         //    int width = 5;
-        //    string[,,] map = MapCore.InitializeMap(width, 1, height);
+        //    string[,] map = MapCore.InitializeMap(width, 1, height);
         //    map[1, 1] = CoverType.FullCover;
         //    map[1, 2] = CoverType.FullCover;
         //    map[1, 3] = CoverType.FullCover;
@@ -249,9 +249,9 @@ namespace PuzzleSolver.Tests
 
         //#region "private helper functions"
 
-        //private static void CreateDebugPictureOfMapAndRoute(string[,,] map, int xMax, int yMax, int zMax, List<Vector2> path)
+        //private static void CreateDebugPictureOfMapAndRoute(string[,] map, int xMax, int yMax, int zMax, List<Vector2> path)
         //{
-        //    string[,,] mapDebug = new string[xMax, yMax, zMax];
+        //    string[,] mapDebug = new string[xMax, yMax, zMax];
         //    int y = 0;
         //    for (int z = 0; z < zMax; z++)
         //    {
@@ -320,7 +320,7 @@ namespace PuzzleSolver.Tests
         //    //Arrange
         //    Vector2 startLocation = new(25, 30);
         //    Vector2 endLocation = new(25, 29);
-        //    string[,,] map = MapCore.InitializeMap(50, 1, 50);
+        //    string[,] map = MapCore.InitializeMap(50, 1, 50);
 
         //    //Act
         //    PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
@@ -339,7 +339,7 @@ namespace PuzzleSolver.Tests
         //    //Arrange
         //    Vector2 startLocation = new(1, 2);
         //    Vector2 endLocation = new(1, 2);
-        //    string[,,] map = MapCore.InitializeMap(7, 1, 5);
+        //    string[,] map = MapCore.InitializeMap(7, 1, 5);
 
         //    //Act
         //    PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
