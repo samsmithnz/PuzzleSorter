@@ -8,7 +8,7 @@ namespace PuzzleSolver.Map
         private static int _width;
         private static int _height;
         private static int _breadth;
-        private static MapTile[,,] _tiles;
+        private static MapTile[,] _tiles;
         private static Vector2 _endLocation;
 
         /// <summary>
@@ -23,19 +23,18 @@ namespace PuzzleSolver.Map
             _height = map.GetLength(1);
             _breadth = map.GetLength(2);
             _tiles = new MapTile[_width, _height, _breadth];
-            int y = 0;
             for (int z = 0; z < _breadth; z++)
             {
                 for (int x = 0; x < _width; x++)
                 {
-                    _tiles[x, y, z] = new MapTile(x, y, z, map[x, y, z], _endLocation);
+                    _tiles[x, z] = new MapTile(x, z, map[x, z], _endLocation);
                 }
             }
             
             //Establish the start and end tiles
             MapTile startTile = _tiles[(int)startLocation.X, (int)startLocation.Y, (int)startLocation.Z];
             startTile.State = TileState.Open;
-            MapTile endTile = _tiles[(int)endLocation.X, (int)endLocation.Y, (int)endLocation.Z];
+            MapTile endTile = _tiles[(int)endLocation.X, (int)endLocation.Z];
 
             // The start tile is the first entry in the 'open' list. Now search all of the open tiles for the shortest path
             PathFindingResult result = new PathFindingResult();
@@ -104,20 +103,15 @@ namespace PuzzleSolver.Map
             // Returns the four locations immediately adjacent (orthogonally and NOT diagonally) from the source "fromTile"
             IEnumerable<Vector2> nextLocations = new Vector2[]
                 {
-                    //new Vector2(fromLocation.X - 1,0, fromLocation.Z - 1),
-                    new Vector2(fromTile.Location.X - 1, 0,fromTile.Location.Z  ),
-                    //new Vector2(fromLocation.X - 1, 0,fromLocation.Z + 1),
-                    new Vector2(fromTile.Location.X,   0,fromTile.Location.Z + 1),
-                    //new Vector2(fromLocation.X + 1, 0,fromLocation.Z + 1),
-                    new Vector2(fromTile.Location.X + 1, 0,fromTile.Location.Z  ),
-                    //new Vector2(fromLocation.X + 1, 0,fromLocation.Z - 1),
-                    new Vector2(fromTile.Location.X,   0,fromTile.Location.Z - 1)
+                    new Vector2(fromTile.Location.X - 1, fromTile.Location.Z),
+                    new Vector2(fromTile.Location.X, fromTile.Location.Z + 1),
+                    new Vector2(fromTile.Location.X + 1, fromTile.Location.Z),
+                    new Vector2(fromTile.Location.X,  fromTile.Location.Z - 1)
                 };
 
             foreach (Vector2 location in nextLocations)
             {
                 int x = (int)location.X;
-                int y = (int)location.Y;
                 int z = (int)location.Z;
 
                 // Stay within the grid's boundaries
@@ -126,7 +120,7 @@ namespace PuzzleSolver.Map
                     continue;
                 }
 
-                MapTile tile = _tiles[x, y, z];
+                MapTile tile = _tiles[x, z];
                 // Ignore non-walkable tiles
                 if (tile.TileType != "")
                 {
