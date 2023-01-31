@@ -20,8 +20,8 @@ namespace PuzzleSolver.Tests
             //  . . . . . 
             string[,,] map = MapGeneration.GenerateMap();
             //map[2, 0, 2] = "P";
-            Vector3 startLocation = new(1, 0, 2);
-            Vector3 endLocation = new(4, 0, 2);
+            Vector2 startLocation = new(1, 0, 2);
+            Vector2 endLocation = new(4, 0, 2);
             string expectedMapString = @"
 . . . . . 
 . . . . . 
@@ -58,8 +58,8 @@ namespace PuzzleSolver.Tests
         //    //  . . . * * . .
 
         //    // Path: 1,2 ; 2,1 ; 3,0 ; 4,0 ; 5,1 ; 5,2
-        //    Vector3 startLocation = new(1, 2);
-        //    Vector3 endLocation = new(5, 2);
+        //    Vector2 startLocation = new(1, 2);
+        //    Vector2 endLocation = new(5, 2);
         //    string[,,] map = MapCore.InitializeMap(7, 1, 5);
         //    map[3, 4] = CoverType.FullCover;
         //    map[3, 3] = CoverType.FullCover;
@@ -90,8 +90,8 @@ namespace PuzzleSolver.Tests
         //    //  . . . ■ . . .
 
         //    // No path
-        //    Vector3 startLocation = new(1, 2);
-        //    Vector3 endLocation = new(5, 2);
+        //    Vector2 startLocation = new(1, 2);
+        //    Vector2 endLocation = new(5, 2);
         //    string[,,] map = MapCore.InitializeMap(7, 1, 5);
         //    map[3, 4] = CoverType.FullCover;
         //    map[3, 3] = CoverType.FullCover;
@@ -121,8 +121,8 @@ namespace PuzzleSolver.Tests
         //    //  ■ . ■ ■ ■ . ■
 
         //    // long path
-        //    Vector3 startLocation = new(0, 4);
-        //    Vector3 endLocation = new(6, 4);
+        //    Vector2 startLocation = new(0, 4);
+        //    Vector2 endLocation = new(6, 4);
         //    string[,,] map = MapCore.InitializeMap(7, 1, 5);
         //    map[0, 0] = CoverType.FullCover;
         //    map[1, 4] = CoverType.FullCover;
@@ -160,8 +160,8 @@ namespace PuzzleSolver.Tests
         //public void Test_GiantRandomMap_WithInefficentPath()
         //{
         //    //Arrange
-        //    Vector3 startLocation = new(0, 0);
-        //    Vector3 endLocation = new(69, 39);
+        //    Vector2 startLocation = new(0, 0);
+        //    Vector2 endLocation = new(69, 39);
         //    string[,,] map = CreateGiantMap();
 
         //    //Act
@@ -197,8 +197,8 @@ namespace PuzzleSolver.Tests
         //    map[3, 1] = CoverType.FullCover;
         //    map[3, 2] = CoverType.FullCover;
         //    map[3, 3] = CoverType.FullCover;
-        //    Vector3 startLocation = new(2, 2);
-        //    Vector3 endLocation = new(2, 4);
+        //    Vector2 startLocation = new(2, 2);
+        //    Vector2 endLocation = new(2, 4);
 
         //    //Act
         //    PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
@@ -222,8 +222,8 @@ namespace PuzzleSolver.Tests
         //    //   0 1 2 3 4 
 
         //    //Arrange
-        //    Vector3 startLocation = new(2, 2);
-        //    Vector3 endLocation = new(2, 2);
+        //    Vector2 startLocation = new(2, 2);
+        //    Vector2 endLocation = new(2, 2);
         //    int height = 5;
         //    int width = 5;
         //    string[,,] map = MapCore.InitializeMap(width, 1, height);
@@ -249,7 +249,7 @@ namespace PuzzleSolver.Tests
 
         //#region "private helper functions"
 
-        //private static void CreateDebugPictureOfMapAndRoute(string[,,] map, int xMax, int yMax, int zMax, List<Vector3> path)
+        //private static void CreateDebugPictureOfMapAndRoute(string[,,] map, int xMax, int yMax, int zMax, List<Vector2> path)
         //{
         //    string[,,] mapDebug = new string[xMax, yMax, zMax];
         //    int y = 0;
@@ -269,7 +269,7 @@ namespace PuzzleSolver.Tests
         //    }
 
         //    int i = 0;
-        //    foreach (Vector3 item in path)
+        //    foreach (Vector2 item in path)
         //    {
         //        if (i == 0)
         //        {
@@ -318,8 +318,8 @@ namespace PuzzleSolver.Tests
         //public void Test_WithoutWalls_CanFindPathNextDoor()
         //{
         //    //Arrange
-        //    Vector3 startLocation = new(25, 30);
-        //    Vector3 endLocation = new(25, 29);
+        //    Vector2 startLocation = new(25, 30);
+        //    Vector2 endLocation = new(25, 29);
         //    string[,,] map = MapCore.InitializeMap(50, 1, 50);
 
         //    //Act
@@ -337,8 +337,8 @@ namespace PuzzleSolver.Tests
         //public void Test_WithoutWalls_NoMovement()
         //{
         //    //Arrange
-        //    Vector3 startLocation = new(1, 2);
-        //    Vector3 endLocation = new(1, 2);
+        //    Vector2 startLocation = new(1, 2);
+        //    Vector2 endLocation = new(1, 2);
         //    string[,,] map = MapCore.InitializeMap(7, 1, 5);
 
         //    //Act
