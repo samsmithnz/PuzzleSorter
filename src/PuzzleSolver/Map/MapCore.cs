@@ -172,27 +172,27 @@ namespace PuzzleSolver.Map
             return sb.ToString();
         }
 
-        public static string[,,] ApplyListToMap(string[,,] map, List<Vector3> list, string tile)
-        {
-            foreach (Vector3 item in list)
-            {
-                //Check that the square is empty - we don't want to overwrite something that exists and only put a tile on an unused tile
-                if (map[(int)item.X, (int)item.Y, (int)item.Z] == "")
-                {
-                    map[(int)item.X, (int)item.Y, (int)item.Z] = tile;
-                }
-            }
-            return map;
-        }
+        //public static string[,,] ApplyListToMap(string[,,] map, List<Vector3> list, string tile)
+        //{
+        //    foreach (Vector3 item in list)
+        //    {
+        //        //Check that the square is empty - we don't want to overwrite something that exists and only put a tile on an unused tile
+        //        if (map[(int)item.X, (int)item.Y, (int)item.Z] == "")
+        //        {
+        //            map[(int)item.X, (int)item.Y, (int)item.Z] = tile;
+        //        }
+        //    }
+        //    return map;
+        //}
 
-        public static string[,,] ApplyListToExistingMap(string[,,] map, List<Vector3> list, string tile)
-        {
-            foreach (Vector3 item in list)
-            {
-                map[(int)item.X, (int)item.Y, (int)item.Z] = tile;
-            }
-            return map;
-        }
+        //public static string[,,] ApplyListToExistingMap(string[,,] map, List<Vector3> list, string tile)
+        //{
+        //    foreach (Vector3 item in list)
+        //    {
+        //        map[(int)item.X, (int)item.Y, (int)item.Z] = tile;
+        //    }
+        //    return map;
+        //}
 
         //public static string GetMapStringWithItems(string[,,] map, List<Vector3> list)
         //{
