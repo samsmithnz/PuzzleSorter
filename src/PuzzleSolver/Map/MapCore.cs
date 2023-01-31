@@ -133,22 +133,20 @@ namespace PuzzleSolver.Map
         //    return Math.Round(lineLength, decimals);
         //}
 
-        public static string GetMapString(string[,,] map, bool stripOutBlanks = false)
+        public static string GetMapString(string[,] map, bool stripOutBlanks = false)
         {
             int xMax = map.GetLength(0);
-            //int yMax = map.GetLength(1);
-            int zMax = map.GetLength(2);
+            int yMax = map.GetLength(1);
             StringBuilder sb = new StringBuilder();
             sb.Append(Environment.NewLine);
-            int y = 0;
-            for (int z = zMax - 1; z >= 0; z--)
+            for (int y = yMax - 1; y >= 0; y--)
             {
                 StringBuilder sbLine = new StringBuilder();
                 for (int x = 0; x < xMax; x++)
                 {
-                    if (map[x, y, z] != "")
+                    if (map[x, y] != "")
                     {
-                        sbLine.Append(map[x, y, z] + " ");
+                        sbLine.Append(map[x, y] + " ");
                     }
                     else
                     {
