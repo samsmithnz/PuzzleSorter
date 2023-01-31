@@ -20,8 +20,8 @@ namespace PuzzleSolver.Tests
             //  . . . . . 
             string[,] map = MapGeneration.GenerateMap();
             //map[2, 0, 2] = "P";
-            Vector2 startLocation = new(1, 0, 2);
-            Vector2 endLocation = new(4, 0, 2);
+            Vector2 startLocation = new(1, 2);
+            Vector2 endLocation = new(4, 2);
             string expectedMapString = @"
 . . . . . 
 . . . . . 
