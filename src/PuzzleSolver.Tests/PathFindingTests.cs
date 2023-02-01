@@ -11,7 +11,7 @@ namespace PuzzleSolver.Tests
     {
 
         [TestMethod]
-        public void Test_WithoutWalls_CanFindPath()
+        public void PathFromWestToEastAroundPileTest()
         {
             //Arrange
             //  . . . . . 
@@ -48,6 +48,42 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(expectedMapString, mapString);
         }
 
+        [TestMethod]
+        public void PathFromNorthToSouthToPileTest()
+        {
+            //Arrange
+            //  . . . S . 
+            //  . . . * . 
+            //  . . ■ * . 
+            //  . . F * . 
+            //  . . . . . 
+            string[,] map = MapGeneration.GenerateMap();
+            //map[2, 0, 2] = "P";
+            Vector2 startLocation = new(3, 4);
+            Vector2 endLocation = new(2, 1);
+            string expectedMapString = @"
+. . . . . 
+. . . . . 
+. . P . . 
+. . . . . 
+. . . . . 
+";
+
+            //Act
+            PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
+            string mapString = MapCore.GetMapString(map);
+
+            //Assert
+            Assert.IsNotNull(PathFindingResult);
+            Assert.IsNotNull(PathFindingResult.Path);
+            Assert.IsTrue(PathFindingResult.Path.Any());
+            Assert.AreEqual(4, PathFindingResult.Path.Count);
+            Assert.AreEqual("<3, 3>", PathFindingResult.Path[0].ToString());
+            Assert.AreEqual("<3, 2>", PathFindingResult.Path[1].ToString());
+            Assert.AreEqual("<3, 1>", PathFindingResult.Path[2].ToString());
+            Assert.AreEqual("<2, 1>", PathFindingResult.Path[3].ToString());
+            Assert.AreEqual(expectedMapString, mapString);
+        }
 
 
     }
