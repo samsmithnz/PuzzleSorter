@@ -1,5 +1,7 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace PuzzleSolver
@@ -12,15 +14,15 @@ namespace PuzzleSolver
         }
 
         public Image<Rgb24> Image { get; set; }
-        public Dictionary<Rgb24, List<Rgb24>>? ColorGroups { get; set; }
+        public Dictionary<Rgb24, List<Rgb24>> ColorGroups { get; set; }
         public SortedList<int, Rgb24> PriorityColorPalette { get; set; }
-        public List<ColorStats>? NamedColorsAndPercentList { get; set; }
+        public List<ColorStats> NamedColorsAndPercentList { get; set; }
 
-        public Rgb24? TopColorGroupColor
+        public Rgb24 TopColorGroupColor
         {
             get
             {
-                return ColorGroups?.FirstOrDefault().Key;
+                return ColorGroups.FirstOrDefault().Key;
             }
         }
 
@@ -45,7 +47,7 @@ namespace PuzzleSolver
             get
             {
                 //Return the string ordered by percent
-                StringBuilder sb = new();
+                StringBuilder sb = new StringBuilder();
                 if (NamedColorsAndPercentList != null)
                 {
                     foreach (ColorStats item in NamedColorsAndPercentList)
