@@ -1,4 +1,5 @@
-﻿using SixLabors.ImageSharp;
+﻿using PuzzleSolver.Images;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.Collections.Generic;
