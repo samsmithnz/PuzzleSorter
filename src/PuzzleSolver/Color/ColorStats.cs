@@ -1,6 +1,6 @@
 ﻿using SixLabors.ImageSharp.PixelFormats;
 
-namespace PuzzleSolver
+namespace PuzzleSolver.Color
 {
     public class ColorStats
     {

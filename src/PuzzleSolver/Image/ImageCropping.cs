@@ -3,7 +3,7 @@ using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.Collections.Generic;
 
-namespace PuzzleSolver
+namespace PuzzleSolver.Image
 {
 
     public class ImageCropping
@@ -46,9 +46,9 @@ namespace PuzzleSolver
         public static List<Image<Rgb24>> SplitImageIntoMultiplePieces(Image<Rgb24> sourceImage, int width, int height)
         {
             List<Image<Rgb24>> images = new List<Image<Rgb24>>();
-            for (int y = 0; y < (sourceImage.Height / height); y++)
+            for (int y = 0; y < sourceImage.Height / height; y++)
             {
-                for (int x = 0; x < (sourceImage.Width / width); x++)
+                for (int x = 0; x < sourceImage.Width / width; x++)
                 {
                     Rectangle rectangle = new Rectangle(x * width, y * height, width, height);
                     images.Add(CropImage(sourceImage, rectangle));

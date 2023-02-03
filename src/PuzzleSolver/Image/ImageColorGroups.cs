@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PuzzleSolver
+namespace PuzzleSolver.Image
 {
     public class ImageColorGroups
     {
@@ -134,7 +134,7 @@ namespace PuzzleSolver
             //Calculate the name and percent and add it into a list
             foreach (KeyValuePair<Rgb24, List<Rgb24>> colorGroup in colorGroups)
             {
-                double percent = (double)colorGroup.Value.Count / (double)colorGroups.Sum(t => t.Value.Count);
+                double percent = colorGroup.Value.Count / (double)colorGroups.Sum(t => t.Value.Count);
                 roughNamePercentList.Add(new ColorStats(colorGroup.Key, ColorPalettes.ToName(colorGroup.Key), percent));
             }
             //If there are priority items, update the order
