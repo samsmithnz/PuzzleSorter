@@ -1,3 +1,4 @@
+using PuzzleSolver.Color;
 using PuzzleSolver.Image;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;

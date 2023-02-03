@@ -2,7 +2,7 @@
 using SixLabors.ImageSharp.PixelFormats;
 using System.Collections.Generic;
 
-namespace PuzzleSolver.Color
+namespace PuzzleSolver.Images
 {
     public static class ColorPalettes
     {
