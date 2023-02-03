@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PuzzleSolver.Image
+namespace PuzzleSolver.Images
 {
     public class ImageColorGroups
     {

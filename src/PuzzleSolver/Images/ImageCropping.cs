@@ -3,9 +3,8 @@ using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.Collections.Generic;
 
-namespace PuzzleSolver.Image
+namespace PuzzleSolver.Images
 {
-
     public class ImageCropping
     {
         /// <summary>
