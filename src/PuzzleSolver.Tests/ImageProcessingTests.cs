@@ -1,4 +1,4 @@
-using PuzzleSolver.Image;
+using PuzzleSolver.Images;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Diagnostics.CodeAnalysis;

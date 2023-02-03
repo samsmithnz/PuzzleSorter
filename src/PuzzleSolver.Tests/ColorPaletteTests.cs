@@ -1,3 +1,4 @@
+using PuzzleSolver.Images;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Diagnostics.CodeAnalysis;
 
