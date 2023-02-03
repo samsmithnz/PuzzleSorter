@@ -11,6 +11,8 @@ namespace PuzzleSolver
         public Dictionary<Vector2, Rgb24> SortedPileLocations { get; set; }
 
 
+        public Board() { }
+            
         public Board(int width, int height, Vector2 unsortedPileLocation, List<Rgb24> colorPalette)
         {
             Map = new string[width, height];
