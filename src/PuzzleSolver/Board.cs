@@ -45,7 +45,7 @@ namespace PuzzleSolver
         //    //}
         //}
 
-        private void RunRobot()
+        public void RunRobot()
         {
             ImageColorGroups imageProcessing = new ImageColorGroups(ColorPalettes.Get3ColorPalette());
 
