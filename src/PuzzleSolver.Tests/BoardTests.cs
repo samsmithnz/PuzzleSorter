@@ -16,19 +16,24 @@ namespace PuzzleSolver.Tests
         public void BoardInitializationTest()
         {
             //Arrange
-            Vector2 unsortedPileLocation = new(2, 2);
-            Dictionary<Vector2, Rgb24> sortedPileLocations = new()
-            {
-                { new(0, 0), Color.Red.ToPixel<Rgb24>() },
-                { new(0, 4), Color.Blue.ToPixel<Rgb24>() },
-                { new(4, 0), Color.Green.ToPixel<Rgb24>() },
-                { new(4, 4), Color.Yellow.ToPixel<Rgb24>() }
-            };
             Board board = new()
             {
                 Map = MapGeneration.GenerateMap(),
-                UnsortedPiecesLocation = unsortedPileLocation,
-                SortedPiecesLocations = sortedPileLocations
+                UnsortedPiecesLocation = new(2, 2),
+                UnsortedPieces = new(new[] {
+                    Color.Red.ToPixel<Rgb24>(),
+                    Color.Blue.ToPixel<Rgb24>(),
+                    Color.Red.ToPixel<Rgb24>(),
+                    Color.Green.ToPixel<Rgb24>() }),
+                SortedPiecesLocations = new()
+                {
+                    { new(0, 0), Color.Red.ToPixel<Rgb24>() },
+                    { new(0, 4), Color.Blue.ToPixel<Rgb24>() },
+                    { new(4, 0), Color.Green.ToPixel<Rgb24>() },
+                    { new(4, 4), Color.Yellow.ToPixel<Rgb24>() }
+                },
+                SortedPiecesCount = 0,
+                Robot = new(new(2, 1))
             };
 
             //Act
@@ -40,6 +45,6 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(4, board.SortedPiecesLocations.Count);
             Assert.AreEqual(Color.Red.ToPixel<Rgb24>(), board.SortedPiecesLocations[new(0, 0)]);
         }
-        
+
     }
 }

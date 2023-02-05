@@ -11,7 +11,7 @@ namespace PuzzleSolver
         
         //Pieces
         public Vector2 UnsortedPiecesLocation { get; set; }
-        public Queue<Image<Rgb24>> UnsortedPieces { get; set; }
+        public Queue<Rgb24> UnsortedPieces { get; set; }
         public Dictionary<Vector2, Rgb24> SortedPiecesLocations { get; set; }
         public int SortedPiecesCount { get; set; }
         public int UnsortedPiecesCount
