@@ -27,10 +27,10 @@ namespace PuzzleSolver.Tests
                     Color.Green.ToPixel<Rgb24>() }),
                 SortedPieces = new()
                 {
-                    { Color.Red.ToPixel<Rgb24>(), new(0, 0)},
-                    { Color.Blue.ToPixel<Rgb24>(), new(0, 4)},
-                    { Color.Green.ToPixel<Rgb24>(), new(4, 0)},
-                    { Color.Yellow.ToPixel<Rgb24>(), new(4, 4)}
+                    { Color.Red.ToPixel<Rgb24>(), new(Color.Red.ToPixel<Rgb24>(),new(0, 0))},
+                    { Color.Blue.ToPixel<Rgb24>(), new(Color.Blue.ToPixel<Rgb24>(),new(0, 4))},
+                    { Color.Green.ToPixel<Rgb24>(), new(Color.Green.ToPixel<Rgb24>(),new(4, 0))},
+                    { Color.Yellow.ToPixel<Rgb24>(), new(Color.Yellow.ToPixel<Rgb24>(),new(4, 4))}
                 },
                 SortedPiecesCount = 0,
                 Robot = new(new(2, 1))
@@ -44,7 +44,7 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(board.Robot);
             Assert.AreEqual(new(2, 2), board.UnsortedPiecesLocation);
             Assert.AreEqual(4, board.SortedPieces.Count);
-            Assert.AreEqual(new(0, 0), board.SortedPieces[Color.Red.ToPixel<Rgb24>()]);
+            Assert.AreEqual(new(0, 0), board.SortedPieces[Color.Red.ToPixel<Rgb24>()].Location);
             Assert.AreEqual(0, board.SortedPiecesCount);
             Assert.AreEqual(4, board.UnsortedPiecesCount);
             Assert.AreEqual(new Vector2(2, 1), board.Robot.Location);
@@ -65,12 +65,12 @@ namespace PuzzleSolver.Tests
                     Color.Green.ToPixel<Rgb24>() }),
                 SortedPieces = new()
                 {
-                    { Color.Red.ToPixel<Rgb24>(), new(0, 0)},
-                    { Color.Blue.ToPixel<Rgb24>(), new(0, 4)},
-                    { Color.Green.ToPixel<Rgb24>(), new(4, 0)},
-                    { Color.Yellow.ToPixel<Rgb24>(), new(4, 4)}
+                    { Color.Red.ToPixel<Rgb24>(), new(Color.Red.ToPixel<Rgb24>(),new(0, 0))},
+                    { Color.Blue.ToPixel<Rgb24>(), new(Color.Blue.ToPixel<Rgb24>(),new(0, 4))},
+                    { Color.Green.ToPixel<Rgb24>(), new(Color.Green.ToPixel<Rgb24>(),new(4, 0))},
+                    { Color.Yellow.ToPixel<Rgb24>(), new(Color.Yellow.ToPixel<Rgb24>(),new(4, 4))}
                 },
-                SortedPiecesCount = 0,
+                SortedPiecesCount = 0
                 Robot = new(new(2, 1))
             };
 
