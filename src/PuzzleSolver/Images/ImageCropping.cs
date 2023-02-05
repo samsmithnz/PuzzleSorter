@@ -56,22 +56,30 @@ namespace PuzzleSolver.Images
             return images;
         }
 
-        //public static Image<Rgb24> CreateImage(Rgb24 rgb24, int width, int height)
-        //{
-        //    Image<Rgb24> newImage = new Image<Rgb24>(width, height);
-        //    newImage.ProcessPixelRows(accessor =>
-        //    {
-        //        for (int row = 0; row < height; row++)
-        //        {
-        //            //Setup the target row
-        //            Span<Rgb24> targetRow = accessor.GetRowSpan(row);
-        //            //Copy the source to the target
-        //            sourceRow.Slice(areaToExtract.X, areaToExtract.Width).CopyTo(targetRow);
-        //        }
-        //    });
+        public static Image<Rgb24> CreateImage(Rgb24 rgb24, int width, int height)
+        {
+            Image<Rgb24> newImage = new Image<Rgb24>(width, height, rgb24);
+            //newImage.ProcessPixelRows(accessor =>
+            //{
+            //    for (int row = 0; row < height; row++)
+            //    {
+            //        //Setup the target row
+            //        Rgb24[] array = new Rgb24[width];
+            //        for (int i = 0; i < array.Length; i++)
+            //        {
+            //            array[i] = rgb24;
+            //        }
+            //        Span<Rgb24> arraySpan = new Span<Rgb24>(array);
+            //        //Span<Rgb24> targetRow = accessor.GetRowSpan(row);
+            //        //Copy the source to the target
+            //        //sourceRow.Slice(areaToExtract.X, areaToExtract.Width).CopyTo(targetRow);
+            //        newImage.Mutate(x => x.DrawImage(newImage, 1));
+            //    }
+            //});
 
-        //    return targetImage;
-        //}
+            //return targetImage;
+            return newImage;
+        }
 
     }
 }
