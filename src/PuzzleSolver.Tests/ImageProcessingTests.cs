@@ -94,7 +94,6 @@ Yellow: 25.00%
     {
         //Arrange
         SortedList<int, Rgb24> priorityColorPalette = new();
-
         ImageColorGroups imageProcessing = new(ColorPalettes.Get16ColorPalette(), priorityColorPalette);
         string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
 
