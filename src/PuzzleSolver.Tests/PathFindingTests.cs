@@ -82,6 +82,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual("<3, 2>", PathFindingResult.Path[1].ToString());
             Assert.AreEqual("<3, 1>", PathFindingResult.Path[2].ToString());
             Assert.AreEqual("<2, 1>", PathFindingResult.Path[3].ToString());
+            Assert.AreEqual("2, 1: Open", PathFindingResult.GetLastTile().ToString());
             Assert.AreEqual(expectedMapString, mapString);
         }
 
