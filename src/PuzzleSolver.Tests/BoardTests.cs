@@ -82,7 +82,14 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(4, results.Count);
             Assert.IsNotNull(results.Peek());
             Assert.IsNotNull(results.Peek().PickupAction);
-            Assert.IsNotNull(results.Peek().PathToPickup);
+            Assert.IsNull(results.Peek().PathToPickup); //This is null because we start in the right location
+            Assert.IsNotNull(results.Peek().DropoffAction);
+            Assert.IsNotNull(results.Peek().PathToDropoff);
+            results.Dequeue(); //Complete the first action
+            Assert.AreEqual(3, results.Count);
+            Assert.IsNotNull(results.Peek());
+            Assert.IsNotNull(results.Peek().PickupAction);
+            Assert.IsNull(results.Peek().PathToPickup);
             Assert.IsNotNull(results.Peek().DropoffAction);
             Assert.IsNotNull(results.Peek().PathToDropoff);
         }
