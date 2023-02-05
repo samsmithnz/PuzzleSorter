@@ -75,7 +75,7 @@ namespace PuzzleSolver.Tests
             };
 
             //Act
-            board.RunRobot();
+            Queue<RobotAction> results = board.RunRobot();
 
             //Assert
             Assert.IsNotNull(board);
@@ -87,6 +87,8 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(4, board.SortedPiecesCount);
             Assert.AreEqual(0, board.UnsortedPiecesCount);
             Assert.AreEqual(new Vector2(2, 1), board.Robot.Location);
+            Assert.IsNotNull(results);
+            Assert.AreEqual(4, results.Count);
         }
 
     }

@@ -45,8 +45,10 @@ namespace PuzzleSolver
         //    //}
         //}
 
-        public void RunRobot()
+        public Queue<RobotAction> RunRobot()
         {
+            Queue<RobotAction> results = new Queue<RobotAction>();
+
             ImageColorGroups imageProcessing = new ImageColorGroups(ColorPalettes.Get3ColorPalette());
 
             while (UnsortedPiecesCount > 0)
@@ -90,6 +92,8 @@ namespace PuzzleSolver
 
                 // Repeat
             }
+
+            return results;
         }
     }
 }
