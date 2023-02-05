@@ -90,7 +90,8 @@ namespace PuzzleSolver
 
                 SortedPiecesCount++;
 
-                // Repeat
+                // Add to queue
+                results
             }
 
             return results;
