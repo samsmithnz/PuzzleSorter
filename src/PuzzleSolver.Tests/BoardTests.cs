@@ -89,6 +89,11 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new Vector2(2, 1), board.Robot.Location);
             Assert.IsNotNull(results);
             Assert.AreEqual(4, results.Count);
+            Assert.IsNotNull(results.Peek());
+            Assert.IsNotNull( results.Peek().PickupAction);
+            Assert.IsNotNull(results.Peek().PathToPickup);
+            Assert.IsNotNull(results.Peek().DropoffAction);
+            Assert.IsNotNull(results.Peek().PathToDropoff);
         }
 
     }
