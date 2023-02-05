@@ -77,11 +77,11 @@ namespace PuzzleSolver
                 Image<Rgb24> image = ImageCropping.CreateImage(Robot.Piece);
                 ImageStats imageStats = imageProcessing.ProcessStatsForImage(null, image);
                 Vector2? destinationLocation = null;
-                foreach (KeyValuePair<Rgb24, Vector2> sortedPiece in SortedPieces)
+                foreach (KeyValuePair<Rgb24, SortedPiece> sortedPiece in SortedPieces)
                 {
                     if (sortedPiece.Key == imageStats.TopColorGroupColor)
                     {
-                        destinationLocation = sortedPiece.Value;
+                        destinationLocation = sortedPiece.Value.Location;
                     }
                 }
 
