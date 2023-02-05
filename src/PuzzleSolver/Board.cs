@@ -28,17 +28,17 @@ namespace PuzzleSolver
 
         public Board() { }
 
-        public Board(int width, int height, Vector2 unsortedPileLocation, List<Rgb24> colorPalette)
-        {
-            Map = new string[width, height];
-            UnsortedPiecesLocation = unsortedPileLocation;
-            SortedPiecesLocations = new Dictionary<Vector2, Rgb24>();
-            //int i = 0;
-            //foreach (Rgb24 color in colorPalette)
-            //{
-            //    SortedPileLocations.Add(new Vector2(i, 0), color);
-            //    i++;
-            //}
-        }
+        //public Board(int width, int height, Vector2 unsortedPileLocation, List<Rgb24> colorPalette)
+        //{
+        //    Map = new string[width, height];
+        //    UnsortedPiecesLocation = unsortedPileLocation;
+        //    SortedPiecesLocations = new Dictionary<Vector2, Rgb24>();
+        //    //int i = 0;
+        //    //foreach (Rgb24 color in colorPalette)
+        //    //{
+        //    //    SortedPileLocations.Add(new Vector2(i, 0), color);
+        //    //    i++;
+        //    //}
+        //}
     }
 }

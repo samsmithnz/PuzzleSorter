@@ -16,7 +16,6 @@ namespace PuzzleSolver.Tests
         public void BoardInitializationTest()
         {
             //Arrange
-            string[,] map = MapGeneration.GenerateMap();
             Vector2 unsortedPileLocation = new(2, 2);
             Dictionary<Vector2, Rgb24> sortedPileLocations = new()
             {
@@ -27,9 +26,9 @@ namespace PuzzleSolver.Tests
             };
             Board board = new()
             {
-                Map = map,
-                UnsortedPileLocation = unsortedPileLocation,
-                SortedPileLocations = sortedPileLocations
+                Map = MapGeneration.GenerateMap(),
+                UnsortedPiecesLocation = unsortedPileLocation,
+                SortedPiecesLocations = sortedPileLocations
             };
 
             //Act
@@ -37,9 +36,9 @@ namespace PuzzleSolver.Tests
             //Assert
             Assert.IsNotNull(board);
             Assert.IsNotNull(board.Map);
-            Assert.AreEqual(new(2, 2), board.UnsortedPileLocation);
-            Assert.AreEqual(4, board.SortedPileLocations.Count);
-            Assert.AreEqual(Color.Red.ToPixel<Rgb24>(), board.SortedPileLocations[new(0, 0)]);
+            Assert.AreEqual(new(2, 2), board.UnsortedPiecesLocation);
+            Assert.AreEqual(4, board.SortedPiecesLocations.Count);
+            Assert.AreEqual(Color.Red.ToPixel<Rgb24>(), board.SortedPiecesLocations[new(0, 0)]);
         }
         
     }
