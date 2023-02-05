@@ -78,7 +78,7 @@ namespace PuzzleSolver.Images
                             {
                                 List<Rgb24> colorList = new List<Rgb24>()
                                 {
-                                pixelSpan[col]
+                                    pixelSpan[col]
                                 };
                                 groupedColors[(Rgb24)colorGroup] = colorList;
                             }

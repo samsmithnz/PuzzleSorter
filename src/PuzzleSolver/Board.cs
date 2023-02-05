@@ -65,7 +65,7 @@ namespace PuzzleSolver
                 Robot.Piece = UnsortedPieces.Dequeue();
 
                 // Process the unsorted piece to work out where it goes
-                ImageStats imageStats = imageProcessing.ProcessStatsForImage(null,new Image<Rgb24>(Robot.Piece));
+                //ImageStats imageStats = imageProcessing.ProcessStatsForImage(null,new Image<Rgb24>(Robot.Piece));
 
                 // Move the sorted piece to the correct pile
                 // Repeat

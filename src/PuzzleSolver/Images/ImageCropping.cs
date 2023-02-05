@@ -2,6 +2,7 @@
 using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.Collections.Generic;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace PuzzleSolver.Images
 {
@@ -26,7 +27,6 @@ namespace PuzzleSolver.Images
                     Span<Rgb24> sourceRow = sourceAccessor.GetRowSpan(areaToExtract.Y + row);
                     //Setup the target row
                     Span<Rgb24> targetRow = targetAccessor.GetRowSpan(row);
-                    //Copy the source to the target
                     //Copy the source to the target
                     sourceRow.Slice(areaToExtract.X, areaToExtract.Width).CopyTo(targetRow);
                 }
@@ -55,6 +55,23 @@ namespace PuzzleSolver.Images
             }
             return images;
         }
+
+        //public static Image<Rgb24> CreateImage(Rgb24 rgb24, int width, int height)
+        //{
+        //    Image<Rgb24> newImage = new Image<Rgb24>(width, height);
+        //    newImage.ProcessPixelRows(accessor =>
+        //    {
+        //        for (int row = 0; row < height; row++)
+        //        {
+        //            //Setup the target row
+        //            Span<Rgb24> targetRow = accessor.GetRowSpan(row);
+        //            //Copy the source to the target
+        //            sourceRow.Slice(areaToExtract.X, areaToExtract.Width).CopyTo(targetRow);
+        //        }
+        //    });
+
+        //    return targetImage;
+        //}
 
     }
 }
