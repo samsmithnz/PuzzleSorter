@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace PuzzleSolver.Robots
+namespace PuzzleSolver
 {
     public class Robot
     {
