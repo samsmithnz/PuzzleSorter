@@ -84,8 +84,8 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new(2, 2), board.UnsortedPiecesLocation);
             Assert.AreEqual(4, board.SortedPiecesLocations.Count);
             Assert.AreEqual(new(0, 0), board.SortedPiecesLocations[Color.Red.ToPixel<Rgb24>()]);
-            Assert.AreEqual(0, board.SortedPiecesCount);
-            Assert.AreEqual(4, board.UnsortedPiecesCount);
+            Assert.AreEqual(4, board.SortedPiecesCount);
+            Assert.AreEqual(0, board.UnsortedPiecesCount);
             Assert.AreEqual(new Vector2(2, 1), board.Robot.Location);
         }
 

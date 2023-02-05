@@ -86,6 +86,8 @@ namespace PuzzleSolver
                     }
                 }
 
+                SortedPiecesCount++;
+
                 // Repeat
             }
         }
