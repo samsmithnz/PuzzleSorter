@@ -27,10 +27,10 @@ namespace PuzzleSolver.Tests
                     Color.Green.ToPixel<Rgb24>() }),
                 SortedPiecesLocations = new()
                 {
-                    { new(0, 0), Color.Red.ToPixel<Rgb24>() },
-                    { new(0, 4), Color.Blue.ToPixel<Rgb24>() },
-                    { new(4, 0), Color.Green.ToPixel<Rgb24>() },
-                    { new(4, 4), Color.Yellow.ToPixel<Rgb24>() }
+                    { Color.Red.ToPixel<Rgb24>(), new(0, 0)},
+                    { Color.Blue.ToPixel<Rgb24>(), new(0, 4)},
+                    { Color.Green.ToPixel<Rgb24>(), new(4, 0)},
+                    { Color.Yellow.ToPixel<Rgb24>(), new(4, 4)}
                 },
                 SortedPiecesCount = 0,
                 Robot = new(new(2, 1))
