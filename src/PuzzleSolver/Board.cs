@@ -68,6 +68,10 @@ namespace PuzzleSolver
 
                 // Pickup an unsorted piece
                 Robot.Piece = UnsortedPieces.Dequeue();
+                robotAction.PickupAction = new ObjectInteraction()
+                {
+                    Location = PickUpLocation
+                };
 
                 // Process the unsorted piece to work out where it goes
                 Image<Rgb24> image = ImageCropping.CreateImage(Robot.Piece);
@@ -89,13 +93,17 @@ namespace PuzzleSolver
                     {
                         //Move robot
                         robotAction.PathToDropoff = pathFindingResultForDropoff;
+                        robotAction.DropoffAction = new ObjectInteraction()
+                        {
+                            Location = (Vector2)destinationLocation
+                        };
                     }
                 }
 
                 SortedPiecesCount++;
 
                 // Add to queue
-                results
+                results.Enqueue(robotAction);
             }
 
             return results;
