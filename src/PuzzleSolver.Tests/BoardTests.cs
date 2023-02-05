@@ -78,6 +78,9 @@ namespace PuzzleSolver.Tests
             Queue<RobotAction> results = board.RunRobot();
 
             //Assert           
+            Assert.IsNotNull(board);
+            Assert.AreEqual(0, board.UnsortedPiecesCount);
+            Assert.AreEqual(4, board.SortedPiecesCount);
             Assert.IsNotNull(results);
             Assert.AreEqual(4, results.Count);
             Assert.IsNotNull(results.Peek());
