@@ -13,6 +13,7 @@ namespace PuzzleSolver
         public Dictionary<Vector2, Rgb24> SortedPileLocations { get; set; }
         public Queue<Image<Rgb24>> UnsortedPieces { get; set; }
         public Robot Robot { get; set; }
+        
 
         public Board() { }
 
