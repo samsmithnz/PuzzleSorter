@@ -16,7 +16,7 @@ namespace PuzzleSolver
         //Pieces
         public Vector2 UnsortedPiecesLocation { get; set; }
         public Queue<Rgb24> UnsortedPieces { get; set; }
-        public Dictionary<Rgb24, Vector2> SortedPiecesLocations { get; set; }
+        public Dictionary<Rgb24, SortedPiece> SortedPieces { get; set; }
         public int SortedPiecesCount { get; set; }
         public int UnsortedPiecesCount
         {
@@ -77,7 +77,7 @@ namespace PuzzleSolver
                 Image<Rgb24> image = ImageCropping.CreateImage(Robot.Piece);
                 ImageStats imageStats = imageProcessing.ProcessStatsForImage(null, image);
                 Vector2? destinationLocation = null;
-                foreach (KeyValuePair<Rgb24, Vector2> sortedPiece in SortedPiecesLocations)
+                foreach (KeyValuePair<Rgb24, Vector2> sortedPiece in SortedPieces)
                 {
                     if (sortedPiece.Key == imageStats.TopColorGroupColor)
                     {

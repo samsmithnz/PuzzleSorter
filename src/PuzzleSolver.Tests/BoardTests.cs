@@ -25,7 +25,7 @@ namespace PuzzleSolver.Tests
                     Color.Blue.ToPixel<Rgb24>(),
                     Color.Red.ToPixel<Rgb24>(),
                     Color.Green.ToPixel<Rgb24>() }),
-                SortedPiecesLocations = new()
+                SortedPieces = new()
                 {
                     { Color.Red.ToPixel<Rgb24>(), new(0, 0)},
                     { Color.Blue.ToPixel<Rgb24>(), new(0, 4)},
@@ -43,8 +43,8 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(board.Map);
             Assert.IsNotNull(board.Robot);
             Assert.AreEqual(new(2, 2), board.UnsortedPiecesLocation);
-            Assert.AreEqual(4, board.SortedPiecesLocations.Count);
-            Assert.AreEqual(new(0, 0), board.SortedPiecesLocations[Color.Red.ToPixel<Rgb24>()]);
+            Assert.AreEqual(4, board.SortedPieces.Count);
+            Assert.AreEqual(new(0, 0), board.SortedPieces[Color.Red.ToPixel<Rgb24>()]);
             Assert.AreEqual(0, board.SortedPiecesCount);
             Assert.AreEqual(4, board.UnsortedPiecesCount);
             Assert.AreEqual(new Vector2(2, 1), board.Robot.Location);
@@ -63,7 +63,7 @@ namespace PuzzleSolver.Tests
                     Color.Blue.ToPixel<Rgb24>(),
                     Color.Red.ToPixel<Rgb24>(),
                     Color.Green.ToPixel<Rgb24>() }),
-                SortedPiecesLocations = new()
+                SortedPieces = new()
                 {
                     { Color.Red.ToPixel<Rgb24>(), new(0, 0)},
                     { Color.Blue.ToPixel<Rgb24>(), new(0, 4)},

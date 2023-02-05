@@ -1,4 +1,6 @@
-﻿using SixLabors.ImageSharp.PixelFormats;
+﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace PuzzleSolver
@@ -7,5 +9,6 @@ namespace PuzzleSolver
     {
         public Rgb24 Color { get; set; }
         public Vector2 Location { get; set; }
+        public List<Image<Rgb24>> Images { get; set; }
     }
 }
