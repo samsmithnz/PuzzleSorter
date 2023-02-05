@@ -2,7 +2,6 @@
 using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.Collections.Generic;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace PuzzleSolver.Images
 {
@@ -56,9 +55,17 @@ namespace PuzzleSolver.Images
             return images;
         }
 
-        public static Image<Rgb24> CreateImage(Rgb24 rgb24, int width, int height)
+        public static Image<Rgb24> CreateImage(Rgb24? rgb24, int width = 100, int height = 100)
         {
-            Image<Rgb24> newImage = new Image<Rgb24>(width, height, rgb24);
+            if (rgb24 != null)
+            {
+                Image<Rgb24> newImage = new Image<Rgb24>(width, height, (Rgb24)rgb24);
+                return newImage;
+            }
+            else
+            {
+                return null;
+            }
             //newImage.ProcessPixelRows(accessor =>
             //{
             //    for (int row = 0; row < height; row++)
@@ -78,7 +85,6 @@ namespace PuzzleSolver.Images
             //});
 
             //return targetImage;
-            return newImage;
         }
 
     }
