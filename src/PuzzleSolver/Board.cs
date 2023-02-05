@@ -1,4 +1,5 @@
-﻿using PuzzleSolver.Map;
+﻿using PuzzleSolver.Images;
+using PuzzleSolver.Map;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Collections.Generic;
@@ -46,6 +47,8 @@ namespace PuzzleSolver
 
         private void RunRobot()
         {
+            ImageColorGroups imageProcessing = new ImageColorGroups(ColorPalettes.Get3ColorPalette());
+            
             while (UnsortedPiecesCount > 0)
             {
                 // Move to unsorted pile
@@ -57,8 +60,13 @@ namespace PuzzleSolver
                         //Move robot
                     }
                 }
+                
                 // Pickup an unsorted piece
+                Robot.Piece = UnsortedPieces.Dequeue();
+
                 // Process the unsorted piece to work out where it goes
+                ImageStats imageStats = imageProcessing.ProcessStatsForImage(null,new Image<Rgb24>(Robot.Piece));
+
                 // Move the sorted piece to the correct pile
                 // Repeat
             }

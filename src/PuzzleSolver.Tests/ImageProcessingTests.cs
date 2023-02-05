@@ -69,8 +69,10 @@ Yellow: 25.00%
     public void FourPixelImageWith16ColorPaletteWithPriorityColorTest()
     {
         //Arrange
-        SortedList<int, Rgb24> priorityColorPalette = new();
-        priorityColorPalette.Add(1, Color.Lime.ToPixel<Rgb24>());
+        SortedList<int, Rgb24> priorityColorPalette = new()
+        {
+            { 1, Color.Lime.ToPixel<Rgb24>() }
+        };
 
         ImageColorGroups imageProcessing = new(ColorPalettes.Get16ColorPalette(), priorityColorPalette);
         string imageDir = Environment.CurrentDirectory + @"/TestImages/BaseImage.png";
