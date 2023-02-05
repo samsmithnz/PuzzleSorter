@@ -23,6 +23,7 @@ namespace PuzzleSolver
             }
         }
 
+        //Characters
         public Robot Robot { get; set; }
 
 
