@@ -40,5 +40,16 @@ namespace PuzzleSolver
         //    //    i++;
         //    //}
         //}
+
+        private void RunRobot()
+        {
+            while (UnsortedPiecesCount > 0)
+            {
+                // Move and pickup an unsorted piece
+                // Process the unsorted piece to work out where it goes
+                // Move the sorted piece to the correct pile
+                // Repeat
+            }
+        }
     }
 }
