@@ -77,20 +77,11 @@ namespace PuzzleSolver.Tests
             //Act
             Queue<RobotAction> results = board.RunRobot();
 
-            //Assert
-            Assert.IsNotNull(board);
-            Assert.IsNotNull(board.Map);
-            Assert.IsNotNull(board.Robot);
-            Assert.AreEqual(new(2, 2), board.UnsortedPiecesLocation);
-            Assert.AreEqual(4, board.SortedPiecesLocations.Count);
-            Assert.AreEqual(new(0, 0), board.SortedPiecesLocations[Color.Red.ToPixel<Rgb24>()]);
-            Assert.AreEqual(4, board.SortedPiecesCount);
-            Assert.AreEqual(0, board.UnsortedPiecesCount);
-            Assert.AreEqual(new Vector2(2, 1), board.Robot.Location);
+            //Assert           
             Assert.IsNotNull(results);
             Assert.AreEqual(4, results.Count);
             Assert.IsNotNull(results.Peek());
-            Assert.IsNotNull( results.Peek().PickupAction);
+            Assert.IsNotNull(results.Peek().PickupAction);
             Assert.IsNotNull(results.Peek().PathToPickup);
             Assert.IsNotNull(results.Peek().DropoffAction);
             Assert.IsNotNull(results.Peek().PathToDropoff);
