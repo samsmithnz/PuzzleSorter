@@ -70,7 +70,7 @@ namespace PuzzleSolver.Tests
                     { Color.Green.ToPixel<Rgb24>(), new(Color.Green.ToPixel<Rgb24>(),new(4, 0))},
                     { Color.Yellow.ToPixel<Rgb24>(), new(Color.Yellow.ToPixel<Rgb24>(),new(4, 4))}
                 },
-                SortedPiecesCount = 0
+                SortedPiecesCount = 0,
                 Robot = new(new(2, 1))
             };
 
