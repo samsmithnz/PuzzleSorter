@@ -55,10 +55,10 @@ namespace PuzzleSolver.Map
             get { return this.G + this.H; }
         }
 
-        public int TraversalCost
-        {
-            get { return Convert.ToInt32(Math.Ceiling(F)); }
-        }
+        //public int TraversalCost
+        //{
+        //    get { return Convert.ToInt32(Math.Ceiling(F)); }
+        //}
 
         private MapTile _parentTile;
         /// <summary>
@@ -78,10 +78,10 @@ namespace PuzzleSolver.Map
             }
         }
 
-        public override string ToString()
-        {
-            return string.Format("{0}, {1}: {2}", this.Location.X, this.Location.Y, this.State);
-        }
+        //public override string ToString()
+        //{
+        //    return string.Format("{0}, {1}: {2}", this.Location.X, this.Location.Y, this.State);
+        //}
 
         /// <summary>
         /// Gets the distance between two points
