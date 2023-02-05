@@ -53,6 +53,8 @@ namespace PuzzleSolver
 
             while (UnsortedPiecesCount > 0)
             {
+                RobotAction robotAction = new RobotAction();
+                
                 // Move to unsorted pile
                 if (Robot.Location != PickUpLocation)
                 {
@@ -60,6 +62,7 @@ namespace PuzzleSolver
                     if (pathFindingResultForPickup != null && pathFindingResultForPickup.Path.Any())
                     {
                         //Move robot
+                        robotAction.PathToPickup = pathFindingResultForPickup;
                     }
                 }
 
@@ -85,6 +88,7 @@ namespace PuzzleSolver
                     if (pathFindingResultForDropoff != null && pathFindingResultForDropoff.Path.Any())
                     {
                         //Move robot
+                        robotAction.PathToDropoff = pathFindingResultForDropoff;
                     }
                 }
 
