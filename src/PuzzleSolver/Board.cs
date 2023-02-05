@@ -1,14 +1,17 @@
-﻿using SixLabors.ImageSharp;
+﻿using PuzzleSolver.Map;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 
 namespace PuzzleSolver
 {
     public class Board
     {
+        private Vector2 PickUpLocation = new Vector2(2, 1);
         public string[,] Map { get; set; }
-        
+
         //Pieces
         public Vector2 UnsortedPiecesLocation { get; set; }
         public Queue<Rgb24> UnsortedPieces { get; set; }
@@ -45,7 +48,16 @@ namespace PuzzleSolver
         {
             while (UnsortedPiecesCount > 0)
             {
-                // Move and pickup an unsorted piece
+                // Move to unsorted pile
+                if (Robot.Location != PickUpLocation)
+                {
+                    PathFindingResult pathFindingResult = PathFinding.FindPath(Map, Robot.Location, PickUpLocation);
+                    if (pathFindingResult != null && pathFindingResult.Path.Any())
+                    {
+                        //Move robot
+                    }
+                }
+                // Pickup an unsorted piece
                 // Process the unsorted piece to work out where it goes
                 // Move the sorted piece to the correct pile
                 // Repeat
