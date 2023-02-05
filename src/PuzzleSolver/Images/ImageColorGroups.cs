@@ -1,10 +1,11 @@
-﻿using SixLabors.ImageSharp;
+﻿using PuzzleSolver.Images;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PuzzleSolver
+namespace PuzzleSolver.Images
 {
     public class ImageColorGroups
     {
@@ -77,7 +78,7 @@ namespace PuzzleSolver
                             {
                                 List<Rgb24> colorList = new List<Rgb24>()
                                 {
-                                pixelSpan[col]
+                                    pixelSpan[col]
                                 };
                                 groupedColors[(Rgb24)colorGroup] = colorList;
                             }
@@ -134,7 +135,7 @@ namespace PuzzleSolver
             //Calculate the name and percent and add it into a list
             foreach (KeyValuePair<Rgb24, List<Rgb24>> colorGroup in colorGroups)
             {
-                double percent = (double)colorGroup.Value.Count / (double)colorGroups.Sum(t => t.Value.Count);
+                double percent = colorGroup.Value.Count / (double)colorGroups.Sum(t => t.Value.Count);
                 roughNamePercentList.Add(new ColorStats(colorGroup.Key, ColorPalettes.ToName(colorGroup.Key), percent));
             }
             //If there are priority items, update the order

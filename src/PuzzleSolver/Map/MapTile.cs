@@ -55,10 +55,10 @@ namespace PuzzleSolver.Map
             get { return this.G + this.H; }
         }
 
-        public int TraversalCost
-        {
-            get { return Convert.ToInt32(Math.Ceiling(F)); }
-        }
+        //public int TraversalCost
+        //{
+        //    get { return Convert.ToInt32(Math.Ceiling(F)); }
+        //}
 
         private MapTile _parentTile;
         /// <summary>
