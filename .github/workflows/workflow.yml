@@ -76,7 +76,7 @@ jobs:
       with:
         name: drop 
         path: drop 
-    - run: dir drop/*.*
+    - run: dir ${{ github.workspace }}/drop/*.*
     - name: Display GitVersion outputs
       run: |
         echo "Version: ${{ needs.build.outputs.Version }}" 
