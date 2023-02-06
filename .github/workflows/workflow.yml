@@ -46,7 +46,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: drop
-        path: src/PuzzleSolver/bin/Release
+        path: src/PuzzleSolver/bin/Debug
 
         
   sonarCloud:
