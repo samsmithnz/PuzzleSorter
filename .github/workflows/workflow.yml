@@ -68,14 +68,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: 
     - build
-    - sonarCloud
-    if: github.ref == 'refs/heads/main'
+    #- sonarCloud
+    #if: github.ref == 'refs/heads/main'
     steps:
     - name: Download artifacts
       uses: actions/download-artifact@v3.0.2
       with:
         name: drop 
         path: drop 
+    - run: dir drop/*.*
     - name: Display GitVersion outputs
       run: |
         echo "Version: ${{ needs.build.outputs.Version }}" 
@@ -87,4 +88,4 @@ jobs:
         tag: ${{ needs.build.outputs.Version }}
         name: Release ${{ needs.build.outputs.Version }}
         token: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        artifacts: drop/*
+        artifacts: "drop/*"
