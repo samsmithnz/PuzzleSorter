@@ -88,4 +88,4 @@ jobs:
         tag: ${{ needs.build.outputs.Version }}
         name: Release ${{ needs.build.outputs.Version }}
         token: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        artifacts: "drop/PuzzleSolver.dll,drop/PuzzleSolver.pdb,drop/PuzzleSolver.deps.json"
+        artifacts: "$GITHUB_WORKSPACE/drop/PuzzleSolver.dll,$GITHUB_WORKSPACE/drop/PuzzleSolver.pdb,$GITHUB_WORKSPACE/drop/PuzzleSolver.deps.json"
