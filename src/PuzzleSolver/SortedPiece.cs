@@ -7,6 +7,7 @@ namespace PuzzleSolver
 {
     public class SortedPiece
     {
+        public int Id { get; set; }
         public Rgb24 Color { get; set; }
         public Vector2 Location { get; set; }
         public List<Image<Rgb24>> Images { get; set; }
