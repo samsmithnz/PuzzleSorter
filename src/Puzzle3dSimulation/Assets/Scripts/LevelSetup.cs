@@ -64,7 +64,7 @@ public class LevelSetup : MonoBehaviour
                     floorText.alignment = TextAnchor.MiddleCenter;
                     floorText.fontSize = 24;
                     floorText.font = arialFont;
-                    floorText.text = "x" + x.ToString() + ",z" + z.ToString();
+                    floorText.text = "x" + x.ToString() + ",y" + z.ToString();
                 }
 
                 //GameObject newObject = GameObject.Instantiate(Resources.Load<GameObject>("PolygonStarter/Prefabs/SM_PolygonPrototype_Buildings_Block_1x1_01P"), Vector3.zero, Quaternion.identity) as GameObject;
