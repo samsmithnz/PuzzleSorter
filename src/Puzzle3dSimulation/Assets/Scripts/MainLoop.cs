@@ -1,3 +1,4 @@
+using Assets.Scripts.Common;
 using PuzzleSolver;
 using PuzzleSolver.Map;
 using SixLabors.ImageSharp.PixelFormats;
@@ -41,9 +42,15 @@ public class MainLoop : MonoBehaviour
         LevelSetup.SetupMap(gameObject, board.Map, _showLinesOnFloor, _showCoordOnFloor);
 
         //Add unsorted pieces
+        float y = 0.5f;
+        int i = 0;
         foreach (Rgb24 item in board.UnsortedPieces.ToList())
         {
-
+            i++;
+            GameObject newUnsortedObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            newUnsortedObject.transform.position = new Vector3(2.5f, y, 2.5f);
+            newUnsortedObject.name = Utility.CreateName("piece_" + i.ToString(), newUnsortedObject.transform.position);
+            y++;
         }
 
         //Run the robot
