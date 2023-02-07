@@ -13,6 +13,7 @@ public class MainLoop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Setup board
         Board board = new Board()
         {
             Map = MapGeneration.GenerateMap(),
@@ -33,7 +34,6 @@ public class MainLoop : MonoBehaviour
             SortedPiecesCount = 0,
             Robot = new Robot(new System.Numerics.Vector2(2, 1))
         };
-
 
         //Setup map
         LevelSetup.SetupMap(gameObject, board.Map, _showLinesOnFloor, _showCoordOnFloor);
