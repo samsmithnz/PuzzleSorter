@@ -2,6 +2,7 @@ using PuzzleSolver;
 using PuzzleSolver.Map;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MainLoop : MonoBehaviour
@@ -38,6 +39,12 @@ public class MainLoop : MonoBehaviour
 
         //Setup map
         LevelSetup.SetupMap(gameObject, board.Map, _showLinesOnFloor, _showCoordOnFloor);
+
+        //Add unsorted pieces
+        foreach (Rgb24 item in board.UnsortedPieces.ToList())
+        {
+
+        }
 
         //Run the robot
         //_RobotActions = board.RunRobot();
