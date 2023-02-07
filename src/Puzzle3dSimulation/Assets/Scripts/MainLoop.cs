@@ -1,7 +1,6 @@
 using PuzzleSolver;
 using PuzzleSolver.Map;
 using SixLabors.ImageSharp.PixelFormats;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
