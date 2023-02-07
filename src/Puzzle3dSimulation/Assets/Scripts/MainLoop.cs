@@ -7,7 +7,7 @@ using UnityEngine;
 public class MainLoop : MonoBehaviour
 {
 
-    private readonly bool _showCoordOnFloor = false;
+    private readonly bool _showCoordOnFloor = true;
     private readonly bool _showLinesOnFloor = true;
     Queue<RobotAction> _RobotActions = null;
 
