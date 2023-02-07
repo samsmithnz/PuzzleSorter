@@ -9,6 +9,7 @@ public class MainLoop : MonoBehaviour
 
     private readonly bool _showCoordOnFloor = false;
     private readonly bool _showLinesOnFloor = true;
+    Queue<RobotAction> _RobotActions = null;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +23,7 @@ public class MainLoop : MonoBehaviour
                     SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>(),
                     SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>(),
                     SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>(),
-                    SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>() 
+                    SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>()
                 }),
             SortedPieces = new Dictionary<Rgb24, SortedPiece>()
                 {
@@ -37,11 +38,17 @@ public class MainLoop : MonoBehaviour
 
         //Setup map
         LevelSetup.SetupMap(gameObject, board.Map, _showLinesOnFloor, _showCoordOnFloor);
+
+        //Run the robot
+        Queue<RobotAction> results = board.RunRobot();
     }
 
-    //// Update is called once per frame
-    //void Update()
-    //{
-        
-    //}
+    // Update is called once per frame
+    void Update()
+    {
+        if (_RobotActions != null)
+        {
+
+        }
+    }
 }
