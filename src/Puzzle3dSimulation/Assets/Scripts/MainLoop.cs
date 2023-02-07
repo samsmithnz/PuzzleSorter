@@ -51,7 +51,7 @@ public class MainLoop : MonoBehaviour
             newUnsortedObject.transform.position = new Vector3(2f, y, 2f);
             newUnsortedObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             newUnsortedObject.name = Utility.CreateName("piece_" + i.ToString(), newUnsortedObject.transform.position);
-            y++;
+            y+=0.5f;
         }
 
         //Run the robot
