@@ -6,6 +6,8 @@ on:
   pull_request:
     branches:
     - main
+env:
+  configuration: Debug
 jobs:
   build:
     name: Build job
@@ -41,12 +43,12 @@ jobs:
         path-to-lcov: src/PuzzleSolver.Tests/TestResults/coverage.info 
       continue-on-error: true
     - name: .NET publish
-      run: dotnet publish src/PuzzleSolver/PuzzleSolver.csproj -c Debug -p:Version='${{ steps.gitversion.outputs.SemVer }}'
+      run: dotnet publish src/PuzzleSolver/PuzzleSolver.csproj -c ${{ env.configuration }} -p:Version='${{ steps.gitversion.outputs.SemVer }}'
     - name: Upload package back to GitHub
       uses: actions/upload-artifact@v3
       with:
         name: drop
-        path: src/PuzzleSolver/bin/Debug
+        path: src/PuzzleSolver/bin/${{ env.configuration }}/netstandard2.0
 
         
   sonarCloud:
@@ -76,7 +78,7 @@ jobs:
       with:
         name: drop 
         path: drop 
-    - run: dir ${{ github.workspace }}/drop/netstandard2.0/*.*
+    #- run: dir ${{ github.workspace }}/drop/netstandard2.0/*.*
     - name: Display GitVersion outputs
       run: |
         echo "Version: ${{ needs.build.outputs.Version }}" 
@@ -88,4 +90,4 @@ jobs:
         tag: ${{ needs.build.outputs.Version }}
         name: Release ${{ needs.build.outputs.Version }}
         token: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        artifacts: "${{ github.workspace }}/drop/netstandard2.0/PuzzleSolver.dll"
+        artifacts: "drop/PuzzleSolver.dll,drop/PuzzleSolver.pdb,drop/PuzzleSolver.deps.json"
