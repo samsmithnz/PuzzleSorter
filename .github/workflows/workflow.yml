@@ -76,7 +76,7 @@ jobs:
       with:
         name: drop 
         path: drop 
-    - run: dir ${{ github.workspace }}/drop/*.*
+    - run: dir ${{ github.workspace }}/drop/netstandard2.0/*.*
     - name: Display GitVersion outputs
       run: |
         echo "Version: ${{ needs.build.outputs.Version }}" 
@@ -88,4 +88,4 @@ jobs:
         tag: ${{ needs.build.outputs.Version }}
         name: Release ${{ needs.build.outputs.Version }}
         token: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        artifacts: "${{ github.workspace }}/drop/PuzzleSolver.dll"
+        artifacts: "${{ github.workspace }}/drop/netstandard2.0/PuzzleSolver.dll"
