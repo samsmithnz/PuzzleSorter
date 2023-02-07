@@ -48,7 +48,8 @@ public class MainLoop : MonoBehaviour
         {
             i++;
             GameObject newUnsortedObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            newUnsortedObject.transform.position = new Vector3(2.5f, y, 2.5f);
+            newUnsortedObject.transform.position = new Vector3(2f, y, 2f);
+            newUnsortedObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             newUnsortedObject.name = Utility.CreateName("piece_" + i.ToString(), newUnsortedObject.transform.position);
             y++;
         }
