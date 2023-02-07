@@ -42,7 +42,7 @@ public class MainLoop : MonoBehaviour
         LevelSetup.SetupMap(gameObject, board.Map, _showLinesOnFloor, _showCoordOnFloor);
 
         //Add unsorted pieces
-        float y = 0.5f;
+        float y = 0.25f;
         int i = 0;
         foreach (Rgb24 item in board.UnsortedPieces.ToList())
         {
