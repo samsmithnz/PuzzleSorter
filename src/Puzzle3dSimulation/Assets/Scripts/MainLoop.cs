@@ -51,6 +51,9 @@ public class MainLoop : MonoBehaviour
             newUnsortedObject.transform.position = new Vector3(2f, y, 2f);
             newUnsortedObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             newUnsortedObject.name = Utility.CreateName("piece_" + i.ToString(), newUnsortedObject.transform.position);
+            //Renderer renderer = new Renderer();
+            //renderer.material.color = new Color(item.R, item.G, item.B);
+            newUnsortedObject.GetComponent<Renderer>().material.color = new Color(item.R, item.G, item.B);
             y+=0.5f;
         }
 
