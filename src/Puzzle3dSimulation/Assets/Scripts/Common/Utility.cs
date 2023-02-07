@@ -57,16 +57,15 @@ namespace Assets.Scripts.Common
             return results;
         }
 
-        public static string CreateName(string prefix, Vector3 location)
+        public static string CreateName(string prefix, Vector2 location)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(prefix);
             sb.Append("_x");
             sb.Append(location.x.ToString());
-            sb.Append("_y");
-            sb.Append(location.y.ToString());
+            sb.Append("_y0");
             sb.Append("_z");
-            sb.Append(location.z.ToString());
+            sb.Append(location.y.ToString());
             return sb.ToString();
         }
 
