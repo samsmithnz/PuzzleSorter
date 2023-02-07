@@ -2,10 +2,15 @@ using PuzzleSolver;
 using PuzzleSolver.Map;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class MainLoop : MonoBehaviour
 {
+
+    private readonly bool _showCoordOnFloor = false;
+    private readonly bool _showLinesOnFloor = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,11 +33,15 @@ public class MainLoop : MonoBehaviour
             SortedPiecesCount = 0,
             Robot = new Robot(new System.Numerics.Vector2(2, 1))
         };
+
+
+        //Setup map
+        LevelSetup.SetupMap(gameObject, board.Map, _showLinesOnFloor, _showCoordOnFloor);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    //// Update is called once per frame
+    //void Update()
+    //{
         
-    }
+    //}
 }
