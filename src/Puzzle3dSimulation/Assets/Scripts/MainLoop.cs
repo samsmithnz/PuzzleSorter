@@ -15,7 +15,7 @@ public class MainLoop : MonoBehaviour
     void Start()
     {
         //Setup board
-        Board board = new Board()
+        Board board = new()
         {
             Map = MapGeneration.GenerateMap(),
             UnsortedPiecesLocation = new System.Numerics.Vector2(2, 2),
