@@ -40,7 +40,7 @@ public class MainLoop : MonoBehaviour
         LevelSetup.SetupMap(gameObject, board.Map, _showLinesOnFloor, _showCoordOnFloor);
 
         //Run the robot
-        _RobotActions = board.RunRobot();
+        //_RobotActions = board.RunRobot();
     }
 
     // Update is called once per frame
