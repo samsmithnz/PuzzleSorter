@@ -12,8 +12,9 @@ namespace PuzzleSolver
         public Vector2 Location { get; set; }
         public List<Image<Rgb24>> Images { get; set; }
 
-        public SortedPiece(Rgb24 color, Vector2 location, List<Image<Rgb24>> images= null)
+        public SortedPiece(int id, Rgb24 color, Vector2 location, List<Image<Rgb24>> images= null)
         {
+            Id = id;
             Color = color;
             Location = location;
             Images = images;
