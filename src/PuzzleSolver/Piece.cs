@@ -11,11 +11,18 @@ namespace PuzzleSolver
         public Image<Rgb24> Image { get; set; }
         public ImageStats ImageStats { get; set; }
         public Vector2 Location { get; set; }
-        public Rgb24 TopColorGroup
+        public Rgb24? TopColorGroup
         {
             get
             {
-                return ImageStats.TopColorGroupColor;
+                if (ImageStats != null)
+                {
+                    return ImageStats.TopColorGroupColor;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
     }
