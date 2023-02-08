@@ -78,11 +78,11 @@ namespace PuzzleSolver
                 // Process the unsorted piece to work out where it goes
                 Robot.Piece.ImageStats = imageProcessing.ProcessStatsForImage(null, Robot.Piece.Image);
                 Vector2? destinationLocation = null;
-                foreach (KeyValuePair<Rgb24, SortedDropZone> sortedPiece in SortedPieces)
+                foreach (SortedDropZone sortedDropZone in SortedDropZones)
                 {
-                    if (sortedPiece.Key == Robot.Piece.ImageStats.TopColorGroupColor)
+                    if (sortedDropZone.Color == Robot.Piece.ImageStats.TopColorGroupColor)
                     {
-                        destinationLocation = sortedPiece.Value.Location;
+                        destinationLocation = sortedDropZone.Location;
                     }
                 }
 

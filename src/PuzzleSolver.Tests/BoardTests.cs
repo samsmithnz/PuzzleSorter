@@ -60,10 +60,10 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(board.Map);
             Assert.IsNotNull(board.Robot);
             Assert.AreEqual(new(2, 2), board.UnsortedPiecesLocation);
-            Assert.AreEqual(4, board.SortedPiecesCount);
-            Assert.AreEqual(new(0, 0), board.SortedPieces[Color.Red.ToPixel<Rgb24>()].Location);
-            Assert.AreEqual(0, board.SortedPiecesCount);
-            Assert.AreEqual(4, board.UnsortedPiecesCount);
+            Assert.AreEqual(4, board.SortedPieces.Count);
+            Assert.AreEqual(new(0, 0), board.SortedPieces[0].Location);
+            Assert.AreEqual(0, board.SortedPieces.Count);
+            Assert.AreEqual(4, board.UnsortedPieces.Count);
             Assert.AreEqual(new Vector2(2, 1), board.Robot.Location);
         }
 
@@ -112,8 +112,8 @@ namespace PuzzleSolver.Tests
 
             //Assert           
             Assert.IsNotNull(board);
-            Assert.AreEqual(0, board.UnsortedPiecesCount);
-            Assert.AreEqual(4, board.SortedPiecesCount);
+            Assert.AreEqual(0, board.UnsortedPieces.Count);
+            Assert.AreEqual(4, board.SortedPieces.Count);
             Assert.IsNotNull(results);
             Assert.AreEqual(4, results.Count);
             Assert.IsNotNull(results.Peek());
