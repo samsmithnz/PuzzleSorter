@@ -55,17 +55,17 @@ namespace PuzzleSolver.Images
             return images;
         }
 
-        public static Image<Rgb24> CreateImage(Rgb24? rgb24, int width = 100, int height = 100)
+        public static Image<Rgb24> CreateImage(Rgb24 rgb24, int width = 100, int height = 100)
         {
-            if (rgb24 != null)
-            {
+            //if (rgb24 != null)
+            //{
                 Image<Rgb24> newImage = new Image<Rgb24>(width, height, (Rgb24)rgb24);
                 return newImage;
-            }
-            else
-            {
-                return null;
-            }
+            //}
+            //else
+            //{
+            //    return null;
+            //}
             //newImage.ProcessPixelRows(accessor =>
             //{
             //    for (int row = 0; row < height; row++)

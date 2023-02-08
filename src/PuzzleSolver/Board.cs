@@ -10,14 +10,19 @@ namespace PuzzleSolver
 {
     public class Board
     {
-        private Vector2 PickUpLocation = new Vector2(2, 1);
         public string[,] Map { get; set; }
 
         //Pieces
         public Vector2 UnsortedPiecesLocation { get; set; }
-        public Queue<Rgb24> UnsortedPieces { get; set; }
-        public Dictionary<Rgb24, SortedPiece> SortedPieces { get; set; }
-        public int SortedPiecesCount { get; set; }
+        public Queue<Piece> UnsortedPieces { get; set; }
+        public List<SortedDropZone> SortedDropZones { get; set; }
+        public int SortedPiecesCount
+        {
+            get
+            {
+                return SortedPieces.Count;
+            }
+        }
         public int UnsortedPiecesCount
         {
             get
@@ -30,7 +35,11 @@ namespace PuzzleSolver
         public Robot Robot { get; set; }
 
 
-        public Board() { }
+        public Board()
+        {
+            UnsortedPieces = new Queue<Piece>();
+            SortedPieces = new List<Piece>();
+        }
 
         //public Board(int width, int height, Vector2 unsortedPileLocation, List<Rgb24> colorPalette)
         //{
@@ -51,10 +60,16 @@ namespace PuzzleSolver
 
             ImageColorGroups imageProcessing = new ImageColorGroups(ColorPalettes.Get3ColorPalette());
 
+            Vector2 PickUpLocation = UnsortedPiecesLocation;
+            if (UnsortedPiecesLocation.Y > 0)
+            {
+                PickUpLocation = new Vector2(UnsortedPiecesLocation.X, UnsortedPiecesLocation.Y - 1);
+            }
+
             while (UnsortedPiecesCount > 0)
             {
                 RobotAction robotAction = new RobotAction();
-                
+
                 // Move to unsorted pile
                 if (Robot.Location != PickUpLocation)
                 {
@@ -77,7 +92,7 @@ namespace PuzzleSolver
                 Image<Rgb24> image = ImageCropping.CreateImage(Robot.Piece);
                 ImageStats imageStats = imageProcessing.ProcessStatsForImage(null, image);
                 Vector2? destinationLocation = null;
-                foreach (KeyValuePair<Rgb24, SortedPiece> sortedPiece in SortedPieces)
+                foreach (KeyValuePair<Rgb24, SortedDropZone> sortedPiece in SortedPieces)
                 {
                     if (sortedPiece.Key == imageStats.TopColorGroupColor)
                     {

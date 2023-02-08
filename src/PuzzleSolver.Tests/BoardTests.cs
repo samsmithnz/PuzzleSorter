@@ -1,4 +1,5 @@
-﻿using PuzzleSolver.Map;
+﻿using PuzzleSolver.Images;
+using PuzzleSolver.Map;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Diagnostics.CodeAnalysis;
@@ -20,19 +21,35 @@ namespace PuzzleSolver.Tests
             {
                 Map = MapGeneration.GenerateMap(),
                 UnsortedPiecesLocation = new(2, 2),
-                UnsortedPieces = new(new[] {
-                    Color.Red.ToPixel<Rgb24>(),
-                    Color.Blue.ToPixel<Rgb24>(),
-                    Color.Red.ToPixel<Rgb24>(),
-                    Color.Green.ToPixel<Rgb24>() }),
-                SortedPieces = new()
+                UnsortedPieces = new Queue<Piece>(new Piece[] {
+                    new Piece() {
+                        Id = 1,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 2,
+                        Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 3,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 4,
+                        Image = ImageCropping.CreateImage(Color.Green.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    }}
+                ),
+                SortedDropZones = new()
                 {
-                    { Color.Red.ToPixel<Rgb24>(), new(Color.Red.ToPixel<Rgb24>(),new(0, 0))},
-                    { Color.Blue.ToPixel<Rgb24>(), new(Color.Blue.ToPixel<Rgb24>(),new(0, 4))},
-                    { Color.Green.ToPixel<Rgb24>(), new(Color.Green.ToPixel<Rgb24>(),new(4, 0))},
-                    { Color.Yellow.ToPixel<Rgb24>(), new(Color.Yellow.ToPixel<Rgb24>(),new(4, 4))}
+                    new SortedDropZone(Color.Red.ToPixel<Rgb24>(),new(0, 0)),
+                    new SortedDropZone(Color.Blue.ToPixel<Rgb24>(),new(0, 4)),
+                    new SortedDropZone(Color.Green.ToPixel<Rgb24>(),new(4, 0)),
+                    new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
                 },
-                SortedPiecesCount = 0,
                 Robot = new(new(2, 1))
             };
 
@@ -58,19 +75,35 @@ namespace PuzzleSolver.Tests
             {
                 Map = MapGeneration.GenerateMap(),
                 UnsortedPiecesLocation = new(2, 2),
-                UnsortedPieces = new(new[] {
-                    Color.Red.ToPixel<Rgb24>(),
-                    Color.Blue.ToPixel<Rgb24>(),
-                    Color.Red.ToPixel<Rgb24>(),
-                    Color.Green.ToPixel<Rgb24>() }),
-                SortedPieces = new()
+                UnsortedPieces = new Queue<Piece>(new Piece[] {
+                    new Piece() {
+                        Id = 1,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 2,
+                        Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 3,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 4,
+                        Image = ImageCropping.CreateImage(Color.Green.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    }}
+                ),
+                SortedDropZones = new()
                 {
-                    { Color.Red.ToPixel<Rgb24>(), new(Color.Red.ToPixel<Rgb24>(),new(0, 0))},
-                    { Color.Blue.ToPixel<Rgb24>(), new(Color.Blue.ToPixel<Rgb24>(),new(0, 4))},
-                    { Color.Green.ToPixel<Rgb24>(), new(Color.Green.ToPixel<Rgb24>(),new(4, 0))},
-                    { Color.Yellow.ToPixel<Rgb24>(), new(Color.Yellow.ToPixel<Rgb24>(),new(4, 4))}
+                    new SortedDropZone(Color.Red.ToPixel<Rgb24>(),new(0, 0)),
+                    new SortedDropZone(Color.Blue.ToPixel<Rgb24>(),new(0, 4)),
+                    new SortedDropZone(Color.Green.ToPixel<Rgb24>(),new(4, 0)),
+                    new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
                 },
-                SortedPiecesCount = 0,
                 Robot = new(new(2, 1))
             };
 
