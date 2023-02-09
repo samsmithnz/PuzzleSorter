@@ -61,7 +61,7 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(board.Robot);
             Assert.AreEqual(new(2, 2), board.UnsortedPiecesLocation);
             Assert.AreEqual(4, board.SortedDropZones.Count);
-            Assert.AreEqual(new(0, 0), board.SortedPieces[0].Location);
+            Assert.AreEqual(new(0, 0), board.SortedDropZones[0].Location);
             Assert.AreEqual(0, board.SortedPieces.Count);
             Assert.AreEqual(4, board.UnsortedPieces.Count);
             Assert.AreEqual(new Vector2(2, 1), board.Robot.Location);
