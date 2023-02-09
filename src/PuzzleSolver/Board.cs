@@ -10,27 +10,23 @@ namespace PuzzleSolver
 {
     public class Board
     {
-        private Vector2 PickUpLocation = new Vector2(2, 1);
         public string[,] Map { get; set; }
 
         //Pieces
         public Vector2 UnsortedPiecesLocation { get; set; }
-        public Queue<Rgb24> UnsortedPieces { get; set; }
-        public Dictionary<Rgb24, SortedPiece> SortedPieces { get; set; }
-        public int SortedPiecesCount { get; set; }
-        public int UnsortedPiecesCount
-        {
-            get
-            {
-                return UnsortedPieces.Count;
-            }
-        }
+        public Queue<Piece> UnsortedPieces { get; set; }
+        public List<Piece> SortedPieces { get; set; }
+        public List<SortedDropZone> SortedDropZones { get; set; }
 
         //Characters
         public Robot Robot { get; set; }
 
 
-        public Board() { }
+        public Board()
+        {
+            UnsortedPieces = new Queue<Piece>();
+            SortedPieces = new List<Piece>();
+        }
 
         //public Board(int width, int height, Vector2 unsortedPileLocation, List<Rgb24> colorPalette)
         //{
@@ -51,10 +47,16 @@ namespace PuzzleSolver
 
             ImageColorGroups imageProcessing = new ImageColorGroups(ColorPalettes.Get3ColorPalette());
 
-            while (UnsortedPiecesCount > 0)
+            Vector2 PickUpLocation = UnsortedPiecesLocation;
+            if (UnsortedPiecesLocation.Y > 0)
+            {
+                PickUpLocation = new Vector2(UnsortedPiecesLocation.X, UnsortedPiecesLocation.Y - 1);
+            }
+
+            while (UnsortedPieces.Count > 0)
             {
                 RobotAction robotAction = new RobotAction();
-                
+
                 // Move to unsorted pile
                 if (Robot.Location != PickUpLocation)
                 {
@@ -66,7 +68,7 @@ namespace PuzzleSolver
                     }
                 }
 
-                // Pickup an unsorted piece
+                // Pickup an unsorted piece from the unsorted pile
                 Robot.Piece = UnsortedPieces.Dequeue();
                 robotAction.PickupAction = new ObjectInteraction()
                 {
@@ -74,14 +76,13 @@ namespace PuzzleSolver
                 };
 
                 // Process the unsorted piece to work out where it goes
-                Image<Rgb24> image = ImageCropping.CreateImage(Robot.Piece);
-                ImageStats imageStats = imageProcessing.ProcessStatsForImage(null, image);
+                Robot.Piece.ImageStats = imageProcessing.ProcessStatsForImage(null, Robot.Piece.Image);
                 Vector2? destinationLocation = null;
-                foreach (KeyValuePair<Rgb24, SortedPiece> sortedPiece in SortedPieces)
+                foreach (SortedDropZone sortedDropZone in SortedDropZones)
                 {
-                    if (sortedPiece.Key == imageStats.TopColorGroupColor)
+                    if (sortedDropZone.Color == Robot.Piece.ImageStats.TopColorGroupColor)
                     {
-                        destinationLocation = sortedPiece.Value.Location;
+                        destinationLocation = sortedDropZone.Location;
                     }
                 }
 
@@ -100,7 +101,10 @@ namespace PuzzleSolver
                     }
                 }
 
-                SortedPiecesCount++;
+                //Move the piece from the robot to the sorted pile
+                Robot.Piece.Location = robotAction.DropoffAction.Location;
+                SortedPieces.Add(Robot.Piece);
+                Robot.Piece = null;
 
                 // Add to queue
                 results.Enqueue(robotAction);

@@ -1,38 +1,19 @@
-
 cls
-# Download latest release from GitHub
-#$credentials="myPersonalAccessToken"
-#$headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
-#$headers.Add("Authorization", "token $credentials")
-$repo = "samsmithnz/puzzlesolver"
-$releases = "https://api.github.com/repos/$repo/releases"
+$latest = Invoke-WebRequest "https://api.github.com/repos/samsmithnz/PuzzleSolver/releases/latest"
+$tagName = ($latest.Content | ConvertFrom-Json).tag_name
+Write-Host "Downloading files for release $tagName"
+
+Invoke-WebRequest -UseBasicParsing -Uri "https://github.com/samsmithnz/PuzzleSolver/releases/download/$tagName/PuzzleSolver.deps.json" -OutFile c:\users\samsm\downloads\PuzzleSolver.deps.json
+Invoke-WebRequest -UseBasicParsing -Uri "https://github.com/samsmithnz/PuzzleSolver/releases/download/$tagName/PuzzleSolver.pdb" -OutFile c:\users\samsm\downloads\PuzzleSolver.pdb
+Invoke-WebRequest -UseBasicParsing -Uri "https://github.com/samsmithnz/PuzzleSolver/releases/download/$tagName/PuzzleSolver.dll" -OutFile c:\users\samsm\downloads\PuzzleSolver.dll
 
 
-Write-Host Determining latest release
-#$tag = (Invoke-WebRequest $releases -Headers $headers | ConvertFrom-Json)[0].tag_name
-$tag = (Invoke-WebRequest $releases | ConvertFrom-Json)[0].tag_name
-$file = "$tag.zip"
+Unblock-File -Path c:\users\samsm\downloads\PuzzleSolver.dll
+Unblock-File -Path c:\users\samsm\downloads\PuzzleSolver.pdb
+Unblock-File -Path c:\users\samsm\downloads\PuzzleSolver.deps.json
 
-$details = Invoke-WebRequest "https://api.github.com/repos/$repo/releases/tags/$tag"
-$zip = "C:\users\samsm\downloads\$file"
-
-#https://github.com/samsmithnz/PuzzleSolver/archive/refs/tags/0.3.4.zip
-$download = "https://github.com/$repo/archive/refs/tags/$file"
-$name = $file.Split(".")[0]
-$dir = "$name-$tag"
-
-
-Write-Host Downloading latest release
-Invoke-WebRequest $download -Out $zip
-
-Write-Host Unblocking download
-Unblock-File -Path $zip
-
-Write-Host Extracting release files
-$unzipPath = ($zip).Replace("$file","").Replace('downloads\','downloads') + "\$tag"
-Expand-Archive $zip -Force -DestinationPath $unzipPath
-
-
-
+Move-Item -Path c:\users\samsm\downloads\PuzzleSolver.dll -Destination C:\Users\samsm\source\repos\PuzzleSolver\src\Puzzle3dSimulation\Assets\PuzzleSolverDependencies -Force
+Move-Item -Path c:\users\samsm\downloads\PuzzleSolver.pdb -Destination C:\Users\samsm\source\repos\PuzzleSolver\src\Puzzle3dSimulation\Assets\PuzzleSolverDependencies -Force
+Move-Item -Path c:\users\samsm\downloads\PuzzleSolver.deps.json -Destination C:\Users\samsm\source\repos\PuzzleSolver\src\Puzzle3dSimulation\Assets\PuzzleSolverDependencies -Force
 
 pause

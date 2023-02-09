@@ -1,4 +1,5 @@
-﻿using PuzzleSolver.Map;
+﻿using PuzzleSolver.Images;
+using PuzzleSolver.Map;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Diagnostics.CodeAnalysis;
@@ -20,19 +21,35 @@ namespace PuzzleSolver.Tests
             {
                 Map = MapGeneration.GenerateMap(),
                 UnsortedPiecesLocation = new(2, 2),
-                UnsortedPieces = new(new[] {
-                    Color.Red.ToPixel<Rgb24>(),
-                    Color.Blue.ToPixel<Rgb24>(),
-                    Color.Red.ToPixel<Rgb24>(),
-                    Color.Green.ToPixel<Rgb24>() }),
-                SortedPieces = new()
+                UnsortedPieces = new Queue<Piece>(new Piece[] {
+                    new Piece() {
+                        Id = 1,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 2,
+                        Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 3,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 4,
+                        Image = ImageCropping.CreateImage(Color.Green.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    }}
+                ),
+                SortedDropZones = new()
                 {
-                    { Color.Red.ToPixel<Rgb24>(), new(Color.Red.ToPixel<Rgb24>(),new(0, 0))},
-                    { Color.Blue.ToPixel<Rgb24>(), new(Color.Blue.ToPixel<Rgb24>(),new(0, 4))},
-                    { Color.Green.ToPixel<Rgb24>(), new(Color.Green.ToPixel<Rgb24>(),new(4, 0))},
-                    { Color.Yellow.ToPixel<Rgb24>(), new(Color.Yellow.ToPixel<Rgb24>(),new(4, 4))}
+                    new SortedDropZone(Color.Red.ToPixel<Rgb24>(),new(0, 0)),
+                    new SortedDropZone(Color.Blue.ToPixel<Rgb24>(),new(0, 4)),
+                    new SortedDropZone(Color.Green.ToPixel<Rgb24>(),new(4, 0)),
+                    new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
                 },
-                SortedPiecesCount = 0,
                 Robot = new(new(2, 1))
             };
 
@@ -43,10 +60,10 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(board.Map);
             Assert.IsNotNull(board.Robot);
             Assert.AreEqual(new(2, 2), board.UnsortedPiecesLocation);
-            Assert.AreEqual(4, board.SortedPieces.Count);
-            Assert.AreEqual(new(0, 0), board.SortedPieces[Color.Red.ToPixel<Rgb24>()].Location);
-            Assert.AreEqual(0, board.SortedPiecesCount);
-            Assert.AreEqual(4, board.UnsortedPiecesCount);
+            Assert.AreEqual(4, board.SortedDropZones.Count);
+            Assert.AreEqual(new(0, 0), board.SortedDropZones[0].Location);
+            Assert.AreEqual(0, board.SortedPieces.Count);
+            Assert.AreEqual(4, board.UnsortedPieces.Count);
             Assert.AreEqual(new Vector2(2, 1), board.Robot.Location);
         }
 
@@ -58,19 +75,35 @@ namespace PuzzleSolver.Tests
             {
                 Map = MapGeneration.GenerateMap(),
                 UnsortedPiecesLocation = new(2, 2),
-                UnsortedPieces = new(new[] {
-                    Color.Red.ToPixel<Rgb24>(),
-                    Color.Blue.ToPixel<Rgb24>(),
-                    Color.Red.ToPixel<Rgb24>(),
-                    Color.Green.ToPixel<Rgb24>() }),
-                SortedPieces = new()
+                UnsortedPieces = new Queue<Piece>(new Piece[] {
+                    new Piece() {
+                        Id = 1,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 2,
+                        Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 3,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 4,
+                        Image = ImageCropping.CreateImage(Color.Green.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    }}
+                ),
+                SortedDropZones = new()
                 {
-                    { Color.Red.ToPixel<Rgb24>(), new(Color.Red.ToPixel<Rgb24>(),new(0, 0))},
-                    { Color.Blue.ToPixel<Rgb24>(), new(Color.Blue.ToPixel<Rgb24>(),new(0, 4))},
-                    { Color.Green.ToPixel<Rgb24>(), new(Color.Green.ToPixel<Rgb24>(),new(4, 0))},
-                    { Color.Yellow.ToPixel<Rgb24>(), new(Color.Yellow.ToPixel<Rgb24>(),new(4, 4))}
+                    new SortedDropZone(Color.Red.ToPixel<Rgb24>(),new(0, 0)),
+                    new SortedDropZone(Color.Blue.ToPixel<Rgb24>(),new(0, 4)),
+                    new SortedDropZone(Color.Green.ToPixel<Rgb24>(),new(4, 0)),
+                    new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
                 },
-                SortedPiecesCount = 0,
                 Robot = new(new(2, 1))
             };
 
@@ -79,8 +112,8 @@ namespace PuzzleSolver.Tests
 
             //Assert           
             Assert.IsNotNull(board);
-            Assert.AreEqual(0, board.UnsortedPiecesCount);
-            Assert.AreEqual(4, board.SortedPiecesCount);
+            Assert.AreEqual(0, board.UnsortedPieces.Count);
+            Assert.AreEqual(4, board.SortedPieces.Count);
             Assert.IsNotNull(results);
             Assert.AreEqual(4, results.Count);
             Assert.IsNotNull(results.Peek());
