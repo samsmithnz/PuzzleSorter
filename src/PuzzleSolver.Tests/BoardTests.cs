@@ -45,10 +45,10 @@ namespace PuzzleSolver.Tests
                 ),
                 SortedDropZones = new()
                 {
-                    new SortedDropZone(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>(),new(0, 0)),
-                    new SortedDropZone(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>(),new(0, 4)),
-                    new SortedDropZone(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>(),new(4, 0)),
-                    new SortedDropZone(SixLabors.ImageSharp.Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
+                    new SortedDropZone(Color.Red.ToPixel<Rgb24>(),new(0, 0)),
+                    new SortedDropZone(Color.Blue.ToPixel<Rgb24>(),new(0, 4)),
+                    new SortedDropZone(Color.Green.ToPixel<Rgb24>(),new(4, 0)),
+                    new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
                 },
                 Robot = new(new(2, 1))
             };
@@ -114,6 +114,7 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(board);
             Assert.AreEqual(0, board.UnsortedPieces.Count);
             Assert.AreEqual(4, board.SortedPieces.Count);
+            Assert.IsNotNull(board.UnsortedPieces.Peek().ImageStats);
             Assert.IsNotNull(results);
             Assert.AreEqual(4, results.Count);
             Assert.IsNotNull(results.Peek());
