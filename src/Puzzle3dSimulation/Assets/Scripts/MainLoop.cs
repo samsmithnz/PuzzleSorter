@@ -1,5 +1,6 @@
 using Assets.Scripts.Common;
 using PuzzleSolver;
+using PuzzleSolver.Images;
 using PuzzleSolver.Map;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Collections.Generic;
@@ -21,20 +22,34 @@ public class MainLoop : MonoBehaviour
         {
             Map = MapGeneration.GenerateMap(),
             UnsortedPiecesLocation = new System.Numerics.Vector2(2, 2),
-            UnsortedPieces = new Queue<Rgb24>(new[] {
-                    SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>(),
-                    SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>(),
-                    SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>(),
-                    SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>()
-                }),
-            SortedPieces = new Dictionary<Rgb24, SortedPiece>()
+            UnsortedPieces = new Queue<Piece>(new Piece[] {
+                    new Piece() {
+                        Id = 1,
+                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 2,
+                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 3,
+                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 4,
+                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    }}),
+            SortedDropZones = new()
                 {
-                    { SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>(), new SortedPiece(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>(),new System.Numerics.Vector2(0, 0))},
-                    { SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>(), new SortedPiece(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>(),new System.Numerics.Vector2(0, 4))},
-                    { SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>(), new SortedPiece(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>(),new System.Numerics.Vector2(4, 0))},
-                    { SixLabors.ImageSharp.Color.Yellow.ToPixel<Rgb24>(), new SortedPiece(SixLabors.ImageSharp.Color.Yellow.ToPixel<Rgb24>(),new System.Numerics.Vector2(4, 4))}
+                    new SortedDropZone(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>(),new(0, 0)),
+                    new SortedDropZone(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>(),new(0, 4)),
+                    new SortedDropZone(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>(),new(4, 0)),
+                    new SortedDropZone(SixLabors.ImageSharp.Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
                 },
-            SortedPiecesCount = 0,
             Robot = new Robot(new System.Numerics.Vector2(2, 1))
         };
 
@@ -44,7 +59,7 @@ public class MainLoop : MonoBehaviour
         //Add unsorted pieces
         float y = 0.25f;
         int i = 0;
-        foreach (Rgb24 item in board.UnsortedPieces.ToList())
+        foreach (Piece piece in board.UnsortedPieces.ToList())
         {
             i++;
             GameObject newUnsortedObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -53,7 +68,7 @@ public class MainLoop : MonoBehaviour
             newUnsortedObject.name = Utility.CreateName("piece_" + i.ToString(), newUnsortedObject.transform.position);
             //Renderer renderer = new Renderer();
             //renderer.material.color = new Color(item.R, item.G, item.B);
-            newUnsortedObject.GetComponent<Renderer>().material.color = new Color(item.R, item.G, item.B);
+            newUnsortedObject.GetComponent<Renderer>().material.color = new Color(piece.TopColorGroup.Value.R, piece.TopColorGroup.Value.G, piece.TopColorGroup.Value.B);
             y+=0.5f;
         }
 
