@@ -3,6 +3,7 @@ using PuzzleSolver;
 using PuzzleSolver.Images;
 using PuzzleSolver.Map;
 using SixLabors.ImageSharp.PixelFormats;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -68,9 +69,13 @@ public class MainLoop : MonoBehaviour
             newUnsortedObject.name = Utility.CreateName("piece_" + i.ToString(), newUnsortedObject.transform.position);
             //Renderer renderer = new Renderer();
             //renderer.material.color = new Color(item.R, item.G, item.B);
-            if (piece.TopColorGroup != null)
+            if (piece != null && piece.TopColorGroup != null)
             {
                 newUnsortedObject.GetComponent<Renderer>().material.color = Utility.ConvertToUnityColor((Rgb24)piece.TopColorGroup);
+            }
+            else
+            {
+                Debug.LogWarning("Piece and/or color was null!!");
             }
             y += 0.5f;
         }
