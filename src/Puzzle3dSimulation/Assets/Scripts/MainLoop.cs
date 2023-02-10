@@ -68,7 +68,7 @@ public class MainLoop : MonoBehaviour
             newUnsortedObject.name = Utility.CreateName("piece_" + i.ToString(), newUnsortedObject.transform.position);
             //Renderer renderer = new Renderer();
             //renderer.material.color = new Color(item.R, item.G, item.B);
-            newUnsortedObject.GetComponent<Renderer>().material.color = new Color(piece.TopColorGroup.Value.R, piece.TopColorGroup.Value.G, piece.TopColorGroup.Value.B);
+            newUnsortedObject.GetComponent<Renderer>().material.color = new Color(((Rgb24)piece.TopColorGroup).R, ((Rgb24)piece.TopColorGroup).G, ((Rgb24)piece.TopColorGroup).B);
             y+=0.5f;
         }
 
