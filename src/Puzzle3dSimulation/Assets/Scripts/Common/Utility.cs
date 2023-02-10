@@ -1,3 +1,4 @@
+using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -247,6 +248,11 @@ namespace Assets.Scripts.Common
         public static IEnumerator WaitForNSeconds(int n)
         {
             yield return new WaitForSeconds(n);
+        }
+
+        public static Color ConvertToUnityColor(Rgb24 color)
+        {
+            return new Color(color.R, color.G, color.B);
         }
 
     }

@@ -68,8 +68,11 @@ public class MainLoop : MonoBehaviour
             newUnsortedObject.name = Utility.CreateName("piece_" + i.ToString(), newUnsortedObject.transform.position);
             //Renderer renderer = new Renderer();
             //renderer.material.color = new Color(item.R, item.G, item.B);
-            newUnsortedObject.GetComponent<Renderer>().material.color = new Color(((Rgb24)piece.TopColorGroup).R, ((Rgb24)piece.TopColorGroup).G, ((Rgb24)piece.TopColorGroup).B);
-            y+=0.5f;
+            if (piece.TopColorGroup != null)
+            {
+                newUnsortedObject.GetComponent<Renderer>().material.color = Utility.ConvertToUnityColor((Rgb24)piece.TopColorGroup);
+            }
+            y += 0.5f;
         }
 
         //Run the robot
