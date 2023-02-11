@@ -76,7 +76,14 @@ public class MainLoop : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Piece and/or color was null!!");
+                if (piece == null)
+                {
+                    Debug.LogWarning("Piece was null!!");
+                }
+                else
+                {
+                    Debug.LogWarning("Color was null!!");
+                }
             }
             y += 0.5f;
         }
