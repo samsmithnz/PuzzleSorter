@@ -129,6 +129,7 @@ namespace PuzzleSolver.Tests
             Assert.IsNull(results.Peek().PathToPickup);
             Assert.IsNotNull(results.Peek().DropoffAction);
             Assert.IsNotNull(results.Peek().PathToDropoff);
+            Assert.AreEqual(Color.Red.ToPixel<Rgb24>(), board.SortedPieces[0].TopColorGroup);
         }
 
     }
