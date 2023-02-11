@@ -44,12 +44,12 @@ public class MainLoop : MonoBehaviour
                         Location = new(2, 2)
                     }}),
             SortedDropZones = new()
-                {
-                    new SortedDropZone(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>(),new(0, 0)),
-                    new SortedDropZone(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>(),new(0, 4)),
-                    new SortedDropZone(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>(),new(4, 0)),
-                    new SortedDropZone(SixLabors.ImageSharp.Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
-                },
+            {
+                new SortedDropZone(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>(),new(0, 4)),
+                new SortedDropZone(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>(),new(4, 0)),
+                new SortedDropZone(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>(),new(4, 4)),
+                //new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
+            },
             Robot = new Robot(new System.Numerics.Vector2(2, 1))
         };
 
@@ -70,7 +70,9 @@ public class MainLoop : MonoBehaviour
             //renderer.material.color = new Color(item.R, item.G, item.B);
             if (piece != null && piece.TopColorGroup != null)
             {
-                newUnsortedObject.GetComponent<Renderer>().material.color = Utility.ConvertToUnityColor((Rgb24)piece.TopColorGroup);
+                Color newColor = Utility.ConvertToUnityColor((Rgb24)piece.TopColorGroup);
+                Debug.LogWarning("Color" + newColor.ToString());
+                newUnsortedObject.AddComponent<Renderer>().material.color = newColor;
             }
             else
             {
