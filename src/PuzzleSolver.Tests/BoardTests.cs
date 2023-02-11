@@ -45,9 +45,9 @@ namespace PuzzleSolver.Tests
                 ),
                 SortedDropZones = new()
                 {
-                    new SortedDropZone(Color.Red.ToPixel<Rgb24>(),new(0, 4)),
-                    new SortedDropZone(Color.Blue.ToPixel<Rgb24>(),new(4, 0)),
-                    new SortedDropZone(Color.FromRgb(255,255,0),new(4, 4)),
+                    new SortedDropZone(Color.Red.ToPixel<Rgb24>(), new(0, 4)),
+                    new SortedDropZone(Color.Blue.ToPixel<Rgb24>(), new(4, 0)),
+                    new SortedDropZone(Color.Green.ToPixel<Rgb24>(), new(4, 4)),
                     //new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
                 },
                 Robot = new(new(2, 1))
@@ -99,9 +99,9 @@ namespace PuzzleSolver.Tests
                 ),
                 SortedDropZones = new()
                 {
-                    new SortedDropZone(Color.Red.ToPixel<Rgb24>(),new(0, 4)),
-                    new SortedDropZone(Color.Blue.ToPixel<Rgb24>(),new(4, 0)),
-                    new SortedDropZone(Color.FromRgb(255,255,0),new(4, 4)),
+                    new SortedDropZone(Color.Red.ToPixel<Rgb24>(), new(0, 4)),
+                    new SortedDropZone(Color.Blue.ToPixel<Rgb24>(), new(4, 0)),
+                    new SortedDropZone(Color.Green.ToPixel<Rgb24>(), new(4, 4)),
                     //new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
                 },
                 Robot = new(new(2, 1))

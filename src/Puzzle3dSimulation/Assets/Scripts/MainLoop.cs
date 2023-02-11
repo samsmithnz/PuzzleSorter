@@ -45,9 +45,9 @@ public class MainLoop : MonoBehaviour
                     }}),
             SortedDropZones = new()
             {
-                new SortedDropZone(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>(),new(0, 4)),
-                new SortedDropZone(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>(),new(4, 0)),
-                new SortedDropZone(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>(),new(4, 4)),
+                new SortedDropZone(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>(), new(0, 4)),
+                new SortedDropZone(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>(), new(4, 0)),
+                new SortedDropZone(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>(), new(4, 4)),
                 //new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
             },
             Robot = new Robot(new System.Numerics.Vector2(2, 1))
@@ -56,6 +56,9 @@ public class MainLoop : MonoBehaviour
         //Setup map
         LevelSetup.SetupMap(gameObject, board.Map, _showLinesOnFloor, _showCoordOnFloor);
 
+        //Get the robot actions
+        _RobotActions = board.RunRobot();
+        
         //Add unsorted pieces
         float y = 0.25f;
         int i = 0;
@@ -66,8 +69,6 @@ public class MainLoop : MonoBehaviour
             newUnsortedObject.transform.position = new Vector3(2f, y, 2f);
             newUnsortedObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             newUnsortedObject.name = Utility.CreateName("piece_" + i.ToString(), newUnsortedObject.transform.position);
-            //Renderer renderer = new Renderer();
-            //renderer.material.color = new Color(item.R, item.G, item.B);
             if (piece != null && piece.TopColorGroup != null)
             {
                 Color newColor = Utility.ConvertToUnityColor((Rgb24)piece.TopColorGroup);
@@ -85,6 +86,16 @@ public class MainLoop : MonoBehaviour
                     if (piece.ImageStats == null)
                     {
                         Debug.LogWarning("ImageStatus are null");
+                        if (piece.Image == null)
+                        {
+                            Debug.LogWarning("Image is null");
+                        }
+                        else
+                        {
+                            //ImageColorGroups imageProcessing = new ImageColorGroups(board.ColorPalette);
+                            //piece.ImageStats = imageProcessing.ProcessStatsForImage(null, piece.Image);
+                            Debug.LogWarning("Image stats fixed");
+                        }
                     }
                     else
                     {
@@ -96,8 +107,6 @@ public class MainLoop : MonoBehaviour
             y += 0.5f;
         }
 
-        //Run the robot
-        //_RobotActions = board.RunRobot();
     }
 
     // Update is called once per frame
