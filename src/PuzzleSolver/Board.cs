@@ -56,12 +56,14 @@ namespace PuzzleSolver
         {
             ImageColorGroups imageProcessing = new ImageColorGroups(ColorPalette);
             List<Piece> list = UnsortedPieces.ToList();
+            List<Piece> processedList = new List<Piece>();
             for (int i = 0; i < list.Count; i++)
             {
                 Piece piece = list[i];
-                list[i].ImageStats = imageProcessing.ProcessStatsForImage(null, piece.Image);
+                piece.ImageStats = imageProcessing.ProcessStatsForImage(null, piece.Image);
+                processedList.Add(piece);
             }
-            UnsortedPieces = new Queue<Piece>(list);
+            UnsortedPieces = new Queue<Piece>(processedList);
         }
 
         public Queue<RobotAction> RunRobot()

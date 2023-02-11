@@ -82,6 +82,14 @@ public class MainLoop : MonoBehaviour
                 }
                 else
                 {
+                    if (piece.ImageStats == null)
+                    {
+                        Debug.LogWarning("ImageStatus are null");
+                    }
+                    else
+                    {
+                        Debug.LogWarning("ImageStatus are not null");
+                    }
                     Debug.LogWarning("Color was null!!");
                 }
             }
