@@ -97,7 +97,10 @@ namespace PuzzleSolver
                 };
 
                 // Process the unsorted piece to work out where it goes
-                Robot.Piece.ImageStats = imageProcessing.ProcessStatsForImage(null, Robot.Piece.Image);
+                if (Robot.Piece.ImageStats == null)
+                {
+                    Robot.Piece.ImageStats = imageProcessing.ProcessStatsForImage(null, Robot.Piece.Image);
+                }
                 Vector2? destinationLocation = null;
                 foreach (SortedDropZone sortedDropZone in SortedDropZones)
                 {
