@@ -108,6 +108,7 @@ namespace PuzzleSolver.Tests
             };
 
             //Act
+            board.ProcessUnsortedPieces();
             Queue<RobotAction> results = board.RunRobot();
 
             //Assert           
