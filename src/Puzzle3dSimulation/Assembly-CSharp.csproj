@@ -62,10 +62,18 @@
     <Compile Include="Assets\Scripts\Common\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\PuzzleSolverDependencies\PuzzleSolver.deps.json" />
-    <None Include="Assets\PuzzleSolverDependencies\PuzzleSolver.dll" />
-    <None Include="Assets\PuzzleSolverDependencies\System.Runtime.CompilerServices.Unsafe.dll" />
-    <None Include="Assets\PuzzleSolverDependencies\SixLabors.ImageSharp.dll" />
+    <None Include="Assets\PuzzleSolverDependencies\PuzzleSolver.deps.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\PuzzleSolverDependencies\PuzzleSolver.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\PuzzleSolverDependencies\System.Runtime.CompilerServices.Unsafe.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\PuzzleSolverDependencies\SixLabors.ImageSharp.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -736,7 +744,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\PuzzleSolverDependencies\PuzzleSolver.pdb" />
+    <Content Include="Assets\PuzzleSolverDependencies\PuzzleSolver.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
