@@ -1,9 +1,15 @@
+//using Assets.Scripts.Common;
+//using PuzzleSolver;
+//using PuzzleSolver.Images;
+//using PuzzleSolver.Map;
+//using SixLabors.ImageSharp.PixelFormats;
+//using System.Collections.Generic;
+//using System.Linq;
 using Assets.Scripts.Common;
 using PuzzleSolver;
 using PuzzleSolver.Images;
 using PuzzleSolver.Map;
 using SixLabors.ImageSharp.PixelFormats;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -87,9 +93,9 @@ public class MainLoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_RobotActions != null)
-        {
+        //if (_RobotActions != null)
+        //{
 
-        }
+        //}
     }
 }
