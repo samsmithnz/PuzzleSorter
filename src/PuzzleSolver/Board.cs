@@ -68,14 +68,17 @@ namespace PuzzleSolver
         {
             Queue<RobotAction> results = new Queue<RobotAction>();
 
-            ImageColorGroups imageProcessing = new ImageColorGroups(ColorPalette);
+            //Process the unsorted pieces
+            ProcessUnsortedPieces();
 
+            //Get the pickup location
             Vector2 PickUpLocation = UnsortedPiecesLocation;
             if (UnsortedPiecesLocation.Y > 0)
             {
                 PickUpLocation = new Vector2(UnsortedPiecesLocation.X, UnsortedPiecesLocation.Y - 1);
             }
 
+            //Loop through the queue of unsorted pieces
             while (UnsortedPieces.Count > 0)
             {
                 RobotAction robotAction = new RobotAction();
@@ -99,10 +102,6 @@ namespace PuzzleSolver
                 };
 
                 // Process the unsorted piece to work out where it goes
-                if (Robot.Piece.ImageStats == null)
-                {
-                    Robot.Piece.ImageStats = imageProcessing.ProcessStatsForImage(null, Robot.Piece.Image);
-                }
                 Vector2? destinationLocation = null;
                 foreach (SortedDropZone sortedDropZone in SortedDropZones)
                 {
