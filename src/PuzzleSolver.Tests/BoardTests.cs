@@ -45,10 +45,10 @@ namespace PuzzleSolver.Tests
                 ),
                 SortedDropZones = new()
                 {
-                    new SortedDropZone(Color.Red.ToPixel<Rgb24>(),new(0, 0)),
-                    new SortedDropZone(Color.Blue.ToPixel<Rgb24>(),new(0, 4)),
-                    new SortedDropZone(Color.Green.ToPixel<Rgb24>(),new(4, 0)),
-                    new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
+                    new SortedDropZone(Color.Red.ToPixel<Rgb24>(),new(0, 4)),
+                    new SortedDropZone(Color.Blue.ToPixel<Rgb24>(),new(4, 0)),
+                    new SortedDropZone(Color.Green.ToPixel<Rgb24>(),new(4, 4)),
+                    //new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
                 },
                 Robot = new(new(2, 1))
             };
@@ -60,8 +60,8 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(board.Map);
             Assert.IsNotNull(board.Robot);
             Assert.AreEqual(new(2, 2), board.UnsortedPiecesLocation);
-            Assert.AreEqual(4, board.SortedDropZones.Count);
-            Assert.AreEqual(new(0, 0), board.SortedDropZones[0].Location);
+            Assert.AreEqual(3, board.SortedDropZones.Count);
+            Assert.AreEqual(new(0, 4), board.SortedDropZones[0].Location);
             Assert.AreEqual(0, board.SortedPieces.Count);
             Assert.AreEqual(4, board.UnsortedPieces.Count);
             Assert.AreEqual(new Vector2(2, 1), board.Robot.Location);
@@ -99,10 +99,10 @@ namespace PuzzleSolver.Tests
                 ),
                 SortedDropZones = new()
                 {
-                    new SortedDropZone(Color.Red.ToPixel<Rgb24>(),new(0, 0)),
-                    new SortedDropZone(Color.Blue.ToPixel<Rgb24>(),new(0, 4)),
-                    new SortedDropZone(Color.Green.ToPixel<Rgb24>(),new(4, 0)),
-                    new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
+                    new SortedDropZone(Color.Red.ToPixel<Rgb24>(),new(0, 4)),
+                    new SortedDropZone(Color.Blue.ToPixel<Rgb24>(),new(4, 0)),
+                    new SortedDropZone(Color.Green.ToPixel<Rgb24>(),new(4, 4)),
+                    //new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
                 },
                 Robot = new(new(2, 1))
             };

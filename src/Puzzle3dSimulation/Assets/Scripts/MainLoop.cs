@@ -1,10 +1,3 @@
-//using Assets.Scripts.Common;
-//using PuzzleSolver;
-//using PuzzleSolver.Images;
-//using PuzzleSolver.Map;
-//using SixLabors.ImageSharp.PixelFormats;
-//using System.Collections.Generic;
-//using System.Linq;
 using Assets.Scripts.Common;
 using PuzzleSolver;
 using PuzzleSolver.Images;
