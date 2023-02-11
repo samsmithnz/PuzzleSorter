@@ -2,6 +2,7 @@
 using PuzzleSolver.Map;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 
@@ -58,8 +59,9 @@ namespace PuzzleSolver
             for (int i = 0; i < list.Count; i++)
             {
                 Piece piece = list[i];
-                UnsortedPieces.ToList()[i].ImageStats = imageProcessing.ProcessStatsForImage(null, piece.Image);
+                list[i].ImageStats = imageProcessing.ProcessStatsForImage(null, piece.Image);
             }
+            UnsortedPieces = new Queue<Piece>(list);
         }
 
         public Queue<RobotAction> RunRobot()
@@ -108,6 +110,11 @@ namespace PuzzleSolver
                     {
                         destinationLocation = sortedDropZone.Location;
                     }
+                }
+                //Check that nothing went wrong
+                if (destinationLocation == null)
+                {
+                    Debug.WriteLine("Destination location is null");
                 }
 
                 // Move the sorted piece to the correct pile
