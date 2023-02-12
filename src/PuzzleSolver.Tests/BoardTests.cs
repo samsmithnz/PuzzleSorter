@@ -46,13 +46,16 @@ namespace PuzzleSolver.Tests
                 {
                     new SortedDropZone(Color.Red.ToPixel<Rgb24>(), new(0, 4)),
                     new SortedDropZone(Color.Blue.ToPixel<Rgb24>(), new(4, 0)),
-                    new SortedDropZone(Color.Green.ToPixel<Rgb24>(), new(4, 4))
+                    new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(), new(4, 4))
                 },
                 new Robot(new(2, 1)));
 
             //Act
 
             //Assert
+            Assert.AreEqual(new Rgb24(255, 0, 0), Color.Red.ToPixel<Rgb24>());
+            Assert.AreEqual(new Rgb24(0, 0, 255), Color.Blue.ToPixel<Rgb24>());
+            Assert.AreEqual(new Rgb24(0, 0, 255), Color.Yellow.ToPixel<Rgb24>());
             Assert.IsNotNull(board);
             Assert.IsNotNull(board.Map);
             Assert.IsNotNull(board.Robot);
@@ -97,7 +100,7 @@ namespace PuzzleSolver.Tests
                 {
                     new SortedDropZone(Color.Red.ToPixel<Rgb24>(), new(0, 4)),
                     new SortedDropZone(Color.Blue.ToPixel<Rgb24>(), new(4, 0)),
-                    new SortedDropZone(Color.Green.ToPixel<Rgb24>(), new(4, 4)),
+                    new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(), new(4, 4)),
                     //new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
                 },
                 new Robot(new(2, 1)));
