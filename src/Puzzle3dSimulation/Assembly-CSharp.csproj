@@ -318,14 +318,14 @@
     <Reference Include="SixLabors.ImageSharp">
       <HintPath>Assets\PuzzleSolverDependencies\SixLabors.ImageSharp.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <HintPath>Assets\PuzzleSolverDependencies\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.0.2\Runtime\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PuzzleSolver">
       <HintPath>Assets\PuzzleSolverDependencies\PuzzleSolver.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>Assets\PuzzleSolverDependencies\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.1.23f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>

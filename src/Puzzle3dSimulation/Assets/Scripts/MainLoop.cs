@@ -18,11 +18,10 @@ public class MainLoop : MonoBehaviour
     void Start()
     {
         //Setup board
-        Board board = new()
-        {
-            Map = MapGeneration.GenerateMap(),
-            UnsortedPiecesLocation = new System.Numerics.Vector2(2, 2),
-            UnsortedPieces = new Queue<Piece>(new Piece[] {
+        Board board = new(MapGeneration.GenerateMap(),
+            new System.Numerics.Vector2(2, 2),
+            ColorPalettes.Get3ColorPalette(),
+            new List<Piece>() {
                     new Piece() {
                         Id = 1,
                         Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
@@ -42,23 +41,23 @@ public class MainLoop : MonoBehaviour
                         Id = 4,
                         Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>()),
                         Location = new(2, 2)
-                    }}),
-            SortedDropZones = new()
+                    }
+            },
+            new()
             {
                 new SortedDropZone(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>(), new(0, 4)),
                 new SortedDropZone(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>(), new(4, 0)),
-                new SortedDropZone(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>(), new(4, 4)),
+                new SortedDropZone(SixLabors.ImageSharp.Color.Yellow.ToPixel<Rgb24>(), new(4, 4)),
                 //new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
             },
-            Robot = new Robot(new System.Numerics.Vector2(2, 1))
-        };
+            new Robot(new System.Numerics.Vector2(2, 1)));
 
         //Setup map
         LevelSetup.SetupMap(gameObject, board.Map, _showLinesOnFloor, _showCoordOnFloor);
 
         //Get the robot actions
         _RobotActions = board.RunRobot();
-        
+
         //Add unsorted pieces
         float y = 0.25f;
         int i = 0;
