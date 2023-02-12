@@ -55,14 +55,17 @@ public class MainLoop : MonoBehaviour
         //Setup map
         LevelSetup.SetupMap(gameObject, board.Map, _showLinesOnFloor, _showCoordOnFloor);
 
+        Piece[] unsortedList = new Piece[board.UnsortedPieces.Count];
+        board.UnsortedPieces.ToList().CopyTo(unsortedList);
+
         //Get the robot actions
         _RobotActions = board.RunRobot();
 
         //Add unsorted pieces
         float y = 0.25f;
         int i = 0;
-        Debug.LogWarning("There are " + board.UnsortedPieces.Count + " unsorted pieces to process");
-        foreach (Piece piece in board.UnsortedPieces.ToList())
+        Debug.LogWarning("There are " + unsortedList.Count().ToString() + " unsorted pieces to process");
+        foreach (Piece piece in unsortedList)
         {
             i++;
             Debug.LogWarning("Adding piece " + piece.Id);
