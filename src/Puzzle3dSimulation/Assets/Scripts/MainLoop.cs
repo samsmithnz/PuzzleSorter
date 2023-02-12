@@ -77,7 +77,7 @@ public class MainLoop : MonoBehaviour
             {
                 Color newColor = Utility.ConvertToUnityColor((Rgb24)piece.TopColorGroup);
                 Debug.LogWarning("Color" + newColor.ToString());
-                newUnsortedObject.AddComponent<Renderer>().material.color = newColor;
+                newUnsortedObject.GetComponent<Renderer>().material.color = newColor;
             }
             //else
             //{
