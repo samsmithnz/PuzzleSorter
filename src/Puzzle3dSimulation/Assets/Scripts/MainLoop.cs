@@ -75,35 +75,35 @@ public class MainLoop : MonoBehaviour
                 Debug.LogWarning("Color" + newColor.ToString());
                 newUnsortedObject.AddComponent<Renderer>().material.color = newColor;
             }
-            else
-            {
-                if (piece == null)
-                {
-                    Debug.LogWarning("Piece was null!!");
-                }
-                else
-                {
-                    if (piece.ImageStats == null)
-                    {
-                        Debug.LogWarning("ImageStatus are null");
-                        if (piece.Image == null)
-                        {
-                            Debug.LogWarning("Image is null");
-                        }
-                        else
-                        {
-                            //ImageColorGroups imageProcessing = new ImageColorGroups(board.ColorPalette);
-                            //piece.ImageStats = imageProcessing.ProcessStatsForImage(null, piece.Image);
-                            Debug.LogWarning("Image stats fixed");
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogWarning("ImageStatus are not null");
-                    }
-                    Debug.LogWarning("Color was null!!");
-                }
-            }
+            //else
+            //{
+            //    if (piece == null)
+            //    {
+            //        Debug.LogWarning("Piece was null!!");
+            //    }
+            //    else
+            //    {
+            //        if (piece.ImageStats == null)
+            //        {
+            //            Debug.LogWarning("ImageStatus are null");
+            //            if (piece.Image == null)
+            //            {
+            //                Debug.LogWarning("Image is null");
+            //            }
+            //            else
+            //            {
+            //                //ImageColorGroups imageProcessing = new ImageColorGroups(board.ColorPalette);
+            //                //piece.ImageStats = imageProcessing.ProcessStatsForImage(null, piece.Image);
+            //                Debug.LogWarning("Image stats fixed");
+            //            }
+            //        }
+            //        else
+            //        {
+            //            Debug.LogWarning("ImageStatus are not null");
+            //        }
+            //        Debug.LogWarning("Color was null!!");
+            //    }
+            //}
             y += 0.5f;
         }
 

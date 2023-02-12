@@ -24,54 +24,34 @@ namespace PuzzleSolver
         //Characters
         public Robot Robot { get; set; }
 
-
-        public Board(List<Rgb24> colorPalette = null)
+        //Constructor
+        public Board(string[,] map,
+            Vector2 unsortedPiecesLocation,
+            List<Rgb24> colorPalette,
+            List<Piece> unsortedPieceList,
+            List<SortedDropZone> sortedDropZones,
+            Robot robot)
         {
-            if (colorPalette == null)
-            {
-                ColorPalette = ColorPalettes.Get3ColorPalette();
-            }
-            else
-            {
-                ColorPalette = colorPalette;
-            }
+            Map = map;
+            UnsortedPiecesLocation = unsortedPiecesLocation;
+            ColorPalette = colorPalette;
             UnsortedPieces = new Queue<Piece>();
-            SortedPieces = new List<Piece>();
-        }
-
-        //public Board(int width, int height, Vector2 unsortedPileLocation, List<Rgb24> colorPalette)
-        //{
-        //    Map = new string[width, height];
-        //    UnsortedPiecesLocation = unsortedPileLocation;
-        //    SortedPiecesLocations = new Dictionary<Vector2, Rgb24>();
-        //    //int i = 0;
-        //    //foreach (Rgb24 color in colorPalette)
-        //    //{
-        //    //    SortedPileLocations.Add(new Vector2(i, 0), color);
-        //    //    i++;
-        //    //}
-        //}
-
-        public void ProcessUnsortedPieces()
-        {
             ImageColorGroups imageProcessing = new ImageColorGroups(ColorPalette);
-            List<Piece> list = UnsortedPieces.ToList();
-            List<Piece> processedList = new List<Piece>();
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 0; i < unsortedPieceList.Count; i++)
             {
-                Piece piece = list[i];
+                Piece piece = unsortedPieceList[i];
                 piece.ImageStats = imageProcessing.ProcessStatsForImage(null, piece.Image);
-                processedList.Add(piece);
+                UnsortedPieces.Enqueue(piece);
             }
-            UnsortedPieces = new Queue<Piece>(processedList);
+            SortedDropZones = sortedDropZones;
+            SortedPieces = new List<Piece>();
+            Robot = robot;
         }
 
+        //Function to calculate the robot moves
         public Queue<RobotAction> RunRobot()
         {
             Queue<RobotAction> results = new Queue<RobotAction>();
-
-            //Process the unsorted pieces
-            ProcessUnsortedPieces();
 
             //Get the pickup location
             Vector2 PickUpLocation = UnsortedPiecesLocation;

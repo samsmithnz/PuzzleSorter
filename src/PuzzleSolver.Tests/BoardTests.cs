@@ -17,11 +17,10 @@ namespace PuzzleSolver.Tests
         public void BoardInitializationTest()
         {
             //Arrange
-            Board board = new()
-            {
-                Map = MapGeneration.GenerateMap(),
-                UnsortedPiecesLocation = new(2, 2),
-                UnsortedPieces = new Queue<Piece>(new Piece[] {
+            Board board = new(MapGeneration.GenerateMap(),
+                new(2, 2),
+                ColorPalettes.Get3ColorPalette(),
+                new List<Piece>(){
                     new Piece() {
                         Id = 1,
                         Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
@@ -41,17 +40,15 @@ namespace PuzzleSolver.Tests
                         Id = 4,
                         Image = ImageCropping.CreateImage(Color.Green.ToPixel<Rgb24>()),
                         Location = new(2, 2)
-                    }}
-                ),
-                SortedDropZones = new()
+                    }
+                },
+                new()
                 {
                     new SortedDropZone(Color.Red.ToPixel<Rgb24>(), new(0, 4)),
                     new SortedDropZone(Color.Blue.ToPixel<Rgb24>(), new(4, 0)),
-                    new SortedDropZone(Color.Green.ToPixel<Rgb24>(), new(4, 4)),
-                    //new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
+                    new SortedDropZone(Color.Green.ToPixel<Rgb24>(), new(4, 4))
                 },
-                Robot = new(new(2, 1))
-            };
+                new Robot(new(2, 1)));
 
             //Act
 
@@ -71,11 +68,10 @@ namespace PuzzleSolver.Tests
         public void BoardRunTest()
         {
             //Arrange
-            Board board = new()
-            {
-                Map = MapGeneration.GenerateMap(),
-                UnsortedPiecesLocation = new(2, 2),
-                UnsortedPieces = new Queue<Piece>(new Piece[] {
+            Board board = new(MapGeneration.GenerateMap(),
+                new(2, 2),
+                ColorPalettes.Get3ColorPalette(),
+                new List<Piece>() {
                     new Piece() {
                         Id = 1,
                         Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
@@ -95,17 +91,16 @@ namespace PuzzleSolver.Tests
                         Id = 4,
                         Image = ImageCropping.CreateImage(Color.Green.ToPixel<Rgb24>()),
                         Location = new(2, 2)
-                    }}
-                ),
-                SortedDropZones = new()
+                    }
+                },
+                new()
                 {
                     new SortedDropZone(Color.Red.ToPixel<Rgb24>(), new(0, 4)),
                     new SortedDropZone(Color.Blue.ToPixel<Rgb24>(), new(4, 0)),
                     new SortedDropZone(Color.Green.ToPixel<Rgb24>(), new(4, 4)),
                     //new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
                 },
-                Robot = new(new(2, 1))
-            };
+                new Robot(new(2, 1)));
 
             //Act
             Queue<RobotAction> results = board.RunRobot();
