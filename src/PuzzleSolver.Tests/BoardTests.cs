@@ -55,7 +55,7 @@ namespace PuzzleSolver.Tests
             //Assert
             Assert.AreEqual(new Rgb24(255, 0, 0), Color.Red.ToPixel<Rgb24>());
             Assert.AreEqual(new Rgb24(0, 0, 255), Color.Blue.ToPixel<Rgb24>());
-            Assert.AreEqual(new Rgb24(0, 0, 255), Color.Yellow.ToPixel<Rgb24>());
+            Assert.AreEqual(new Rgb24(255,255, 0), Color.Yellow.ToPixel<Rgb24>());
             Assert.IsNotNull(board);
             Assert.IsNotNull(board.Map);
             Assert.IsNotNull(board.Robot);
