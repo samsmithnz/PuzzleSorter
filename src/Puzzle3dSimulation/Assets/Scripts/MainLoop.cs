@@ -61,6 +61,7 @@ public class MainLoop : MonoBehaviour
         //Add unsorted pieces
         float y = 0.25f;
         int i = 0;
+        Debug.LogWarning("There are " + board.UnsortedPieces.Count + " unsorted pieces to process");
         foreach (Piece piece in board.UnsortedPieces.ToList())
         {
             i++;
