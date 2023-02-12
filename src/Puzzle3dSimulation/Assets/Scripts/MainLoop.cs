@@ -64,6 +64,7 @@ public class MainLoop : MonoBehaviour
         foreach (Piece piece in board.UnsortedPieces.ToList())
         {
             i++;
+            Debug.LogWarning("Adding piece " + piece.Id);
             GameObject newUnsortedObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
             newUnsortedObject.transform.position = new Vector3(2f, y, 2f);
             newUnsortedObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
