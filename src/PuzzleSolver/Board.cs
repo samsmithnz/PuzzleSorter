@@ -64,7 +64,7 @@ namespace PuzzleSolver
             while (UnsortedPieces.Count > 0)
             {
                 RobotAction robotAction = new RobotAction();
-
+                
                 // Move to unsorted pile
                 if (Robot.Location != PickUpLocation)
                 {
@@ -78,6 +78,7 @@ namespace PuzzleSolver
 
                 // Pickup an unsorted piece from the unsorted pile
                 Robot.Piece = UnsortedPieces.Dequeue();
+                robotAction.PieceId = Robot.Piece.Id;
                 robotAction.PickupAction = new ObjectInteraction()
                 {
                     Location = PickUpLocation

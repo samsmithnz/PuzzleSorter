@@ -116,6 +116,7 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(results);
             Assert.AreEqual(4, results.Count);
             Assert.IsNotNull(results.Peek());
+            Assert.IsNotNull(results.Peek().PieceId);
             Assert.IsNotNull(results.Peek().PickupAction);
             Assert.IsNull(results.Peek().PathToPickup); //This is null because we start in the right location
             Assert.IsNotNull(results.Peek().DropoffAction);
