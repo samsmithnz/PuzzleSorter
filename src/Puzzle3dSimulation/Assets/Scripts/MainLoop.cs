@@ -117,7 +117,6 @@ public class MainLoop : MonoBehaviour
                 _ActionCount++;
                 Debug.LogWarning("Action #" + _ActionCount + " processing");
 
-
                 //Move to pickup zone
                 _MovingToPickup = true;
                 MoveToLocation(_robotAction.PathToPickup);
@@ -143,7 +142,14 @@ public class MainLoop : MonoBehaviour
 
     private void MoveToLocation(PathFindingResult path)
     {
-        Debug.LogWarning("Moving to location " + path.GetLastTile().Location.ToString());
+        if (path.GetLastTile() != null)
+        {
+            Debug.LogWarning("Moving to location " + path.GetLastTile().Location.ToString());
+        }
+        else
+        {
+            Debug.LogWarning("No movement needed - at end location");
+        }
     }
 
     private void PickUpPiece(ObjectInteraction pickupAction)
