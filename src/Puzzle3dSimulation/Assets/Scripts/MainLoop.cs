@@ -3,6 +3,7 @@ using PuzzleSolver;
 using PuzzleSolver.Images;
 using PuzzleSolver.Map;
 using SixLabors.ImageSharp.PixelFormats;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,7 +15,8 @@ public class MainLoop : MonoBehaviour
 
     private readonly bool _showCoordOnFloor = true;
     private readonly bool _showLinesOnFloor = true;
-    Queue<RobotAction> _RobotActions = null;
+    private Queue<RobotAction> _RobotActions = null;
+    private GameObject _RobotObject = null;
 
     // Start is called before the first frame update
     void Start()
@@ -85,11 +87,11 @@ public class MainLoop : MonoBehaviour
         }
 
         //Add the robot
-        GameObject robotObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-        robotObject.transform.position = new Vector3(board.Robot.Location.X, 0.5f, board.Robot.Location.Y);
-        robotObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        robotObject.name = "robot";
-        robotObject.GetComponent<Renderer>().material.color = Color.gray; //dark gray
+        _RobotObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+        _RobotObject.transform.position = new Vector3(board.Robot.Location.X, 0.5f, board.Robot.Location.Y);
+        _RobotObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        _RobotObject.name = "robot";
+        _RobotObject.GetComponent<Renderer>().material.color = Color.gray; //dark gray
 
         //objects carried at at y 1.25
     }
@@ -120,7 +122,7 @@ public class MainLoop : MonoBehaviour
 
                 //Move to pickup zone
                 _MovingToPickup = true;
-                MoveToLocation(_robotAction.PathToPickup);
+                StartCoroutine(MoveToLocation(_RobotObject, _robotAction.PathToPickup));
                 _MovingToPickup = false;
 
                 //Pickup piece
@@ -130,7 +132,7 @@ public class MainLoop : MonoBehaviour
 
                 //Move to drop off zone
                 _MovingToDropoff = true;
-                MoveToLocation(_robotAction.PathToDropoff);
+                StartCoroutine(MoveToLocation(_RobotObject, _robotAction.PathToDropoff));
                 _MovingToDropoff = false;
 
                 //Drop piece
@@ -141,21 +143,19 @@ public class MainLoop : MonoBehaviour
         }
     }
 
-    private void MoveToLocation(PathFindingResult path)
+    private IEnumerator MoveToLocation(GameObject robotObject, PathFindingResult path)
     {
         if (path != null && path.GetLastTile() != null)
         {
             Debug.LogWarning("Moving to location " + path.GetLastTile().Location.ToString());
 
-            Movement movementScript = gameObject.GetComponent<Movement>();
+            Movement movementScript = robotObject.GetComponent<Movement>();
             if (movementScript == null)
             {
-                movementScript = gameObject.AddComponent<Movement>();
+                movementScript = robotObject.AddComponent<Movement>();
             }
             Utility.LogWithTime("Starting movement");
-            yield return StartCoroutine(movementScript.MoveRobot(Source, Destination, mainLoopScript, mainLoopScript.Mission.Teams[1]));
-
-
+            yield return StartCoroutine(movementScript.MoveRobot(robotObject, path));
         }
         else
         {

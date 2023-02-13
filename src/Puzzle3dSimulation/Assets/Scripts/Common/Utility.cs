@@ -16,15 +16,15 @@ namespace Assets.Scripts.Common
         public const string TAG_DestructibleTerrain = "DestructibleTerrain";
         public const string TAG_TargetingCrosshair = "TargetingCrosshair";
 
-        //public static UnityEngine.Vector3 ConvertToUnity3DV3(System.Numerics.Vector3 vector3)
-        //{
-        //    return new UnityEngine.Vector3(vector3.X, vector3.Y, vector3.Z);
-        //}
+        public static UnityEngine.Vector3 ConvertToUnity3DV3(System.Numerics.Vector2 vector2, float y)
+        {
+            return new UnityEngine.Vector3(vector2.X, y, vector2.Y);
+        }
 
-        //public static System.Numerics.Vector3 ConvertToNumericV3(UnityEngine.Vector3 vector3)
-        //{
-        //    return new System.Numerics.Vector3(vector3.x, vector3.y, vector3.z);
-        //}
+        public static System.Numerics.Vector2 ConvertToNumericV2(UnityEngine.Vector3 vector3)
+        {
+            return new System.Numerics.Vector2(vector3.x, vector3.z);
+        }
 
         //public static List<UnityEngine.Vector3> ConvertToUnity3DV3List(List<System.Numerics.Vector3> vector3List)
         //{

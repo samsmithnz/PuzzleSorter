@@ -1,6 +1,8 @@
+using Assets.Scripts.Common;
 using PuzzleSolver.Map;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
@@ -11,42 +13,30 @@ public class Movement : MonoBehaviour
         yield return null;
     }
 
-    public IEnumerator MoveRobot(PathFindingResult path)
+    public IEnumerator MoveRobot(GameObject robotObject, PathFindingResult path)
     {
-        foreach (var item in path.Path)
+        if (path.Path.Count > 1)
         {
-            //Utility.LogWithTime(item.Log[0]);
-            Vector3 adjustedStartLocation = Utility.ConvertToUnity3DV3(item.StartLocation);
-            adjustedStartLocation.y = 1f;
-            Vector3 adjustedEndLocation = Utility.ConvertToUnity3DV3(item.EndLocation);
-            adjustedEndLocation.y = 1f;
-            yield return StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(characterGameObject.transform,
-                  adjustedStartLocation,
-                  adjustedEndLocation,
-                  0.25f));
-            mainLoopScript.CurrentCharacter.CharacterLogic.SetLocationAndRange(mainLoopScript.Mission.Map, item.EndLocation, mainLoopScript.CurrentCharacter.CharacterLogic.FOVRange, opponentTeam.Characters);
-            mainLoopScript.UpdateFOV();
-
-            //if this move results in an overwatch encounter
-            if (item.OverwatchEncounterResults != null && item.OverwatchEncounterResults.Count > 0)
+            MoveObject moveObjectScript = robotObject.GetComponent<MoveObject>();
+            if (moveObjectScript == null)
             {
-                Utility.LogWithTime("Overwatch results for " + item.EndLocation.ToString() + " " + item.OverwatchEncounterResults.Count);
-                foreach (EncounterResult overwatchEncounter in item.OverwatchEncounterResults)
+                moveObjectScript = robotObject.AddComponent<MoveObject>();
+            }
+
+            float robotY = 0.5f;
+            Vector3 start = Utility.ConvertToUnity3DV3(path.Path[0], robotY);
+            Vector3 end = Utility.ConvertToUnity3DV3(path.Path[1], robotY);
+            for (int i = 0; i < path.Path.Count; i++)
+            {
+                if (i > 0 && i < path.Path.Count - 1)
                 {
-                    //Log the event
-                    Utility.LogWithTime(overwatchEncounter.LogString);
-
-                    //zoom behind character
-                    Character3D sourceCharacter = Utility.FindCharacter3dObject(overwatchEncounter.SourceCharacter.Name, mainLoopScript.CharacterGameObjectList);
-                    Character3D targetCharacter = Utility.FindCharacter3dObject(overwatchEncounter.TargetCharacter.Name, mainLoopScript.CharacterGameObjectList);
-                    mainLoopScript.MoveCameraBehindPlayerToAim(sourceCharacter, targetCharacter);
-
-                    //take overwatch shot
-                    yield return StartCoroutine(mainLoopScript.ShootAtTarget(sourceCharacter, targetCharacter));
+                    start = Utility.ConvertToUnity3DV3(path.Path[i], robotY);
+                    end = Utility.ConvertToUnity3DV3(path.Path[i+1], robotY);
                 }
-
-                //zoom out and over character
-                mainLoopScript.MoveCameraBackOverPlayer();
+                yield return StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(robotObject.transform,
+                      start,
+                      end,
+                      0.25f));
             }
         }
         yield return null;
