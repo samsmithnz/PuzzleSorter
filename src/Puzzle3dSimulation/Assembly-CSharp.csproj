@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\LevelSetup.cs" />
     <Compile Include="Assets\Scripts\Common\Utility.cs" />
     <Compile Include="Assets\Scripts\Movement.cs" />
+    <Compile Include="Assets\Scripts\Common\MoveObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\PuzzleSolverDependencies\PuzzleSolver.dll" />

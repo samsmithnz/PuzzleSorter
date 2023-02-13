@@ -1,3 +1,4 @@
+using PuzzleSolver.Map;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,8 +11,44 @@ public class Movement : MonoBehaviour
         yield return null;
     }
 
-    public IEnumerator MoveRobot()
+    public IEnumerator MoveRobot(PathFindingResult path)
     {
+        foreach (var item in path.Path)
+        {
+            //Utility.LogWithTime(item.Log[0]);
+            Vector3 adjustedStartLocation = Utility.ConvertToUnity3DV3(item.StartLocation);
+            adjustedStartLocation.y = 1f;
+            Vector3 adjustedEndLocation = Utility.ConvertToUnity3DV3(item.EndLocation);
+            adjustedEndLocation.y = 1f;
+            yield return StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(characterGameObject.transform,
+                  adjustedStartLocation,
+                  adjustedEndLocation,
+                  0.25f));
+            mainLoopScript.CurrentCharacter.CharacterLogic.SetLocationAndRange(mainLoopScript.Mission.Map, item.EndLocation, mainLoopScript.CurrentCharacter.CharacterLogic.FOVRange, opponentTeam.Characters);
+            mainLoopScript.UpdateFOV();
+
+            //if this move results in an overwatch encounter
+            if (item.OverwatchEncounterResults != null && item.OverwatchEncounterResults.Count > 0)
+            {
+                Utility.LogWithTime("Overwatch results for " + item.EndLocation.ToString() + " " + item.OverwatchEncounterResults.Count);
+                foreach (EncounterResult overwatchEncounter in item.OverwatchEncounterResults)
+                {
+                    //Log the event
+                    Utility.LogWithTime(overwatchEncounter.LogString);
+
+                    //zoom behind character
+                    Character3D sourceCharacter = Utility.FindCharacter3dObject(overwatchEncounter.SourceCharacter.Name, mainLoopScript.CharacterGameObjectList);
+                    Character3D targetCharacter = Utility.FindCharacter3dObject(overwatchEncounter.TargetCharacter.Name, mainLoopScript.CharacterGameObjectList);
+                    mainLoopScript.MoveCameraBehindPlayerToAim(sourceCharacter, targetCharacter);
+
+                    //take overwatch shot
+                    yield return StartCoroutine(mainLoopScript.ShootAtTarget(sourceCharacter, targetCharacter));
+                }
+
+                //zoom out and over character
+                mainLoopScript.MoveCameraBackOverPlayer();
+            }
+        }
         yield return null;
     }
 

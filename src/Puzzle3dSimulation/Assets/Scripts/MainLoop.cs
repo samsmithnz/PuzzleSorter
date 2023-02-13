@@ -147,52 +147,14 @@ public class MainLoop : MonoBehaviour
         {
             Debug.LogWarning("Moving to location " + path.GetLastTile().Location.ToString());
 
-            //if (HoveringOverThisTile && MovingToThisTile == false)
-            //{
-            //    //Utility.LogWithTimeWarning(EventSystem.current.firstSelectedGameObject);
-            //    PathFindingResult pathFindingResult = PathFinding.FindPath(Map, Source, Destination);
-            //    //Utility.LogWithTime("Path found with length: " + pathFindingResult.Path.Count.ToString());
+            Movement movementScript = gameObject.GetComponent<Movement>();
+            if (movementScript == null)
+            {
+                movementScript = gameObject.AddComponent<Movement>();
+            }
+            Utility.LogWithTime("Starting movement");
+            yield return StartCoroutine(movementScript.MoveRobot(Source, Destination, mainLoopScript, mainLoopScript.Mission.Teams[1]));
 
-            //    //Remove any existing path
-            //    DeleteObjectsByTag(Utility.TAG_Path);
-            //    GameObject parentGameObject = GameObject.Find("waypointParent");
-            //    if (parentGameObject == null)
-            //    {
-            //        parentGameObject = new GameObject();
-            //        parentGameObject.transform.position = new Vector3(0f, 0f, 0f);
-            //        parentGameObject.name = "waypointParent";
-            //        //parentGameObject.tag = Utility.TAG_Path;
-            //    }
-
-            //    int i = 0;
-            //    Vector3 sourcePosition = Utility.ConvertToUnity3DV3(Source);
-            //    foreach (System.Numerics.Vector3 item in pathFindingResult.Path)
-            //    {
-            //        i++;
-            //        CreatePath("waypoint_" + i.ToString(), Utility.TAG_Path,
-            //            Utility.AdjustYCoordinate(sourcePosition, 0.02f),
-            //            Utility.AdjustYCoordinate(Utility.ConvertToUnity3DV3(item), 0.02f),
-            //            parentGameObject.transform,
-            //            MovementCost);
-
-            //        //Set the next source position
-            //        sourcePosition = Utility.ConvertToUnity3DV3(item);
-            //    }
-            //    //Add a square around the destination square
-            //    if (pathFindingResult.Path.Count > 0)
-            //    {
-            //        CreateEndOfTheLineSquare(Utility.TAG_Path,
-            //                Utility.ConvertToUnity3DV3(pathFindingResult.Path[pathFindingResult.Path.Count - 1]),
-            //                parentGameObject.transform,
-            //                MovementCost);
-            //    }
-            //}
-            //if (MovingToThisTile == true)
-            //{
-            //    //Remove any existing path
-            //    DeleteObjectsByTag(Utility.TAG_Path);
-            //    mainLoopScript.HideHighlightedTiles();
-            //}
 
         }
         else
