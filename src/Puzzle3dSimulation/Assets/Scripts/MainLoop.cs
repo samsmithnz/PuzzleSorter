@@ -99,6 +99,7 @@ public class MainLoop : MonoBehaviour
     private bool _PickingUpAction = false;
     private bool _MovingToDropoff = false;
     private bool _DroppingOffAction = false;
+    private int _ActionCount = 0;
 
     // Update is called once per frame
     void Update()
@@ -113,6 +114,9 @@ public class MainLoop : MonoBehaviour
             {
                 //Get a robot action from the queue
                 _robotAction = _RobotActions.Dequeue();
+                _ActionCount++;
+                Debug.LogWarning("Action #" + _ActionCount + " processing");
+
 
                 //Move to pickup zone
                 _MovingToPickup = true;
