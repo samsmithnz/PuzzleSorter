@@ -147,7 +147,7 @@ public class MainLoop : MonoBehaviour
     {
     }
 
-    private IEnumerator MoveToLocation(GameObject robotObject, PathFindingResult path)
+    private IEnumerator MoveToLocation(GameObject robotObject, System.Numerics.Vector2 startLocation, PathFindingResult path)
     {
         if (path != null && path.GetLastTile() != null)
         {
@@ -159,7 +159,7 @@ public class MainLoop : MonoBehaviour
                 movementScript = robotObject.AddComponent<Movement>();
             }
             Utility.LogWithTime("Starting movement");
-            yield return StartCoroutine(movementScript.MoveRobot(robotObject, path));
+            yield return StartCoroutine(movementScript.MoveRobot(robotObject, startLocation, path));
         }
         else
         {
