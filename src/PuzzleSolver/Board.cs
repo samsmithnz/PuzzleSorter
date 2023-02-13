@@ -59,24 +59,26 @@ namespace PuzzleSolver
             {
                 PickUpLocation = new Vector2(UnsortedPiecesLocation.X, UnsortedPiecesLocation.Y - 1);
             }
+            Vector2 currentRobotLocation = Robot.Location;
 
-            Vector2 robotStartingLocation = Robot.Location;
             //Loop through the queue of unsorted pieces
             while (UnsortedPieces.Count > 0)
             {
                 RobotAction robotAction = new RobotAction();
 
                 // Move to unsorted pile
-                if (Robot.Location != PickUpLocation)
+                robotAction.RobotPickupStartingLocation = currentRobotLocation;
+                if (currentRobotLocation != PickUpLocation)
                 {
-                    PathFindingResult pathFindingResultForPickup = PathFinding.FindPath(Map, Robot.Location, PickUpLocation);
+                    PathFindingResult pathFindingResultForPickup = PathFinding.FindPath(Map, currentRobotLocation, PickUpLocation);
                     if (pathFindingResultForPickup != null && pathFindingResultForPickup.Path.Any())
                     {
                         //Move robot
                         robotAction.PathToPickup = pathFindingResultForPickup;
-                        Robot.Location = pathFindingResultForPickup.Path.Last();
+                        currentRobotLocation = pathFindingResultForPickup.Path.Last();
                     }
                 }
+                robotAction.RobotPickupEndingLocation = currentRobotLocation;
 
                 // Pickup an unsorted piece from the unsorted pile
                 Robot.Piece = UnsortedPieces.Dequeue();
@@ -102,9 +104,10 @@ namespace PuzzleSolver
                 }
 
                 // Move the sorted piece to the correct pile
+                robotAction.RobotDropoffStartingLocation = currentRobotLocation;
                 if (destinationLocation != null)
                 {
-                    PathFindingResult pathFindingResultForDropoff = PathFinding.FindPath(Map, Robot.Location, (Vector2)destinationLocation);
+                    PathFindingResult pathFindingResultForDropoff = PathFinding.FindPath(Map, currentRobotLocation, (Vector2)destinationLocation);
                     if (pathFindingResultForDropoff != null && pathFindingResultForDropoff.Path.Any())
                     {
                         //Move robot
@@ -113,9 +116,10 @@ namespace PuzzleSolver
                         {
                             Location = (Vector2)destinationLocation
                         };
-                        Robot.Location = pathFindingResultForDropoff.Path.Last();
+                        currentRobotLocation = pathFindingResultForDropoff.Path.Last();
                     }
                 }
+                robotAction.RobotDropoffEndingLocation = currentRobotLocation;
 
                 //Move the piece from the robot to the sorted pile
                 Robot.Piece.Location = robotAction.DropoffAction.Location;
@@ -125,9 +129,6 @@ namespace PuzzleSolver
                 // Add to queue
                 results.Enqueue(robotAction);
             }
-
-            Robot.Location = robotStartingLocation;
-
             return results;
         }
     }
