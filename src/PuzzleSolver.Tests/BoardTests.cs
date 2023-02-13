@@ -143,6 +143,13 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new(2, 1), robotAction2.RobotPickupEndingLocation);
             Assert.IsNotNull(robotAction2.PickupAction);
             Assert.IsNotNull(robotAction2.PathToDropoff);
+            Assert.AreEqual(new(2, 1), robotAction2.RobotDropoffStartingLocation);
+            Assert.AreEqual(new(3, 1), robotAction2.PathToDropoff.Path[0]);
+            Assert.AreEqual(new(1, 2), robotAction2.PathToDropoff.Path[1]);
+            Assert.AreEqual(new(1, 3), robotAction2.PathToDropoff.Path[2]);
+            Assert.AreEqual(new(0, 3), robotAction2.PathToDropoff.Path[3]);
+            Assert.AreEqual(new(0, 4), robotAction2.PathToDropoff.Path[4]);
+            Assert.AreEqual(new(0, 4), robotAction2.RobotDropoffEndingLocation);
             Assert.IsNotNull(robotAction2.DropoffAction);
             Assert.AreEqual(2, results.Count);
 
