@@ -55,7 +55,7 @@ namespace PuzzleSolver.Tests
             //Assert
             Assert.AreEqual(new Rgb24(255, 0, 0), Color.Red.ToPixel<Rgb24>());
             Assert.AreEqual(new Rgb24(0, 0, 255), Color.Blue.ToPixel<Rgb24>());
-            Assert.AreEqual(new Rgb24(255,255, 0), Color.Yellow.ToPixel<Rgb24>());
+            Assert.AreEqual(new Rgb24(255, 255, 0), Color.Yellow.ToPixel<Rgb24>());
             Assert.IsNotNull(board);
             Assert.IsNotNull(board.Map);
             Assert.IsNotNull(board.Robot);
@@ -115,19 +115,36 @@ namespace PuzzleSolver.Tests
             Assert.IsTrue(board.UnsortedPieces.Count == 0);
             Assert.IsNotNull(results);
             Assert.AreEqual(4, results.Count);
-            Assert.IsNotNull(results.Peek());
-            Assert.IsNotNull(results.Peek().PieceId);
-            Assert.IsNotNull(results.Peek().PickupAction);
-            Assert.IsNull(results.Peek().PathToPickup); //This is null because we start in the right location
-            Assert.IsNotNull(results.Peek().DropoffAction);
-            Assert.IsNotNull(results.Peek().PathToDropoff);
-            results.Dequeue(); //Complete the first action
+
+            RobotAction robotAction1 = results.Dequeue(); //Complete the first action
+            Assert.IsNotNull(robotAction1);
+            Assert.IsNotNull(robotAction1.PieceId);
+            Assert.IsNull(robotAction1.PathToPickup); //This is null because we start in the right location
+            Assert.IsNotNull(robotAction1.PickupAction);
+            Assert.IsNotNull(robotAction1.PathToDropoff);
+            Assert.AreEqual(new(2, 1), board.Robot.Location);
+            Assert.AreEqual(new(1, 1), robotAction1.PathToDropoff.Path[0]);
+            Assert.AreEqual(new(1, 2), robotAction1.PathToDropoff.Path[1]);
+            Assert.AreEqual(new(1, 3), robotAction1.PathToDropoff.Path[2]);
+            Assert.AreEqual(new(0, 3), robotAction1.PathToDropoff.Path[3]);
+            Assert.AreEqual(new(0, 4), robotAction1.PathToDropoff.Path[4]);
+            Assert.IsNotNull(robotAction1.DropoffAction);
             Assert.AreEqual(3, results.Count);
-            Assert.IsNotNull(results.Peek());
-            Assert.IsNotNull(results.Peek().PickupAction);
-            Assert.IsNull(results.Peek().PathToPickup);
-            Assert.IsNotNull(results.Peek().DropoffAction);
-            Assert.IsNotNull(results.Peek().PathToDropoff);
+
+            RobotAction robotAction2 = results.Dequeue(); //Complete the second action
+            Assert.IsNotNull(robotAction2);
+            Assert.IsNotNull(robotAction2.PieceId);
+            Assert.IsNotNull(robotAction2.PathToPickup);
+            Assert.AreEqual(new(0, 4), board.Robot.Location);
+            Assert.AreEqual(new(0, 3), robotAction2.PathToPickup.Path[0]);
+            Assert.AreEqual(new(1, 2), robotAction2.PathToPickup.Path[1]);
+            Assert.AreEqual(new(1, 3), robotAction2.PathToPickup.Path[2]);
+            Assert.AreEqual(new(2, 1), robotAction2.PathToPickup.Path[3]);
+            Assert.IsNotNull(robotAction2.PickupAction);
+            Assert.IsNotNull(robotAction2.PathToDropoff);
+            Assert.IsNotNull(robotAction2.DropoffAction);
+            Assert.AreEqual(2, results.Count);
+
             Assert.AreEqual(Color.Red.ToPixel<Rgb24>(), board.SortedPieces[0].TopColorGroup);
         }
 
