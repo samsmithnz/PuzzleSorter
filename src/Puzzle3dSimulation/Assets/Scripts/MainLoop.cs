@@ -111,7 +111,7 @@ public class MainLoop : MonoBehaviour
 
                     //Move to pickup zone
                     _MovingToPickup = true;
-                    StartCoroutine(MoveToLocation(_RobotObject, _robotAction.PathToPickup));
+                    StartCoroutine(MoveToLocation(_RobotObject, _robotAction.RobotPickupStartingLocation, _robotAction.PathToPickup));
                     _MovingToPickup = false;
 
                     //Pickup piece
@@ -121,7 +121,7 @@ public class MainLoop : MonoBehaviour
 
                     //Move to drop off zone
                     _MovingToDropoff = true;
-                    StartCoroutine(MoveToLocation(_RobotObject, _robotAction.PathToDropoff));
+                    StartCoroutine(MoveToLocation(_RobotObject, _robotAction.RobotDropoffStartingLocation, _robotAction.PathToDropoff));
                     _MovingToDropoff = false;
 
                     //Drop piece
