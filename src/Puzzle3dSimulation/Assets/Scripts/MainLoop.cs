@@ -97,38 +97,38 @@ public class MainLoop : MonoBehaviour
         //objects carried at at y 1.25
 
 
-        if (_RobotActions != null && _RobotActions.Count > 0 && _ProcessingQueueItem == false)
-        {
-            while (_RobotActions.Count > 0)
-            {
-                //Get a robot action from the queue
-                _robotAction = _RobotActions.Dequeue();
-                _ActionCount++;
-                Debug.LogWarning("Action #" + _ActionCount + " processing");
-
-                //Move to pickup zone
-                _ProcessingQueueItem = true;
-                StartCoroutine(MoveToLocation(_RobotObject, _robotAction.RobotPickupStartingLocation, _robotAction.PathToPickup));
-
-
-                //Pickup piece
-                PickUpPiece(_robotAction.PickupAction);
-
-                //Move to drop off zone
-                StartCoroutine(MoveToLocation(_RobotObject, _robotAction.RobotDropoffStartingLocation, _robotAction.PathToDropoff));
-
-
-                //Drop piece
-                DropOffPiece(_robotAction.DropoffAction);
-                _ProcessingQueueItem = false;
-
-            }
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (_RobotActions != null && _RobotActions.Count > 0 && _ProcessingQueueItem == false)
+        {
+            _ProcessingQueueItem = true;
+            //Get a robot action from the queue
+            _robotAction = _RobotActions.Dequeue();
+            StartCoroutine(ProcessQueueItem(_robotAction));
+            _ProcessingQueueItem = false;
+        }
+    }
+
+    private IEnumerator ProcessQueueItem(RobotAction robotAction)
+    {
+        _ActionCount++;
+        Debug.LogWarning("Action #" + _ActionCount + " processing");
+
+        //Move to pickup zone
+        yield return StartCoroutine(MoveToLocation(_RobotObject, _robotAction.RobotPickupStartingLocation, _robotAction.PathToPickup));
+
+        //Pickup piece
+        PickUpPiece(_robotAction.PickupAction);
+
+        //Move to drop off zone
+        yield return StartCoroutine(MoveToLocation(_RobotObject, _robotAction.RobotDropoffStartingLocation, _robotAction.PathToDropoff));
+
+        //Drop piece
+        DropOffPiece(_robotAction.DropoffAction);
+        yield return null;
     }
 
     private IEnumerator MoveToLocation(GameObject robotObject, System.Numerics.Vector2 startLocation, PathFindingResult path)
