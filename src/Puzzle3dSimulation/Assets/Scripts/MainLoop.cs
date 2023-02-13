@@ -142,7 +142,7 @@ public class MainLoop : MonoBehaviour
 
     private void MoveToLocation(PathFindingResult path)
     {
-        if (path.GetLastTile() != null)
+        if (path != null && path.GetLastTile() != null)
         {
             Debug.LogWarning("Moving to location " + path.GetLastTile().Location.ToString());
         }
