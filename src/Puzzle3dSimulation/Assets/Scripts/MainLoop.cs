@@ -4,6 +4,7 @@ using PuzzleSolver.Images;
 using PuzzleSolver.Map;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -92,12 +93,63 @@ public class MainLoop : MonoBehaviour
         //objects carried at at y 1.25
     }
 
+    private bool _robotActionInProgress = false;
+    private RobotAction _robotAction = null;
+    private bool _MovingToPickup = false;
+    private bool _PickingUpAction = false;
+    private bool _MovingToDropoff = false;
+    private bool _DroppingOffAction = false;
+
     // Update is called once per frame
     void Update()
     {
-        //if (_RobotActions != null)
-        //{
+        if (_RobotActions != null && _robotActionInProgress == false)
+        {
+            if (_RobotActions.Count > 0 &&
+                _MovingToPickup == false &&
+                _PickingUpAction == false &&
+                _MovingToDropoff == false &&
+                _DroppingOffAction == false)
+            {
+                //Get a robot action from the queue
+                _robotAction = _RobotActions.Dequeue();
 
-        //}
+                //Move to pickup zone
+                _MovingToPickup = true;
+                MoveToLocation(_robotAction.PathToPickup);
+                _MovingToPickup = false;
+
+                //Pickup piece
+                _PickingUpAction = true;
+                PickUpPiece(_robotAction.PickupAction);
+                _PickingUpAction = false;
+
+                //Move to drop off zone
+                _MovingToDropoff = true;
+                MoveToLocation(_robotAction.PathToDropoff);
+                _MovingToDropoff = false;
+
+                //Drop piece
+                _DroppingOffAction = true;
+                DropOffPiece(_robotAction.DropoffAction);
+                _DroppingOffAction = false;
+            }
+        }
     }
+
+    private void MoveToLocation(PathFindingResult path)
+    {
+        Debug.LogWarning("Moving to location " + path.GetLastTile().Location.ToString());
+    }
+
+    private void PickUpPiece(ObjectInteraction pickupAction)
+    {
+        Debug.LogWarning("Picking up piece " + pickupAction.Location.ToString());
+    }
+
+    private void DropOffPiece(ObjectInteraction dropOffAction)
+    {
+        Debug.LogWarning("Dropping off piece " + dropOffAction.Location.ToString());
+    }
+
 }
