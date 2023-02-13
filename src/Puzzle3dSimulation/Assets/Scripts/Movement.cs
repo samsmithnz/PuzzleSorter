@@ -33,7 +33,7 @@ public class Movement : MonoBehaviour
                 yield return StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(robotObject.transform,
                       start,
                       end,
-                      0.25f));
+                      0.5f));
             }
         }
         yield return null;
