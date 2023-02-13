@@ -15,6 +15,9 @@ public class MainLoop : MonoBehaviour
     private readonly bool _showLinesOnFloor = true;
     private Queue<RobotAction> _RobotActions = null;
     private GameObject _RobotObject = null;
+    private RobotAction _robotAction = null;
+    private bool _ProcessingQueueItem = false;
+    private int _ActionCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -94,53 +97,34 @@ public class MainLoop : MonoBehaviour
         //objects carried at at y 1.25
 
 
-        if (_RobotActions != null && _robotActionInProgress == false)
+        if (_RobotActions != null && _RobotActions.Count > 0 && _ProcessingQueueItem == false)
         {
-            if (_RobotActions.Count > 0 &&
-                _MovingToPickup == false &&
-                _PickingUpAction == false &&
-                _MovingToDropoff == false &&
-                _DroppingOffAction == false)
+            while (_RobotActions.Count > 0)
             {
-                while (_RobotActions.Count > 0)
-                {
-                    //Get a robot action from the queue
-                    _robotAction = _RobotActions.Dequeue();
-                    _ActionCount++;
-                    Debug.LogWarning("Action #" + _ActionCount + " processing");
+                //Get a robot action from the queue
+                _robotAction = _RobotActions.Dequeue();
+                _ActionCount++;
+                Debug.LogWarning("Action #" + _ActionCount + " processing");
 
-                    //Move to pickup zone
-                    _MovingToPickup = true;
-                    StartCoroutine(MoveToLocation(_RobotObject, _robotAction.RobotPickupStartingLocation, _robotAction.PathToPickup));
-                    _MovingToPickup = false;
+                //Move to pickup zone
+                _ProcessingQueueItem = true;
+                StartCoroutine(MoveToLocation(_RobotObject, _robotAction.RobotPickupStartingLocation, _robotAction.PathToPickup));
 
-                    //Pickup piece
-                    _PickingUpAction = true;
-                    PickUpPiece(_robotAction.PickupAction);
-                    _PickingUpAction = false;
 
-                    //Move to drop off zone
-                    _MovingToDropoff = true;
-                    StartCoroutine(MoveToLocation(_RobotObject, _robotAction.RobotDropoffStartingLocation, _robotAction.PathToDropoff));
-                    _MovingToDropoff = false;
+                //Pickup piece
+                PickUpPiece(_robotAction.PickupAction);
 
-                    //Drop piece
-                    _DroppingOffAction = true;
-                    DropOffPiece(_robotAction.DropoffAction);
-                    _DroppingOffAction = false;
+                //Move to drop off zone
+                StartCoroutine(MoveToLocation(_RobotObject, _robotAction.RobotDropoffStartingLocation, _robotAction.PathToDropoff));
 
-                }
+
+                //Drop piece
+                DropOffPiece(_robotAction.DropoffAction);
+                _ProcessingQueueItem = false;
+
             }
         }
     }
-
-    private bool _robotActionInProgress = false;
-    private RobotAction _robotAction = null;
-    private bool _MovingToPickup = false;
-    private bool _PickingUpAction = false;
-    private bool _MovingToDropoff = false;
-    private bool _DroppingOffAction = false;
-    private int _ActionCount = 0;
 
     // Update is called once per frame
     void Update()
