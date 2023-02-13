@@ -5,10 +5,8 @@ using PuzzleSolver.Map;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Networking.Types;
 
 public class MainLoop : MonoBehaviour
 {
@@ -94,6 +92,46 @@ public class MainLoop : MonoBehaviour
         _RobotObject.GetComponent<Renderer>().material.color = Color.gray; //dark gray
 
         //objects carried at at y 1.25
+
+
+        if (_RobotActions != null && _robotActionInProgress == false)
+        {
+            if (_RobotActions.Count > 0 &&
+                _MovingToPickup == false &&
+                _PickingUpAction == false &&
+                _MovingToDropoff == false &&
+                _DroppingOffAction == false)
+            {
+                while (_RobotActions.Count > 0)
+                {
+                    //Get a robot action from the queue
+                    _robotAction = _RobotActions.Dequeue();
+                    _ActionCount++;
+                    Debug.LogWarning("Action #" + _ActionCount + " processing");
+
+                    //Move to pickup zone
+                    _MovingToPickup = true;
+                    StartCoroutine(MoveToLocation(_RobotObject, _robotAction.PathToPickup));
+                    _MovingToPickup = false;
+
+                    //Pickup piece
+                    _PickingUpAction = true;
+                    PickUpPiece(_robotAction.PickupAction);
+                    _PickingUpAction = false;
+
+                    //Move to drop off zone
+                    _MovingToDropoff = true;
+                    StartCoroutine(MoveToLocation(_RobotObject, _robotAction.PathToDropoff));
+                    _MovingToDropoff = false;
+
+                    //Drop piece
+                    _DroppingOffAction = true;
+                    DropOffPiece(_robotAction.DropoffAction);
+                    _DroppingOffAction = false;
+
+                }
+            }
+        }
     }
 
     private bool _robotActionInProgress = false;
@@ -107,40 +145,6 @@ public class MainLoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_RobotActions != null && _robotActionInProgress == false)
-        {
-            if (_RobotActions.Count > 0 &&
-                _MovingToPickup == false &&
-                _PickingUpAction == false &&
-                _MovingToDropoff == false &&
-                _DroppingOffAction == false)
-            {
-                //Get a robot action from the queue
-                _robotAction = _RobotActions.Dequeue();
-                _ActionCount++;
-                Debug.LogWarning("Action #" + _ActionCount + " processing");
-
-                //Move to pickup zone
-                _MovingToPickup = true;
-                StartCoroutine(MoveToLocation(_RobotObject, _robotAction.PathToPickup));
-                _MovingToPickup = false;
-
-                //Pickup piece
-                _PickingUpAction = true;
-                PickUpPiece(_robotAction.PickupAction);
-                _PickingUpAction = false;
-
-                //Move to drop off zone
-                _MovingToDropoff = true;
-                StartCoroutine(MoveToLocation(_RobotObject, _robotAction.PathToDropoff));
-                _MovingToDropoff = false;
-
-                //Drop piece
-                _DroppingOffAction = true;
-                DropOffPiece(_robotAction.DropoffAction);
-                _DroppingOffAction = false;
-            }
-        }
     }
 
     private IEnumerator MoveToLocation(GameObject robotObject, PathFindingResult path)

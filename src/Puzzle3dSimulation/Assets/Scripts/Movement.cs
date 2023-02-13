@@ -1,10 +1,7 @@
 using Assets.Scripts.Common;
 using PuzzleSolver.Map;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 public class Movement : MonoBehaviour
 {
