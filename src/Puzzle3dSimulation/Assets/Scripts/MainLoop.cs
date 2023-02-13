@@ -94,9 +94,7 @@ public class MainLoop : MonoBehaviour
         _RobotObject.name = "robot";
         _RobotObject.GetComponent<Renderer>().material.color = Color.gray; //dark gray
 
-        //objects carried at at y 1.25
-
-
+        //objects carried at at y 1.25s
     }
 
     // Update is called once per frame
