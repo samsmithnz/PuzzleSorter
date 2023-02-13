@@ -158,7 +158,7 @@ public class MainLoop : MonoBehaviour
             {
                 movementScript = robotObject.AddComponent<Movement>();
             }
-            Utility.LogWithTime("Starting movement");
+            //Utility.LogWithTime("Starting movement");
             yield return StartCoroutine(movementScript.MoveRobot(robotObject, startLocation, path));
         }
         else
