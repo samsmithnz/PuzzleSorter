@@ -117,7 +117,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(4, results.Count);
 
             //Complete the first action
-            RobotAction robotAction1 = results.Dequeue(); 
+            RobotAction robotAction1 = results.Dequeue();
             Assert.IsNotNull(robotAction1);
             Assert.IsNotNull(robotAction1.PieceId);
             Assert.IsNull(robotAction1.PathToPickup); //This is null because we start in the right location
@@ -134,7 +134,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(3, results.Count);
 
             //Complete the second action
-            RobotAction robotAction2 = results.Dequeue(); 
+            RobotAction robotAction2 = results.Dequeue();
             Assert.IsNotNull(robotAction2);
             Assert.IsNotNull(robotAction2.PieceId);
             Assert.IsNotNull(robotAction2.PathToPickup);
@@ -154,7 +154,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(2, results.Count);
 
             //Complete the third action
-            RobotAction robotAction3 = results.Dequeue(); 
+            RobotAction robotAction3 = results.Dequeue();
             Assert.IsNotNull(robotAction3);
             Assert.IsNotNull(robotAction3.PieceId);
             Assert.IsNotNull(robotAction3.PathToPickup);
@@ -167,9 +167,11 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(robotAction3.PathToDropoff);
             Assert.AreEqual(new(2, 1), robotAction3.RobotDropoffStartingLocation);
             Assert.AreEqual(new(1, 1), robotAction3.PathToDropoff.Path[0]);
-            Assert.AreEqual(new(4, 1), robotAction3.PathToDropoff.Path[1]);
-            Assert.AreEqual(new(4, 0), robotAction3.PathToDropoff.Path[2]);
-            Assert.AreEqual(new(4, 0), robotAction3.RobotDropoffEndingLocation);
+            Assert.AreEqual(new(1, 2), robotAction3.PathToDropoff.Path[1]);
+            Assert.AreEqual(new(1, 3), robotAction3.PathToDropoff.Path[2]);
+            Assert.AreEqual(new(0, 3), robotAction3.PathToDropoff.Path[3]);
+            Assert.AreEqual(new(0, 4), robotAction3.PathToDropoff.Path[4]);
+            Assert.AreEqual(new(0, 4), robotAction3.RobotDropoffEndingLocation);
             Assert.IsNotNull(robotAction3.DropoffAction);
             Assert.AreEqual(1, results.Count);
 
