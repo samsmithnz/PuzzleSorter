@@ -10,7 +10,7 @@ public class Movement : MonoBehaviour
         yield return null;
     }
 
-    public IEnumerator MoveRobot(GameObject robotObject, PathFindingResult path)
+    public IEnumerator MoveRobot(GameObject robotObject, System.Numerics.Vector2 startLocation, PathFindingResult path)
     {
         if (path.Path.Count > 1)
         {
@@ -21,14 +21,14 @@ public class Movement : MonoBehaviour
             }
 
             float robotY = 0.5f;
-            Vector3 start = Utility.ConvertToUnity3DV3(path.Path[0], robotY);
+            Vector3 start = Utility.ConvertToUnity3DV3(startLocation, robotY);
             Vector3 end = Utility.ConvertToUnity3DV3(path.Path[1], robotY);
             for (int i = 0; i < path.Path.Count; i++)
             {
                 if (i > 0 && i < path.Path.Count - 1)
                 {
                     start = Utility.ConvertToUnity3DV3(path.Path[i], robotY);
-                    end = Utility.ConvertToUnity3DV3(path.Path[i+1], robotY);
+                    end = Utility.ConvertToUnity3DV3(path.Path[i + 1], robotY);
                 }
                 yield return StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(robotObject.transform,
                       start,
