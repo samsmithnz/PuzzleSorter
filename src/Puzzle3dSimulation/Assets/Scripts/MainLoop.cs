@@ -99,12 +99,11 @@ public class MainLoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_RobotActions != null && _RobotActions.Count > 2 && _ProcessingQueueItem == false)
+        if (_RobotActions != null && _RobotActions.Count > 0 && _ProcessingQueueItem == false)
         {
             _ProcessingQueueItem = true;
             //Get and process a robot action from the queue
-            StartCoroutine(ProcessQueueItem(_RobotActions.Dequeue()));
-            _ProcessingQueueItem = false;
+            StartCoroutine(ProcessQueueItem(_RobotActions.Dequeue()));    
         }
     }
 
@@ -140,6 +139,7 @@ public class MainLoop : MonoBehaviour
 
         //Drop piece
         //DropOffPiece(_robotAction.DropoffAction);
+        _ProcessingQueueItem = false;
         yield return null;
     }
 
