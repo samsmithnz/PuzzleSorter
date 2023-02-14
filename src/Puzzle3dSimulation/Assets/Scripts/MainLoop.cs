@@ -66,7 +66,7 @@ public class MainLoop : MonoBehaviour
         _RobotActions = board.RunRobot();
 
         //Add unsorted pieces
-        float y = 0.25f;
+        float y = 0.25f + (0.5f * unsortedList.Length);
         int i = 0;
         Debug.LogWarning("There are " + unsortedList.Count().ToString() + " unsorted pieces to process");
         foreach (Piece piece in unsortedList)
@@ -83,7 +83,7 @@ public class MainLoop : MonoBehaviour
                 //Debug.LogWarning("Color" + newColor.ToString());
                 pieceObject.GetComponent<Renderer>().material.color = newColor;
             }
-            y += 0.5f;
+            y -= 0.5f;
         }
 
         //Add the robot
