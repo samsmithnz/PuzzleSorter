@@ -116,13 +116,27 @@ public class MainLoop : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
 
         //Move to pickup zone
-        yield return StartCoroutine(MoveToLocation(_RobotObject, robotAction.RobotPickupStartingLocation, robotAction.PathToPickup));
+        if (robotAction.PathToPickup.Path.Count > 0)
+        {
+            yield return StartCoroutine(MoveToLocation(_RobotObject, robotAction.RobotPickupStartingLocation, robotAction.PathToPickup));
+        }
+        else
+        {
+            Debug.LogWarning("No pickup path for action " + _ActionCount);
+        }
 
         //Pickup piece
         //PickUpPiece(_robotAction.PickupAction);
 
         //Move to drop off zone
-        yield return StartCoroutine(MoveToLocation(_RobotObject, robotAction.RobotDropoffStartingLocation, robotAction.PathToDropoff));
+        if (robotAction.PathToDropoff.Path.Count > 0)
+        {
+            yield return StartCoroutine(MoveToLocation(_RobotObject, robotAction.RobotDropoffStartingLocation, robotAction.PathToDropoff));
+        }
+        else
+        {
+            Debug.LogWarning("No drop off path for action " + _ActionCount);
+        }
 
         //Drop piece
         //DropOffPiece(_robotAction.DropoffAction);
