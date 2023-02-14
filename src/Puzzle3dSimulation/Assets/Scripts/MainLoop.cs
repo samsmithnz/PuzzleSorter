@@ -112,8 +112,6 @@ public class MainLoop : MonoBehaviour
         _ActionCount++;
         Debug.LogWarning("Action #" + _ActionCount + " processing");
 
-        //yield return new WaitForSeconds(2.0f);
-
         //Move to pickup zone
         if (robotAction.PathToPickup != null && robotAction.PathToPickup.Path.Count > 0)
         {
