@@ -15,7 +15,6 @@ public class MainLoop : MonoBehaviour
     private readonly bool _showLinesOnFloor = true;
     private Queue<RobotAction> _RobotActions = null;
     private GameObject _RobotObject = null;
-    private RobotAction _robotAction = null;
     private bool _ProcessingQueueItem = false;
     private int _ActionCount = 0;
 
@@ -103,9 +102,8 @@ public class MainLoop : MonoBehaviour
         if (_RobotActions != null && _RobotActions.Count > 2 && _ProcessingQueueItem == false)
         {
             _ProcessingQueueItem = true;
-            //Get a robot action from the queue
-            _robotAction = _RobotActions.Dequeue();
-            StartCoroutine(ProcessQueueItem(_robotAction));
+            //Get and process a robot action from the queue
+            StartCoroutine(ProcessQueueItem(_RobotActions.Dequeue()));
             _ProcessingQueueItem = false;
         }
     }
