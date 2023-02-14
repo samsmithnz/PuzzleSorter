@@ -99,7 +99,7 @@ public class MainLoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_RobotActions != null && _RobotActions.Count > 3 && _ProcessingQueueItem == false)
+        if (_RobotActions != null && _RobotActions.Count > 2 && _ProcessingQueueItem == false)
         {
             _ProcessingQueueItem = true;
             //Get and process a robot action from the queue
@@ -147,7 +147,7 @@ public class MainLoop : MonoBehaviour
     {
         if (path != null && path.GetLastTile() != null)
         {
-            Debug.LogWarning("Moving from " + startLocation + " to location " + path.GetLastTile().Location.ToString());
+            //Debug.LogWarning("Moving from " + startLocation + " to location " + path.GetLastTile().Location.ToString());
 
             Movement movementScript = robotObject.GetComponent<Movement>();
             if (movementScript == null)
