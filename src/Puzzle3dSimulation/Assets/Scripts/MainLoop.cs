@@ -66,7 +66,7 @@ public class MainLoop : MonoBehaviour
         _RobotActions = board.RunRobot();
 
         //Add unsorted pieces
-        float y = 0.25f + (0.5f * unsortedList.Length);
+        float y = 0.25f + (0.5f * unsortedList.Length); //Add the pieces in reverse, so the first item in the queue is also the top of the stack
         int i = 0;
         Debug.LogWarning("There are " + unsortedList.Count().ToString() + " unsorted pieces to process");
         foreach (Piece piece in unsortedList)
