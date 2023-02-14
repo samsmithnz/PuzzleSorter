@@ -23,7 +23,7 @@ public class Movement : MonoBehaviour
             float robotY = 0.5f;
             Vector3 start = Utility.ConvertToUnity3DV3(startLocation, robotY);
             Vector3 end = Utility.ConvertToUnity3DV3(path.Path[1], robotY);
-            for (int i = 0; i < path.Path.Count; i++)
+            for (int i = 0; i < path.Path.Count - 1; i++)
             {
                 if (i > 0 && i < path.Path.Count - 1)
                 {

@@ -100,7 +100,7 @@ public class MainLoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_RobotActions != null && _RobotActions.Count > 0 && _ProcessingQueueItem == false)
+        if (_RobotActions != null && _RobotActions.Count > 3 && _ProcessingQueueItem == false)
         {
             _ProcessingQueueItem = true;
             //Get a robot action from the queue
@@ -133,7 +133,7 @@ public class MainLoop : MonoBehaviour
     {
         if (path != null && path.GetLastTile() != null)
         {
-            Debug.LogWarning("Moving to location " + path.GetLastTile().Location.ToString());
+            Debug.LogWarning("Moving from " + startLocation + " to location " + path.GetLastTile().Location.ToString());
 
             Movement movementScript = robotObject.GetComponent<Movement>();
             if (movementScript == null)
@@ -151,12 +151,12 @@ public class MainLoop : MonoBehaviour
 
     private void PickUpPiece(ObjectInteraction pickupAction)
     {
-        Debug.LogWarning("Picking up piece " + pickupAction.Location.ToString());
+        //Debug.LogWarning("Picking up piece " + pickupAction.Location.ToString());
     }
 
     private void DropOffPiece(ObjectInteraction dropOffAction)
     {
-        Debug.LogWarning("Dropping off piece " + dropOffAction.Location.ToString());
+        //Debug.LogWarning("Dropping off piece " + dropOffAction.Location.ToString());
     }
 
 }
