@@ -76,7 +76,7 @@ public class MainLoop : MonoBehaviour
             GameObject pieceObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
             pieceObject.transform.position = new Vector3(2f, y, 2f);
             pieceObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-            pieceObject.name = Utility.CreateName("piece_" + i.ToString(), pieceObject.transform.position);
+            pieceObject.name = "piece_" + i.ToString();
             if (piece != null && piece.TopColorGroup != null)
             {
                 Color newColor = Utility.ConvertToUnityColor((Rgb24)piece.TopColorGroup);
