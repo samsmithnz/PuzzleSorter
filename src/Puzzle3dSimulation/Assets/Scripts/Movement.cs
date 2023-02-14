@@ -1,12 +1,15 @@
 using Assets.Scripts.Common;
 using PuzzleSolver.Map;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    public IEnumerator MovePiece()
+    public IEnumerator MovePiece(GameObject pieceObject, List<Vector3> path, Transform robotTransform)
     {
+        const float time = 0.5f;
+
         yield return null;
     }
 
