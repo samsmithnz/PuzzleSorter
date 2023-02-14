@@ -12,7 +12,7 @@ public class Movement : MonoBehaviour
 
     public IEnumerator MoveRobot(GameObject robotObject, System.Numerics.Vector2 startLocation, PathFindingResult path)
     {
-        if (path.Path.Count > 1)
+        if (path!= null && path.Path.Count > 0)
         {
             MoveObject moveObjectScript = robotObject.GetComponent<MoveObject>();
             if (moveObjectScript == null)
