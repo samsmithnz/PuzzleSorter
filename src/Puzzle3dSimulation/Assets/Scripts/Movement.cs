@@ -19,7 +19,7 @@ public class Movement : MonoBehaviour
             {
                 moveObjectScript = robotObject.AddComponent<MoveObject>();
             }
-            Debug.LogWarning("Position 0: (" + startLocation.X.ToString() + "," + startLocation.Y.ToString() + ") for " + path.Path.Count + " tiles");
+            Debug.LogWarning("Walking from: (" + startLocation.X.ToString() + "," + startLocation.Y.ToString() + ") for " + path.Path.Count + " tiles");
 
             float robotY = 0.5f;
             Vector3 start = Utility.ConvertToUnity3DV3(startLocation, robotY);
