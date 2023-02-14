@@ -2,6 +2,7 @@ using Assets.Scripts.Common;
 using PuzzleSolver.Map;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -9,7 +10,30 @@ public class Movement : MonoBehaviour
     public IEnumerator MovePiece(GameObject pieceObject, List<Vector3> path, Transform robotTransform)
     {
         const float time = 0.5f;
-
+        if (path != null && path.Count > 0)
+        {
+            MoveObject moveObjectScript = pieceObject.GetComponent<MoveObject>();
+            if (moveObjectScript == null)
+            {
+                moveObjectScript = pieceObject.AddComponent<MoveObject>();
+            }
+            for (int i = 0; i < path.Count; i++)
+            {
+                if (i < path.Count - 1)
+                {
+                    Vector3 start = path[i];
+                    Vector3 end = path[i + 1];
+                    yield return StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(pieceObject.transform,
+                        start,
+                        end,
+                        time));
+                }
+            }
+            if (robotTransform != null)
+            {
+                pieceObject.transform.parent = robotTransform;
+            }
+        }
         yield return null;
     }
 
