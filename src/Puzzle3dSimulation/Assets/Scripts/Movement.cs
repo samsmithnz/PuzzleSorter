@@ -29,11 +29,11 @@ public class Movement : MonoBehaviour
                 {
                     start = Utility.ConvertToUnity3DV3(path.Path[i], robotY);
                     end = Utility.ConvertToUnity3DV3(path.Path[i + 1], robotY);
+                    yield return StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(robotObject.transform,
+                          start,
+                          end,
+                          1f));
                 }
-                yield return StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(robotObject.transform,
-                      start,
-                      end,
-                      1f));
             }
         }
         yield return null;
@@ -109,21 +109,3 @@ public class Movement : MonoBehaviour
     //    }
     //}
 }
-
-
-//using Assets.Scripts.Common;
-//using Battle.Logic.Characters;
-//using Battle.Logic.Encounters;
-//using Battle.Logic.Game;
-//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
-
-//namespace Assets.Scripts.Characters
-//{
-//    public class Movement : MonoBehaviour
-//    {
-
-
-//    }
-//}
