@@ -148,14 +148,14 @@ public class MainLoop : MonoBehaviour
         }
     }
 
-    private void PickUpPiece(ObjectInteraction pickupAction)
-    {
-        //Debug.LogWarning("Picking up piece " + pickupAction.Location.ToString());
-    }
+    //private void PickUpPiece(ObjectInteraction pickupAction)
+    //{
+    //    //Debug.LogWarning("Picking up piece " + pickupAction.Location.ToString());
+    //}
 
-    private void DropOffPiece(ObjectInteraction dropOffAction)
-    {
-        //Debug.LogWarning("Dropping off piece " + dropOffAction.Location.ToString());
-    }
+    //private void DropOffPiece(ObjectInteraction dropOffAction)
+    //{
+    //    //Debug.LogWarning("Dropping off piece " + dropOffAction.Location.ToString());
+    //}
 
 }
