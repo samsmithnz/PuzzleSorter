@@ -114,7 +114,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(4, board.SortedPieces.Count);
             Assert.IsTrue(board.UnsortedPieces.Count == 0);
             Assert.IsNotNull(results);
-            Assert.AreEqual(4, results.Count);
+            Assert.AreEqual(5, results.Count);
 
             //Complete the first action
             RobotAction robotAction1 = results.Dequeue();

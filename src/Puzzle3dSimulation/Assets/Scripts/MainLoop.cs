@@ -103,7 +103,8 @@ public class MainLoop : MonoBehaviour
         {
             _ProcessingQueueItem = true;
             //Get and process a robot action from the queue
-            StartCoroutine(ProcessQueueItem(_RobotActions.Dequeue()));    
+            StartCoroutine(ProcessQueueItem(_RobotActions.Dequeue()));   
+            
         }
     }
 
