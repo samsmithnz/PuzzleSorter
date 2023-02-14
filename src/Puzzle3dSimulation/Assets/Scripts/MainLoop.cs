@@ -138,7 +138,10 @@ public class MainLoop : MonoBehaviour
         }
 
         //Drop piece
-        //DropOffPiece(_robotAction.DropoffAction);
+        if (robotAction.PickupAction != null)
+        {
+            yield return StartCoroutine(DropOffPiece(robotAction.PieceId, robotAction.DropoffAction));
+        }
         _ProcessingQueueItem = false;
         yield return null;
     }
@@ -196,9 +199,36 @@ public class MainLoop : MonoBehaviour
         }
     }
 
-    //private void DropOffPiece(ObjectInteraction dropOffAction)
-    //{
-    //    //Debug.LogWarning("Dropping off piece " + dropOffAction.Location.ToString());
-    //}
+    private IEnumerator DropOffPiece(int pieceId, ObjectInteraction dropOffAction)
+    {
+        Debug.LogWarning("Dropping off piece " + dropOffAction.Location.ToString());
+         GameObject pieceObject = GameObject.Find("piece_" + pieceId);
+
+        if (pieceObject != null)
+        {
+            //objects carried at at y 1.25s
+            Movement movementScript = pieceObject.GetComponent<Movement>();
+            if (movementScript == null)
+            {
+                movementScript = pieceObject.AddComponent<Movement>();
+            }
+            List<Vector3> path = new()
+        {
+            //detach piece from parent
+            new Vector3(pieceObject.transform.position.x, 1.25f, _RobotObject.transform.position.z),
+            //raise piece off robot
+            new Vector3(pieceObject.transform.position.x, 2f, _RobotObject.transform.position.z),
+            //move above destination pile
+            new Vector3(pieceObject.transform.position.x, 2f, pieceObject.transform.position.z),
+            //drop to ground
+            new Vector3(pieceObject.transform.position.x, 0.25f, pieceObject.transform.position.z)
+        };
+            yield return StartCoroutine(movementScript.MovePiece(pieceObject, path, null));
+        }
+        else
+        {
+            Debug.LogWarning("Piece " + pieceId + " not found");
+        }
+    }
 
 }

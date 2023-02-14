@@ -33,6 +33,10 @@ public class Movement : MonoBehaviour
             {
                 pieceObject.transform.parent = robotTransform;
             }
+            else
+            {
+                pieceObject.transform.parent = null;
+            }
         }
         yield return null;
     }
