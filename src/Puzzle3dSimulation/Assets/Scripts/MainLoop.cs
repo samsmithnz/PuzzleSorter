@@ -11,8 +11,8 @@ using UnityEngine;
 public class MainLoop : MonoBehaviour
 {
 
-    private readonly bool _showCoordOnFloor = true;
-    private readonly bool _showLinesOnFloor = true;
+    private readonly bool _ShowCoordOnFloor = true;
+    private readonly bool _ShowLinesOnFloor = true;
     private Queue<RobotAction> _RobotActions = null;
     private GameObject _RobotObject = null;
     private bool _ProcessingQueueItem = false;
@@ -57,7 +57,7 @@ public class MainLoop : MonoBehaviour
             new Robot(new System.Numerics.Vector2(2, 1)));
 
         //Setup map
-        LevelSetup.SetupMap(gameObject, board.Map, _showLinesOnFloor, _showCoordOnFloor);
+        LevelSetup.SetupMap(gameObject, board.Map, _ShowLinesOnFloor, _ShowCoordOnFloor);
 
         Piece[] unsortedList = new Piece[board.UnsortedPieces.Count];
         board.UnsortedPieces.ToList().CopyTo(unsortedList);
