@@ -100,7 +100,7 @@ public class MainLoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_RobotActions != null && _RobotActions.Count > 3 && _ProcessingQueueItem == false)
+        if (_RobotActions != null && _RobotActions.Count > 2 && _ProcessingQueueItem == false)
         {
             _ProcessingQueueItem = true;
             //Get a robot action from the queue
@@ -146,6 +146,7 @@ public class MainLoop : MonoBehaviour
         else
         {
             Debug.LogWarning("No movement needed - at end location");
+            yield return null;
         }
     }
 
