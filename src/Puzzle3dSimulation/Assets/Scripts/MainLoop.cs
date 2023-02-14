@@ -116,16 +116,16 @@ public class MainLoop : MonoBehaviour
         Debug.LogWarning("Action #" + _ActionCount + " processing");
 
         //Move to pickup zone
-        yield return StartCoroutine(MoveToLocation(_RobotObject, _robotAction.RobotPickupStartingLocation, _robotAction.PathToPickup));
+        yield return StartCoroutine(MoveToLocation(_RobotObject, robotAction.RobotPickupStartingLocation, robotAction.PathToPickup));
 
         //Pickup piece
-        PickUpPiece(_robotAction.PickupAction);
+        //PickUpPiece(_robotAction.PickupAction);
 
         //Move to drop off zone
-        yield return StartCoroutine(MoveToLocation(_RobotObject, _robotAction.RobotDropoffStartingLocation, _robotAction.PathToDropoff));
+        yield return StartCoroutine(MoveToLocation(_RobotObject, robotAction.RobotDropoffStartingLocation, robotAction.PathToDropoff));
 
         //Drop piece
-        DropOffPiece(_robotAction.DropoffAction);
+        //DropOffPiece(_robotAction.DropoffAction);
         yield return null;
     }
 
