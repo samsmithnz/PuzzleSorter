@@ -17,12 +17,13 @@ public class MainLoop : MonoBehaviour
     private GameObject _RobotObject = null;
     private bool _ProcessingQueueItem = false;
     private int _ActionCount = 0;
+    private Board _Board = null;
 
     // Start is called before the first frame update
     void Start()
     {
         //Setup board
-        Board board = new(MapGeneration.GenerateMap(),
+        _Board = new(MapGeneration.GenerateMap(),
             new System.Numerics.Vector2(2, 2),
             ColorPalettes.Get3ColorPalette(),
             new List<Piece>() {
@@ -57,13 +58,13 @@ public class MainLoop : MonoBehaviour
             new Robot(new System.Numerics.Vector2(2, 1)));
 
         //Setup map
-        LevelSetup.SetupMap(gameObject, board.Map, _ShowLinesOnFloor, _ShowCoordOnFloor);
+        LevelSetup.SetupMap(gameObject, _Board.Map, _ShowLinesOnFloor, _ShowCoordOnFloor);
 
-        Piece[] unsortedList = new Piece[board.UnsortedPieces.Count];
-        board.UnsortedPieces.ToList().CopyTo(unsortedList);
+        Piece[] unsortedList = new Piece[_Board.UnsortedPieces.Count];
+        _Board.UnsortedPieces.ToList().CopyTo(unsortedList);
 
         //Get the robot actions
-        _RobotActions = board.RunRobot();
+        _RobotActions = _Board.RunRobot();
 
         //Add unsorted pieces
         float y = 0.25f + (0.5f * unsortedList.Length) - 0.5f; //Add the pieces in reverse, so the first item in the queue is also the top of the stack
@@ -88,7 +89,7 @@ public class MainLoop : MonoBehaviour
 
         //Add the robot
         _RobotObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-        _RobotObject.transform.position = new Vector3(board.Robot.Location.X, 0.5f, board.Robot.Location.Y);
+        _RobotObject.transform.position = new Vector3(_Board.Robot.Location.X, 0.5f, _Board.Robot.Location.Y);
         _RobotObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         _RobotObject.name = "robot";
         _RobotObject.GetComponent<Renderer>().material.color = Color.gray; //dark gray
@@ -145,11 +146,14 @@ public class MainLoop : MonoBehaviour
         //Drop piece
         if (robotAction.PickupAction != null)
         {
+            float endingY = _Board.GetPieceCount(robotAction.DropoffAction.Location);
             yield return StartCoroutine(DropOffPiece(robotAction.PieceId, robotAction.DropoffAction));
         }
         _ProcessingQueueItem = false;
         yield return null;
     }
+
+
 
     private IEnumerator MoveToLocation(GameObject robotObject, System.Numerics.Vector2 startLocation, PathFindingResult path)
     {

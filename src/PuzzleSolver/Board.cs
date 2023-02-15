@@ -156,5 +156,12 @@ namespace PuzzleSolver
 
             return results;
         }
+
+        public int GetPieceCount(System.Numerics.Vector2 dropOfflocation)
+        {
+            int pieceCount = 0;
+
+            return pieceCount;
+        }
     }
 }
