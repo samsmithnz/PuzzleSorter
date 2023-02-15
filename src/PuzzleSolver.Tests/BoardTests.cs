@@ -181,6 +181,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(2, board.SortedDropZones[0].Count);
             Assert.AreEqual(1, board.SortedDropZones[1].Count);
             Assert.AreEqual(1, board.SortedDropZones[2].Count);
+            Assert.AreEqual(2, board.GetPieceCount(board.SortedDropZones[0].Location));
         }
 
     }

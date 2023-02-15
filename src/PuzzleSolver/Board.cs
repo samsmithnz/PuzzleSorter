@@ -157,10 +157,19 @@ namespace PuzzleSolver
             return results;
         }
 
-        public int GetPieceCount(System.Numerics.Vector2 dropOfflocation)
+        public int GetPieceCount(Vector2 dropOfflocation)
         {
             int pieceCount = 0;
 
+            foreach (SortedDropZone sortedDropZone in SortedDropZones)
+            {
+                if (sortedDropZone.Location == dropOfflocation)
+                {
+                    pieceCount = sortedDropZone.Count;
+                    break;
+                }
+            }
+            
             return pieceCount;
         }
     }
