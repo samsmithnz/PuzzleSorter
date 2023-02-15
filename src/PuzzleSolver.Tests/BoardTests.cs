@@ -131,6 +131,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new(0, 4), robotAction1.PathToDropoff.Path[4]);
             Assert.AreEqual(new(0, 4), robotAction1.RobotDropoffEndingLocation);
             Assert.IsNotNull(robotAction1.DropoffAction);
+            Assert.AreEqual(new(0, 4), board.SortedPieces[0].Location);
             Assert.AreEqual(4, results.Count);
 
             //Complete the second action

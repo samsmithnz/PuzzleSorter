@@ -97,11 +97,11 @@ namespace PuzzleSolver
                         destinationLocation = sortedDropZone.Location;
                     }
                 }
-                //Check that nothing went wrong
-                if (destinationLocation == null)
-                {
-                    Debug.WriteLine("Destination location is null");
-                }
+                ////Check that nothing went wrong
+                //if (destinationLocation == null)
+                //{
+                //    Debug.WriteLine("Destination location is null");
+                //}
 
                 // Move the sorted piece to the correct pile
                 robotAction.RobotDropoffStartingLocation = currentRobotLocation;
