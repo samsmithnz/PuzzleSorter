@@ -177,6 +177,9 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(2, results.Count);
 
             Assert.AreEqual(Color.Red.ToPixel<Rgb24>(), board.SortedPieces[0].TopColorGroup);
+            Assert.AreEqual(2, board.SortedDropZones[0].Count);
+            Assert.AreEqual(1, board.SortedDropZones[1].Count);
+            Assert.AreEqual(1, board.SortedDropZones[2].Count);
         }
 
     }
