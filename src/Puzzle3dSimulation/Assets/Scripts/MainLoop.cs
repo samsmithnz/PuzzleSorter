@@ -45,6 +45,11 @@ public class MainLoop : MonoBehaviour
                         Id = 4,
                         Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>()),
                         Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 5,
+                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
                     }
             },
             new()
@@ -66,24 +71,24 @@ public class MainLoop : MonoBehaviour
         _RobotActions = board.RunRobot();
 
         //Add unsorted pieces
-        float y = 0.25f;
+        float y = 0.25f + (0.5f * unsortedList.Length) - 0.5f; //Add the pieces in reverse, so the first item in the queue is also the top of the stack
         int i = 0;
         Debug.LogWarning("There are " + unsortedList.Count().ToString() + " unsorted pieces to process");
         foreach (Piece piece in unsortedList)
         {
             i++;
             //Debug.LogWarning("Adding piece " + piece.Id);
-            GameObject newUnsortedObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            newUnsortedObject.transform.position = new Vector3(2f, y, 2f);
-            newUnsortedObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-            newUnsortedObject.name = Utility.CreateName("piece_" + i.ToString(), newUnsortedObject.transform.position);
+            GameObject pieceObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            pieceObject.transform.position = new Vector3(2f, y, 2f);
+            pieceObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            pieceObject.name = "piece_" + i.ToString();
             if (piece != null && piece.TopColorGroup != null)
             {
                 Color newColor = Utility.ConvertToUnityColor((Rgb24)piece.TopColorGroup);
                 //Debug.LogWarning("Color" + newColor.ToString());
-                newUnsortedObject.GetComponent<Renderer>().material.color = newColor;
+                pieceObject.GetComponent<Renderer>().material.color = newColor;
             }
-            y += 0.5f;
+            y -= 0.5f;
         }
 
         //Add the robot
@@ -92,8 +97,6 @@ public class MainLoop : MonoBehaviour
         _RobotObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         _RobotObject.name = "robot";
         _RobotObject.GetComponent<Renderer>().material.color = Color.gray; //dark gray
-
-        //objects carried at at y 1.25s
     }
 
     // Update is called once per frame
@@ -103,8 +106,8 @@ public class MainLoop : MonoBehaviour
         {
             _ProcessingQueueItem = true;
             //Get and process a robot action from the queue
-            StartCoroutine(ProcessQueueItem(_RobotActions.Dequeue()));   
-            
+            StartCoroutine(ProcessQueueItem(_RobotActions.Dequeue()));
+
         }
     }
 
@@ -124,7 +127,15 @@ public class MainLoop : MonoBehaviour
         }
 
         //Pickup piece
-        //PickUpPiece(_robotAction.PickupAction);
+        if (robotAction.PickupAction != null)
+        {
+            float startingY = GameObject.Find("piece_" + robotAction.PieceId).transform.position.y;
+            if (startingY < 0.25f)
+            {
+                startingY = 0.25f;
+            }
+            yield return StartCoroutine(PickUpPiece(robotAction.PieceId, startingY, robotAction.PickupAction));
+        }
 
         //Move to drop off zone
         if (robotAction.PathToDropoff != null && robotAction.PathToDropoff.Path.Count > 0)
@@ -137,7 +148,11 @@ public class MainLoop : MonoBehaviour
         }
 
         //Drop piece
-        //DropOffPiece(_robotAction.DropoffAction);
+        if (robotAction.PickupAction != null)
+        {
+            float endingY = 0.25f + (0.5f * robotAction.DropoffPieceCount) - 0.5f;
+            yield return StartCoroutine(DropOffPiece(robotAction.PieceId, endingY, robotAction.DropoffAction));
+        }
         _ProcessingQueueItem = false;
         yield return null;
     }
@@ -163,14 +178,69 @@ public class MainLoop : MonoBehaviour
         }
     }
 
-    //private void PickUpPiece(ObjectInteraction pickupAction)
-    //{
-    //    //Debug.LogWarning("Picking up piece " + pickupAction.Location.ToString());
-    //}
+    private IEnumerator PickUpPiece(int pieceId, float startingY, ObjectInteraction pickupAction)
+    {
+        Debug.LogWarning("Picking up piece " + pickupAction.Location.ToString());
+        GameObject pieceObject = GameObject.Find("piece_" + pieceId);
+        if (startingY < 1.25f)
+        {
+            startingY = 1.25f;
+        }
 
-    //private void DropOffPiece(ObjectInteraction dropOffAction)
-    //{
-    //    //Debug.LogWarning("Dropping off piece " + dropOffAction.Location.ToString());
-    //}
+        if (pieceObject != null)
+        {
+            Movement movementScript = pieceObject.GetComponent<Movement>();
+            if (movementScript == null)
+            {
+                movementScript = pieceObject.AddComponent<Movement>();
+            }
+            List<Vector3> path = new()
+            {
+                //Start
+                pieceObject.transform.position,
+                //Move up, above pile
+                new Vector3(pieceObject.transform.position.x, startingY, pieceObject.transform.position.z),
+                //Move over, above robot
+                new Vector3(pieceObject.transform.position.x, startingY, _RobotObject.transform.position.z),
+                //Drop piece on robot, and attach to parent robot at y 1.25s
+                new Vector3(pieceObject.transform.position.x, 1.25f, _RobotObject.transform.position.z)
+            };
+            yield return StartCoroutine(movementScript.MovePiece(pieceObject, path, _RobotObject.transform));
+        }
+        else
+        {
+            Debug.LogWarning("Piece " + pieceId + " not found");
+        }
+    }
+
+    private IEnumerator DropOffPiece(int pieceId, float endingY, ObjectInteraction dropOffAction)
+    {
+        Debug.LogWarning("Dropping off piece " + dropOffAction.Location.ToString());
+        GameObject pieceObject = GameObject.Find("piece_" + pieceId);
+        if (pieceObject != null)
+        {
+            Movement movementScript = pieceObject.GetComponent<Movement>();
+            if (movementScript == null)
+            {
+                movementScript = pieceObject.AddComponent<Movement>();
+            }
+            List<Vector3> path = new()
+        {
+            //detach piece from parent robot at y 1.25s
+            new Vector3(pieceObject.transform.position.x, 1.25f, _RobotObject.transform.position.z),
+            //raise piece off robot
+            new Vector3(pieceObject.transform.position.x, endingY, _RobotObject.transform.position.z),
+            //move above destination pile
+            new Vector3(pieceObject.transform.position.x, endingY, pieceObject.transform.position.z),
+            //drop to ground
+            new Vector3(pieceObject.transform.position.x, endingY, pieceObject.transform.position.z)
+        };
+            yield return StartCoroutine(movementScript.MovePiece(pieceObject, path, null));
+        }
+        else
+        {
+            Debug.LogWarning("Piece " + pieceId + " not found");
+        }
+    }
 
 }

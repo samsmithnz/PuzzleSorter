@@ -97,11 +97,6 @@ namespace PuzzleSolver
                         destinationLocation = sortedDropZone.Location;
                     }
                 }
-                //Check that nothing went wrong
-                if (destinationLocation == null)
-                {
-                    Debug.WriteLine("Destination location is null");
-                }
 
                 // Move the sorted piece to the correct pile
                 robotAction.RobotDropoffStartingLocation = currentRobotLocation;
@@ -116,15 +111,23 @@ namespace PuzzleSolver
                         {
                             Location = (Vector2)destinationLocation
                         };
+                        //Move the piece from the robot to the sorted pile
+                        Robot.Piece.Location = robotAction.DropoffAction.Location;
+                        SortedPieces.Add(Robot.Piece);
+                        foreach (SortedDropZone sortedDropZone in SortedDropZones)
+                        {
+                            if (sortedDropZone.Location == robotAction.DropoffAction.Location)
+                            {
+                                sortedDropZone.Count++;
+                                break;
+                            }
+                        }
+                        Robot.Piece = null;
+                        robotAction.DropoffPieceCount = GetPieceCount(robotAction.DropoffAction.Location);
                         currentRobotLocation = pathFindingResultForDropoff.Path.Last();
                     }
                 }
                 robotAction.RobotDropoffEndingLocation = currentRobotLocation;
-
-                //Move the piece from the robot to the sorted pile
-                Robot.Piece.Location = robotAction.DropoffAction.Location;
-                SortedPieces.Add(Robot.Piece);
-                Robot.Piece = null;
 
                 // Add to queue
                 results.Enqueue(robotAction);
@@ -147,6 +150,22 @@ namespace PuzzleSolver
             results.Enqueue(robotActionReset);
 
             return results;
+        }
+
+        public int GetPieceCount(Vector2 dropOfflocation)
+        {
+            int pieceCount = 0;
+
+            foreach (SortedDropZone sortedDropZone in SortedDropZones)
+            {
+                if (sortedDropZone.Location == dropOfflocation)
+                {
+                    pieceCount = sortedDropZone.Count;
+                    break;
+                }
+            }
+            
+            return pieceCount;
         }
     }
 }

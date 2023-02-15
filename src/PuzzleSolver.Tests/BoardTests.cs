@@ -130,7 +130,9 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new(0, 3), robotAction1.PathToDropoff.Path[3]);
             Assert.AreEqual(new(0, 4), robotAction1.PathToDropoff.Path[4]);
             Assert.AreEqual(new(0, 4), robotAction1.RobotDropoffEndingLocation);
+            Assert.AreEqual(1, robotAction1.DropoffPieceCount);
             Assert.IsNotNull(robotAction1.DropoffAction);
+            Assert.AreEqual(new(0, 4), board.SortedPieces[0].Location);
             Assert.AreEqual(4, results.Count);
 
             //Complete the second action
@@ -151,6 +153,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new(4, 1), robotAction2.PathToDropoff.Path[1]);
             Assert.AreEqual(new(4, 0), robotAction2.PathToDropoff.Path[2]);
             Assert.AreEqual(new(4, 0), robotAction2.RobotDropoffEndingLocation);
+            Assert.AreEqual(1, robotAction2.DropoffPieceCount);
             Assert.IsNotNull(robotAction2.DropoffAction);
             Assert.AreEqual(3, results.Count);
 
@@ -173,10 +176,15 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new(0, 3), robotAction3.PathToDropoff.Path[3]);
             Assert.AreEqual(new(0, 4), robotAction3.PathToDropoff.Path[4]);
             Assert.AreEqual(new(0, 4), robotAction3.RobotDropoffEndingLocation);
+            Assert.AreEqual(2, robotAction3.DropoffPieceCount);
             Assert.IsNotNull(robotAction3.DropoffAction);
             Assert.AreEqual(2, results.Count);
 
             Assert.AreEqual(Color.Red.ToPixel<Rgb24>(), board.SortedPieces[0].TopColorGroup);
+            Assert.AreEqual(2, board.SortedDropZones[0].Count);
+            Assert.AreEqual(1, board.SortedDropZones[1].Count);
+            Assert.AreEqual(1, board.SortedDropZones[2].Count);
+            Assert.AreEqual(2, board.GetPieceCount(board.SortedDropZones[0].Location));
         }
 
     }

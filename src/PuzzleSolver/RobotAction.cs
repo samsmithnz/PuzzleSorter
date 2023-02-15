@@ -15,6 +15,7 @@ namespace PuzzleSolver
         public Vector2 RobotDropoffStartingLocation { get; set; }
         public PathFindingResult PathToDropoff { get; set; }
         public ObjectInteraction DropoffAction { get; set; }
+        public int DropoffPieceCount { get; set; }
         public Vector2 RobotDropoffEndingLocation { get; set; }
     }
 }
