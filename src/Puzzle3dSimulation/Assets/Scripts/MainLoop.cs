@@ -146,7 +146,7 @@ public class MainLoop : MonoBehaviour
         //Drop piece
         if (robotAction.PickupAction != null)
         {
-            float endingY = _Board.GetPieceCount(robotAction.DropoffAction.Location);
+            float endingY = 0.25f + (0.5f * _Board.GetPieceCount(robotAction.DropoffAction.Location)) -0.5f;
             yield return StartCoroutine(DropOffPiece(robotAction.PieceId, endingY, robotAction.DropoffAction));
         }
         _ProcessingQueueItem = false;
