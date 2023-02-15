@@ -219,11 +219,6 @@ public class MainLoop : MonoBehaviour
     {
         Debug.LogWarning("Dropping off piece " + dropOffAction.Location.ToString());
         GameObject pieceObject = GameObject.Find("piece_" + pieceId);
-        float midPointY = 2f;
-        //if (endingY > midPointY)
-        //{
-        midPointY = endingY;
-        //}
         if (pieceObject != null)
         {
             Movement movementScript = pieceObject.GetComponent<Movement>();
@@ -236,9 +231,9 @@ public class MainLoop : MonoBehaviour
             //detach piece from parent robot at y 1.25s
             new Vector3(pieceObject.transform.position.x, 1.25f, _RobotObject.transform.position.z),
             //raise piece off robot
-            new Vector3(pieceObject.transform.position.x, midPointY, _RobotObject.transform.position.z),
+            new Vector3(pieceObject.transform.position.x, endingY, _RobotObject.transform.position.z),
             //move above destination pile
-            new Vector3(pieceObject.transform.position.x, midPointY, pieceObject.transform.position.z),
+            new Vector3(pieceObject.transform.position.x, endingY, pieceObject.transform.position.z),
             //drop to ground
             new Vector3(pieceObject.transform.position.x, endingY, pieceObject.transform.position.z)
         };
