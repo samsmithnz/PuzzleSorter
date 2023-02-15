@@ -98,19 +98,6 @@ namespace PuzzleSolver
                     }
                 }
 
-                //Move the piece from the robot to the sorted pile
-                Robot.Piece.Location = robotAction.DropoffAction.Location;
-                SortedPieces.Add(Robot.Piece);
-                foreach (SortedDropZone sortedDropZone in SortedDropZones)
-                {
-                    if (sortedDropZone.Location == robotAction.DropoffAction.Location)
-                    {
-                        sortedDropZone.Count++;
-                        break;
-                    }
-                }
-                Robot.Piece = null;
-
                 // Move the sorted piece to the correct pile
                 robotAction.RobotDropoffStartingLocation = currentRobotLocation;
                 if (destinationLocation != null)
@@ -124,6 +111,18 @@ namespace PuzzleSolver
                         {
                             Location = (Vector2)destinationLocation
                         };
+                        //Move the piece from the robot to the sorted pile
+                        Robot.Piece.Location = robotAction.DropoffAction.Location;
+                        SortedPieces.Add(Robot.Piece);
+                        foreach (SortedDropZone sortedDropZone in SortedDropZones)
+                        {
+                            if (sortedDropZone.Location == robotAction.DropoffAction.Location)
+                            {
+                                sortedDropZone.Count++;
+                                break;
+                            }
+                        }
+                        Robot.Piece = null;
                         robotAction.DropoffPieceCount = GetPieceCount((Vector2)destinationLocation);
                         currentRobotLocation = pathFindingResultForDropoff.Path.Last();
                     }
