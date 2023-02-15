@@ -125,6 +125,10 @@ public class MainLoop : MonoBehaviour
         if (robotAction.PickupAction != null)
         {
             float startingY = GameObject.Find("piece_" + robotAction.PieceId).transform.position.y;
+            if (startingY < 1.25f)
+            {
+                startingY = 1.25f;
+            }
             yield return StartCoroutine(PickUpPiece(robotAction.PieceId, startingY, robotAction.PickupAction));
         }
 
@@ -202,7 +206,7 @@ public class MainLoop : MonoBehaviour
     private IEnumerator DropOffPiece(int pieceId, ObjectInteraction dropOffAction)
     {
         Debug.LogWarning("Dropping off piece " + dropOffAction.Location.ToString());
-         GameObject pieceObject = GameObject.Find("piece_" + pieceId);
+        GameObject pieceObject = GameObject.Find("piece_" + pieceId);
 
         if (pieceObject != null)
         {
