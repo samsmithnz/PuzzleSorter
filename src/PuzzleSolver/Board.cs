@@ -97,11 +97,19 @@ namespace PuzzleSolver
                         destinationLocation = sortedDropZone.Location;
                     }
                 }
-                ////Check that nothing went wrong
-                //if (destinationLocation == null)
-                //{
-                //    Debug.WriteLine("Destination location is null");
-                //}
+
+                //Move the piece from the robot to the sorted pile
+                Robot.Piece.Location = robotAction.DropoffAction.Location;
+                SortedPieces.Add(Robot.Piece);
+                foreach (SortedDropZone sortedDropZone in SortedDropZones)
+                {
+                    if (sortedDropZone.Location == robotAction.DropoffAction.Location)
+                    {
+                        sortedDropZone.Count++;
+                        break;
+                    }
+                }
+                Robot.Piece = null;
 
                 // Move the sorted piece to the correct pile
                 robotAction.RobotDropoffStartingLocation = currentRobotLocation;
@@ -121,19 +129,6 @@ namespace PuzzleSolver
                     }
                 }
                 robotAction.RobotDropoffEndingLocation = currentRobotLocation;
-
-                //Move the piece from the robot to the sorted pile
-                Robot.Piece.Location = robotAction.DropoffAction.Location;
-                SortedPieces.Add(Robot.Piece);
-                foreach (SortedDropZone sortedDropZone in SortedDropZones)
-                {
-                    if (sortedDropZone.Location == robotAction.DropoffAction.Location)
-                    {
-                        sortedDropZone.Count++;
-                        break;
-                    }
-                }
-                Robot.Piece = null;
 
                 // Add to queue
                 results.Enqueue(robotAction);
