@@ -46,6 +46,11 @@ public class MainLoop : MonoBehaviour
                         Id = 4,
                         Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>()),
                         Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 5,
+                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
                     }
             },
             new()
