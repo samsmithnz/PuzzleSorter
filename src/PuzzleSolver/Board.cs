@@ -123,7 +123,7 @@ namespace PuzzleSolver
                             }
                         }
                         Robot.Piece = null;
-                        robotAction.DropoffPieceCount = GetPieceCount((Vector2)destinationLocation);
+                        robotAction.DropoffPieceCount = GetPieceCount(robotAction.DropoffAction.Location);
                         currentRobotLocation = pathFindingResultForDropoff.Path.Last();
                     }
                 }
