@@ -126,7 +126,7 @@ namespace PuzzleSolver
                 SortedPieces.Add(Robot.Piece);
                 foreach (SortedDropZone sortedDropZone in SortedDropZones)
                 {
-                    if (sortedDropZone.Location = = robotAction.DropoffAction.Location)
+                    if (sortedDropZone.Location == robotAction.DropoffAction.Location)
                     {
                         sortedDropZone.Count++;
                         break;
