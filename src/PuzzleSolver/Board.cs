@@ -124,6 +124,14 @@ namespace PuzzleSolver
                 //Move the piece from the robot to the sorted pile
                 Robot.Piece.Location = robotAction.DropoffAction.Location;
                 SortedPieces.Add(Robot.Piece);
+                foreach (SortedDropZone sortedDropZone in SortedDropZones)
+                {
+                    if (sortedDropZone.Location = = robotAction.DropoffAction.Location)
+                    {
+                        sortedDropZone.Count++;
+                        break;
+                    }
+                }
                 Robot.Piece = null;
 
                 // Add to queue
