@@ -157,8 +157,6 @@ public class MainLoop : MonoBehaviour
         yield return null;
     }
 
-
-
     private IEnumerator MoveToLocation(GameObject robotObject, System.Numerics.Vector2 startLocation, PathFindingResult path)
     {
         if (path != null && path.GetLastTile() != null)
