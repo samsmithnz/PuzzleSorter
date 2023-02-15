@@ -212,10 +212,10 @@ public class MainLoop : MonoBehaviour
         Debug.LogWarning("Dropping off piece " + dropOffAction.Location.ToString());
         GameObject pieceObject = GameObject.Find("piece_" + pieceId);
         float midPointY = 2f;
-        if (endingY > midPointY)
-        {
+        //if (endingY > midPointY)
+        //{
             midPointY = endingY;
-        }
+        //}
         if (pieceObject != null)
         {
             Movement movementScript = pieceObject.GetComponent<Movement>();
