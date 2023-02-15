@@ -185,6 +185,10 @@ public class MainLoop : MonoBehaviour
     {
         Debug.LogWarning("Picking up piece " + pickupAction.Location.ToString());
         GameObject pieceObject = GameObject.Find("piece_" + pieceId);
+        if (startingY < 1.25f)
+        {
+            startingY = 1.25f;
+        }
 
         if (pieceObject != null)
         {
@@ -198,9 +202,9 @@ public class MainLoop : MonoBehaviour
                 //Start
                 pieceObject.transform.position,
                 //Move up, above pile
-                new Vector3(pieceObject.transform.position.x, 1.25f, pieceObject.transform.position.z),
+                new Vector3(pieceObject.transform.position.x, startingY, pieceObject.transform.position.z),
                 //Move over, above robot
-                new Vector3(pieceObject.transform.position.x, 1.25f, _RobotObject.transform.position.z),
+                new Vector3(pieceObject.transform.position.x, startingY, _RobotObject.transform.position.z),
                 //Drop piece on robot, and attach to parent robot at y 1.25s
                 new Vector3(pieceObject.transform.position.x, 1.25f, _RobotObject.transform.position.z)
             };
