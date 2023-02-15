@@ -126,9 +126,9 @@ public class MainLoop : MonoBehaviour
         if (robotAction.PickupAction != null)
         {
             float startingY = GameObject.Find("piece_" + robotAction.PieceId).transform.position.y;
-            if (startingY < 1.25f)
+            if (startingY < 0.25f)
             {
-                startingY = 1.25f;
+                startingY = 0.25f;
             }
             yield return StartCoroutine(PickUpPiece(robotAction.PieceId, startingY, robotAction.PickupAction));
         }
@@ -147,7 +147,7 @@ public class MainLoop : MonoBehaviour
         if (robotAction.PickupAction != null)
         {
             float endingY = _Board.GetPieceCount(robotAction.DropoffAction.Location);
-            yield return StartCoroutine(DropOffPiece(robotAction.PieceId, robotAction.DropoffAction));
+            yield return StartCoroutine(DropOffPiece(robotAction.PieceId, endingY, robotAction.DropoffAction));
         }
         _ProcessingQueueItem = false;
         yield return null;
@@ -207,14 +207,17 @@ public class MainLoop : MonoBehaviour
         }
     }
 
-    private IEnumerator DropOffPiece(int pieceId, ObjectInteraction dropOffAction)
+    private IEnumerator DropOffPiece(int pieceId, float endingY, ObjectInteraction dropOffAction)
     {
         Debug.LogWarning("Dropping off piece " + dropOffAction.Location.ToString());
         GameObject pieceObject = GameObject.Find("piece_" + pieceId);
-
+        float midPointY = 2f;
+        if (endingY > midPointY)
+        {
+            midPointY = endingY;
+        }
         if (pieceObject != null)
         {
-            //objects carried at at y 1.25s
             Movement movementScript = pieceObject.GetComponent<Movement>();
             if (movementScript == null)
             {
@@ -222,14 +225,14 @@ public class MainLoop : MonoBehaviour
             }
             List<Vector3> path = new()
         {
-            //detach piece from parent
+            //detach piece from parent robot at y 1.25s
             new Vector3(pieceObject.transform.position.x, 1.25f, _RobotObject.transform.position.z),
             //raise piece off robot
-            new Vector3(pieceObject.transform.position.x, 2f, _RobotObject.transform.position.z),
+            new Vector3(pieceObject.transform.position.x, midPointY, _RobotObject.transform.position.z),
             //move above destination pile
-            new Vector3(pieceObject.transform.position.x, 2f, pieceObject.transform.position.z),
+            new Vector3(pieceObject.transform.position.x, midPointY, pieceObject.transform.position.z),
             //drop to ground
-            new Vector3(pieceObject.transform.position.x, 0.25f, pieceObject.transform.position.z)
+            new Vector3(pieceObject.transform.position.x, endingY, pieceObject.transform.position.z)
         };
             yield return StartCoroutine(movementScript.MovePiece(pieceObject, path, null));
         }
