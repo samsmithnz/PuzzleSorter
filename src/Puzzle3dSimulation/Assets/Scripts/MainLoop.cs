@@ -146,7 +146,7 @@ public class MainLoop : MonoBehaviour
         //Drop piece
         if (robotAction.PickupAction != null)
         {
-            float endingY = 0.25f + (0.5f * _Board.GetPieceCount(robotAction.DropoffAction.Location)) -0.5f;
+            float endingY = 0.25f + (0.5f * robotAction.DropoffPieceCount) -0.5f;
             yield return StartCoroutine(DropOffPiece(robotAction.PieceId, endingY, robotAction.DropoffAction));
         }
         _ProcessingQueueItem = false;
@@ -195,7 +195,7 @@ public class MainLoop : MonoBehaviour
             //Move up, above pile
             new Vector3(pieceObject.transform.position.x, startingY, pieceObject.transform.position.z),
             //Move over, above robot
-            new Vector3(pieceObject.transform.position.x, startingY, _RobotObject.transform.position.z),
+            new Vector3(pieceObject.transform.position.x, 1.25f, _RobotObject.transform.position.z),
             //Drop piece on robot, and attach to parent robot at y 1.25s
             new Vector3(pieceObject.transform.position.x, 1.25f, _RobotObject.transform.position.z)
         };
