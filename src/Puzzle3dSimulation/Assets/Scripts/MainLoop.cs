@@ -124,7 +124,8 @@ public class MainLoop : MonoBehaviour
         //Pickup piece
         if (robotAction.PickupAction != null)
         {
-            yield return StartCoroutine(PickUpPiece(robotAction.PieceId, robotAction.PickupAction));
+            float startingY = GameObject.Find("piece_" + robotAction.PieceId).transform.position.y;
+            yield return StartCoroutine(PickUpPiece(robotAction.PieceId, startingY, robotAction.PickupAction));
         }
 
         //Move to drop off zone
@@ -167,14 +168,13 @@ public class MainLoop : MonoBehaviour
         }
     }
 
-    private IEnumerator PickUpPiece(int pieceId, ObjectInteraction pickupAction)
+    private IEnumerator PickUpPiece(int pieceId, float startingY, ObjectInteraction pickupAction)
     {
         Debug.LogWarning("Picking up piece " + pickupAction.Location.ToString());
         GameObject pieceObject = GameObject.Find("piece_" + pieceId);
 
         if (pieceObject != null)
         {
-            //objects carried at at y 1.25s
             Movement movementScript = pieceObject.GetComponent<Movement>();
             if (movementScript == null)
             {
@@ -185,10 +185,10 @@ public class MainLoop : MonoBehaviour
             //Start
             pieceObject.transform.position,
             //Move up, above pile
-            new Vector3(pieceObject.transform.position.x, 2f, pieceObject.transform.position.z),
+            new Vector3(pieceObject.transform.position.x, startingY, pieceObject.transform.position.z),
             //Move over, above robot
-            new Vector3(pieceObject.transform.position.x, 2f, _RobotObject.transform.position.z),
-            //Drop piece on robot, and attach to parent
+            new Vector3(pieceObject.transform.position.x, startingY, _RobotObject.transform.position.z),
+            //Drop piece on robot, and attach to parent robot at y 1.25s
             new Vector3(pieceObject.transform.position.x, 1.25f, _RobotObject.transform.position.z)
         };
             yield return StartCoroutine(movementScript.MovePiece(pieceObject, path, _RobotObject.transform));
