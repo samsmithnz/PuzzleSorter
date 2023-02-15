@@ -146,7 +146,7 @@ public class MainLoop : MonoBehaviour
         //Drop piece
         if (robotAction.PickupAction != null)
         {
-            float endingY = 0.25f + (0.5f * robotAction.DropoffPieceCount) -0.5f;
+            float endingY = 0.25f + (0.5f * robotAction.DropoffPieceCount) - 0.5f;
             yield return StartCoroutine(DropOffPiece(robotAction.PieceId, endingY, robotAction.DropoffAction));
         }
         _ProcessingQueueItem = false;
@@ -189,16 +189,16 @@ public class MainLoop : MonoBehaviour
                 movementScript = pieceObject.AddComponent<Movement>();
             }
             List<Vector3> path = new()
-        {
-            //Start
-            pieceObject.transform.position,
-            //Move up, above pile
-            new Vector3(pieceObject.transform.position.x, 1.25f, pieceObject.transform.position.z),
-            //Move over, above robot
-            new Vector3(pieceObject.transform.position.x, 1.25f, _RobotObject.transform.position.z),
-            //Drop piece on robot, and attach to parent robot at y 1.25s
-            new Vector3(pieceObject.transform.position.x, 1.25f, _RobotObject.transform.position.z)
-        };
+            {
+                //Start
+                pieceObject.transform.position,
+                //Move up, above pile
+                new Vector3(pieceObject.transform.position.x, 1.25f, pieceObject.transform.position.z),
+                //Move over, above robot
+                new Vector3(pieceObject.transform.position.x, 1.25f, _RobotObject.transform.position.z),
+                //Drop piece on robot, and attach to parent robot at y 1.25s
+                new Vector3(pieceObject.transform.position.x, 1.25f, _RobotObject.transform.position.z)
+            };
             yield return StartCoroutine(movementScript.MovePiece(pieceObject, path, _RobotObject.transform));
         }
         else
@@ -214,7 +214,7 @@ public class MainLoop : MonoBehaviour
         float midPointY = 2f;
         //if (endingY > midPointY)
         //{
-            midPointY = endingY;
+        midPointY = endingY;
         //}
         if (pieceObject != null)
         {
