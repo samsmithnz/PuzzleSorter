@@ -11,7 +11,7 @@ using UnityEngine;
 public class MainLoop : MonoBehaviour
 {
 
-    public Material CartoonMaterial;
+    public Material PieceMaterial;
 
     private readonly bool _ShowCoordOnFloor = true;
     private readonly bool _ShowLinesOnFloor = true;
@@ -118,7 +118,7 @@ public class MainLoop : MonoBehaviour
             {
                 Color newColor = Utility.ConvertToUnityColor((Rgb24)piece.TopColorGroup);
                 Debug.LogWarning("Piece " + i + " color: " + newColor.ToString());
-                pieceObject.GetComponent<Renderer>().material = CartoonMaterial;
+                pieceObject.GetComponent<Renderer>().material = PieceMaterial;
                 pieceObject.GetComponent<Renderer>().material.color = newColor;
                 Debug.LogWarning("Piece " + i + " color: " + pieceObject.GetComponent<Renderer>().material.color);
             }
