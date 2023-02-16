@@ -251,7 +251,7 @@ namespace Assets.Scripts.Common
 
         public static Color ConvertToUnityColor(Rgb24 color)
         {
-            return new Color(color.R, color.G, color.B);
+            return new Color(color.R / 255f, color.G / 255f, color.B / 255f);
         }
 
     }
