@@ -92,7 +92,7 @@ namespace PuzzleSolver.Tests
                     },
                     new Piece() {
                         Id = 4,
-                        Image = ImageCropping.CreateImage(Color.Green.ToPixel<Rgb24>()),
+                        Image = ImageCropping.CreateImage(Color.Yellow.ToPixel<Rgb24>()),
                         Location = new(2, 2)
                     }
                 },
