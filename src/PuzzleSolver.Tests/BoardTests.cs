@@ -192,7 +192,7 @@ namespace PuzzleSolver.Tests
         {
             //Arrange
             Board board = new(MapGeneration.GenerateMap(),
-                new System.Numerics.Vector2(2, 2),
+                new Vector2(2, 2),
                 ColorPalettes.Get6ColorPalette(),
                 new List<Piece>() {
                     new Piece() {
@@ -255,7 +255,7 @@ namespace PuzzleSolver.Tests
                 new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(), new(4, 4)),
                 new SortedDropZone(Color.Orange.ToPixel<Rgb24>(),new(4, 2)),
              },
-          new Robot(new System.Numerics.Vector2(2, 1)));
+          new Robot(new Vector2(2, 1)));
 
             //Act
             Queue<RobotAction> results = board.RunRobot();
