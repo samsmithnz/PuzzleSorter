@@ -68,7 +68,7 @@ namespace PuzzleSolver.Tests
         }
 
         [TestMethod]
-        public void BoardRunTest()
+        public void Board3ColorsRunTest()
         {
             //Arrange
             Board board = new(MapGeneration.GenerateMap(),
