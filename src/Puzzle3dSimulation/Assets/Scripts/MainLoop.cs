@@ -116,10 +116,8 @@ public class MainLoop : MonoBehaviour
             pieceObject.name = "piece_" + i.ToString();
             if (piece != null && piece.TopColorGroup != null)
             {
-                Color newColor = Utility.ConvertToUnityColor((Rgb24)piece.TopColorGroup);
-                Debug.LogWarning("Piece " + i + " color: " + newColor.ToString());
                 pieceObject.GetComponent<Renderer>().material = PieceMaterial;
-                pieceObject.GetComponent<Renderer>().material.color = newColor;
+                pieceObject.GetComponent<Renderer>().material.color = Utility.ConvertToUnityColor((Rgb24)piece.TopColorGroup);
                 Debug.LogWarning("Piece " + i + " color: " + pieceObject.GetComponent<Renderer>().material.color);
             }
             y -= _PieceHeight;
@@ -141,7 +139,6 @@ public class MainLoop : MonoBehaviour
             _ProcessingQueueItem = true;
             //Get and process a robot action from the queue
             StartCoroutine(ProcessQueueItem(_RobotActions.Dequeue()));
-
         }
     }
 
