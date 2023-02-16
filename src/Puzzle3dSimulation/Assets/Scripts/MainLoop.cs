@@ -17,6 +17,9 @@ public class MainLoop : MonoBehaviour
     private GameObject _RobotObject = null;
     private bool _ProcessingQueueItem = false;
     private int _ActionCount = 0;
+    private float _PieceWidth = 0.5f;
+    private float _PieceHeight = 0.25f;
+    private float _PieceDepth = 0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +27,7 @@ public class MainLoop : MonoBehaviour
         //Setup board
         Board board = new(MapGeneration.GenerateMap(),
             new System.Numerics.Vector2(2, 2),
-            ColorPalettes.Get3ColorPalette(),
+            ColorPalettes.Get6ColorPalette(),
             new List<Piece>() {
                     new Piece() {
                         Id = 1,
@@ -43,21 +46,48 @@ public class MainLoop : MonoBehaviour
                     },
                     new Piece() {
                         Id = 4,
-                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>()),
+                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Lime.ToPixel<Rgb24>()),
                         Location = new(2, 2)
                     },
                     new Piece() {
                         Id = 5,
                         Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
                         Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 6,
+                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Purple.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 7,
+                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 8,
+                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 9,
+                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Yellow.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
+                    },
+                    new Piece() {
+                        Id = 10,
+                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Orange.ToPixel<Rgb24>()),
+                        Location = new(2, 2)
                     }
             },
             new()
             {
                 new SortedDropZone(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>(), new(0, 4)),
+                new SortedDropZone(SixLabors.ImageSharp.Color.Purple.ToPixel<Rgb24>(), new(0, 2)),
                 new SortedDropZone(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>(), new(4, 0)),
+                new SortedDropZone(SixLabors.ImageSharp.Color.Lime.ToPixel<Rgb24>(), new(2, 4)),
                 new SortedDropZone(SixLabors.ImageSharp.Color.Yellow.ToPixel<Rgb24>(), new(4, 4)),
-                //new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
+                new SortedDropZone(SixLabors.ImageSharp.Color.Orange.ToPixel<Rgb24>(),new(4, 2)),
             },
             new Robot(new System.Numerics.Vector2(2, 1)));
 
@@ -71,7 +101,7 @@ public class MainLoop : MonoBehaviour
         _RobotActions = board.RunRobot();
 
         //Add unsorted pieces
-        float y = 0.25f + (0.5f * unsortedList.Length) - 0.5f; //Add the pieces in reverse, so the first item in the queue is also the top of the stack
+        float y = (_PieceHeight / 2f) + (_PieceHeight * unsortedList.Length) - _PieceHeight; //Add the pieces in reverse, so the first item in the queue is also the top of the stack
         int i = 0;
         Debug.LogWarning("There are " + unsortedList.Count().ToString() + " unsorted pieces to process");
         foreach (Piece piece in unsortedList)
@@ -80,7 +110,7 @@ public class MainLoop : MonoBehaviour
             //Debug.LogWarning("Adding piece " + piece.Id);
             GameObject pieceObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
             pieceObject.transform.position = new Vector3(2f, y, 2f);
-            pieceObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            pieceObject.transform.localScale = new Vector3(_PieceWidth, _PieceHeight, _PieceDepth);
             pieceObject.name = "piece_" + i.ToString();
             if (piece != null && piece.TopColorGroup != null)
             {
@@ -88,7 +118,7 @@ public class MainLoop : MonoBehaviour
                 //Debug.LogWarning("Color" + newColor.ToString());
                 pieceObject.GetComponent<Renderer>().material.color = newColor;
             }
-            y -= 0.5f;
+            y -= _PieceHeight;
         }
 
         //Add the robot
@@ -130,9 +160,9 @@ public class MainLoop : MonoBehaviour
         if (robotAction.PickupAction != null)
         {
             float startingY = GameObject.Find("piece_" + robotAction.PieceId).transform.position.y;
-            if (startingY < 0.25f)
+            if (startingY < _PieceHeight / 2f)
             {
-                startingY = 0.25f;
+                startingY = _PieceHeight / 2f;
             }
             yield return StartCoroutine(PickUpPiece(robotAction.PieceId, startingY, robotAction.PickupAction));
         }
@@ -150,7 +180,7 @@ public class MainLoop : MonoBehaviour
         //Drop piece
         if (robotAction.PickupAction != null)
         {
-            float endingY = 0.25f + (0.5f * robotAction.DropoffPieceCount) - 0.5f;
+            float endingY = (_PieceHeight / 2f) + (_PieceHeight * robotAction.DropoffPieceCount) - _PieceHeight;
             yield return StartCoroutine(DropOffPiece(robotAction.PieceId, endingY, robotAction.DropoffAction));
         }
         _ProcessingQueueItem = false;
