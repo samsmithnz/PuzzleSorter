@@ -263,10 +263,10 @@ namespace PuzzleSolver.Tests
             //Assert           
             Assert.IsNotNull(board);
             Assert.AreEqual(0, board.UnsortedPieces.Count);
-            Assert.AreEqual(4, board.SortedPieces.Count);
+            Assert.AreEqual(9, board.SortedPieces.Count);
             Assert.IsTrue(board.UnsortedPieces.Count == 0);
             Assert.IsNotNull(results);
-            Assert.AreEqual(5, results.Count);
+            Assert.AreEqual(11, results.Count);
 
             //Complete the first action
             RobotAction robotAction1 = results.Dequeue();
@@ -285,7 +285,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(1, robotAction1.DropoffPieceCount);
             Assert.IsNotNull(robotAction1.DropoffAction);
             Assert.AreEqual(new(0, 4), board.SortedPieces[0].Location);
-            Assert.AreEqual(4, results.Count);
+            Assert.AreEqual(10, results.Count);
 
             //Complete the second action
             RobotAction robotAction2 = results.Dequeue();
@@ -307,7 +307,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new(4, 0), robotAction2.RobotDropoffEndingLocation);
             Assert.AreEqual(1, robotAction2.DropoffPieceCount);
             Assert.IsNotNull(robotAction2.DropoffAction);
-            Assert.AreEqual(3, results.Count);
+            Assert.AreEqual(9, results.Count);
 
             //Complete the third action
             RobotAction robotAction3 = results.Dequeue();
@@ -330,13 +330,13 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new(0, 4), robotAction3.RobotDropoffEndingLocation);
             Assert.AreEqual(2, robotAction3.DropoffPieceCount);
             Assert.IsNotNull(robotAction3.DropoffAction);
-            Assert.AreEqual(2, results.Count);
+            Assert.AreEqual(8, results.Count);
 
             Assert.AreEqual(Color.Red.ToPixel<Rgb24>(), board.SortedPieces[0].TopColorGroup);
-            Assert.AreEqual(2, board.SortedDropZones[0].Count);
+            Assert.AreEqual(4, board.SortedDropZones[0].Count);
             Assert.AreEqual(1, board.SortedDropZones[1].Count);
-            Assert.AreEqual(1, board.SortedDropZones[2].Count);
-            Assert.AreEqual(2, board.GetPieceCount(board.SortedDropZones[0].Location));
+            Assert.AreEqual(2, board.SortedDropZones[2].Count);
+            Assert.AreEqual(4, board.GetPieceCount(board.SortedDropZones[0].Location));
         }
 
     }
