@@ -212,7 +212,7 @@ namespace PuzzleSolver.Tests
                     },
                     new Piece() {
                         Id = 4,
-                        Image = ImageCropping.CreateImage(Color.Lime.ToPixel<Rgb24>()),
+                        Image = ImageCropping.CreateImage(Color.Green.ToPixel<Rgb24>()),
                         Location = new(2, 2)
                     },
                     new Piece() {
@@ -251,7 +251,7 @@ namespace PuzzleSolver.Tests
                 new SortedDropZone(Color.Red.ToPixel<Rgb24>(), new(0, 4)),
                 new SortedDropZone(Color.Purple.ToPixel<Rgb24>(), new(0, 2)),
                 new SortedDropZone(Color.Blue.ToPixel<Rgb24>(), new(4, 0)),
-                new SortedDropZone(Color.Lime.ToPixel<Rgb24>(), new(2, 4)),
+                new SortedDropZone(Color.Green.ToPixel<Rgb24>(), new(2, 4)),
                 new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(), new(4, 4)),
                 new SortedDropZone(Color.Orange.ToPixel<Rgb24>(),new(4, 2)),
              },
@@ -263,7 +263,7 @@ namespace PuzzleSolver.Tests
             //Assert           
             Assert.IsNotNull(board);
             Assert.AreEqual(0, board.UnsortedPieces.Count);
-            Assert.AreEqual(9, board.SortedPieces.Count);
+            Assert.AreEqual(10, board.SortedPieces.Count);
             Assert.IsTrue(board.UnsortedPieces.Count == 0);
             Assert.IsNotNull(results);
             Assert.AreEqual(11, results.Count);
@@ -351,15 +351,15 @@ namespace PuzzleSolver.Tests
             //Assert.AreEqual(new(0, 3), robotAction4.PathToDropoff.Path[3]);
             //Assert.AreEqual(new(0, 4), robotAction4.PathToDropoff.Path[4]);
             //Assert.AreEqual(new(0, 4), robotAction4.RobotDropoffEndingLocation);
-            Assert.AreEqual(2, robotAction4.DropoffPieceCount);
+            Assert.AreEqual(1, robotAction4.DropoffPieceCount);
             Assert.IsNotNull(robotAction4.DropoffAction);
-            Assert.AreEqual(8, results.Count);
+            Assert.AreEqual(7, results.Count);
 
             Assert.AreEqual(Color.Red.ToPixel<Rgb24>(), board.SortedPieces[0].TopColorGroup);
             Assert.AreEqual(4, board.SortedDropZones[0].Count);
             Assert.AreEqual(1, board.SortedDropZones[1].Count);
             Assert.AreEqual(2, board.SortedDropZones[2].Count);
-            Assert.AreEqual(0, board.SortedDropZones[3].Count);
+            Assert.AreEqual(1, board.SortedDropZones[3].Count);
             Assert.AreEqual(1, board.SortedDropZones[4].Count);
             Assert.AreEqual(1, board.SortedDropZones[5].Count);
             Assert.AreEqual(4, board.GetPieceCount(board.SortedDropZones[0].Location));
