@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca3c15b72be3dfc4593ab17fd32f6ef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CartoonMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  PieceMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!4 &363201918
 Transform:
   m_ObjectHideFlags: 0
