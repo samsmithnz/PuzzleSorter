@@ -46,7 +46,7 @@ public class MainLoop : MonoBehaviour
                     },
                     new Piece() {
                         Id = 4,
-                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Lime.ToPixel<Rgb24>()),
+                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>()),
                         Location = new(2, 2)
                     },
                     new Piece() {
@@ -85,7 +85,7 @@ public class MainLoop : MonoBehaviour
                 new SortedDropZone(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>(), new(0, 4)),
                 new SortedDropZone(SixLabors.ImageSharp.Color.Purple.ToPixel<Rgb24>(), new(0, 2)),
                 new SortedDropZone(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>(), new(4, 0)),
-                new SortedDropZone(SixLabors.ImageSharp.Color.Lime.ToPixel<Rgb24>(), new(2, 4)),
+                new SortedDropZone(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>(), new(2, 4)),
                 new SortedDropZone(SixLabors.ImageSharp.Color.Yellow.ToPixel<Rgb24>(), new(4, 4)),
                 new SortedDropZone(SixLabors.ImageSharp.Color.Orange.ToPixel<Rgb24>(),new(4, 2)),
             },
