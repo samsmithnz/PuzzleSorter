@@ -115,7 +115,7 @@ public class MainLoop : MonoBehaviour
             if (piece != null && piece.TopColorGroup != null)
             {
                 Color newColor = Utility.ConvertToUnityColor((Rgb24)piece.TopColorGroup);
-                //Debug.LogWarning("Color" + newColor.ToString());
+                Debug.LogWarning("Piece " + i + " color: " + newColor.ToString());
                 pieceObject.GetComponent<Renderer>().material.color = newColor;
             }
             y -= _PieceHeight;
