@@ -251,6 +251,7 @@ namespace Assets.Scripts.Common
 
         public static Color ConvertToUnityColor(Rgb24 color)
         {
+            //this is subtle - but Color() stores colors from 0-1, so we need to convert 0-255 -> 0-1
             return new Color(color.R / 255f, color.G / 255f, color.B / 255f);
         }
 
