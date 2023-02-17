@@ -128,8 +128,8 @@ public class MainLoop : MonoBehaviour
             GameObject pieceObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
             pieceObject.transform.position = new Vector3(2f, y, 2f);
             pieceObject.transform.localScale = new Vector3(_PieceWidth, _PieceHeight, _PieceDepth);
-            Vector3 rotation = pieceObject.transform.rotation.eulerAngles;
-            pieceObject.transform.rotation = Quaternion.Euler(new Vector3(rotation.x, 180, rotation.z));
+            //Vector3 rotation = pieceObject.transform.rotation.eulerAngles;
+            //pieceObject.transform.rotation = Quaternion.Euler(new Vector3(rotation.x, 180, rotation.z));
             pieceObject.name = "piece_" + i.ToString();
             if (piece != null && piece.TopColorGroup != null)
             {
