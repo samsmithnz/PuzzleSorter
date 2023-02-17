@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
+using static UnityEditor.Recorder.OutputPath;
 
 public class MainLoop : MonoBehaviour
 {
@@ -130,10 +132,12 @@ public class MainLoop : MonoBehaviour
                 //Debug.LogWarning("Piece " + i + " color: " + pieceObject.GetComponent<Renderer>().material.color);
             }
             GameObject pieceImageObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            pieceImageObject.transform.rotation = new Quaternion(0.25f, 0, 0, 0);
+            Vector3 rotation = pieceImageObject.transform.rotation.eulerAngles;
+            pieceImageObject.transform.rotation = Quaternion.Euler(new Vector3(rotation.x + 180, rotation.y, rotation.z));
             Texture texture = Image2Texture(piece.Image);
             Material material = new Material(Shader.Find("Standard"));
-            material.SetTexture("Piece_" + i.ToString() + "_Texture", texture);
+            //material.SetTexture("Piece_" + i.ToString() + "_Texture", texture);
+            material.mainTexture = texture;
             Renderer renderer = pieceImageObject.GetComponent<Renderer>();
             renderer.material = material;
             pieceImageObject.transform.parent = pieceObject.transform;
