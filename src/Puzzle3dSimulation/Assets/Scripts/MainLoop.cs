@@ -352,7 +352,7 @@ public class MainLoop : MonoBehaviour
         List<ImageStats> subImages = new();
         foreach (Image<Rgb24> image in images)
         {
-            ImageStats? subitemImageStats = imageProcessing.ProcessStatsForImage(null, image, true);
+            ImageStats subitemImageStats = imageProcessing.ProcessStatsForImage(null, image, true);
             if (subitemImageStats != null)
             {
                 subImages.Add(subitemImageStats);
