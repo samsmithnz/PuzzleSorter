@@ -129,6 +129,16 @@ public class MainLoop : MonoBehaviour
                 pieceObject.GetComponent<Renderer>().material.color = Utility.ConvertToUnityColor((Rgb24)piece.TopColorGroup);
                 //Debug.LogWarning("Piece " + i + " color: " + pieceObject.GetComponent<Renderer>().material.color);
             }
+            GameObject pieceImageObject = new GameObject();
+            pieceImageObject.transform.rotation = new Quaternion(0.25f, 0, 0, 0);
+            Texture texture = Image2Texture(piece.Image);
+            Material material = new Material(Shader.Find("Unlit/Texture"));
+            material.SetTexture("Piece_" + i.ToString() + "_Texture", texture);
+            Renderer renderer = pieceImageObject.AddComponent<Renderer>();
+            renderer.material = material;
+            pieceImageObject.transform.parent = pieceObject.transform;
+            pieceImageObject.transform.localScale = new Vector3(1f, 0.1f, 1f);
+            pieceImageObject.transform.localPosition = new Vector3(0f, 1f, 0f);
             y -= _PieceHeight;
         }
 
@@ -389,6 +399,36 @@ public class MainLoop : MonoBehaviour
         ms = null;
 
         return (myImage);
+    }
+
+    public static Texture2D Image2Texture(SixLabors.ImageSharp.Image im)
+    {
+        //if (im == null)
+        //{
+        //    return new Texture2D(4, 4);
+        //}
+
+        //Memory stream to store the bitmap data.
+        MemoryStream ms = new MemoryStream();
+
+
+        //Save to that memory stream.
+        im.SaveAsPng(ms);
+
+        //Go to the beginning of the memory stream.
+        ms.Seek(0, SeekOrigin.Begin);
+        //make a new Texture2D
+        Texture2D tex = new Texture2D(im.Width, im.Height);
+
+        tex.LoadImage(ms.ToArray());
+        //tex.TextureType
+
+        //Close the stream.
+        ms.Close();
+        ms = null;
+
+
+        return tex;
     }
 
 }
