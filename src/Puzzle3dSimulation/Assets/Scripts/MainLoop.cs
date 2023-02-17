@@ -29,10 +29,11 @@ public class MainLoop : MonoBehaviour
         //Setup board
         string[,] map = MapGeneration.GenerateMap();
         List<Rgb24> colorPalette = ColorPalettes.Get16ColorPalette();
+        List<Piece> pieces = GetRandomPieceList(36, colorPalette);
         Board board = new(map,
             new System.Numerics.Vector2(2, 2),
             colorPalette,
-            GetRandomPieceList(36, colorPalette),
+            pieces,
             //new List<Piece>() {
             //        new Piece() {
             //            Id = 1,
