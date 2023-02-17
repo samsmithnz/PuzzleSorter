@@ -147,6 +147,7 @@ public class MainLoop : MonoBehaviour
             pieceImageObject.transform.parent = pieceObject.transform;
             pieceImageObject.transform.localScale = new Vector3(1f, 0.1f, 1f);
             pieceImageObject.transform.localPosition = new Vector3(0f, 0.6f, 0f);
+            pieceImageObject.transform.localRotation = Quaternion.Euler(new Vector3(0f, 180f, 0f));
             y -= _PieceHeight;
         }
 
