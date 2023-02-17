@@ -132,7 +132,7 @@ public class MainLoop : MonoBehaviour
             GameObject pieceImageObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
             pieceImageObject.transform.rotation = new Quaternion(0.25f, 0, 0, 0);
             Texture texture = Image2Texture(piece.Image);
-            Material material = new Material(Shader.Find("Unlit/Texture"));
+            Material material = new Material(Shader.Find("Standard"));
             material.SetTexture("Piece_" + i.ToString() + "_Texture", texture);
             Renderer renderer = pieceImageObject.GetComponent<Renderer>();
             renderer.material = material;
