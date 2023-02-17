@@ -27,10 +27,12 @@ public class MainLoop : MonoBehaviour
     void Start()
     {
         //Setup board
-        Board board = new(MapGeneration.GenerateMap(),
+        string[,] map = MapGeneration.GenerateMap();
+        List<Rgb24> colorPalette = ColorPalettes.Get16ColorPalette();
+        Board board = new(map,
             new System.Numerics.Vector2(2, 2),
-            ColorPalettes.Get6ColorPalette(),
-            GetRandomPieceList(6, ColorPalettes.Get6ColorPalette()),
+            colorPalette,
+            GetRandomPieceList(36, colorPalette),
             //new List<Piece>() {
             //        new Piece() {
             //            Id = 1,
@@ -83,15 +85,16 @@ public class MainLoop : MonoBehaviour
             //            Location = new(2, 2)
             //        }
             //},
-            new()
-            {
-                new SortedDropZone(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>(), new(0, 4)),
-                new SortedDropZone(SixLabors.ImageSharp.Color.Purple.ToPixel<Rgb24>(), new(0, 2)),
-                new SortedDropZone(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>(), new(4, 0)),
-                new SortedDropZone(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>(), new(2, 4)),
-                new SortedDropZone(SixLabors.ImageSharp.Color.Yellow.ToPixel<Rgb24>(), new(4, 4)),
-                new SortedDropZone(SixLabors.ImageSharp.Color.Orange.ToPixel<Rgb24>(),new(4, 2)),
-            },
+            GetSortedDropZones(map, colorPalette),
+            //new()
+            //{
+            //    new SortedDropZone(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>(), new(0, 4)),
+            //    new SortedDropZone(SixLabors.ImageSharp.Color.Purple.ToPixel<Rgb24>(), new(0, 2)),
+            //    new SortedDropZone(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>(), new(4, 0)),
+            //    new SortedDropZone(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>(), new(2, 4)),
+            //    new SortedDropZone(SixLabors.ImageSharp.Color.Yellow.ToPixel<Rgb24>(), new(4, 4)),
+            //    new SortedDropZone(SixLabors.ImageSharp.Color.Orange.ToPixel<Rgb24>(),new(4, 2)),
+            //},
             new Robot(new System.Numerics.Vector2(2, 1)));
 
         //Setup map
@@ -280,15 +283,41 @@ public class MainLoop : MonoBehaviour
         List<Piece> pieceList = new();
         for (int i = 0; i < count; i++)
         {
-            int random = Utility.GenerateRandomNumber(0, palette.Count - 1);
+            int random = Utility.GenerateRandomNumber(0, palette.Count);
             pieceList.Add(new Piece()
             {
-                Id = i+1,
+                Id = i + 1,
                 Image = ImageCropping.CreateImage(palette[random]),
                 Location = new(2, 2)
             });
         }
         return pieceList;
+    }
+
+    private List<SortedDropZone> GetSortedDropZones(string[,] map, List<Rgb24> palette)
+    {
+        List<SortedDropZone> sortedDropZones = new List<SortedDropZone>();
+        int width = map.GetLength(0);
+        int height = map.GetLength(1);
+        int totalBorders = (width * 2) + ((height * 2) - 4);
+
+        if (totalBorders > palette.Count)
+        {
+            Debug.LogError("The map isn't big enough to handle this palette. (Map border size of " + width + "x" + height + ", generates " + totalBorders + " border tiles, but we need " + palette.Count + " tiles)");
+        }
+        int i = 0;
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (x == 0 || y == 0 || x == width - 1 || y == height - 1)
+                {
+                    sortedDropZones.Add(new SortedDropZone(palette[i], new(x, y)));
+                    i++;
+                }
+            }
+        }
+        return sortedDropZones;
     }
 
 }
