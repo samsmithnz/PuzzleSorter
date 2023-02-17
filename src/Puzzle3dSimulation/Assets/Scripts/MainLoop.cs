@@ -31,6 +31,7 @@ public class MainLoop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         //Setup board
         string[,] map = MapGeneration.GenerateMap();
         List<Rgb24> colorPalette = ColorPalettes.Get16ColorPalette();
@@ -124,6 +125,8 @@ public class MainLoop : MonoBehaviour
             GameObject pieceObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
             pieceObject.transform.position = new Vector3(2f, y, 2f);
             pieceObject.transform.localScale = new Vector3(_PieceWidth, _PieceHeight, _PieceDepth);
+            Vector3 rotation = pieceObject.transform.rotation.eulerAngles;
+            pieceObject.transform.rotation = Quaternion.Euler(new Vector3(rotation.x, rotation.y + 180, rotation.z));
             pieceObject.name = "piece_" + i.ToString();
             if (piece != null && piece.TopColorGroup != null)
             {
@@ -132,8 +135,6 @@ public class MainLoop : MonoBehaviour
                 //Debug.LogWarning("Piece " + i + " color: " + pieceObject.GetComponent<Renderer>().material.color);
             }
             GameObject pieceImageObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            Vector3 rotation = pieceImageObject.transform.rotation.eulerAngles;
-            pieceImageObject.transform.rotation = Quaternion.Euler(new Vector3(rotation.x + 180, rotation.y, rotation.z));
             Texture texture = Image2Texture(piece.Image);
             Material material = new Material(Shader.Find("Standard"));
             //material.SetTexture("Piece_" + i.ToString() + "_Texture", texture);
