@@ -129,16 +129,16 @@ public class MainLoop : MonoBehaviour
                 pieceObject.GetComponent<Renderer>().material.color = Utility.ConvertToUnityColor((Rgb24)piece.TopColorGroup);
                 //Debug.LogWarning("Piece " + i + " color: " + pieceObject.GetComponent<Renderer>().material.color);
             }
-            GameObject pieceImageObject = new GameObject();
+            GameObject pieceImageObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
             pieceImageObject.transform.rotation = new Quaternion(0.25f, 0, 0, 0);
             Texture texture = Image2Texture(piece.Image);
             Material material = new Material(Shader.Find("Unlit/Texture"));
             material.SetTexture("Piece_" + i.ToString() + "_Texture", texture);
-            Renderer renderer = pieceImageObject.AddComponent<Renderer>();
+            Renderer renderer = pieceImageObject.GetComponent<Renderer>();
             renderer.material = material;
             pieceImageObject.transform.parent = pieceObject.transform;
             pieceImageObject.transform.localScale = new Vector3(1f, 0.1f, 1f);
-            pieceImageObject.transform.localPosition = new Vector3(0f, 1f, 0f);
+            pieceImageObject.transform.localPosition = new Vector3(0f, 0.6f, 0f);
             y -= _PieceHeight;
         }
 
