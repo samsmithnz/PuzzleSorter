@@ -118,7 +118,7 @@ public class MainLoop : MonoBehaviour
             {
                 pieceObject.GetComponent<Renderer>().material = PieceMaterial;
                 pieceObject.GetComponent<Renderer>().material.color = Utility.ConvertToUnityColor((Rgb24)piece.TopColorGroup);
-                Debug.LogWarning("Piece " + i + " color: " + pieceObject.GetComponent<Renderer>().material.color);
+                //Debug.LogWarning("Piece " + i + " color: " + pieceObject.GetComponent<Renderer>().material.color);
             }
             y -= _PieceHeight;
         }
@@ -146,7 +146,6 @@ public class MainLoop : MonoBehaviour
     {
         _ActionCount++;
         Debug.LogWarning("Action #" + _ActionCount + " processing");
-        Debug.LogWarning("Piece 10 color: " + GameObject.Find("piece_10").GetComponent<Renderer>().material.color);
 
         //Move to pickup zone
         if (robotAction.PathToPickup != null && robotAction.PathToPickup.Path.Count > 0)
