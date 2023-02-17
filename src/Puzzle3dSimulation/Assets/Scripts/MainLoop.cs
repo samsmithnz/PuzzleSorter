@@ -2,15 +2,18 @@ using Assets.Scripts.Common;
 using PuzzleSolver;
 using PuzzleSolver.Images;
 using PuzzleSolver.Map;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
 public class MainLoop : MonoBehaviour
 {
 
+    public Texture2D SourceTexture;
     public Material PieceMaterial;
 
     private readonly bool _ShowCoordOnFloor = true;
@@ -29,7 +32,8 @@ public class MainLoop : MonoBehaviour
         //Setup board
         string[,] map = MapGeneration.GenerateMap();
         List<Rgb24> colorPalette = ColorPalettes.Get16ColorPalette();
-        List<Piece> pieces = GetRandomPieceList(36, colorPalette);
+        //List<Piece> pieces = GetRandomPieceList(36, colorPalette);
+        List<Piece> pieces = GetPiecesFromImage(250, 250, colorPalette);
         Board board = new(map,
             new System.Numerics.Vector2(2, 2),
             colorPalette,
@@ -133,7 +137,7 @@ public class MainLoop : MonoBehaviour
         _RobotObject.transform.position = new Vector3(board.Robot.Location.X, 0.5f, board.Robot.Location.Y);
         _RobotObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         _RobotObject.name = "robot";
-        _RobotObject.GetComponent<Renderer>().material.color = Color.gray; //dark gray
+        _RobotObject.GetComponent<Renderer>().material.color = UnityEngine.Color.gray; //dark gray
     }
 
     // Update is called once per frame
@@ -319,6 +323,72 @@ public class MainLoop : MonoBehaviour
             }
         }
         return sortedDropZones;
+    }
+
+    private List<Piece> GetPiecesFromImage(int subImageWidth, int subImageHeight, List<Rgb24> palette)
+    {
+        List<Piece> pieceList = new();
+
+        //1. Read in input image
+        //Texture2D sourceTexture = Resources.Load<Texture2D>(@"/Images/st-john-beach.jpg");
+        ImageColorGroups imageProcessing = new(palette);
+        //ImageStats? sourceImageStats = imageProcessing.ProcessStatsForImage(sourceImageLocation, null, false);
+
+        //2. Split apart images/Crop the individual images next
+        Image<Rgb24> sourceImg = Texture2Image(SourceTexture);
+        List<Image<Rgb24>> images = ImageCropping.SplitImageIntoMultiplePieces(sourceImg, subImageWidth, subImageHeight);
+
+        //Get image stats for each individual image and combine in one list
+        List<ImageStats> subImages = new();
+        foreach (Image<Rgb24> image in images)
+        {
+            ImageStats? subitemImageStats = imageProcessing.ProcessStatsForImage(null, image, true);
+            if (subitemImageStats != null)
+            {
+                subImages.Add(subitemImageStats);
+            }
+        }
+
+        int i = 0;
+        foreach (ImageStats image in subImages)
+        {
+            i++;
+            pieceList.Add(new Piece()
+            {
+                Id = i,
+                Image = image.Image,
+                ImageStats = image,
+                Location = new System.Numerics.Vector2(2, 2)
+            });
+        }
+
+        return pieceList;
+    }
+
+    public static Image<Rgb24> Texture2Image(Texture2D texture)
+    {
+        if (texture == null)
+        {
+            return null;
+        }
+        //Save the texture to the stream.
+        byte[] bytes = texture.EncodeToPNG();
+
+        //Memory stream to store the bitmap data.
+        MemoryStream ms = new MemoryStream(bytes);
+
+        //Seek the beginning of the stream.
+        ms.Seek(0, SeekOrigin.Begin);
+
+        //Create an image from a stream.
+        //SixLabors.ImageSharp.Image bmp2 = SixLabors.ImageSharp.Image.FromStream(ms);
+        Image<Rgb24> myImage = SixLabors.ImageSharp.Image.Load<Rgb24>(ms.ToArray());
+
+        //Close the stream, we no longer need it.
+        ms.Close();
+        ms = null;
+
+        return (myImage);
     }
 
 }
