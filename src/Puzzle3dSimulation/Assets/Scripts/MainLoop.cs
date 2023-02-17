@@ -30,58 +30,59 @@ public class MainLoop : MonoBehaviour
         Board board = new(MapGeneration.GenerateMap(),
             new System.Numerics.Vector2(2, 2),
             ColorPalettes.Get6ColorPalette(),
-            new List<Piece>() {
-                    new Piece() {
-                        Id = 1,
-                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
-                    },
-                    new Piece() {
-                        Id = 2,
-                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
-                    },
-                    new Piece() {
-                        Id = 3,
-                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
-                    },
-                    new Piece() {
-                        Id = 4,
-                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
-                    },
-                    new Piece() {
-                        Id = 5,
-                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
-                    },
-                    new Piece() {
-                        Id = 6,
-                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Purple.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
-                    },
-                    new Piece() {
-                        Id = 7,
-                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
-                    },
-                    new Piece() {
-                        Id = 8,
-                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
-                    },
-                    new Piece() {
-                        Id = 9,
-                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Yellow.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
-                    },
-                    new Piece() {
-                        Id = 10,
-                        Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Orange.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
-                    }
-            },
+            GetRandomPieceList(6, ColorPalettes.Get6ColorPalette()),
+            //new List<Piece>() {
+            //        new Piece() {
+            //            Id = 1,
+            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
+            //            Location = new(2, 2)
+            //        },
+            //        new Piece() {
+            //            Id = 2,
+            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>()),
+            //            Location = new(2, 2)
+            //        },
+            //        new Piece() {
+            //            Id = 3,
+            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
+            //            Location = new(2, 2)
+            //        },
+            //        new Piece() {
+            //            Id = 4,
+            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>()),
+            //            Location = new(2, 2)
+            //        },
+            //        new Piece() {
+            //            Id = 5,
+            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
+            //            Location = new(2, 2)
+            //        },
+            //        new Piece() {
+            //            Id = 6,
+            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Purple.ToPixel<Rgb24>()),
+            //            Location = new(2, 2)
+            //        },
+            //        new Piece() {
+            //            Id = 7,
+            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>()),
+            //            Location = new(2, 2)
+            //        },
+            //        new Piece() {
+            //            Id = 8,
+            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
+            //            Location = new(2, 2)
+            //        },
+            //        new Piece() {
+            //            Id = 9,
+            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Yellow.ToPixel<Rgb24>()),
+            //            Location = new(2, 2)
+            //        },
+            //        new Piece() {
+            //            Id = 10,
+            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Orange.ToPixel<Rgb24>()),
+            //            Location = new(2, 2)
+            //        }
+            //},
             new()
             {
                 new SortedDropZone(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>(), new(0, 4)),
@@ -272,6 +273,22 @@ public class MainLoop : MonoBehaviour
         {
             Debug.LogWarning("Piece " + pieceId + " not found");
         }
+    }
+
+    private List<Piece> GetRandomPieceList(int count, List<Rgb24> palette)
+    {
+        List<Piece> pieceList = new();
+        for (int i = 0; i < count; i++)
+        {
+            int random = Utility.GenerateRandomNumber(0, palette.Count - 1);
+            pieceList.Add(new Piece()
+            {
+                Id = i+1,
+                Image = ImageCropping.CreateImage(palette[random]),
+                Location = new(2, 2)
+            });
+        }
+        return pieceList;
     }
 
 }

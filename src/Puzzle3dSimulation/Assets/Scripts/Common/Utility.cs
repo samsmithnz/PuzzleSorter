@@ -255,5 +255,19 @@ namespace Assets.Scripts.Common
             return new Color(color.R / 255f, color.G / 255f, color.B / 255f);
         }
 
+        public static int GenerateRandomNumber(int minValue, int maxValue, int? seed = null)
+        {
+            if (seed == null)
+            {
+                System.Random rand = new System.Random();
+                return rand.Next(minValue, maxValue);
+            }
+            else
+            {
+                System.Random rand = new System.Random((int)seed);
+                return rand.Next(minValue, maxValue);
+            }
+        }
+
     }
 }
