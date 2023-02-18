@@ -24,6 +24,7 @@ public class loadingbar : MonoBehaviour
 
     private IEnumerator LoadScene()
     {
+        //https://www.youtube.com/watch?v=wvXDCPLO7T0
         AsyncOperation operation = SceneManager.LoadSceneAsync(1);
         while (operation != null)
         {
