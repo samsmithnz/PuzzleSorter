@@ -9,9 +9,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEditor.Recorder.OutputPath;
-using Color = UnityEngine.Color;
 
 public class MainLoop : MonoBehaviour
 {
