@@ -11,6 +11,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEditor.Recorder.OutputPath;
+using Color = UnityEngine.Color;
 
 public class MainLoop : MonoBehaviour
 {
@@ -158,6 +159,36 @@ public class MainLoop : MonoBehaviour
         _RobotObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         _RobotObject.name = "robot";
         _RobotObject.GetComponent<Renderer>().material.color = UnityEngine.Color.gray; //dark gray
+
+        ////Add lines on puzzle map, Drawing line renderers
+        //int width = 4;
+        //int length = 3;
+        //for (int x = 0; x <= width - 1; x++)
+        //{
+        //    for (int z = 0; z <= length - 1; z++)
+        //    {
+        //        if (x == 0 && z != length - 1)
+        //        {
+        //            LineRenderer xGuideLine = newFloorObject.AddComponent<LineRenderer>();
+        //            xGuideLine.material = new Material(Shader.Find("Sprites/Default"));
+        //            xGuideLine.widthMultiplier = 0.01f;
+        //            xGuideLine.startColor = Color.gray;
+        //            xGuideLine.endColor = Color.gray;
+        //            xGuideLine.SetPosition(0, new Vector3(-0.5f, 0.01f, z + 0.5f));
+        //            xGuideLine.SetPosition(1, new Vector3(width - 0.5f, 0.01f, z + 0.5f));
+        //        }
+        //        else if (z == length - 1 && x != 0)
+        //        {
+        //            LineRenderer zGuideLine = newFloorObject.AddComponent<LineRenderer>();
+        //            zGuideLine.material = new Material(Shader.Find("Sprites/Default"));
+        //            zGuideLine.widthMultiplier = 0.01f;
+        //            zGuideLine.startColor = Color.gray;
+        //            zGuideLine.endColor = Color.gray;
+        //            zGuideLine.SetPosition(0, new Vector3(x - 0.5f, 0.01f, -0.5f));
+        //            zGuideLine.SetPosition(1, new Vector3(x - 0.5f, 0.01f, length - 0.5f));
+        //        }
+        //    }
+        //}
     }
 
     // Update is called once per frame
