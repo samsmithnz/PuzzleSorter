@@ -251,7 +251,22 @@ namespace Assets.Scripts.Common
 
         public static Color ConvertToUnityColor(Rgb24 color)
         {
-            return new Color(color.R, color.G, color.B);
+            //this is subtle - but Color() stores colors from 0-1, so we need to convert 0-255 -> 0-1
+            return new Color(color.R / 255f, color.G / 255f, color.B / 255f);
+        }
+
+        public static int GenerateRandomNumber(int minValue, int maxValue, int? seed = null)
+        {
+            if (seed == null)
+            {
+                System.Random rand = new System.Random();
+                return rand.Next(minValue, maxValue);
+            }
+            else
+            {
+                System.Random rand = new System.Random((int)seed);
+                return rand.Next(minValue, maxValue);
+            }
         }
 
     }
