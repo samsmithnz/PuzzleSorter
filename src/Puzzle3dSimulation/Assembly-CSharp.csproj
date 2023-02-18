@@ -61,6 +61,13 @@
     <Compile Include="Assets\Scripts\LevelSetup.cs" />
     <Compile Include="Assets\Scripts\Common\Utility.cs" />
     <Compile Include="Assets\Scripts\Movement.cs" />
+    <Compile Include="Assets\loadingBar\scripts\simplerotate.cs" />
+    <Compile Include="Assets\loadingBar\scripts\loadingcolorful.cs" />
+    <Compile Include="Assets\loadingBar\scripts\Loading.cs" />
+    <Compile Include="Assets\loadingBar\scripts\loadingbar.cs" />
+    <Compile Include="Assets\loadingBar\scripts\loadingtext.cs" />
+    <Compile Include="Assets\loadingBar\scripts\SimpleLoading.cs" />
+    <Compile Include="Assets\loadingBar\scripts\rotatetotate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\PuzzleSolverDependencies\PuzzleSolver.dll" />
