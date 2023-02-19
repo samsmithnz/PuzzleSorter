@@ -315,7 +315,7 @@ public class MainLoop : MonoBehaviour
             List<Vector3> path = new()
         {
             //detach piece from parent robot at y 1.25s
-            new Vector3(pieceObject.transform.position.x, 1.25f, _RobotObject.transform.position.z),
+            pieceObject.transform.position,
             //raise piece off robot
             new Vector3(pieceObject.transform.position.x, endingY, _RobotObject.transform.position.z),
             //move above destination pile
