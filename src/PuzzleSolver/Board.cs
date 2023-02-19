@@ -241,9 +241,10 @@ namespace PuzzleSolver
 
         private bool CheckLocationIsValid(Vector2 location, string[,] map, List<SortedDropZone> sortedDropZones)
         {
-            if (location.X > 0 && location.Y > 0 &&
-                location.X < map.GetUpperBound(0) &&
-                location.Y < map.GetUpperBound(1) &&
+            if (location.X >= 0 && 
+                location.Y >= 0 &&
+                location.X <= map.GetUpperBound(0) &&
+                location.Y <= map.GetUpperBound(1) &&
                 map[(int)location.X, (int)location.Y] == "" &&
                 sortedDropZones.Find(d => d.Location == location) == null)
             {
