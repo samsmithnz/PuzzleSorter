@@ -97,13 +97,21 @@ namespace PuzzleSolver
                         destinationLocation = sortedDropZone.Location;
                     }
                 }
+                
+                //Get an adjacent location to the destination
+                if (destinationLocation != null)
+                {
+                    Vector2? adjacentLocation = GetAdjacentLocation((Vector2)destinationLocation, Map, SortedDropZones);
+                    if (adjacentLocation != null)
+                    {
+                        destinationLocation = (Vector2)adjacentLocation;
+                    }
+                }
 
                 // Move the sorted piece to the correct pile
                 robotAction.RobotDropoffStartingLocation = currentRobotLocation;
                 if (destinationLocation != null)
                 {
-                    //Get an adjacent tile to the destination
-                    destinationLocation = GetAdjacentTile(destinationLocation, map);
 
                     //now find the path
                     PathFindingResult pathFindingResultForDropoff = PathFinding.FindPath(Map, currentRobotLocation, (Vector2)destinationLocation);
@@ -168,8 +176,47 @@ namespace PuzzleSolver
                     break;
                 }
             }
-            
+
             return pieceCount;
+        }
+
+        private Vector2? GetAdjacentLocation(Vector2 destinationLocation, string[,] map, List<SortedDropZone> sortedDropZones)
+        {
+            Vector2? adjacentTile = null;
+            if (destinationLocation != null)
+            {
+                //Check if I can deliver from the top first
+                Vector2 topTile = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y + 1);
+                if (map[(int)topTile.X, (int)topTile.Y] == "" &&
+                    sortedDropZones.Find(d => d.Location == topTile) == null)
+                {
+                    return topTile;
+                }
+                else
+                {
+                    return destinationLocation;
+                }
+
+                ////Get the adjacent tiles
+                //List<Vector2> adjacentTiles = new List<Vector2>();
+                //adjacentTiles.Add(new Vector2(destinationLocation.X - 1, destinationLocation.Y));
+                //adjacentTiles.Add(new Vector2(destinationLocation.X + 1, destinationLocation.Y));
+                //adjacentTiles.Add(new Vector2(destinationLocation.X, destinationLocation.Y - 1));
+                //adjacentTiles.Add(new Vector2(destinationLocation.X, destinationLocation.Y + 1));
+
+                ////Loop through the adjacent tiles and find the first one that is not a wall
+                //foreach (Vector2 item in adjacentTiles)
+                //{
+                //    if ((int)item.X > 0 || (int)item.Y > 0 ||
+                //        (int)item.X < map.GetUpperBound(0) ||
+                //        (int)item.Y < map.GetUpperBound(1))
+                //    {
+                //        adjacentTile = item;
+                //        break;
+                //    }
+                //}
+            }
+            return adjacentTile;
         }
     }
 }
