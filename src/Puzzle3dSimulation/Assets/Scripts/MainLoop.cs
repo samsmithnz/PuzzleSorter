@@ -323,6 +323,10 @@ public class MainLoop : MonoBehaviour
                     sortedDropZones.Add(new SortedDropZone(palette[i], new(x, y)));
                     i++;
                 }
+                if (i >= palette.Count)
+                {
+                    break;
+                }
             }
         }
         return sortedDropZones;
