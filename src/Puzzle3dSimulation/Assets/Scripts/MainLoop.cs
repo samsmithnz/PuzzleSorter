@@ -307,11 +307,11 @@ public class MainLoop : MonoBehaviour
         List<SortedDropZone> sortedDropZones = new List<SortedDropZone>();
         int width = map.GetLength(0);
         int height = map.GetLength(1);
-        int totalBorders = (width * 2) + ((height * 2) - 4);
+        int totalBorderTiles = (width * 2) + ((height * 2) - 4);
 
-        if (totalBorders < palette.Count)
+        if (totalBorderTiles < palette.Count)
         {
-            Debug.LogError("The map isn't big enough to handle this palette. (Map border size of " + width + "x" + height + ", generates " + totalBorders + " border tiles, but we need " + palette.Count + " tiles)");
+            Debug.LogError("The map isn't big enough to handle this palette. (Map border size of " + width + "x" + height + ", generates " + totalBorderTiles + " border tiles, but we need " + palette.Count + " tiles)");
         }
         int i = 0;
         for (int x = 0; x < width; x++)
