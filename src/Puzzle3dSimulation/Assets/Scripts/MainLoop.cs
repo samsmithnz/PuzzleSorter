@@ -319,9 +319,9 @@ public class MainLoop : MonoBehaviour
             //raise piece off robot
             new Vector3(pieceObject.transform.position.x, endingY, _RobotObject.transform.position.z),
             //move above destination pile
-            new Vector3(pieceObject.transform.position.x, endingY, pieceObject.transform.position.z),
+            new Vector3(dropOffAction.Location.X, endingY, dropOffAction.Location.Y),
             //drop to sorted pile
-            new Vector3(pieceObject.transform.position.x, endingY, pieceObject.transform.position.z)
+            new Vector3(dropOffAction.Location.X, endingY, dropOffAction.Location.Y)
         };
             yield return StartCoroutine(movementScript.MovePiece(pieceObject, path, null));
         }
