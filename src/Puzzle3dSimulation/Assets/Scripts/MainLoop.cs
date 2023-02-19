@@ -307,7 +307,7 @@ public class MainLoop : MonoBehaviour
         List<SortedDropZone> sortedDropZones = new List<SortedDropZone>();
         int width = map.GetLength(0);
         int height = map.GetLength(1);
-        int totalBorderTiles = (width * 2) + ((height * 2) - 4);
+        int totalBorderTiles = (width * 2) + ((height * 2) - 4 - 4);
 
         if (totalBorderTiles < palette.Count)
         {
@@ -318,7 +318,12 @@ public class MainLoop : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                if (x == 0 || y == 0 || x == width - 1 || y == height - 1)
+                //Find a border tile, that is NOT a corner.
+                if ((x == 0 || y == 0 || x == width - 1 || y == height - 1) &&
+                    x != 0 && y != 0 &&
+                    x != 0 && y != height-1 &&
+                    x != width - 1 && y != 0 &&
+                    x != width - 1 && y != height - 1)
                 {
                     sortedDropZones.Add(new SortedDropZone(palette[i], new(x, y)));
                     i++;
