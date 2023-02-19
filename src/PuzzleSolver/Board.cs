@@ -99,22 +99,23 @@ namespace PuzzleSolver
                 }
 
                 //Get the best adjacent location to the destination
+                Vector2? pathDestinationLocation = destinationLocation;
                 if (destinationLocation != null)
                 {
                     Vector2? adjacentLocation = GetAdjacentLocation((Vector2)destinationLocation, Map, SortedDropZones);
                     if (adjacentLocation != null)
                     {
-                        destinationLocation = (Vector2)adjacentLocation;
+                        pathDestinationLocation = (Vector2)adjacentLocation;
                     }
                 }
 
                 // Move the sorted piece to the correct pile
                 robotAction.RobotDropoffStartingLocation = currentRobotLocation;
-                if (destinationLocation != null)
+                if (destinationLocation != null && pathDestinationLocation != null)
                 {
 
                     //now find the path
-                    PathFindingResult pathFindingResultForDropoff = PathFinding.FindPath(Map, currentRobotLocation, (Vector2)destinationLocation);
+                    PathFindingResult pathFindingResultForDropoff = PathFinding.FindPath(Map, currentRobotLocation, (Vector2)pathDestinationLocation);
                     if (pathFindingResultForDropoff != null && pathFindingResultForDropoff.Path.Any())
                     {
                         //Move robot
@@ -128,7 +129,7 @@ namespace PuzzleSolver
                         SortedPieces.Add(Robot.Piece);
                         foreach (SortedDropZone sortedDropZone in SortedDropZones)
                         {
-                            if (sortedDropZone.Location == robotAction.DropoffAction.Location)
+                            if (sortedDropZone.Location == destinationLocation)
                             {
                                 sortedDropZone.Count++;
                                 break;
@@ -195,7 +196,7 @@ namespace PuzzleSolver
                     return topLocation;
                 }
                 //Then check the bottom
-                else if (CheckLocationIsValid(bottomLocation,map,sortedDropZones))
+                else if (CheckLocationIsValid(bottomLocation, map, sortedDropZones))
                 {
                     return bottomLocation;
                 }
