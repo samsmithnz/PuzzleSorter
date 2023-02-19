@@ -102,6 +102,10 @@ namespace PuzzleSolver
                 robotAction.RobotDropoffStartingLocation = currentRobotLocation;
                 if (destinationLocation != null)
                 {
+                    //Get an adjacent tile to the destination
+                    destinationLocation = GetAdjacentTile(destinationLocation, map);
+
+                    //now find the path
                     PathFindingResult pathFindingResultForDropoff = PathFinding.FindPath(Map, currentRobotLocation, (Vector2)destinationLocation);
                     if (pathFindingResultForDropoff != null && pathFindingResultForDropoff.Path.Any())
                     {
