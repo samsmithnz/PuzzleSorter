@@ -41,68 +41,7 @@ public class MainLoop : MonoBehaviour
             new System.Numerics.Vector2(2, 2),
             colorPalette,
             pieces,
-            //new List<Piece>() {
-            //        new Piece() {
-            //            Id = 1,
-            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
-            //            Location = new(2, 2)
-            //        },
-            //        new Piece() {
-            //            Id = 2,
-            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>()),
-            //            Location = new(2, 2)
-            //        },
-            //        new Piece() {
-            //            Id = 3,
-            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
-            //            Location = new(2, 2)
-            //        },
-            //        new Piece() {
-            //            Id = 4,
-            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>()),
-            //            Location = new(2, 2)
-            //        },
-            //        new Piece() {
-            //            Id = 5,
-            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
-            //            Location = new(2, 2)
-            //        },
-            //        new Piece() {
-            //            Id = 6,
-            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Purple.ToPixel<Rgb24>()),
-            //            Location = new(2, 2)
-            //        },
-            //        new Piece() {
-            //            Id = 7,
-            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>()),
-            //            Location = new(2, 2)
-            //        },
-            //        new Piece() {
-            //            Id = 8,
-            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
-            //            Location = new(2, 2)
-            //        },
-            //        new Piece() {
-            //            Id = 9,
-            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Yellow.ToPixel<Rgb24>()),
-            //            Location = new(2, 2)
-            //        },
-            //        new Piece() {
-            //            Id = 10,
-            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Orange.ToPixel<Rgb24>()),
-            //            Location = new(2, 2)
-            //        }
-            //},
             GetSortedDropZones(map, colorPalette),
-            //new()
-            //{
-            //    new SortedDropZone(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>(), new(0, 4)),
-            //    new SortedDropZone(SixLabors.ImageSharp.Color.Purple.ToPixel<Rgb24>(), new(0, 2)),
-            //    new SortedDropZone(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>(), new(4, 0)),
-            //    new SortedDropZone(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>(), new(2, 4)),
-            //    new SortedDropZone(SixLabors.ImageSharp.Color.Yellow.ToPixel<Rgb24>(), new(4, 4)),
-            //    new SortedDropZone(SixLabors.ImageSharp.Color.Orange.ToPixel<Rgb24>(),new(4, 2)),
-            //},
             new Robot(new System.Numerics.Vector2(2, 1)));
 
         //Setup map
