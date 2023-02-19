@@ -31,12 +31,12 @@ public class MainLoop : MonoBehaviour
     {
         Utility.LogWithTime("Initializing map");
         //Setup board
-        string[,] map = MapGeneration.GenerateMap();
+        string[,] map = MapGeneration.GenerateMap(7,7);
         Utility.LogWithTime("Initializing color palette");
         List<Rgb24> colorPalette = ColorPalettes.Get16ColorPalette();
         Utility.LogWithTime("Initializing pieces");
         //List<Piece> pieces = GetRandomPieceList(36, colorPalette);
-        List<Piece> pieces = GetPiecesFromImage(100, 100, colorPalette);
+        List<Piece> pieces = GetPiecesFromImage(250, 250, colorPalette);
         Board board = new(map,
             new System.Numerics.Vector2(2, 2),
             colorPalette,
