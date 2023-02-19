@@ -4,11 +4,9 @@ namespace PuzzleSolver.Map
 {
     public static class MapGeneration
     {
-        public static string[,] GenerateMap()
+        public static string[,] GenerateMap(int width = 5, int height = 5)
         {
-            string[,] map = MapCore.InitializeMap(5, 5);
-            int width = map.GetLength(0);
-            int height = map.GetLength(1);
+            string[,] map = MapCore.InitializeMap(width, height);
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
