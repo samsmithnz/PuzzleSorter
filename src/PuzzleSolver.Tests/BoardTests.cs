@@ -20,6 +20,7 @@ namespace PuzzleSolver.Tests
             int width = 5;
             int height = 5;
             Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
+            Robot robot = new Robot(new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y - 1));
             Board board = new(MapGeneration.GenerateMap(width, height),
                 centerPointLocation,
                 ColorPalettes.Get3ColorPalette(),
@@ -51,7 +52,7 @@ namespace PuzzleSolver.Tests
                     new SortedDropZone(Color.Blue.ToPixel<Rgb24>(), new(4, 0)),
                     new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(), new(4, 4))
                 },
-                new Robot(new(2, 1)));
+                robot);
 
             //Act
 
@@ -77,6 +78,7 @@ namespace PuzzleSolver.Tests
             int width = 5;
             int height = 5;
             Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
+            Robot robot = new Robot(new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y - 1));
             Board board = new(MapGeneration.GenerateMap(),
                 centerPointLocation,
                 ColorPalettes.Get3ColorPalette(),
@@ -109,7 +111,7 @@ namespace PuzzleSolver.Tests
                     new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(), new(4, 4)),
                     //new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
                 },
-                new Robot(new(2, 1)));
+                robot);
 
             //Act
             Queue<RobotAction> results = board.RunRobot();
@@ -195,6 +197,7 @@ namespace PuzzleSolver.Tests
             int width = 5;
             int height = 5;
             Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
+            Robot robot = new Robot(new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y - 1));
             Board board = new(MapGeneration.GenerateMap(width, height),
                 centerPointLocation,
                 ColorPalettes.Get6ColorPalette(),
@@ -259,7 +262,7 @@ namespace PuzzleSolver.Tests
                 new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(), new(4, 4)),
                 new SortedDropZone(Color.Orange.ToPixel<Rgb24>(),new(4, 2)),
              },
-            new Robot(new Vector2(2, 1)));
+            robot);
 
             //Act
             Queue<RobotAction> results = board.RunRobot();
