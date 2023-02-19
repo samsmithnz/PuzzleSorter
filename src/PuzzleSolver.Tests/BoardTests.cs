@@ -17,8 +17,11 @@ namespace PuzzleSolver.Tests
         public void BoardInitializationTest()
         {
             //Arrange
-            Board board = new(MapGeneration.GenerateMap(),
-                new(2, 2),
+            int width = 5;
+            int height = 5;
+            Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
+            Board board = new(MapGeneration.GenerateMap(width, height),
+                centerPointLocation,
                 ColorPalettes.Get3ColorPalette(),
                 new List<Piece>(){
                     new Piece() {
@@ -71,8 +74,11 @@ namespace PuzzleSolver.Tests
         public void Board3ColorsRunTest()
         {
             //Arrange
+            int width = 5;
+            int height = 5;
+            Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
             Board board = new(MapGeneration.GenerateMap(),
-                new(2, 2),
+                centerPointLocation,
                 ColorPalettes.Get3ColorPalette(),
                 new List<Piece>() {
                     new Piece() {
@@ -186,8 +192,11 @@ namespace PuzzleSolver.Tests
         public void Board6ColorsRunTest()
         {
             //Arrange
-            Board board = new(MapGeneration.GenerateMap(),
-                new Vector2(2, 2),
+            int width = 5;
+            int height = 5;
+            Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
+            Board board = new(MapGeneration.GenerateMap(width, height),
+                centerPointLocation,
                 ColorPalettes.Get6ColorPalette(),
                 new List<Piece>() {
                     new Piece() {
@@ -250,7 +259,7 @@ namespace PuzzleSolver.Tests
                 new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(), new(4, 4)),
                 new SortedDropZone(Color.Orange.ToPixel<Rgb24>(),new(4, 2)),
              },
-          new Robot(new Vector2(2, 1)));
+            new Robot(new Vector2(2, 1)));
 
             //Act
             Queue<RobotAction> results = board.RunRobot();

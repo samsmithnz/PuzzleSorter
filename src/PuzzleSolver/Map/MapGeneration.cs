@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace PuzzleSolver.Map
 {
@@ -8,8 +9,7 @@ namespace PuzzleSolver.Map
         {
             string[,] map = MapCore.InitializeMap(width, height);
             //get the center
-            int centerX = (int)Math.Floor(width / 2M);
-            int centerY = (int)Math.Floor(height / 2M);
+            Vector2 centerPointLocation = GetCenterPointLocation(width, height);
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
@@ -26,7 +26,7 @@ namespace PuzzleSolver.Map
                     //    //map[x, y] = "D"; //drop zone
                     //}
                     //else 
-                    if (x == centerX && y == centerY)
+                    if (x == centerPointLocation.X && y == centerPointLocation.Y)
                     {
                         map[x, y] = "P"; //pickup zone
                     }
@@ -49,6 +49,13 @@ namespace PuzzleSolver.Map
                     }
                 }
             }
+        }
+
+        public static Vector2 GetCenterPointLocation(int width, int height)
+        {
+            int centerX = (int)Math.Floor(width / 2M);
+            int centerY = (int)Math.Floor(height / 2M);
+            return new Vector2(centerX, centerY);
         }
 
 
