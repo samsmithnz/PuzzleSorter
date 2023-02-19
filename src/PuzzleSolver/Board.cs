@@ -188,7 +188,8 @@ namespace PuzzleSolver
             {
                 Vector2 topLocation = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y + 1);
                 Vector2 bottomLocation = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y - 1);
-
+                Vector2 rightLocation = new Vector2((int)destinationLocation.X + 1, (int)destinationLocation.Y);
+                Vector2 leftLocation = new Vector2((int)destinationLocation.X - 1, (int)destinationLocation.Y);
 
                 //Check if I can deliver from the top first
                 if (CheckLocationIsValid(topLocation, map, sortedDropZones))
@@ -199,6 +200,16 @@ namespace PuzzleSolver
                 else if (CheckLocationIsValid(bottomLocation, map, sortedDropZones))
                 {
                     return bottomLocation;
+                }
+                //Then check the right
+                else if (CheckLocationIsValid(rightLocation, map, sortedDropZones))
+                {
+                    return rightLocation;
+                }
+                //Finally check the left
+                else if (CheckLocationIsValid(leftLocation, map, sortedDropZones))
+                {
+                    return leftLocation;
                 }
                 else
                 {
@@ -241,7 +252,7 @@ namespace PuzzleSolver
 
         private bool CheckLocationIsValid(Vector2 location, string[,] map, List<SortedDropZone> sortedDropZones)
         {
-            if (location.X >= 0 && 
+            if (location.X >= 0 &&
                 location.Y >= 0 &&
                 location.X <= map.GetUpperBound(0) &&
                 location.Y <= map.GetUpperBound(1) &&
