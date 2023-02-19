@@ -14,18 +14,19 @@ namespace PuzzleSolver.Map
             {
                 for (int x = 0; x < width; x++)
                 {
-                    if (x == 0 && y == 0 ||
-                        x == 0 && y == 2 ||
-                        x == 0 && y == 4 ||
-                        x == 2 && y == 0 ||
-                        x == 2 && y == 4 ||
-                        x == 4 && y == 0 ||
-                        x == 4 && y == 2 ||
-                        x == 4 && y == 4)
-                    {
-                        //map[x, y] = "D"; //drop zone
-                    }
-                    else if (x == centerX && y == centerY)
+                    //if (x == 0 && y == 0 ||
+                    //    x == 0 && y == 2 ||
+                    //    x == 0 && y == 4 ||
+                    //    x == 2 && y == 0 ||
+                    //    x == 2 && y == 4 ||
+                    //    x == 4 && y == 0 ||
+                    //    x == 4 && y == 2 ||
+                    //    x == 4 && y == 4)
+                    //{
+                    //    //map[x, y] = "D"; //drop zone
+                    //}
+                    //else 
+                    if (x == centerX && y == centerY)
                     {
                         map[x, y] = "P"; //pickup zone
                     }
