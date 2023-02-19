@@ -12,7 +12,6 @@ using UnityEngine;
 
 public class MainLoop : MonoBehaviour
 {
-
     public Texture2D SourceTexture;
     public Material PieceMaterial;
 
@@ -39,8 +38,8 @@ public class MainLoop : MonoBehaviour
         List<Rgb24> colorPalette = ColorPalettes.Get16ColorPalette();
         Utility.LogWithTime("Initializing pieces");
         //List<Piece> pieces = GetRandomPieceList(36, colorPalette);
-        List<Piece> pieces = GetPiecesFromImage(250, 250, colorPalette);
-        Robot robot = new Robot(new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y-1));
+        List<Piece> pieces = GetPiecesFromImage(250, 250, colorPalette, centerPointLocation);
+        Robot robot = new Robot(new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y - 1));
         Board board = new(map,
             centerPointLocation,
             colorPalette,
@@ -325,7 +324,7 @@ public class MainLoop : MonoBehaviour
                 //Find a border tile, that is NOT a corner.
                 if ((x == 0 || y == 0 || x == width - 1 || y == height - 1) &&
                     x != 0 && y != 0 &&
-                    x != 0 && y != height-1 &&
+                    x != 0 && y != height - 1 &&
                     x != width - 1 && y != 0 &&
                     x != width - 1 && y != height - 1)
                 {
@@ -341,7 +340,7 @@ public class MainLoop : MonoBehaviour
         return sortedDropZones;
     }
 
-    private List<Piece> GetPiecesFromImage(int subImageWidth, int subImageHeight, List<Rgb24> palette)
+    private List<Piece> GetPiecesFromImage(int subImageWidth, int subImageHeight, List<Rgb24> palette, System.Numerics.Vector2 centerPointLocation)
     {
         List<Piece> pieceList = new();
 
@@ -353,12 +352,12 @@ public class MainLoop : MonoBehaviour
 
         //2. Split apart images/Crop the individual images next
         Utility.LogWithTime("GetPiecesFromImage: Split apart image into smaller images");
-        Image <Rgb24> sourceImg = Texture2Image(SourceTexture);
+        Image<Rgb24> sourceImg = Texture2Image(SourceTexture);
         List<Image<Rgb24>> images = ImageCropping.SplitImageIntoMultiplePieces(sourceImg, subImageWidth, subImageHeight);
 
         //Get image stats for each individual image and combine in one list
         Utility.LogWithTime("GetPiecesFromImage: Get stats for each piece");
-        List <ImageStats> subImages = new();
+        List<ImageStats> subImages = new();
         foreach (Image<Rgb24> image in images)
         {
             ImageStats subitemImageStats = imageProcessing.ProcessStatsForImage(null, image, true);
@@ -378,7 +377,7 @@ public class MainLoop : MonoBehaviour
                 Id = i,
                 Image = image.Image,
                 ImageStats = image,
-                Location = new System.Numerics.Vector2(2, 2)
+                Location = centerPointLocation
             });
         }
 

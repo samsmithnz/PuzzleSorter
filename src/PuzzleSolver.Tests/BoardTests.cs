@@ -28,22 +28,80 @@ namespace PuzzleSolver.Tests
                     new Piece() {
                         Id = 1,
                         Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 2,
                         Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 3,
                         Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 4,
                         Image = ImageCropping.CreateImage(Color.Green.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
+                    }
+                },
+                new()
+                {
+                    new SortedDropZone(Color.Red.ToPixel<Rgb24>(), new(0, 4)),
+                    new SortedDropZone(Color.Blue.ToPixel<Rgb24>(), new(4, 0)),
+                    new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(), new(4, 4))
+                },
+                robot);
+
+            //Act
+
+            //Assert
+            Assert.AreEqual(new Rgb24(255, 0, 0), Color.Red.ToPixel<Rgb24>());
+            Assert.AreEqual(new Rgb24(0, 0, 255), Color.Blue.ToPixel<Rgb24>());
+            Assert.AreEqual(new Rgb24(255, 255, 0), Color.Yellow.ToPixel<Rgb24>());
+            Assert.IsNotNull(board);
+            Assert.IsNotNull(board.Map);
+            Assert.IsNotNull(board.Robot);
+            Assert.AreEqual(new(2, 2), board.UnsortedPiecesLocation);
+            Assert.AreEqual(3, board.SortedDropZones.Count);
+            Assert.AreEqual(new(0, 4), board.SortedDropZones[0].Location);
+            Assert.AreEqual(0, board.SortedPieces.Count);
+            Assert.AreEqual(4, board.UnsortedPieces.Count);
+            Assert.AreEqual(new Vector2(2, 1), board.Robot.Location);
+        }
+
+        [TestMethod]
+        public void BoardInitializationWith7WidthTest()
+        {
+            //Arrange
+            int width = 7;
+            int height = 7;
+            Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
+            Robot robot = new Robot(new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y - 1));
+            Board board = new(MapGeneration.GenerateMap(width, height),
+                centerPointLocation,
+                ColorPalettes.Get3ColorPalette(),
+                new List<Piece>(){
+                    new Piece() {
+                        Id = 1,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 2,
+                        Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 3,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 4,
+                        Image = ImageCropping.CreateImage(Color.Green.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
                     }
                 },
                 new()
@@ -86,22 +144,22 @@ namespace PuzzleSolver.Tests
                     new Piece() {
                         Id = 1,
                         Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 2,
                         Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 3,
                         Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 4,
                         Image = ImageCropping.CreateImage(Color.Yellow.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     }
                 },
                 new()
@@ -205,52 +263,52 @@ namespace PuzzleSolver.Tests
                     new Piece() {
                         Id = 1,
                         Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 2,
                         Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 3,
                         Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 4,
                         Image = ImageCropping.CreateImage(Color.Green.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 5,
                         Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 6,
                         Image = ImageCropping.CreateImage(Color.Purple.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 7,
                         Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 8,
                         Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 9,
                         Image = ImageCropping.CreateImage(Color.Yellow.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 10,
                         Image = ImageCropping.CreateImage(Color.Orange.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     }
              },
              new()
