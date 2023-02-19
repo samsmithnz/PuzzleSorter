@@ -306,7 +306,7 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(robotAction3);
             Assert.IsNotNull(robotAction3.PieceId);
             Assert.IsNotNull(robotAction3.PathToPickup);
-            Assert.AreEqual(new(4, 0), robotAction3.RobotPickupStartingLocation);
+            Assert.AreEqual(new(4, 1), robotAction3.RobotPickupStartingLocation);
             Assert.AreEqual(new(3, 0), robotAction3.PathToPickup.Path[0]);
             Assert.AreEqual(new(2, 0), robotAction3.PathToPickup.Path[1]);
             Assert.AreEqual(new(2, 1), robotAction3.PathToPickup.Path[2]);
