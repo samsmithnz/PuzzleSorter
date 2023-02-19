@@ -121,7 +121,7 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(board);
             Assert.IsNotNull(board.Map);
             Assert.IsNotNull(board.Robot);
-            Assert.AreEqual(new(2, 2), board.UnsortedPiecesLocation);
+            Assert.AreEqual(new(3, 3), board.UnsortedPiecesLocation);
             Assert.AreEqual(3, board.SortedDropZones.Count);
             Assert.AreEqual(new(0, 4), board.SortedDropZones[0].Location);
             Assert.AreEqual(0, board.SortedPieces.Count);
