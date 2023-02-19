@@ -2,7 +2,6 @@
 using PuzzleSolver.Map;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 
