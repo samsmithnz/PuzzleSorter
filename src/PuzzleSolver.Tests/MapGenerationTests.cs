@@ -33,7 +33,7 @@ namespace PuzzleSolver.Tests
 
             //Assert
             Assert.AreEqual(81, map.Length);
-            Assert.AreEqual("P", map[5, 5]);
+            Assert.AreEqual("P", map[4, 4]);
         }
     }
 }
