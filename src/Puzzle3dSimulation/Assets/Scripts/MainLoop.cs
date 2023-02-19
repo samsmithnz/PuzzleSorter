@@ -333,16 +333,19 @@ public class MainLoop : MonoBehaviour
         List<Piece> pieceList = new();
 
         //1. Read in input image
+        Utility.LogWithTime("GetPiecesFromImage: Read in input image");
         //Texture2D sourceTexture = Resources.Load<Texture2D>(@"/Images/st-john-beach.jpg");
         ImageColorGroups imageProcessing = new(palette);
         //ImageStats? sourceImageStats = imageProcessing.ProcessStatsForImage(sourceImageLocation, null, false);
 
         //2. Split apart images/Crop the individual images next
-        Image<Rgb24> sourceImg = Texture2Image(SourceTexture);
+        Utility.LogWithTime("GetPiecesFromImage: Split apart image into smaller images");
+        Image <Rgb24> sourceImg = Texture2Image(SourceTexture);
         List<Image<Rgb24>> images = ImageCropping.SplitImageIntoMultiplePieces(sourceImg, subImageWidth, subImageHeight);
 
         //Get image stats for each individual image and combine in one list
-        List<ImageStats> subImages = new();
+        Utility.LogWithTime("GetPiecesFromImage: Get stats for each piece");
+        List <ImageStats> subImages = new();
         foreach (Image<Rgb24> image in images)
         {
             ImageStats subitemImageStats = imageProcessing.ProcessStatsForImage(null, image, true);
@@ -353,6 +356,7 @@ public class MainLoop : MonoBehaviour
         }
 
         int i = 0;
+        Utility.LogWithTime("GetPiecesFromImage: Build list of pieces");
         foreach (ImageStats image in subImages)
         {
             i++;
