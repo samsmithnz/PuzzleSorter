@@ -309,7 +309,7 @@ public class MainLoop : MonoBehaviour
         int height = map.GetLength(1);
         int totalBorders = (width * 2) + ((height * 2) - 4);
 
-        if (totalBorders > palette.Count)
+        if (totalBorders < palette.Count)
         {
             Debug.LogError("The map isn't big enough to handle this palette. (Map border size of " + width + "x" + height + ", generates " + totalBorders + " border tiles, but we need " + palette.Count + " tiles)");
         }
