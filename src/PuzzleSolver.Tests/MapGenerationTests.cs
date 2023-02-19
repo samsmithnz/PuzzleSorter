@@ -9,7 +9,7 @@ namespace PuzzleSolver.Tests
     {
 
         [TestMethod]
-        public void RandomMapTest()
+        public void GenerateMapTest()
         {
             //Arrange
             string[,] map = MapGeneration.GenerateMap();
