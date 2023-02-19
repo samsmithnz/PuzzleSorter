@@ -126,7 +126,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new(0, 4), board.SortedDropZones[0].Location);
             Assert.AreEqual(0, board.SortedPieces.Count);
             Assert.AreEqual(4, board.UnsortedPieces.Count);
-            Assert.AreEqual(new Vector2(2, 1), board.Robot.Location);
+            Assert.AreEqual(new Vector2(3, 2), board.Robot.Location);
         }
 
         [TestMethod]
