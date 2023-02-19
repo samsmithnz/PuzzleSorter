@@ -286,9 +286,9 @@ public class MainLoop : MonoBehaviour
             {
                 //Start
                 pieceObject.transform.position,
-                //Move up, above pile
+                //Raise piece off pile
                 new Vector3(pieceObject.transform.position.x, startingY, pieceObject.transform.position.z),
-                //Move over, above robot
+                //Move above robot
                 new Vector3(pieceObject.transform.position.x, startingY, _RobotObject.transform.position.z),
                 //Drop piece on robot, and attach to parent robot at y 1.25s
                 new Vector3(pieceObject.transform.position.x, 1.25f, _RobotObject.transform.position.z)
@@ -320,7 +320,7 @@ public class MainLoop : MonoBehaviour
             new Vector3(pieceObject.transform.position.x, endingY, _RobotObject.transform.position.z),
             //move above destination pile
             new Vector3(pieceObject.transform.position.x, endingY, pieceObject.transform.position.z),
-            //drop to ground
+            //drop to sorted pile
             new Vector3(pieceObject.transform.position.x, endingY, pieceObject.transform.position.z)
         };
             yield return StartCoroutine(movementScript.MovePiece(pieceObject, path, null));
