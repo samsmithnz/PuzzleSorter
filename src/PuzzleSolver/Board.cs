@@ -97,8 +97,8 @@ namespace PuzzleSolver
                         destinationLocation = sortedDropZone.Location;
                     }
                 }
-                
-                //Get an adjacent location to the destination
+
+                //Get the best adjacent location to the destination
                 if (destinationLocation != null)
                 {
                     Vector2? adjacentLocation = GetAdjacentLocation((Vector2)destinationLocation, Map, SortedDropZones);
@@ -182,13 +182,12 @@ namespace PuzzleSolver
 
         private Vector2? GetAdjacentLocation(Vector2 destinationLocation, string[,] map, List<SortedDropZone> sortedDropZones)
         {
-            Vector2? adjacentTile = null;
+            Vector2? adjacentLocation = null;
             if (destinationLocation != null)
             {
                 //Check if I can deliver from the top first
                 Vector2 topTile = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y + 1);
-                if (map[(int)topTile.X, (int)topTile.Y] == "" &&
-                    sortedDropZones.Find(d => d.Location == topTile) == null)
+                if (CheckLocationIsValid(topTile, map, sortedDropZones))
                 {
                     return topTile;
                 }
@@ -196,6 +195,18 @@ namespace PuzzleSolver
                 {
                     return destinationLocation;
                 }
+                //if (topTile.X > 0 && topTile.Y > 0 &&
+                //    topTile.X < map.GetUpperBound(0) &&
+                //    topTile.Y < map.GetUpperBound(1) &&
+                //    map[(int)topTile.X, (int)topTile.Y] == "" &&
+                //    sortedDropZones.Find(d => d.Location == topTile) == null)
+                //{
+                //    return topTile;
+                //}
+                //else
+                //{
+                //    return destinationLocation;
+                //}
 
                 ////Get the adjacent tiles
                 //List<Vector2> adjacentTiles = new List<Vector2>();
@@ -216,7 +227,23 @@ namespace PuzzleSolver
                 //    }
                 //}
             }
-            return adjacentTile;
+            return adjacentLocation;
+        }
+
+        private bool CheckLocationIsValid(Vector2 location, string[,] map, List<SortedDropZone> sortedDropZones)
+        {
+            if (location.X > 0 && location.Y > 0 &&
+                location.X < map.GetUpperBound(0) &&
+                location.Y < map.GetUpperBound(1) &&
+                map[(int)location.X, (int)location.Y] == "" &&
+                sortedDropZones.Find(d => d.Location == location) == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
