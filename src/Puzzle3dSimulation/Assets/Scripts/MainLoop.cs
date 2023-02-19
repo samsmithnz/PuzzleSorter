@@ -40,12 +40,13 @@ public class MainLoop : MonoBehaviour
         Utility.LogWithTime("Initializing pieces");
         //List<Piece> pieces = GetRandomPieceList(36, colorPalette);
         List<Piece> pieces = GetPiecesFromImage(250, 250, colorPalette);
+        Robot robot = new Robot(new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y-1));
         Board board = new(map,
             centerPointLocation,
             colorPalette,
             pieces,
             GetSortedDropZones(map, colorPalette),
-            new Robot(new System.Numerics.Vector2(2, 1)));
+            robot);
 
         //Setup map
         Utility.LogWithTime("Setting up map");
