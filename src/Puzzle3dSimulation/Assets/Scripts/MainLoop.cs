@@ -29,12 +29,14 @@ public class MainLoop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Utility.LogWithTime("Initializing board");
+        Utility.LogWithTime("Initializing map");
         //Setup board
         string[,] map = MapGeneration.GenerateMap();
+        Utility.LogWithTime("Initializing color palette");
         List<Rgb24> colorPalette = ColorPalettes.Get16ColorPalette();
+        Utility.LogWithTime("Initializing pieces");
         //List<Piece> pieces = GetRandomPieceList(36, colorPalette);
-        List<Piece> pieces = GetPiecesFromImage(250, 250, colorPalette);
+        List<Piece> pieces = GetPiecesFromImage(100, 100, colorPalette);
         Board board = new(map,
             new System.Numerics.Vector2(2, 2),
             colorPalette,
@@ -305,7 +307,14 @@ public class MainLoop : MonoBehaviour
 
     private IEnumerator DropOffPiece(int pieceId, float endingY, ObjectInteraction dropOffAction)
     {
-        Debug.LogWarning("Dropping off piece " + dropOffAction.Location.ToString());
+        if (dropOffAction != null && dropOffAction.Location != null)
+        {
+            Debug.LogWarning("Dropping off piece " + dropOffAction.Location.ToString());
+        }
+        else
+        {
+            Debug.LogWarning("Piece " + pieceId + " does not a drop off action");
+        }
         GameObject pieceObject = GameObject.Find("piece_" + pieceId);
         float robotDetactY = endingY;
         if (robotDetactY < 1.25f)
