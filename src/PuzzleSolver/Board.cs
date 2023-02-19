@@ -185,11 +185,19 @@ namespace PuzzleSolver
             Vector2? adjacentLocation = null;
             if (destinationLocation != null)
             {
+                Vector2 topLocation = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y + 1);
+                Vector2 bottomLocation = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y - 1);
+
+
                 //Check if I can deliver from the top first
-                Vector2 topTile = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y + 1);
-                if (CheckLocationIsValid(topTile, map, sortedDropZones))
+                if (CheckLocationIsValid(topLocation, map, sortedDropZones))
                 {
-                    return topTile;
+                    return topLocation;
+                }
+                //Then check the bottom
+                else if (CheckLocationIsValid(bottomLocation,map,sortedDropZones))
+                {
+                    return bottomLocation;
                 }
                 else
                 {
