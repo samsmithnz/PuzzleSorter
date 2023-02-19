@@ -29,7 +29,7 @@ public class MainLoop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.LogWarning("Initializing board");
+        Utility.LogWithTime("Initializing board");
         //Setup board
         string[,] map = MapGeneration.GenerateMap();
         List<Rgb24> colorPalette = ColorPalettes.Get16ColorPalette();
@@ -104,21 +104,21 @@ public class MainLoop : MonoBehaviour
             new Robot(new System.Numerics.Vector2(2, 1)));
 
         //Setup map
-        Debug.LogWarning("Setting up map");
+        Utility.LogWithTime("Setting up map");
         LevelSetup.SetupMap(gameObject, board.Map, _ShowLinesOnFloor, _ShowCoordOnFloor);
 
         Piece[] unsortedList = new Piece[board.UnsortedPieces.Count];
         board.UnsortedPieces.ToList().CopyTo(unsortedList);
 
         //Get the robot actions
-        Debug.LogWarning("Calculating robot moves");
+        Utility.LogWithTime("Calculating robot moves");
         _RobotActions = board.RunRobot();
 
         //Add unsorted pieces
-        Debug.LogWarning("Building stack of unsorted pieces");
+        Utility.LogWithTime("Building stack of unsorted pieces");
         float y = (_PieceHeight / 2f) + (_PieceHeight * unsortedList.Length) - _PieceHeight; //Add the pieces in reverse, so the first item in the queue is also the top of the stack
         int i = 0;
-        Debug.LogWarning("There are " + unsortedList.Count().ToString() + " unsorted pieces to process");
+        Utility.LogWithTime("There are " + unsortedList.Count().ToString() + " unsorted pieces to process");
         foreach (Piece piece in unsortedList)
         {
             i++;
@@ -150,7 +150,7 @@ public class MainLoop : MonoBehaviour
         }
 
         //Add the robot
-        Debug.LogWarning("Creating robot entity");
+        Utility.LogWithTime("Creating robot entity");
         _RobotObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
         _RobotObject.transform.position = new Vector3(board.Robot.Location.X, 0.5f, board.Robot.Location.Y);
         _RobotObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
@@ -186,6 +186,8 @@ public class MainLoop : MonoBehaviour
         //        }
         //    }
         //}
+
+        Utility.LogWithTime("Robot ready to roll!");
     }
 
     // Update is called once per frame
