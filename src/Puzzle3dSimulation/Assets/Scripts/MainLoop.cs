@@ -34,7 +34,7 @@ public class MainLoop : MonoBehaviour
         int width = 7;
         int height = 7;
         string[,] map = MapGeneration.GenerateMap(width, height);
-        Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
+        System.Numerics.Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
         Utility.LogWithTime("Initializing color palette");
         List<Rgb24> colorPalette = ColorPalettes.Get16ColorPalette();
         Utility.LogWithTime("Initializing pieces");
