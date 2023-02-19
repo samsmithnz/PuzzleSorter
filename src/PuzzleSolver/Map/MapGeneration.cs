@@ -7,6 +7,9 @@ namespace PuzzleSolver.Map
         public static string[,] GenerateMap(int width = 5, int height = 5)
         {
             string[,] map = MapCore.InitializeMap(width, height);
+            //get the center
+            int centerX = (int)Math.Floor(width / 2M);
+            int centerY = (int)Math.Floor(height / 2M);
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
@@ -22,7 +25,7 @@ namespace PuzzleSolver.Map
                     {
                         //map[x, y] = "D"; //drop zone
                     }
-                    else if (x == 2 && y == 2)
+                    else if (x == centerX && y == centerY)
                     {
                         map[x, y] = "P"; //pickup zone
                     }
