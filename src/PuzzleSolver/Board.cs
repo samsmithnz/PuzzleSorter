@@ -170,7 +170,6 @@ namespace PuzzleSolver
         public int GetPieceCount(Vector2 dropOfflocation)
         {
             int pieceCount = 0;
-
             foreach (SortedDropZone sortedDropZone in SortedDropZones)
             {
                 if (sortedDropZone.Location == dropOfflocation)
@@ -179,7 +178,6 @@ namespace PuzzleSolver
                     break;
                 }
             }
-
             return pieceCount;
         }
 
