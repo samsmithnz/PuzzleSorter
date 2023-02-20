@@ -1,5 +1,6 @@
 ﻿using PuzzleSolver.Images;
 using PuzzleSolver.Map;
+using PuzzleSolver.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Collections.Generic;
 using System.Linq;

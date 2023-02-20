@@ -1,10 +1,7 @@
 ﻿using SixLabors.ImageSharp.PixelFormats;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Numerics;
 
-namespace PuzzleSolver
+namespace PuzzleSolver.Map
 {
     public class SortedDropZone
     {
