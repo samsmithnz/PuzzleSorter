@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace PuzzleSolver
+namespace PuzzleSolver.Processing
 {
     public class ObjectInteraction
     {

@@ -1,12 +1,12 @@
 ﻿using PuzzleSolver.Map;
 using System.Numerics;
 
-namespace PuzzleSolver
+namespace PuzzleSolver.Processing
 {
     public class RobotAction
     {
         public int PieceId { get; set; }
-        
+
         public Vector2 RobotPickupStartingLocation { get; set; }
         public PathFindingResult PathToPickup { get; set; }
         public ObjectInteraction PickupAction { get; set; }
