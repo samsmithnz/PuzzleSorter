@@ -2,6 +2,7 @@ using Assets.Scripts.Common;
 using PuzzleSolver;
 using PuzzleSolver.Images;
 using PuzzleSolver.Map;
+using PuzzleSolver.Processing;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Collections;
