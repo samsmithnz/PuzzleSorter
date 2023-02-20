@@ -25,11 +25,10 @@ namespace PuzzleSolver.Map
                 for (int y = 0; y < height; y++)
                 {
                     //Find a border tile, that is NOT a corner.
-                    if ((x == 0 || y == 0 || x == width - 1 || y == height - 1) &&
-                        (x != 0 && y != 0 &&
-                        x != 0 && y != height - 1 &&
-                        x != width - 1 && y != 0 &&
-                        x != width - 1 && y != height - 1))
+                    if ((x == 0 && y != 0 && y != height - 1) ||
+                        (x == width - 1 && y != 0 && y != height - 1) ||
+                        (x == 0 && y != 0 && y != height - 1) ||
+                        (x == width - 1 && y != 0 && y != height - 1))
                     {
                         sortedDropZones.Add(new SortedDropZone(palette[i], new Vector2(x, y)));
                         i++;
