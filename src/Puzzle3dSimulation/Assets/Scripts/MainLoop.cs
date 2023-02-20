@@ -279,7 +279,7 @@ public class MainLoop : MonoBehaviour
                 //raise piece off robot
                 new Vector3(pieceObject.transform.position.x, robotDetachY, _RobotObject.transform.position.z),
                 //move above destination pile
-                new Vector3(dropOffAction.Location.X, robotDetachY, dropOffAction.Location.Y),
+                new Vector3(dropOffAction.Location.X, endingY, dropOffAction.Location.Y),
                 //drop to sorted pile
                 new Vector3(dropOffAction.Location.X, endingY, dropOffAction.Location.Y)
             };
