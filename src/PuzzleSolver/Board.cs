@@ -1,8 +1,8 @@
 ﻿using PuzzleSolver.Images;
 using PuzzleSolver.Map;
+using PuzzleSolver.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 
@@ -95,15 +95,28 @@ namespace PuzzleSolver
                     if (sortedDropZone.Color == Robot.Piece.ImageStats.TopColorGroupColor)
                     {
                         destinationLocation = sortedDropZone.Location;
+                        break;
+                    }
+                }
+
+                //Get the best adjacent location to the destination
+                Vector2? pathDestinationLocation = destinationLocation;
+                if (destinationLocation != null)
+                {
+                    Vector2? adjacentLocation = GetAdjacentLocation((Vector2)destinationLocation, Map, SortedDropZones);
+                    if (adjacentLocation != null)
+                    {
+                        pathDestinationLocation = (Vector2)adjacentLocation;
                     }
                 }
 
                 // Move the sorted piece to the correct pile
                 robotAction.RobotDropoffStartingLocation = currentRobotLocation;
-                if (destinationLocation != null)
+                if (destinationLocation != null && pathDestinationLocation != null)
                 {
-                    PathFindingResult pathFindingResultForDropoff = PathFinding.FindPath(Map, currentRobotLocation, (Vector2)destinationLocation);
-                    if (pathFindingResultForDropoff != null && pathFindingResultForDropoff.Path.Any())
+                    //now find the path
+                    PathFindingResult pathFindingResultForDropoff = PathFinding.FindPath(Map, currentRobotLocation, (Vector2)pathDestinationLocation);
+                    if (pathFindingResultForDropoff != null && pathFindingResultForDropoff.Path.Count >= 0)
                     {
                         //Move robot
                         robotAction.PathToDropoff = pathFindingResultForDropoff;
@@ -116,7 +129,7 @@ namespace PuzzleSolver
                         SortedPieces.Add(Robot.Piece);
                         foreach (SortedDropZone sortedDropZone in SortedDropZones)
                         {
-                            if (sortedDropZone.Location == robotAction.DropoffAction.Location)
+                            if (sortedDropZone.Location == destinationLocation)
                             {
                                 sortedDropZone.Count++;
                                 break;
@@ -124,7 +137,10 @@ namespace PuzzleSolver
                         }
                         Robot.Piece = null;
                         robotAction.DropoffPieceCount = GetPieceCount(robotAction.DropoffAction.Location);
-                        currentRobotLocation = pathFindingResultForDropoff.Path.Last();
+                        if (pathFindingResultForDropoff.Path.Count > 0)
+                        {
+                            currentRobotLocation = pathFindingResultForDropoff.Path.Last();
+                        }
                     }
                 }
                 robotAction.RobotDropoffEndingLocation = currentRobotLocation;
@@ -155,7 +171,6 @@ namespace PuzzleSolver
         public int GetPieceCount(Vector2 dropOfflocation)
         {
             int pieceCount = 0;
-
             foreach (SortedDropZone sortedDropZone in SortedDropZones)
             {
                 if (sortedDropZone.Location == dropOfflocation)
@@ -164,8 +179,37 @@ namespace PuzzleSolver
                     break;
                 }
             }
-            
             return pieceCount;
         }
+
+        private Vector2? GetAdjacentLocation(Vector2 destinationLocation, string[,] map, List<SortedDropZone> sortedDropZones)
+        {
+            Vector2? adjacentLocation = null;
+            if (destinationLocation != null)
+            {
+                if (destinationLocation.X == 0)
+                {
+                    //it's a right location drop-off
+                    adjacentLocation = new Vector2((int)destinationLocation.X + 1, (int)destinationLocation.Y);
+                }
+                else if (destinationLocation.X == map.GetUpperBound(0))
+                {
+                    //it's a left location drop-off
+                    adjacentLocation = new Vector2((int)destinationLocation.X - 1, (int)destinationLocation.Y);
+                }
+                else if (destinationLocation.Y == 0)
+                {
+                    //it's a top location drop-off
+                    adjacentLocation = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y + 1);
+                }
+                else if (destinationLocation.Y == map.GetUpperBound(1))
+                {
+                    //it's a bottom location drop-off
+                    adjacentLocation = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y - 11);
+                }
+            }
+            return adjacentLocation;
+        }
+
     }
 }

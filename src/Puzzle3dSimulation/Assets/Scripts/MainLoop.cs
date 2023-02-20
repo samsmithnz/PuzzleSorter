@@ -2,6 +2,7 @@ using Assets.Scripts.Common;
 using PuzzleSolver;
 using PuzzleSolver.Images;
 using PuzzleSolver.Map;
+using PuzzleSolver.Processing;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Collections;
@@ -12,7 +13,6 @@ using UnityEngine;
 
 public class MainLoop : MonoBehaviour
 {
-
     public Texture2D SourceTexture;
     public Material PieceMaterial;
 
@@ -29,102 +29,49 @@ public class MainLoop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.LogWarning("Initializing board");
+        Utility.LogWithTime("Initializing map");
         //Setup board
-        string[,] map = MapGeneration.GenerateMap();
-        List<Rgb24> colorPalette = ColorPalettes.Get16ColorPalette();
+        int width = 7;
+        int height = 7;
+        string[,] map = MapGeneration.GenerateMap(width, height);
+        System.Numerics.Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
+        Utility.LogWithTime("Initializing color palette");
+        List<Rgb24> palette = ColorPalettes.Get16ColorPalette();
+        Utility.LogWithTime("Initializing pieces");
         //List<Piece> pieces = GetRandomPieceList(36, colorPalette);
-        List<Piece> pieces = GetPiecesFromImage(250, 250, colorPalette);
+        List<Piece> pieces = GetPiecesFromImage(250, 250, palette, centerPointLocation);
+        List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
+        Robot robot = new Robot(new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y - 1));
+        //Initialize the game board
         Board board = new(map,
-            new System.Numerics.Vector2(2, 2),
-            colorPalette,
+            centerPointLocation,
+            palette,
             pieces,
-            //new List<Piece>() {
-            //        new Piece() {
-            //            Id = 1,
-            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
-            //            Location = new(2, 2)
-            //        },
-            //        new Piece() {
-            //            Id = 2,
-            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>()),
-            //            Location = new(2, 2)
-            //        },
-            //        new Piece() {
-            //            Id = 3,
-            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
-            //            Location = new(2, 2)
-            //        },
-            //        new Piece() {
-            //            Id = 4,
-            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>()),
-            //            Location = new(2, 2)
-            //        },
-            //        new Piece() {
-            //            Id = 5,
-            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
-            //            Location = new(2, 2)
-            //        },
-            //        new Piece() {
-            //            Id = 6,
-            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Purple.ToPixel<Rgb24>()),
-            //            Location = new(2, 2)
-            //        },
-            //        new Piece() {
-            //            Id = 7,
-            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>()),
-            //            Location = new(2, 2)
-            //        },
-            //        new Piece() {
-            //            Id = 8,
-            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
-            //            Location = new(2, 2)
-            //        },
-            //        new Piece() {
-            //            Id = 9,
-            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Yellow.ToPixel<Rgb24>()),
-            //            Location = new(2, 2)
-            //        },
-            //        new Piece() {
-            //            Id = 10,
-            //            Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Orange.ToPixel<Rgb24>()),
-            //            Location = new(2, 2)
-            //        }
-            //},
-            GetSortedDropZones(map, colorPalette),
-            //new()
-            //{
-            //    new SortedDropZone(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>(), new(0, 4)),
-            //    new SortedDropZone(SixLabors.ImageSharp.Color.Purple.ToPixel<Rgb24>(), new(0, 2)),
-            //    new SortedDropZone(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>(), new(4, 0)),
-            //    new SortedDropZone(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>(), new(2, 4)),
-            //    new SortedDropZone(SixLabors.ImageSharp.Color.Yellow.ToPixel<Rgb24>(), new(4, 4)),
-            //    new SortedDropZone(SixLabors.ImageSharp.Color.Orange.ToPixel<Rgb24>(),new(4, 2)),
-            //},
-            new Robot(new System.Numerics.Vector2(2, 1)));
+            sortedDropZones,
+            robot);
 
         //Setup map
-        Debug.LogWarning("Setting up map");
+        Utility.LogWithTime("Setting up map");
         LevelSetup.SetupMap(gameObject, board.Map, _ShowLinesOnFloor, _ShowCoordOnFloor);
 
         Piece[] unsortedList = new Piece[board.UnsortedPieces.Count];
         board.UnsortedPieces.ToList().CopyTo(unsortedList);
 
         //Get the robot actions
-        Debug.LogWarning("Calculating robot moves");
+        Utility.LogWithTime("Calculating robot moves");
         _RobotActions = board.RunRobot();
 
         //Add unsorted pieces
-        Debug.LogWarning("Building stack of unsorted pieces");
+        Utility.LogWithTime("Building stack of unsorted pieces");
         float y = (_PieceHeight / 2f) + (_PieceHeight * unsortedList.Length) - _PieceHeight; //Add the pieces in reverse, so the first item in the queue is also the top of the stack
         int i = 0;
-        Debug.LogWarning("There are " + unsortedList.Count().ToString() + " unsorted pieces to process");
+        Utility.LogWithTime("There are " + unsortedList.Count().ToString() + " unsorted pieces to process");
         foreach (Piece piece in unsortedList)
         {
             i++;
             //Debug.LogWarning("Adding piece " + piece.Id);
             GameObject pieceObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            pieceObject.transform.position = new Vector3(2f, y, 2f);
+            pieceObject.transform.position = new Vector3(centerPointLocation.X, y, centerPointLocation.Y);
             pieceObject.transform.localScale = new Vector3(_PieceWidth, _PieceHeight, _PieceDepth);
             //Vector3 rotation = pieceObject.transform.rotation.eulerAngles;
             //pieceObject.transform.rotation = Quaternion.Euler(new Vector3(rotation.x, 180, rotation.z));
@@ -150,7 +97,7 @@ public class MainLoop : MonoBehaviour
         }
 
         //Add the robot
-        Debug.LogWarning("Creating robot entity");
+        Utility.LogWithTime("Creating robot entity");
         _RobotObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
         _RobotObject.transform.position = new Vector3(board.Robot.Location.X, 0.5f, board.Robot.Location.Y);
         _RobotObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
@@ -186,6 +133,8 @@ public class MainLoop : MonoBehaviour
         //        }
         //    }
         //}
+
+        Utility.LogWithTime("Robot ready to roll!");
     }
 
     // Update is called once per frame
@@ -236,7 +185,7 @@ public class MainLoop : MonoBehaviour
         }
 
         //Drop piece
-        if (robotAction.PickupAction != null)
+        if (robotAction.DropoffAction != null)
         {
             float endingY = (_PieceHeight / 2f) + (_PieceHeight * robotAction.DropoffPieceCount) - _PieceHeight;
             yield return StartCoroutine(DropOffPiece(robotAction.PieceId, endingY, robotAction.DropoffAction));
@@ -286,9 +235,9 @@ public class MainLoop : MonoBehaviour
             {
                 //Start
                 pieceObject.transform.position,
-                //Move up, above pile
+                //Raise piece off pile
                 new Vector3(pieceObject.transform.position.x, startingY, pieceObject.transform.position.z),
-                //Move over, above robot
+                //Move above robot
                 new Vector3(pieceObject.transform.position.x, startingY, _RobotObject.transform.position.z),
                 //Drop piece on robot, and attach to parent robot at y 1.25s
                 new Vector3(pieceObject.transform.position.x, 1.25f, _RobotObject.transform.position.z)
@@ -303,8 +252,20 @@ public class MainLoop : MonoBehaviour
 
     private IEnumerator DropOffPiece(int pieceId, float endingY, ObjectInteraction dropOffAction)
     {
-        Debug.LogWarning("Dropping off piece " + dropOffAction.Location.ToString());
+        if (dropOffAction != null && dropOffAction.Location != null)
+        {
+            Debug.LogWarning("Dropping off piece " + dropOffAction.Location.ToString());
+        }
+        else
+        {
+            Debug.LogWarning("Piece " + pieceId + " does not a drop off action");
+        }
         GameObject pieceObject = GameObject.Find("piece_" + pieceId);
+        float robotDetachY = endingY;
+        if (robotDetachY < 1.25f)
+        {
+            robotDetachY = 1.25f;
+        }
         if (pieceObject != null)
         {
             Movement movementScript = pieceObject.GetComponent<Movement>();
@@ -313,16 +274,16 @@ public class MainLoop : MonoBehaviour
                 movementScript = pieceObject.AddComponent<Movement>();
             }
             List<Vector3> path = new()
-        {
-            //detach piece from parent robot at y 1.25s
-            new Vector3(pieceObject.transform.position.x, 1.25f, _RobotObject.transform.position.z),
-            //raise piece off robot
-            new Vector3(pieceObject.transform.position.x, endingY, _RobotObject.transform.position.z),
-            //move above destination pile
-            new Vector3(pieceObject.transform.position.x, endingY, pieceObject.transform.position.z),
-            //drop to ground
-            new Vector3(pieceObject.transform.position.x, endingY, pieceObject.transform.position.z)
-        };
+            {
+                //detach piece from parent robot at y 1.25s
+                pieceObject.transform.position,
+                //raise piece off robot
+                new Vector3(pieceObject.transform.position.x, robotDetachY, _RobotObject.transform.position.z),
+                //move above destination pile
+                new Vector3(dropOffAction.Location.X, robotDetachY, dropOffAction.Location.Y),
+                //drop to sorted pile
+                new Vector3(dropOffAction.Location.X, endingY, dropOffAction.Location.Y)
+            };
             yield return StartCoroutine(movementScript.MovePiece(pieceObject, path, null));
         }
         else
@@ -347,46 +308,23 @@ public class MainLoop : MonoBehaviour
         return pieceList;
     }
 
-    private List<SortedDropZone> GetSortedDropZones(string[,] map, List<Rgb24> palette)
-    {
-        List<SortedDropZone> sortedDropZones = new List<SortedDropZone>();
-        int width = map.GetLength(0);
-        int height = map.GetLength(1);
-        int totalBorders = (width * 2) + ((height * 2) - 4);
-
-        if (totalBorders > palette.Count)
-        {
-            Debug.LogError("The map isn't big enough to handle this palette. (Map border size of " + width + "x" + height + ", generates " + totalBorders + " border tiles, but we need " + palette.Count + " tiles)");
-        }
-        int i = 0;
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                if (x == 0 || y == 0 || x == width - 1 || y == height - 1)
-                {
-                    sortedDropZones.Add(new SortedDropZone(palette[i], new(x, y)));
-                    i++;
-                }
-            }
-        }
-        return sortedDropZones;
-    }
-
-    private List<Piece> GetPiecesFromImage(int subImageWidth, int subImageHeight, List<Rgb24> palette)
+    private List<Piece> GetPiecesFromImage(int subImageWidth, int subImageHeight, List<Rgb24> palette, System.Numerics.Vector2 centerPointLocation)
     {
         List<Piece> pieceList = new();
 
         //1. Read in input image
+        Utility.LogWithTime("GetPiecesFromImage: Read in input image");
         //Texture2D sourceTexture = Resources.Load<Texture2D>(@"/Images/st-john-beach.jpg");
         ImageColorGroups imageProcessing = new(palette);
         //ImageStats? sourceImageStats = imageProcessing.ProcessStatsForImage(sourceImageLocation, null, false);
 
         //2. Split apart images/Crop the individual images next
+        Utility.LogWithTime("GetPiecesFromImage: Split apart image into smaller images");
         Image<Rgb24> sourceImg = Texture2Image(SourceTexture);
         List<Image<Rgb24>> images = ImageCropping.SplitImageIntoMultiplePieces(sourceImg, subImageWidth, subImageHeight);
 
         //Get image stats for each individual image and combine in one list
+        Utility.LogWithTime("GetPiecesFromImage: Get stats for each piece");
         List<ImageStats> subImages = new();
         foreach (Image<Rgb24> image in images)
         {
@@ -398,6 +336,7 @@ public class MainLoop : MonoBehaviour
         }
 
         int i = 0;
+        Utility.LogWithTime("GetPiecesFromImage: Build list of pieces at " + centerPointLocation.ToString());
         foreach (ImageStats image in subImages)
         {
             i++;
@@ -406,7 +345,7 @@ public class MainLoop : MonoBehaviour
                 Id = i,
                 Image = image.Image,
                 ImageStats = image,
-                Location = new System.Numerics.Vector2(2, 2)
+                Location = centerPointLocation
             });
         }
 
@@ -429,26 +368,18 @@ public class MainLoop : MonoBehaviour
         ms.Seek(0, SeekOrigin.Begin);
 
         //Create an image from a stream.
-        //SixLabors.ImageSharp.Image bmp2 = SixLabors.ImageSharp.Image.FromStream(ms);
         Image<Rgb24> myImage = SixLabors.ImageSharp.Image.Load<Rgb24>(ms.ToArray());
 
         //Close the stream, we no longer need it.
         ms.Close();
-        ms = null;
 
         return (myImage);
     }
 
     public static Texture2D Image2Texture(SixLabors.ImageSharp.Image im)
     {
-        //if (im == null)
-        //{
-        //    return new Texture2D(4, 4);
-        //}
-
         //Memory stream to store the bitmap data.
         MemoryStream ms = new MemoryStream();
-
 
         //Save to that memory stream.
         im.SaveAsPng(ms);
@@ -457,14 +388,10 @@ public class MainLoop : MonoBehaviour
         ms.Seek(0, SeekOrigin.Begin);
         //make a new Texture2D
         Texture2D tex = new Texture2D(im.Width, im.Height);
-
         tex.LoadImage(ms.ToArray());
-        //tex.TextureType
 
         //Close the stream.
         ms.Close();
-        ms = null;
-
 
         return tex;
     }

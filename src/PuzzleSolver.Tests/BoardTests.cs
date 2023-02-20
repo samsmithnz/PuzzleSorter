@@ -1,5 +1,6 @@
 ﻿using PuzzleSolver.Images;
 using PuzzleSolver.Map;
+using PuzzleSolver.Processing;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Diagnostics.CodeAnalysis;
@@ -17,38 +18,41 @@ namespace PuzzleSolver.Tests
         public void BoardInitializationTest()
         {
             //Arrange
-            Board board = new(MapGeneration.GenerateMap(),
-                new(2, 2),
-                ColorPalettes.Get3ColorPalette(),
+            int width = 5;
+            int height = 5;
+            string[,] map = MapGeneration.GenerateMap(width, height);
+            Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
+            List<Rgb24> palette = ColorPalettes.Get3ColorPalette();
+            List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
+            Robot robot = new Robot(new Vector2(centerPointLocation.X, centerPointLocation.Y - 1));
+            //Initialize the game board
+            Board board = new(map,
+                centerPointLocation,
+                palette,
                 new List<Piece>(){
                     new Piece() {
                         Id = 1,
                         Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 2,
                         Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 3,
                         Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 4,
                         Image = ImageCropping.CreateImage(Color.Green.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     }
                 },
-                new()
-                {
-                    new SortedDropZone(Color.Red.ToPixel<Rgb24>(), new(0, 4)),
-                    new SortedDropZone(Color.Blue.ToPixel<Rgb24>(), new(4, 0)),
-                    new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(), new(4, 4))
-                },
-                new Robot(new(2, 1)));
+                sortedDropZones,
+                robot);
 
             //Act
 
@@ -61,49 +65,108 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(board.Robot);
             Assert.AreEqual(new(2, 2), board.UnsortedPiecesLocation);
             Assert.AreEqual(3, board.SortedDropZones.Count);
-            Assert.AreEqual(new(0, 4), board.SortedDropZones[0].Location);
+            Assert.AreEqual(new(0, 1), board.SortedDropZones[0].Location);
             Assert.AreEqual(0, board.SortedPieces.Count);
             Assert.AreEqual(4, board.UnsortedPieces.Count);
             Assert.AreEqual(new Vector2(2, 1), board.Robot.Location);
         }
 
         [TestMethod]
-        public void Board3ColorsRunTest()
+        public void BoardInitializationWith7WidthTest()
         {
             //Arrange
-            Board board = new(MapGeneration.GenerateMap(),
-                new(2, 2),
-                ColorPalettes.Get3ColorPalette(),
-                new List<Piece>() {
+            int width = 7;
+            int height = 7;
+            string[,] map = MapGeneration.GenerateMap(width, height);
+            Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
+            List<Rgb24> palette = ColorPalettes.Get3ColorPalette();
+            List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
+            Robot robot = new Robot(new Vector2(centerPointLocation.X, centerPointLocation.Y - 1));
+            //Initialize the game board
+            Board board = new(map,
+                centerPointLocation,
+                palette,
+                new List<Piece>(){
                     new Piece() {
                         Id = 1,
                         Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 2,
                         Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 3,
                         Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 4,
+                        Image = ImageCropping.CreateImage(Color.Green.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    }
+                },
+                sortedDropZones,
+                robot);
+
+            //Act
+
+            //Assert
+            Assert.AreEqual(new Rgb24(255, 0, 0), Color.Red.ToPixel<Rgb24>());
+            Assert.AreEqual(new Rgb24(0, 0, 255), Color.Blue.ToPixel<Rgb24>());
+            Assert.AreEqual(new Rgb24(255, 255, 0), Color.Yellow.ToPixel<Rgb24>());
+            Assert.IsNotNull(board);
+            Assert.IsNotNull(board.Map);
+            Assert.IsNotNull(board.Robot);
+            Assert.AreEqual(new(3, 3), board.UnsortedPiecesLocation);
+            Assert.AreEqual(3, board.SortedDropZones.Count);
+            Assert.AreEqual(new(0, 1), board.SortedDropZones[0].Location);
+            Assert.AreEqual(0, board.SortedPieces.Count);
+            Assert.AreEqual(4, board.UnsortedPieces.Count);
+            Assert.AreEqual(new Vector2(3, 2), board.Robot.Location);
+        }
+
+        [TestMethod]
+        public void Board3ColorsRunTest()
+        {
+            //Arrange
+            int width = 5;
+            int height = 5;
+            string[,] map = MapGeneration.GenerateMap(width, height);
+            Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
+            List<Rgb24> palette = ColorPalettes.Get3ColorPalette();
+            List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
+            Robot robot = new Robot(new Vector2(centerPointLocation.X, centerPointLocation.Y - 1));
+            //Initialize the game board
+            Board board = new(map,
+                centerPointLocation,
+                palette,
+                new List<Piece>() {
+                    new Piece() {
+                        Id = 1,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 2,
+                        Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 3,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 4,
                         Image = ImageCropping.CreateImage(Color.Yellow.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     }
                 },
-                new()
-                {
-                    new SortedDropZone(Color.Red.ToPixel<Rgb24>(), new(0, 4)),
-                    new SortedDropZone(Color.Blue.ToPixel<Rgb24>(), new(4, 0)),
-                    new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(), new(4, 4)),
-                    //new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(),new(4, 4)),
-                },
-                new Robot(new(2, 1)));
+                sortedDropZones,
+                robot);
 
             //Act
             Queue<RobotAction> results = board.RunRobot();
@@ -125,14 +188,10 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(robotAction1.PathToDropoff);
             Assert.AreEqual(new(2, 1), robotAction1.RobotDropoffStartingLocation);
             Assert.AreEqual(new(1, 1), robotAction1.PathToDropoff.Path[0]);
-            Assert.AreEqual(new(1, 2), robotAction1.PathToDropoff.Path[1]);
-            Assert.AreEqual(new(1, 3), robotAction1.PathToDropoff.Path[2]);
-            Assert.AreEqual(new(0, 3), robotAction1.PathToDropoff.Path[3]);
-            Assert.AreEqual(new(0, 4), robotAction1.PathToDropoff.Path[4]);
-            Assert.AreEqual(new(0, 4), robotAction1.RobotDropoffEndingLocation);
+            Assert.AreEqual(new(1, 1), robotAction1.RobotDropoffEndingLocation);
             Assert.AreEqual(1, robotAction1.DropoffPieceCount);
             Assert.IsNotNull(robotAction1.DropoffAction);
-            Assert.AreEqual(new(0, 4), board.SortedPieces[0].Location);
+            Assert.AreEqual(new(0, 1), board.SortedPieces[0].Location);
             Assert.AreEqual(4, results.Count);
 
             //Complete the second action
@@ -140,19 +199,15 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(robotAction2);
             Assert.IsNotNull(robotAction2.PieceId);
             Assert.IsNotNull(robotAction2.PathToPickup);
-            Assert.AreEqual(new(0, 4), robotAction2.RobotPickupStartingLocation);
-            Assert.AreEqual(new(0, 3), robotAction2.PathToPickup.Path[0]);
-            Assert.AreEqual(new(1, 3), robotAction2.PathToPickup.Path[1]);
-            Assert.AreEqual(new(1, 2), robotAction2.PathToPickup.Path[2]);
-            Assert.AreEqual(new(1, 1), robotAction2.PathToPickup.Path[3]);
+            Assert.AreEqual(new(1, 1), robotAction2.RobotPickupStartingLocation);
+            Assert.AreEqual(new(2, 1), robotAction2.PathToPickup.Path[0]);
             Assert.AreEqual(new(2, 1), robotAction2.RobotPickupEndingLocation);
             Assert.IsNotNull(robotAction2.PickupAction);
             Assert.IsNotNull(robotAction2.PathToDropoff);
             Assert.AreEqual(new(2, 1), robotAction2.RobotDropoffStartingLocation);
-            Assert.AreEqual(new(3, 1), robotAction2.PathToDropoff.Path[0]);
-            Assert.AreEqual(new(4, 1), robotAction2.PathToDropoff.Path[1]);
-            Assert.AreEqual(new(4, 0), robotAction2.PathToDropoff.Path[2]);
-            Assert.AreEqual(new(4, 0), robotAction2.RobotDropoffEndingLocation);
+            Assert.AreEqual(new(1, 1), robotAction2.PathToDropoff.Path[0]);
+            Assert.AreEqual(new(1, 2), robotAction2.PathToDropoff.Path[1]);
+            Assert.AreEqual(new(1, 2), robotAction2.RobotDropoffEndingLocation);
             Assert.AreEqual(1, robotAction2.DropoffPieceCount);
             Assert.IsNotNull(robotAction2.DropoffAction);
             Assert.AreEqual(3, results.Count);
@@ -162,20 +217,15 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(robotAction3);
             Assert.IsNotNull(robotAction3.PieceId);
             Assert.IsNotNull(robotAction3.PathToPickup);
-            Assert.AreEqual(new(4, 0), robotAction3.RobotPickupStartingLocation);
-            Assert.AreEqual(new(3, 0), robotAction3.PathToPickup.Path[0]);
-            Assert.AreEqual(new(2, 0), robotAction3.PathToPickup.Path[1]);
-            Assert.AreEqual(new(2, 1), robotAction3.PathToPickup.Path[2]);
+            Assert.AreEqual(new(1, 2), robotAction3.RobotPickupStartingLocation);
+            Assert.AreEqual(new(1, 1), robotAction3.PathToPickup.Path[0]);
+            Assert.AreEqual(new(2, 1), robotAction3.PathToPickup.Path[1]);
             Assert.AreEqual(new(2, 1), robotAction3.RobotPickupEndingLocation);
             Assert.IsNotNull(robotAction3.PickupAction);
             Assert.IsNotNull(robotAction3.PathToDropoff);
             Assert.AreEqual(new(2, 1), robotAction3.RobotDropoffStartingLocation);
             Assert.AreEqual(new(1, 1), robotAction3.PathToDropoff.Path[0]);
-            Assert.AreEqual(new(1, 2), robotAction3.PathToDropoff.Path[1]);
-            Assert.AreEqual(new(1, 3), robotAction3.PathToDropoff.Path[2]);
-            Assert.AreEqual(new(0, 3), robotAction3.PathToDropoff.Path[3]);
-            Assert.AreEqual(new(0, 4), robotAction3.PathToDropoff.Path[4]);
-            Assert.AreEqual(new(0, 4), robotAction3.RobotDropoffEndingLocation);
+            Assert.AreEqual(new(1, 1), robotAction3.RobotDropoffEndingLocation);
             Assert.AreEqual(2, robotAction3.DropoffPieceCount);
             Assert.IsNotNull(robotAction3.DropoffAction);
             Assert.AreEqual(2, results.Count);
@@ -191,71 +241,71 @@ namespace PuzzleSolver.Tests
         public void Board6ColorsRunTest()
         {
             //Arrange
-            Board board = new(MapGeneration.GenerateMap(),
-                new Vector2(2, 2),
-                ColorPalettes.Get6ColorPalette(),
+            int width = 5;
+            int height = 5;
+            string[,] map = MapGeneration.GenerateMap(width, height);
+            Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
+            List<Rgb24> palette = ColorPalettes.Get6ColorPalette();
+            List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
+            Robot robot = new Robot(new Vector2(centerPointLocation.X, centerPointLocation.Y - 1));
+            //Initialize the game board
+            Board board = new(map,
+                centerPointLocation,
+                palette,
                 new List<Piece>() {
                     new Piece() {
                         Id = 1,
                         Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 2,
                         Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 3,
                         Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 4,
                         Image = ImageCropping.CreateImage(Color.Green.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 5,
                         Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 6,
                         Image = ImageCropping.CreateImage(Color.Purple.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 7,
                         Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 8,
                         Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 9,
                         Image = ImageCropping.CreateImage(Color.Yellow.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     },
                     new Piece() {
                         Id = 10,
                         Image = ImageCropping.CreateImage(Color.Orange.ToPixel<Rgb24>()),
-                        Location = new(2, 2)
+                        Location = centerPointLocation
                     }
-             },
-             new()
-             {
-                new SortedDropZone(Color.Red.ToPixel<Rgb24>(), new(0, 4)),
-                new SortedDropZone(Color.Purple.ToPixel<Rgb24>(), new(0, 2)),
-                new SortedDropZone(Color.Blue.ToPixel<Rgb24>(), new(4, 0)),
-                new SortedDropZone(Color.Green.ToPixel<Rgb24>(), new(2, 4)),
-                new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(), new(4, 4)),
-                new SortedDropZone(Color.Orange.ToPixel<Rgb24>(),new(4, 2)),
-             },
-          new Robot(new Vector2(2, 1)));
+                },
+                sortedDropZones,
+                robot);
 
             //Act
             Queue<RobotAction> results = board.RunRobot();
@@ -277,14 +327,10 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(robotAction1.PathToDropoff);
             Assert.AreEqual(new(2, 1), robotAction1.RobotDropoffStartingLocation);
             Assert.AreEqual(new(1, 1), robotAction1.PathToDropoff.Path[0]);
-            Assert.AreEqual(new(1, 2), robotAction1.PathToDropoff.Path[1]);
-            Assert.AreEqual(new(1, 3), robotAction1.PathToDropoff.Path[2]);
-            Assert.AreEqual(new(0, 3), robotAction1.PathToDropoff.Path[3]);
-            Assert.AreEqual(new(0, 4), robotAction1.PathToDropoff.Path[4]);
-            Assert.AreEqual(new(0, 4), robotAction1.RobotDropoffEndingLocation);
+            Assert.AreEqual(new(1, 1), robotAction1.RobotDropoffEndingLocation);
             Assert.AreEqual(1, robotAction1.DropoffPieceCount);
             Assert.IsNotNull(robotAction1.DropoffAction);
-            Assert.AreEqual(new(0, 4), board.SortedPieces[0].Location);
+            Assert.AreEqual(new(0, 1), board.SortedPieces[0].Location);
             Assert.AreEqual(10, results.Count);
 
             //Complete the second action
@@ -292,19 +338,16 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(robotAction2);
             Assert.IsNotNull(robotAction2.PieceId);
             Assert.IsNotNull(robotAction2.PathToPickup);
-            Assert.AreEqual(new(0, 4), robotAction2.RobotPickupStartingLocation);
-            Assert.AreEqual(new(0, 3), robotAction2.PathToPickup.Path[0]);
-            Assert.AreEqual(new(1, 3), robotAction2.PathToPickup.Path[1]);
-            Assert.AreEqual(new(1, 2), robotAction2.PathToPickup.Path[2]);
-            Assert.AreEqual(new(1, 1), robotAction2.PathToPickup.Path[3]);
+            Assert.AreEqual(new(1, 1), robotAction2.RobotPickupStartingLocation);
+            Assert.AreEqual(new(2, 1), robotAction2.PathToPickup.Path[0]);
             Assert.AreEqual(new(2, 1), robotAction2.RobotPickupEndingLocation);
             Assert.IsNotNull(robotAction2.PickupAction);
             Assert.IsNotNull(robotAction2.PathToDropoff);
             Assert.AreEqual(new(2, 1), robotAction2.RobotDropoffStartingLocation);
-            Assert.AreEqual(new(3, 1), robotAction2.PathToDropoff.Path[0]);
-            Assert.AreEqual(new(4, 1), robotAction2.PathToDropoff.Path[1]);
-            Assert.AreEqual(new(4, 0), robotAction2.PathToDropoff.Path[2]);
-            Assert.AreEqual(new(4, 0), robotAction2.RobotDropoffEndingLocation);
+            Assert.AreEqual(new(1, 1), robotAction2.PathToDropoff.Path[0]);
+            Assert.AreEqual(new(1, 2), robotAction2.PathToDropoff.Path[1]);
+            Assert.AreEqual(new(1, 3), robotAction2.PathToDropoff.Path[2]);
+            Assert.AreEqual(new(1, 3), robotAction2.RobotDropoffEndingLocation);
             Assert.AreEqual(1, robotAction2.DropoffPieceCount);
             Assert.IsNotNull(robotAction2.DropoffAction);
             Assert.AreEqual(9, results.Count);
@@ -314,20 +357,16 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(robotAction3);
             Assert.IsNotNull(robotAction3.PieceId);
             Assert.IsNotNull(robotAction3.PathToPickup);
-            Assert.AreEqual(new(4, 0), robotAction3.RobotPickupStartingLocation);
-            Assert.AreEqual(new(3, 0), robotAction3.PathToPickup.Path[0]);
-            Assert.AreEqual(new(2, 0), robotAction3.PathToPickup.Path[1]);
+            Assert.AreEqual(new(1, 3), robotAction3.RobotPickupStartingLocation);
+            Assert.AreEqual(new(1, 2), robotAction3.PathToPickup.Path[0]);
+            Assert.AreEqual(new(1, 1), robotAction3.PathToPickup.Path[1]);
             Assert.AreEqual(new(2, 1), robotAction3.PathToPickup.Path[2]);
             Assert.AreEqual(new(2, 1), robotAction3.RobotPickupEndingLocation);
             Assert.IsNotNull(robotAction3.PickupAction);
             Assert.IsNotNull(robotAction3.PathToDropoff);
             Assert.AreEqual(new(2, 1), robotAction3.RobotDropoffStartingLocation);
             Assert.AreEqual(new(1, 1), robotAction3.PathToDropoff.Path[0]);
-            Assert.AreEqual(new(1, 2), robotAction3.PathToDropoff.Path[1]);
-            Assert.AreEqual(new(1, 3), robotAction3.PathToDropoff.Path[2]);
-            Assert.AreEqual(new(0, 3), robotAction3.PathToDropoff.Path[3]);
-            Assert.AreEqual(new(0, 4), robotAction3.PathToDropoff.Path[4]);
-            Assert.AreEqual(new(0, 4), robotAction3.RobotDropoffEndingLocation);
+            Assert.AreEqual(new(1, 1), robotAction3.RobotDropoffEndingLocation);
             Assert.AreEqual(2, robotAction3.DropoffPieceCount);
             Assert.IsNotNull(robotAction3.DropoffAction);
             Assert.AreEqual(8, results.Count);
@@ -337,20 +376,8 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(robotAction4);
             Assert.IsNotNull(robotAction4.PieceId);
             Assert.IsNotNull(robotAction4.PathToPickup);
-            //Assert.AreEqual(new(4, 0), robotAction4.RobotPickupStartingLocation);
-            //Assert.AreEqual(new(3, 0), robotAction4.PathToPickup.Path[0]);
-            //Assert.AreEqual(new(2, 0), robotAction4.PathToPickup.Path[1]);
-            //Assert.AreEqual(new(2, 1), robotAction4.PathToPickup.Path[2]);
-            //Assert.AreEqual(new(2, 1), robotAction4.RobotPickupEndingLocation);
             Assert.IsNotNull(robotAction4.PickupAction);
             Assert.IsNotNull(robotAction4.PathToDropoff);
-            //Assert.AreEqual(new(2, 1), robotAction4.RobotDropoffStartingLocation);
-            //Assert.AreEqual(new(1, 1), robotAction4.PathToDropoff.Path[0]);
-            //Assert.AreEqual(new(1, 2), robotAction4.PathToDropoff.Path[1]);
-            //Assert.AreEqual(new(1, 3), robotAction4.PathToDropoff.Path[2]);
-            //Assert.AreEqual(new(0, 3), robotAction4.PathToDropoff.Path[3]);
-            //Assert.AreEqual(new(0, 4), robotAction4.PathToDropoff.Path[4]);
-            //Assert.AreEqual(new(0, 4), robotAction4.RobotDropoffEndingLocation);
             Assert.AreEqual(1, robotAction4.DropoffPieceCount);
             Assert.IsNotNull(robotAction4.DropoffAction);
             Assert.AreEqual(7, results.Count);
@@ -365,5 +392,62 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(4, board.GetPieceCount(board.SortedDropZones[0].Location));
         }
 
+        [TestMethod]
+        public void StJohnImage16ColorsRunTest()
+        {
+            //Arrange
+            int width = 7;
+            int height = 7;
+            string[,] map = MapGeneration.GenerateMap(width, height);
+            Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
+            List<Rgb24> palette = ColorPalettes.Get16ColorPalette();
+            //Process + Split the image
+            string imageDir = Environment.CurrentDirectory + @"/TestImages/st-john-beach.jpg";
+            Image<Rgb24> sourceImage = Image.Load<Rgb24>(imageDir);
+            List<Image<Rgb24>> images = ImageCropping.SplitImageIntoMultiplePieces(sourceImage, 250, 250);
+            List<ImageStats> subImages = new();
+            ImageColorGroups imageProcessing = new(palette);
+            foreach (Image<Rgb24> image in images)
+            {
+                ImageStats subitemImageStats = imageProcessing.ProcessStatsForImage(null, image, true);
+                if (subitemImageStats != null)
+                {
+                    subImages.Add(subitemImageStats);
+                }
+            }
+            int i = 0;
+            List<Piece> pieces = new List<Piece>();
+            foreach (ImageStats image in subImages)
+            {
+                i++;
+                pieces.Add(new Piece()
+                {
+                    Id = i,
+                    Image = image.Image,
+                    ImageStats = image,
+                    Location = centerPointLocation
+                });
+            }
+            List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
+            Robot robot = new Robot(new Vector2(centerPointLocation.X, centerPointLocation.Y - 1));
+            //Initialize the game board
+            Board board = new(map,
+                centerPointLocation,
+                palette,
+                pieces,
+                sortedDropZones,
+                robot);
+
+            //Act
+            Queue<RobotAction> results = board.RunRobot();
+
+            //Assert
+            Assert.IsNotNull(board);
+            Assert.AreEqual(0, board.UnsortedPieces.Count);
+            Assert.AreEqual(12, board.SortedPieces.Count);
+            Assert.IsTrue(board.UnsortedPieces.Count == 0);
+            Assert.IsNotNull(results);
+            Assert.AreEqual(13, results.Count);
+        }
     }
 }
