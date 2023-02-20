@@ -251,6 +251,7 @@ namespace PuzzleSolver.Tests
             Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
             List<Rgb24> palette = ColorPalettes.Get6ColorPalette();
             Robot robot = new Robot(new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y - 1));
+            List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
             Board board = new(map,
                 centerPointLocation,
                 palette,
@@ -306,15 +307,7 @@ namespace PuzzleSolver.Tests
                         Location = centerPointLocation
                     }
              },
-             new()
-             {
-                new SortedDropZone(Color.Red.ToPixel<Rgb24>(), new(0, 4)),
-                new SortedDropZone(Color.Purple.ToPixel<Rgb24>(), new(0, 2)),
-                new SortedDropZone(Color.Blue.ToPixel<Rgb24>(), new(4, 0)),
-                new SortedDropZone(Color.Green.ToPixel<Rgb24>(), new(2, 4)),
-                new SortedDropZone(Color.Yellow.ToPixel<Rgb24>(), new(4, 4)),
-                new SortedDropZone(Color.Orange.ToPixel<Rgb24>(),new(4, 2)),
-             },
+             sortedDropZones,
             robot);
 
             //Act
