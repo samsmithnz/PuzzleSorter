@@ -115,10 +115,9 @@ namespace PuzzleSolver
                 robotAction.RobotDropoffStartingLocation = currentRobotLocation;
                 if (destinationLocation != null && pathDestinationLocation != null)
                 {
-
                     //now find the path
                     PathFindingResult pathFindingResultForDropoff = PathFinding.FindPath(Map, currentRobotLocation, (Vector2)pathDestinationLocation);
-                    if (pathFindingResultForDropoff != null && pathFindingResultForDropoff.Path.Any())
+                    if (pathFindingResultForDropoff != null && pathFindingResultForDropoff.Path.Count >= 0)
                     {
                         //Move robot
                         robotAction.PathToDropoff = pathFindingResultForDropoff;
@@ -139,7 +138,10 @@ namespace PuzzleSolver
                         }
                         Robot.Piece = null;
                         robotAction.DropoffPieceCount = GetPieceCount(robotAction.DropoffAction.Location);
-                        currentRobotLocation = pathFindingResultForDropoff.Path.Last();
+                        if (pathFindingResultForDropoff.Path.Count > 0)
+                        {
+                            currentRobotLocation = pathFindingResultForDropoff.Path.Last();
+                        }
                     }
                 }
                 robotAction.RobotDropoffEndingLocation = currentRobotLocation;
