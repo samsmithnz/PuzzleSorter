@@ -465,7 +465,6 @@ namespace PuzzleSolver.Tests
                 sortedDropZones,
                 robot);
 
-
             //Act
             Queue<RobotAction> results = board.RunRobot();
 
