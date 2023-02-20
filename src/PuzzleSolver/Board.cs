@@ -206,67 +206,6 @@ namespace PuzzleSolver
                     //it's a bottom location drop-off
                     adjacentLocation = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y - 11);
                 }
-
-                //Vector2 topLocation = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y + 1);
-                //Vector2 bottomLocation = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y - 1);
-                //Vector2 rightLocation = new Vector2((int)destinationLocation.X + 1, (int)destinationLocation.Y);
-                //Vector2 leftLocation = new Vector2((int)destinationLocation.X - 1, (int)destinationLocation.Y);
-
-                ////Check if I can deliver from the top first
-                //if (CheckLocationIsValid(topLocation, map, sortedDropZones))
-                //{
-                //    return topLocation;
-                //}
-                ////Then check the bottom
-                //else if (CheckLocationIsValid(bottomLocation, map, sortedDropZones))
-                //{
-                //    return bottomLocation;
-                //}
-                ////Then check the right
-                //else if (CheckLocationIsValid(rightLocation, map, sortedDropZones))
-                //{
-                //    return rightLocation;
-                //}
-                ////Finally check the left
-                //else if (CheckLocationIsValid(leftLocation, map, sortedDropZones))
-                //{
-                //    return leftLocation;
-                //}
-                //else
-                //{
-                //    return destinationLocation;
-                //}
-                //if (topTile.X > 0 && topTile.Y > 0 &&
-                //    topTile.X < map.GetUpperBound(0) &&
-                //    topTile.Y < map.GetUpperBound(1) &&
-                //    map[(int)topTile.X, (int)topTile.Y] == "" &&
-                //    sortedDropZones.Find(d => d.Location == topTile) == null)
-                //{
-                //    return topTile;
-                //}
-                //else
-                //{
-                //    return destinationLocation;
-                //}
-
-                ////Get the adjacent tiles
-                //List<Vector2> adjacentTiles = new List<Vector2>();
-                //adjacentTiles.Add(new Vector2(destinationLocation.X - 1, destinationLocation.Y));
-                //adjacentTiles.Add(new Vector2(destinationLocation.X + 1, destinationLocation.Y));
-                //adjacentTiles.Add(new Vector2(destinationLocation.X, destinationLocation.Y - 1));
-                //adjacentTiles.Add(new Vector2(destinationLocation.X, destinationLocation.Y + 1));
-
-                ////Loop through the adjacent tiles and find the first one that is not a wall
-                //foreach (Vector2 item in adjacentTiles)
-                //{
-                //    if ((int)item.X > 0 || (int)item.Y > 0 ||
-                //        (int)item.X < map.GetUpperBound(0) ||
-                //        (int)item.Y < map.GetUpperBound(1))
-                //    {
-                //        adjacentTile = item;
-                //        break;
-                //    }
-                //}
             }
             return adjacentLocation;
         }
