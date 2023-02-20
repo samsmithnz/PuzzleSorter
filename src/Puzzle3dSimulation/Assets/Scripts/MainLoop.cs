@@ -380,14 +380,8 @@ public class MainLoop : MonoBehaviour
 
     public static Texture2D Image2Texture(SixLabors.ImageSharp.Image im)
     {
-        //if (im == null)
-        //{
-        //    return new Texture2D(4, 4);
-        //}
-
         //Memory stream to store the bitmap data.
         MemoryStream ms = new MemoryStream();
-
 
         //Save to that memory stream.
         im.SaveAsPng(ms);
@@ -396,14 +390,10 @@ public class MainLoop : MonoBehaviour
         ms.Seek(0, SeekOrigin.Begin);
         //make a new Texture2D
         Texture2D tex = new Texture2D(im.Width, im.Height);
-
         tex.LoadImage(ms.ToArray());
-        //tex.TextureType
 
         //Close the stream.
         ms.Close();
-        ms = null;
-
 
         return tex;
     }
