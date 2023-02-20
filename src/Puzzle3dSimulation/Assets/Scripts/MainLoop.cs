@@ -41,7 +41,7 @@ public class MainLoop : MonoBehaviour
         List<Piece> pieces = GetPiecesFromImage(250, 250, palette, centerPointLocation);
         List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
         Robot robot = new Robot(new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y - 1));
-
+        //Initialize the game board
         Board board = new(map,
             centerPointLocation,
             palette,
@@ -305,7 +305,7 @@ public class MainLoop : MonoBehaviour
             });
         }
         return pieceList;
-    }   
+    }
 
     private List<Piece> GetPiecesFromImage(int subImageWidth, int subImageHeight, List<Rgb24> palette, System.Numerics.Vector2 centerPointLocation)
     {
