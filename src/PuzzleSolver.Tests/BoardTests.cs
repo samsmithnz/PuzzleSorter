@@ -428,7 +428,33 @@ namespace PuzzleSolver.Tests
             string[,] map = MapGeneration.GenerateMap(width, height);
             Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
             List<Rgb24> palette = ColorPalettes.Get16ColorPalette();
+            //Process + Split the image
+            string imageDir = Environment.CurrentDirectory + @"/TestImages/st-john-beach.jpg";
+            Image<Rgb24> sourceImage = Image.Load<Rgb24>(imageDir);
+            List<Image<Rgb24>> images = ImageCropping.SplitImageIntoMultiplePieces(sourceImage, 250, 250);
+            List<ImageStats> subImages = new();
+            ImageColorGroups imageProcessing = new(palette);
+            foreach (Image<Rgb24> image in images)
+            {
+                ImageStats subitemImageStats = imageProcessing.ProcessStatsForImage(null, image, true);
+                if (subitemImageStats != null)
+                {
+                    subImages.Add(subitemImageStats);
+                }
+            }
+            int i = 0;
             List<Piece> pieces = new List<Piece>();
+            foreach (ImageStats image in subImages)
+            {
+                i++;
+                pieces.Add(new Piece()
+                {
+                    Id = i,
+                    Image = image.Image,
+                    ImageStats = image,
+                    Location = centerPointLocation
+                });
+            }
             List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
             Robot robot = new Robot(new Vector2(centerPointLocation.X, centerPointLocation.Y - 1));
             //Initialize the game board
@@ -439,9 +465,17 @@ namespace PuzzleSolver.Tests
                 sortedDropZones,
                 robot);
 
+
             //Act
             Queue<RobotAction> results = board.RunRobot();
 
             //Assert
+            Assert.IsNotNull(board);
+            Assert.AreEqual(0, board.UnsortedPieces.Count);
+            Assert.AreEqual(12, board.SortedPieces.Count);
+            Assert.IsTrue(board.UnsortedPieces.Count == 0);
+            Assert.IsNotNull(results);
+            Assert.AreEqual(13, results.Count);
         }
+    }
 }
