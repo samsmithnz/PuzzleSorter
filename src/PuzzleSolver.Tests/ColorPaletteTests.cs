@@ -90,6 +90,22 @@ public class ColorPaletteTests
     }
 
     [TestMethod]
+    public void Verify32ColorPaletteTest()
+    {
+        //Arrange
+        List<Rgb24> colors = ColorPalettes.Get32ColorPalette();
+
+        //Act
+
+        //Assert
+        Assert.AreEqual(33, colors.Count); //Actually 33 as we have black AND white
+        foreach (Rgb24 color in colors)
+        {
+            Assert.IsFalse(string.IsNullOrEmpty(ColorPalettes.ToName(color)));
+        }
+    }
+
+    [TestMethod]
     public void Verify141ColorPaletteTest()
     {
         //Arrange
