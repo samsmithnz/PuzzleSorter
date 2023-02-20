@@ -308,9 +308,9 @@ namespace PuzzleSolver.Tests
                         Image = ImageCropping.CreateImage(Color.Orange.ToPixel<Rgb24>()),
                         Location = centerPointLocation
                     }
-             },
-             sortedDropZones,
-            robot);
+                },
+                sortedDropZones,
+                robot);
 
             //Act
             Queue<RobotAction> results = board.RunRobot();
