@@ -25,6 +25,7 @@ public class MainLoop : MonoBehaviour
     private float _PieceWidth = 0.5f;
     private float _PieceHeight = 0.25f;
     private float _PieceDepth = 0.5f;
+    private int _PieceSize = 100;
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +40,7 @@ public class MainLoop : MonoBehaviour
         List<Rgb24> palette = ColorPalettes.Get16ColorPalette();
         Utility.LogWithTime("Initializing pieces");
         //List<Piece> pieces = GetRandomPieceList(36, colorPalette);
-        List<Piece> pieces = GetPiecesFromImage(250, 250, palette, centerPointLocation);
+        List<Piece> pieces = GetPiecesFromImage(_PieceSize, _PieceSize, palette, centerPointLocation);
         List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
         Robot robot = new Robot(new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y - 1));
         //Initialize the game board
