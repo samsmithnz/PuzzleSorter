@@ -96,6 +96,7 @@ namespace PuzzleSolver
                     if (sortedDropZone.Color == Robot.Piece.ImageStats.TopColorGroupColor)
                     {
                         destinationLocation = sortedDropZone.Location;
+                        break;
                     }
                 }
 
