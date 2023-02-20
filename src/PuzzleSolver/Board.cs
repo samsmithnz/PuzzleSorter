@@ -1,6 +1,7 @@
 ﻿using PuzzleSolver.Images;
 using PuzzleSolver.Map;
 using SixLabors.ImageSharp.PixelFormats;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -265,7 +266,7 @@ namespace PuzzleSolver
             {
                 return false;
             }
-        }
-       
+        }       
+
     }
 }
