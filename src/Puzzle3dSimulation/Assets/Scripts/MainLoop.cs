@@ -258,10 +258,10 @@ public class MainLoop : MonoBehaviour
             Debug.LogWarning("Piece " + pieceId + " does not a drop off action");
         }
         GameObject pieceObject = GameObject.Find("piece_" + pieceId);
-        float robotDetactY = endingY;
-        if (robotDetactY < 1.25f)
+        float robotDetachY = endingY;
+        if (robotDetachY < 1.25f)
         {
-            robotDetactY = 1.25f;
+            robotDetachY = 1.25f;
         }
         if (pieceObject != null)
         {
@@ -275,7 +275,7 @@ public class MainLoop : MonoBehaviour
             //detach piece from parent robot at y 1.25s
             pieceObject.transform.position,
             //raise piece off robot
-            new Vector3(pieceObject.transform.position.x, robotDetactY, _RobotObject.transform.position.z),
+            new Vector3(pieceObject.transform.position.x, robotDetachY, _RobotObject.transform.position.z),
             //move above destination pile
             new Vector3(dropOffAction.Location.X, endingY, dropOffAction.Location.Y),
             //drop to sorted pile
@@ -303,42 +303,7 @@ public class MainLoop : MonoBehaviour
             });
         }
         return pieceList;
-    }
-
-    private List<SortedDropZone> GetSortedDropZones(string[,] map, List<Rgb24> palette)
-    {
-        List<SortedDropZone> sortedDropZones = new List<SortedDropZone>();
-        int width = map.GetLength(0);
-        int height = map.GetLength(1);
-        int totalBorderTiles = (width * 2) + ((height * 2) - 4 - 4);
-
-        if (totalBorderTiles < palette.Count)
-        {
-            Debug.LogError("The map isn't big enough to handle this palette. (Map border size of " + width + "x" + height + ", generates " + totalBorderTiles + " border tiles, but we need " + palette.Count + " tiles)");
-        }
-        int i = 0;
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                //Find a border tile, that is NOT a corner.
-                if ((x == 0 || y == 0 || x == width - 1 || y == height - 1) &&
-                    x != 0 && y != 0 &&
-                    x != 0 && y != height - 1 &&
-                    x != width - 1 && y != 0 &&
-                    x != width - 1 && y != height - 1)
-                {
-                    sortedDropZones.Add(new SortedDropZone(palette[i], new(x, y)));
-                    i++;
-                }
-                if (i >= palette.Count)
-                {
-                    break;
-                }
-            }
-        }
-        return sortedDropZones;
-    }
+    }   
 
     private List<Piece> GetPiecesFromImage(int subImageWidth, int subImageHeight, List<Rgb24> palette, System.Numerics.Vector2 centerPointLocation)
     {
