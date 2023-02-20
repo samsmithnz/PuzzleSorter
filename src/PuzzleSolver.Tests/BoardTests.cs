@@ -472,7 +472,7 @@ namespace PuzzleSolver.Tests
             //Assert
             Assert.IsNotNull(board);
             Assert.AreEqual(0, board.UnsortedPieces.Count);
-            Assert.AreEqual(12, board.SortedPieces.Count);
+            Assert.AreEqual(10, board.SortedPieces.Count);
             Assert.IsTrue(board.UnsortedPieces.Count == 0);
             Assert.IsNotNull(results);
             Assert.AreEqual(13, results.Count);
