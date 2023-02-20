@@ -184,7 +184,7 @@ public class MainLoop : MonoBehaviour
         }
 
         //Drop piece
-        if (robotAction.PickupAction != null)
+        if (robotAction.DropoffAction != null)
         {
             float endingY = (_PieceHeight / 2f) + (_PieceHeight * robotAction.DropoffPieceCount) - _PieceHeight;
             yield return StartCoroutine(DropOffPiece(robotAction.PieceId, endingY, robotAction.DropoffAction));
@@ -273,16 +273,16 @@ public class MainLoop : MonoBehaviour
                 movementScript = pieceObject.AddComponent<Movement>();
             }
             List<Vector3> path = new()
-        {
-            //detach piece from parent robot at y 1.25s
-            pieceObject.transform.position,
-            //raise piece off robot
-            new Vector3(pieceObject.transform.position.x, robotDetachY, _RobotObject.transform.position.z),
-            //move above destination pile
-            new Vector3(dropOffAction.Location.X, endingY, dropOffAction.Location.Y),
-            //drop to sorted pile
-            new Vector3(dropOffAction.Location.X, endingY, dropOffAction.Location.Y)
-        };
+            {
+                //detach piece from parent robot at y 1.25s
+                pieceObject.transform.position,
+                //raise piece off robot
+                new Vector3(pieceObject.transform.position.x, robotDetachY, _RobotObject.transform.position.z),
+                //move above destination pile
+                new Vector3(dropOffAction.Location.X, endingY, dropOffAction.Location.Y),
+                //drop to sorted pile
+                new Vector3(dropOffAction.Location.X, endingY, dropOffAction.Location.Y)
+            };
             yield return StartCoroutine(movementScript.MovePiece(pieceObject, path, null));
         }
         else
