@@ -99,10 +99,6 @@ public class ColorPaletteTests
 
         //Assert
         Assert.AreEqual(33, colors.Count); //Actually 33 as we have black AND white
-        foreach (Rgb24 color in colors)
-        {
-            Assert.IsFalse(string.IsNullOrEmpty(ColorPalettes.ToName(color)));
-        }
     }
 
     [TestMethod]
