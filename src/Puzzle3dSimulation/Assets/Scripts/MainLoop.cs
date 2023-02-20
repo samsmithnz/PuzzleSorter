@@ -368,12 +368,10 @@ public class MainLoop : MonoBehaviour
         ms.Seek(0, SeekOrigin.Begin);
 
         //Create an image from a stream.
-        //SixLabors.ImageSharp.Image bmp2 = SixLabors.ImageSharp.Image.FromStream(ms);
         Image<Rgb24> myImage = SixLabors.ImageSharp.Image.Load<Rgb24>(ms.ToArray());
 
         //Close the stream, we no longer need it.
         ms.Close();
-        ms = null;
 
         return (myImage);
     }
