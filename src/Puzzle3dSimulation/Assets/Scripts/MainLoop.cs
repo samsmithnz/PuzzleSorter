@@ -260,10 +260,10 @@ public class MainLoop : MonoBehaviour
             Debug.LogWarning("Piece " + pieceId + " does not a drop off action");
         }
         GameObject pieceObject = GameObject.Find("piece_" + pieceId);
-        //float robotDetachY = endingY;
-        if (endingY < 1.25f)
+        float robotDetachY = endingY;
+        if (robotDetachY > 1.25f)
         {
-            endingY = 1.25f;
+            robotDetachY = 1.25f;
         }
         if (pieceObject != null)
         {
@@ -277,9 +277,9 @@ public class MainLoop : MonoBehaviour
                 //detach piece from parent robot at y 1.25s
                 pieceObject.transform.position,
                 //raise piece off robot
-                new Vector3(pieceObject.transform.position.x, endingY, _RobotObject.transform.position.z),
+                new Vector3(pieceObject.transform.position.x, robotDetachY, _RobotObject.transform.position.z),
                 //move above destination pile
-                new Vector3(dropOffAction.Location.X, endingY, dropOffAction.Location.Y),
+                new Vector3(dropOffAction.Location.X, robotDetachY, dropOffAction.Location.Y),
                 //drop to sorted pile
                 new Vector3(dropOffAction.Location.X, endingY, dropOffAction.Location.Y)
             };
