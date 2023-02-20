@@ -187,35 +187,56 @@ namespace PuzzleSolver
             Vector2? adjacentLocation = null;
             if (destinationLocation != null)
             {
-                Vector2 topLocation = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y + 1);
-                Vector2 bottomLocation = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y - 1);
-                Vector2 rightLocation = new Vector2((int)destinationLocation.X + 1, (int)destinationLocation.Y);
-                Vector2 leftLocation = new Vector2((int)destinationLocation.X - 1, (int)destinationLocation.Y);
+                if (destinationLocation.X == 0)
+                {
+                    //it's a right location drop-off
+                    adjacentLocation = new Vector2((int)destinationLocation.X + 1, (int)destinationLocation.Y);
+                }
+                else if (destinationLocation.X == map.GetUpperBound(0))
+                {
+                    //it's a left location drop-off
+                    adjacentLocation = new Vector2((int)destinationLocation.X - 1, (int)destinationLocation.Y);
+                }
+                else if (destinationLocation.Y == 0)
+                {
+                    //it's a top location drop-off
+                    adjacentLocation = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y + 1);
+                }
+                else if (destinationLocation.Y == map.GetUpperBound(1))
+                {
+                    //it's a bottom location drop-off
+                    adjacentLocation = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y - 11);
+                }
 
-                //Check if I can deliver from the top first
-                if (CheckLocationIsValid(topLocation, map, sortedDropZones))
-                {
-                    return topLocation;
-                }
-                //Then check the bottom
-                else if (CheckLocationIsValid(bottomLocation, map, sortedDropZones))
-                {
-                    return bottomLocation;
-                }
-                //Then check the right
-                else if (CheckLocationIsValid(rightLocation, map, sortedDropZones))
-                {
-                    return rightLocation;
-                }
-                //Finally check the left
-                else if (CheckLocationIsValid(leftLocation, map, sortedDropZones))
-                {
-                    return leftLocation;
-                }
-                else
-                {
-                    return destinationLocation;
-                }
+                //Vector2 topLocation = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y + 1);
+                //Vector2 bottomLocation = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y - 1);
+                //Vector2 rightLocation = new Vector2((int)destinationLocation.X + 1, (int)destinationLocation.Y);
+                //Vector2 leftLocation = new Vector2((int)destinationLocation.X - 1, (int)destinationLocation.Y);
+
+                ////Check if I can deliver from the top first
+                //if (CheckLocationIsValid(topLocation, map, sortedDropZones))
+                //{
+                //    return topLocation;
+                //}
+                ////Then check the bottom
+                //else if (CheckLocationIsValid(bottomLocation, map, sortedDropZones))
+                //{
+                //    return bottomLocation;
+                //}
+                ////Then check the right
+                //else if (CheckLocationIsValid(rightLocation, map, sortedDropZones))
+                //{
+                //    return rightLocation;
+                //}
+                ////Finally check the left
+                //else if (CheckLocationIsValid(leftLocation, map, sortedDropZones))
+                //{
+                //    return leftLocation;
+                //}
+                //else
+                //{
+                //    return destinationLocation;
+                //}
                 //if (topTile.X > 0 && topTile.Y > 0 &&
                 //    topTile.X < map.GetUpperBound(0) &&
                 //    topTile.Y < map.GetUpperBound(1) &&
@@ -266,7 +287,7 @@ namespace PuzzleSolver
             {
                 return false;
             }
-        }       
+        }
 
     }
 }
