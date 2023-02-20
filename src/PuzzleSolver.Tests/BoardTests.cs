@@ -419,5 +419,28 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(4, board.GetPieceCount(board.SortedDropZones[0].Location));
         }
 
-    }
+        [TestMethod]
+        public void StJohnImage16ColorsRunTest()
+        {
+            //Arrange
+            int width = 7;
+            int height = 7;
+            string[,] map = MapGeneration.GenerateMap(width, height);
+            Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
+            List<Rgb24> palette = ColorPalettes.Get6ColorPalette();
+            List<Piece> pieces = new List<Piece>();
+            List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
+            Robot robot = new Robot(new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y - 1));
+            //Initialize the game board
+            Board board = new(map,
+                centerPointLocation,
+                palette,
+                pieces,
+                sortedDropZones,
+                robot);
+
+            //Act
+            Queue<RobotAction> results = board.RunRobot();
+
+        }
 }
