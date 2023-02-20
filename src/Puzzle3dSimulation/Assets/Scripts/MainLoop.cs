@@ -335,7 +335,7 @@ public class MainLoop : MonoBehaviour
         }
 
         int i = 0;
-        Utility.LogWithTime("GetPiecesFromImage: Build list of pieces");
+        Utility.LogWithTime("GetPiecesFromImage: Build list of pieces at " + centerPointLocation.ToString());
         foreach (ImageStats image in subImages)
         {
             i++;
