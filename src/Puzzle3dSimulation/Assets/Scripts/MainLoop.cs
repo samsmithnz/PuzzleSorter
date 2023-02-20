@@ -261,7 +261,7 @@ public class MainLoop : MonoBehaviour
         }
         GameObject pieceObject = GameObject.Find("piece_" + pieceId);
         float robotDetachY = endingY;
-        if (robotDetachY > 1.25f)
+        if (robotDetachY < 1.25f)
         {
             robotDetachY = 1.25f;
         }
@@ -279,7 +279,7 @@ public class MainLoop : MonoBehaviour
                 //raise piece off robot
                 new Vector3(pieceObject.transform.position.x, robotDetachY, _RobotObject.transform.position.z),
                 //move above destination pile
-                new Vector3(dropOffAction.Location.X, endingY, dropOffAction.Location.Y),
+                new Vector3(dropOffAction.Location.X, robotDetachY, dropOffAction.Location.Y),
                 //drop to sorted pile
                 new Vector3(dropOffAction.Location.X, endingY, dropOffAction.Location.Y)
             };
