@@ -96,31 +96,48 @@ namespace PuzzleSolver.Images
             };
         }
 
-        ///// <summary>
-        ///// 24 colors 
-        ///// </summary>
-        ///// <returns>List of Rgb24</returns>
-        //public static List<Rgb24> Get24ColorPalette()
-        //{
-        //    return new List<Rgb24> {
-        //        new Rgb24(0, 0, 0), //black
-        //        new Rgb24(85,85,85), //(dark) gray
-        //        new Rgb24(0, 0, 170), //blue
-        //        new Rgb24(85, 85, 255), //bright blue
-        //        new Rgb24(0, 170, 0), //green
-        //        new Rgb24(85, 255, 85), //bright green
-        //        new Rgb24(0, 170, 170), //cyan
-        //        new Rgb24(85, 255, 255), //bright cyan
-        //        new Rgb24(170, 0, 0), //red
-        //        new Rgb24(255, 85, 85), //bright red
-        //        new Rgb24(170, 0, 170), //magenta
-        //        new Rgb24(255, 85, 255), //bright magenta
-        //        new Rgb24(170, 85, 0), //brown
-        //        new Rgb24(255, 255, 85), //yellow
-        //        new Rgb24(170, 170, 170), //white (light gray)
-        //        new Rgb24(255, 255, 255), //bright white
-        //    };
-        //}
+        /// <summary>
+        /// 24 colors 
+        /// </summary>
+        /// <returns>List of Rgb24</returns>
+        public static List<Rgb24> Get32ColorPalette()
+        {
+            return new List<Rgb24> {
+                new Rgb24(173, 216, 230),
+                new Rgb24(0, 191, 255),
+                new Rgb24(30, 144, 255),
+                new Rgb24(0, 0, 255),
+                new Rgb24(0, 0, 139),
+                new Rgb24(72, 61, 139),
+                new Rgb24(123, 104, 238),
+                new Rgb24(138, 43, 226),
+                new Rgb24(128, 0, 128),
+                new Rgb24(218, 112, 214),
+                new Rgb24(255, 0, 255),
+                new Rgb24(255, 20, 147),
+                new Rgb24(176, 48, 96),
+                new Rgb24(220, 0, 60),
+                new Rgb24(240, 128, 128),
+                new Rgb24(255, 69, 0),
+                new Rgb24(255, 165, 0),
+                new Rgb24(244, 164, 96),
+                new Rgb24(240, 230, 140),
+                new Rgb24(128, 128, 0),
+                new Rgb24(139, 69, 19),
+                new Rgb24(255, 255, 0),
+                new Rgb24(154, 205, 50),
+                new Rgb24(124, 252, 0),
+                new Rgb24(144, 238, 144),
+                new Rgb24(143, 188, 143),
+                new Rgb24(34, 139, 34),
+                new Rgb24(0, 255, 127),
+                new Rgb24(0, 255, 255),
+                new Rgb24(0, 139, 139),
+                new Rgb24(128, 128, 128),
+                new Rgb24(255, 255, 255),
+                new Rgb24(0, 0, 0)
+            };
+        }
 
         /// <summary>
         /// Lego colors 
