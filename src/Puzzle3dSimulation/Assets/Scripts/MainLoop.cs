@@ -25,6 +25,7 @@ public class MainLoop : MonoBehaviour
     private float _PieceWidth = 0.5f;
     private float _PieceHeight = 0.25f;
     private float _PieceDepth = 0.5f;
+    private int _PieceSize = 100;
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +40,7 @@ public class MainLoop : MonoBehaviour
         List<Rgb24> palette = ColorPalettes.Get16ColorPalette();
         Utility.LogWithTime("Initializing pieces");
         //List<Piece> pieces = GetRandomPieceList(36, colorPalette);
-        List<Piece> pieces = GetPiecesFromImage(250, 250, palette, centerPointLocation);
+        List<Piece> pieces = GetPiecesFromImage(_PieceSize, _PieceSize, palette, centerPointLocation);
         List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
         Robot robot = new Robot(new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y - 1));
         //Initialize the game board
@@ -69,7 +70,7 @@ public class MainLoop : MonoBehaviour
         foreach (Piece piece in unsortedList)
         {
             i++;
-            //Debug.LogWarning("Adding piece " + piece.Id);
+            //Debug.Log("Adding piece " + piece.Id);
             GameObject pieceObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
             pieceObject.transform.position = new Vector3(centerPointLocation.X, y, centerPointLocation.Y);
             pieceObject.transform.localScale = new Vector3(_PieceWidth, _PieceHeight, _PieceDepth);
@@ -80,7 +81,7 @@ public class MainLoop : MonoBehaviour
             {
                 pieceObject.GetComponent<Renderer>().material = PieceMaterial;
                 pieceObject.GetComponent<Renderer>().material.color = Utility.ConvertToUnityColor((Rgb24)piece.TopColorGroup);
-                //Debug.LogWarning("Piece " + i + " color: " + pieceObject.GetComponent<Renderer>().material.color);
+                //Debug.Log("Piece " + i + " color: " + pieceObject.GetComponent<Renderer>().material.color);
             }
             GameObject pieceImageObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
             Texture texture = Image2Texture(piece.Image);
@@ -151,7 +152,7 @@ public class MainLoop : MonoBehaviour
     private IEnumerator ProcessQueueItem(RobotAction robotAction)
     {
         _ActionCount++;
-        Debug.LogWarning("Action #" + _ActionCount + " processing");
+        Debug.Log("Action #" + _ActionCount + " processing");
 
         //Move to pickup zone
         if (robotAction.PathToPickup != null && robotAction.PathToPickup.Path.Count > 0)
@@ -160,7 +161,7 @@ public class MainLoop : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No pickup path for action " + _ActionCount);
+            Debug.Log("No pickup path for action " + _ActionCount);
         }
 
         //Pickup piece
@@ -181,7 +182,7 @@ public class MainLoop : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No drop off path for action " + _ActionCount);
+            Debug.Log("No drop off path for action " + _ActionCount);
         }
 
         //Drop piece
@@ -198,7 +199,7 @@ public class MainLoop : MonoBehaviour
     {
         if (path != null && path.GetLastTile() != null)
         {
-            //Debug.LogWarning("Moving from " + startLocation + " to location " + path.GetLastTile().Location.ToString());
+            //Debug.Log("Moving from " + startLocation + " to location " + path.GetLastTile().Location.ToString());
 
             Movement movementScript = robotObject.GetComponent<Movement>();
             if (movementScript == null)
@@ -210,14 +211,14 @@ public class MainLoop : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No movement needed - at end location");
+            Debug.Log("No movement needed - at end location");
             yield return null;
         }
     }
 
     private IEnumerator PickUpPiece(int pieceId, float startingY, ObjectInteraction pickupAction)
     {
-        Debug.LogWarning("Picking up piece " + pickupAction.Location.ToString());
+        Debug.Log("Picking up piece " + pickupAction.Location.ToString());
         GameObject pieceObject = GameObject.Find("piece_" + pieceId);
         if (startingY < 1.25f)
         {
@@ -246,7 +247,7 @@ public class MainLoop : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Piece " + pieceId + " not found");
+            Debug.Log("Piece " + pieceId + " not found");
         }
     }
 
@@ -254,11 +255,11 @@ public class MainLoop : MonoBehaviour
     {
         if (dropOffAction != null && dropOffAction.Location != null)
         {
-            Debug.LogWarning("Dropping off piece " + dropOffAction.Location.ToString());
+            Debug.Log("Dropping off piece " + dropOffAction.Location.ToString());
         }
         else
         {
-            Debug.LogWarning("Piece " + pieceId + " does not a drop off action");
+            Debug.Log("Piece " + pieceId + " does not a drop off action");
         }
         GameObject pieceObject = GameObject.Find("piece_" + pieceId);
         float robotDetachY = endingY;
@@ -288,7 +289,7 @@ public class MainLoop : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Piece " + pieceId + " not found");
+            Debug.Log("Piece " + pieceId + " not found");
         }
     }
 

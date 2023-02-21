@@ -50,7 +50,7 @@ public class Movement : MonoBehaviour
             {
                 moveObjectScript = robotObject.AddComponent<MoveObject>();
             }
-            //Debug.LogWarning("Walking from: (" + startLocation.X.ToString() + "," + startLocation.Y.ToString() + ") for " + path.Path.Count + " tiles");
+            //Debug.Log("Walking from: (" + startLocation.X.ToString() + "," + startLocation.Y.ToString() + ") for " + path.Path.Count + " tiles");
 
             float robotY = 0.5f;
             Vector3 start = Utility.ConvertToUnity3DV3(startLocation, robotY);
@@ -66,8 +66,8 @@ public class Movement : MonoBehaviour
                 {
                     start = Utility.ConvertToUnity3DV3(path.Path[i], robotY);
                     end = Utility.ConvertToUnity3DV3(path.Path[i + 1], robotY);
-                    // Debug.LogWarning("Position " + i + ": (" + end.x.ToString() + "," + end.z.ToString() + ")");
-                    // Debug.LogWarning("Moving from " + start.ToString() + " to " + end.ToString());
+                    // Debug.Log("Position " + i + ": (" + end.x.ToString() + "," + end.z.ToString() + ")");
+                    // Debug.Log("Moving from " + start.ToString() + " to " + end.ToString());
                     yield return StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(robotObject.transform,
                         start,
                         end,
