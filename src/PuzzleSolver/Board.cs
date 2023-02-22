@@ -234,7 +234,7 @@ namespace PuzzleSolver
                 {
                     timeline.Ticks.Add(new Tick(tick));
                 }
-                timeline.Ticks[tick - 1].RobotActions.Add();
+                //timeline.Ticks[tick - 1].RobotActions.Add();
                 //move to pickup 
 
                 //pickup piece
