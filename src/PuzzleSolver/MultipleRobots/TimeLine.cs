@@ -1,10 +1,9 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace PuzzleSolver
+namespace PuzzleSolver.MultipleRobots
 {
     public class TimeLine
     {
-        public int TickNumber;
-        public List<RobotTickAction> RobotActions;
+        public List<Tick> Ticks { get; set; }
     }
 }

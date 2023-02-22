@@ -5,7 +5,7 @@ using System.Numerics;
 
 namespace PuzzleSolver
 {
-    public class RobotAction2
+    public class RobotTickAction
     {
         public int RobotID {get;set;}
         public List<Vector2> Move { get; set; }
