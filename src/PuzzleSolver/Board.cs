@@ -1,5 +1,6 @@
 ﻿using PuzzleSolver.Images;
 using PuzzleSolver.Map;
+using PuzzleSolver.MultipleRobots;
 using PuzzleSolver.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace PuzzleSolver
         public List<SortedDropZone> SortedDropZones { get; set; }
 
         //Characters
-        public Robot Robot { get; set; }
+        public List<Robot> Robots { get; set; }
 
         //Constructor
         public Board(string[,] map,
@@ -45,7 +46,7 @@ namespace PuzzleSolver
             }
             SortedDropZones = sortedDropZones;
             SortedPieces = new List<Piece>();
-            Robot = robot;
+            Robots.Add(robot);
         }
 
         //Function to calculate the robot moves
@@ -59,7 +60,7 @@ namespace PuzzleSolver
             {
                 PickUpLocation = new Vector2(UnsortedPiecesLocation.X, UnsortedPiecesLocation.Y - 1);
             }
-            Vector2 currentRobotLocation = Robot.Location;
+            Vector2 currentRobotLocation = Robots[0].Location;
 
             //Loop through the queue of unsorted pieces
             while (UnsortedPieces.Count > 0)
@@ -81,8 +82,8 @@ namespace PuzzleSolver
                 robotAction.RobotPickupEndingLocation = currentRobotLocation;
 
                 // Pickup an unsorted piece from the unsorted pile
-                Robot.Piece = UnsortedPieces.Dequeue();
-                robotAction.PieceId = Robot.Piece.Id;
+                Robots[0].Piece = UnsortedPieces.Dequeue();
+                robotAction.PieceId = Robots[0].Piece.Id;
                 robotAction.PickupAction = new ObjectInteraction()
                 {
                     Location = PickUpLocation
@@ -92,7 +93,7 @@ namespace PuzzleSolver
                 Vector2? destinationLocation = null;
                 foreach (SortedDropZone sortedDropZone in SortedDropZones)
                 {
-                    if (sortedDropZone.Color == Robot.Piece.ImageStats.TopColorGroupColor)
+                    if (sortedDropZone.Color == Robots[0].Piece.ImageStats.TopColorGroupColor)
                     {
                         destinationLocation = sortedDropZone.Location;
                         break;
@@ -125,8 +126,8 @@ namespace PuzzleSolver
                             Location = (Vector2)destinationLocation
                         };
                         //Move the piece from the robot to the sorted pile
-                        Robot.Piece.Location = robotAction.DropoffAction.Location;
-                        SortedPieces.Add(Robot.Piece);
+                        Robots[0].Piece.Location = robotAction.DropoffAction.Location;
+                        SortedPieces.Add(Robots[0].Piece);
                         foreach (SortedDropZone sortedDropZone in SortedDropZones)
                         {
                             if (sortedDropZone.Location == destinationLocation)
@@ -135,7 +136,7 @@ namespace PuzzleSolver
                                 break;
                             }
                         }
-                        Robot.Piece = null;
+                        Robots[0].Piece = null;
                         robotAction.DropoffPieceCount = GetPieceCount(robotAction.DropoffAction.Location);
                         if (pathFindingResultForDropoff.Path.Count > 0)
                         {
@@ -211,5 +212,112 @@ namespace PuzzleSolver
             return adjacentLocation;
         }
 
+        public TimeLine RunRobots(int numberOfRobots = 1)
+        {
+            TimeLine timeline = new TimeLine();
+
+            //for (int i = 0; i < numberOfRobots; i++)
+            //{
+            //    //Need to give each robot a route. 
+            //}
+            int i = 0;
+            if (UnsortedPieces.Count > 0)
+            {
+                Piece piece = UnsortedPieces.Dequeue();
+                RobotAction robotAction = GetRobotAction(Robots[i], piece); 
+            }
+
+            return timeline;
+        }
+
+        private RobotAction GetRobotAction(Robot robot, Piece piece)
+        {
+            RobotAction robotAction = new RobotAction();
+
+            Vector2 currentRobotLocation = robot.Location;
+            Vector2 pickupLocation = piece.Location;
+            
+
+            // Move to unsorted pile
+            robotAction.RobotPickupStartingLocation = currentRobotLocation;
+            if (currentRobotLocation != pickupLocation)
+            {
+                PathFindingResult pathFindingResultForPickup = PathFinding.FindPath(Map, currentRobotLocation, pickupLocation);
+                if (pathFindingResultForPickup != null && pathFindingResultForPickup.Path.Any())
+                {
+                    //Move robot
+                    robotAction.PathToPickup = pathFindingResultForPickup;
+                    currentRobotLocation = pathFindingResultForPickup.Path.Last();
+                }
+            }
+            robotAction.RobotPickupEndingLocation = currentRobotLocation;
+
+            // Pickup an unsorted piece from the unsorted pile
+            robot.Piece = UnsortedPieces.Dequeue();
+            robotAction.PieceId = robot.Piece.Id;
+            robotAction.PickupAction = new ObjectInteraction()
+            {
+                Location = piece.Location
+            };
+
+            // Process the unsorted piece to work out where it goes
+            Vector2? destinationLocation = null;
+            foreach (SortedDropZone sortedDropZone in SortedDropZones)
+            {
+                if (sortedDropZone.Color == robot.Piece.ImageStats.TopColorGroupColor)
+                {
+                    destinationLocation = sortedDropZone.Location;
+                    break;
+                }
+            }
+
+            //Get the best adjacent location to the destination
+            Vector2? pathDestinationLocation = destinationLocation;
+            if (destinationLocation != null)
+            {
+                Vector2? adjacentLocation = GetAdjacentLocation((Vector2)destinationLocation, Map, SortedDropZones);
+                if (adjacentLocation != null)
+                {
+                    pathDestinationLocation = (Vector2)adjacentLocation;
+                }
+            }
+
+            // Move the sorted piece to the correct pile
+            robotAction.RobotDropoffStartingLocation = currentRobotLocation;
+            if (destinationLocation != null && pathDestinationLocation != null)
+            {
+                //now find the path
+                PathFindingResult pathFindingResultForDropoff = PathFinding.FindPath(Map, currentRobotLocation, (Vector2)pathDestinationLocation);
+                if (pathFindingResultForDropoff != null && pathFindingResultForDropoff.Path.Count >= 0)
+                {
+                    //Move robot
+                    robotAction.PathToDropoff = pathFindingResultForDropoff;
+                    robotAction.DropoffAction = new ObjectInteraction()
+                    {
+                        Location = (Vector2)destinationLocation
+                    };
+                    //Move the piece from the robot to the sorted pile
+                    robot.Piece.Location = robotAction.DropoffAction.Location;
+                    SortedPieces.Add(robot.Piece);
+                    foreach (SortedDropZone sortedDropZone in SortedDropZones)
+                    {
+                        if (sortedDropZone.Location == destinationLocation)
+                        {
+                            sortedDropZone.Count++;
+                            break;
+                        }
+                    }
+                    robot.Piece = null;
+                    robotAction.DropoffPieceCount = GetPieceCount(robotAction.DropoffAction.Location);
+                    if (pathFindingResultForDropoff.Path.Count > 0)
+                    {
+                        currentRobotLocation = pathFindingResultForDropoff.Path.Last();
+                    }
+                }
+            }
+            robotAction.RobotDropoffEndingLocation = currentRobotLocation;
+
+            return robotAction;
+        }
     }
 }
