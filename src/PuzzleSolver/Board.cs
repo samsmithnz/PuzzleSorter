@@ -46,7 +46,10 @@ namespace PuzzleSolver
             }
             SortedDropZones = sortedDropZones;
             SortedPieces = new List<Piece>();
-            Robots.Add(robot);
+            Robots = new List<Robot>
+            {
+                robot
+            };
         }
 
         //Function to calculate the robot moves
@@ -221,14 +224,33 @@ namespace PuzzleSolver
             //    //Need to give each robot a route. 
             //}
             int i = 0;
+            int tick = 0;
             if (UnsortedPieces.Count > 0)
             {
                 Piece piece = UnsortedPieces.Dequeue();
-                RobotAction robotAction = GetRobotAction(Robots[i], piece); 
+                RobotAction robotAction = GetRobotAction(Robots[i], piece);
+                tick++;
+                if (timeline.Ticks.Any(t => t.TickNumber == tick)==false)
+                {
+                    timeline.Ticks.Add(new Tick(tick));
+                }
+                timeline.Ticks[tick - 1].RobotActions.Add();
+                //move to pickup 
+
+                //pickup piece
+                //move to drop off
+                //drop off
             }
 
             return timeline;
         }
+
+        //private Tick AddTick(RobotAction robotAction)
+        //{
+        //    Tick tick = new Tick();
+
+        //    return tick;
+        //}
 
         private RobotAction GetRobotAction(Robot robot, Piece piece)
         {
@@ -236,7 +258,7 @@ namespace PuzzleSolver
 
             Vector2 currentRobotLocation = robot.Location;
             Vector2 pickupLocation = piece.Location;
-            
+
 
             // Move to unsorted pile
             robotAction.RobotPickupStartingLocation = currentRobotLocation;
