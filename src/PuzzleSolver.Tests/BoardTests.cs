@@ -62,13 +62,13 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new Rgb24(255, 255, 0), Color.Yellow.ToPixel<Rgb24>());
             Assert.IsNotNull(board);
             Assert.IsNotNull(board.Map);
-            Assert.IsNotNull(board.Robot);
+            Assert.IsNotNull(board.Robots[0]);
             Assert.AreEqual(new(2, 2), board.UnsortedPiecesLocation);
             Assert.AreEqual(3, board.SortedDropZones.Count);
             Assert.AreEqual(new(0, 1), board.SortedDropZones[0].Location);
             Assert.AreEqual(0, board.SortedPieces.Count);
             Assert.AreEqual(4, board.UnsortedPieces.Count);
-            Assert.AreEqual(new Vector2(2, 1), board.Robot.Location);
+            Assert.AreEqual(new Vector2(2, 1), board.Robots[0].Location);
         }
 
         [TestMethod]
@@ -119,13 +119,13 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new Rgb24(255, 255, 0), Color.Yellow.ToPixel<Rgb24>());
             Assert.IsNotNull(board);
             Assert.IsNotNull(board.Map);
-            Assert.IsNotNull(board.Robot);
+            Assert.IsNotNull(board.Robots[0]);
             Assert.AreEqual(new(3, 3), board.UnsortedPiecesLocation);
             Assert.AreEqual(3, board.SortedDropZones.Count);
             Assert.AreEqual(new(0, 1), board.SortedDropZones[0].Location);
             Assert.AreEqual(0, board.SortedPieces.Count);
             Assert.AreEqual(4, board.UnsortedPieces.Count);
-            Assert.AreEqual(new Vector2(3, 2), board.Robot.Location);
+            Assert.AreEqual(new Vector2(3, 2), board.Robots[0].Location);
         }
 
         [TestMethod]
