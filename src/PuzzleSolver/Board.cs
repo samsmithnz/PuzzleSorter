@@ -258,24 +258,45 @@ namespace PuzzleSolver
                 {
                     if (timeline.Ticks.Any(t => t.TickNumber == j + 1) == false)
                     {
-                        timeline.Ticks.Add(new Tick(j+1));
+                        timeline.Ticks.Add(new Tick(j + 1));
                     }
                 }
 
                 //Now populate the ticks with the pickup path
+                int pickupCounter = 0;
                 if (robotAction.PathToPickup != null &&
                     robotAction.PathToPickup.Path != null &&
                     robotAction.PathToPickup.Path.Count > 0)
                 {
+                    pickupCounter++;
                     timeline.Ticks[tick - 1].RobotActions.Add(new RobotTickAction()
                     {
                         Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToPickup.Path[0] }
                     });
                     for (int j = 1; j < robotAction.PathToPickup.Path.Count - 1; j++)
                     {
+                        pickupCounter++;
                         timeline.Ticks[tick - 1 + j].RobotActions.Add(new RobotTickAction()
                         {
                             Movement = new List<Vector2>() { robotAction.PathToPickup.Path[j - 1], robotAction.PathToPickup.Path[j] }
+                        });
+                    }
+                }
+
+                //Now populate the ticks with the dropoff path
+                if (robotAction.PathToDropoff != null &&
+                    robotAction.PathToDropoff.Path != null &&
+                    robotAction.PathToDropoff.Path.Count > 0)
+                {
+                    timeline.Ticks[pickupCounter + tick - 1].RobotActions.Add(new RobotTickAction()
+                    {
+                        Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToDropoff.Path[0] }
+                    });
+                    for (int j = 1; j < robotAction.PathToDropoff.Path.Count - 1; j++)
+                    {
+                        timeline.Ticks[pickupCounter + tick - 1 + j].RobotActions.Add(new RobotTickAction()
+                        {
+                            Movement = new List<Vector2>() { robotAction.PathToDropoff.Path[j - 1], robotAction.PathToDropoff.Path[j] }
                         });
                     }
                 }
