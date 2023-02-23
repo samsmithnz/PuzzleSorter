@@ -258,7 +258,7 @@ namespace PuzzleSolver
                 {
                     if (timeline.Ticks.Any(t => t.TickNumber == j + 1) == false)
                     {
-                        timeline.Ticks.Add(new Tick(j));
+                        timeline.Ticks.Add(new Tick(j+1));
                     }
                 }
 
