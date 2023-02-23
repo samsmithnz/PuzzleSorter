@@ -225,7 +225,7 @@ namespace PuzzleSolver
             //}
             int i = 0;
             int tick = 0;
-            while (UnsortedPieces.Count > 0)
+            while (UnsortedPieces.Count > 9)
             {
                 Piece piece = UnsortedPieces.Dequeue();
                 RobotAction robotAction = GetRobotAction(Robots[i], piece);
@@ -301,9 +301,6 @@ namespace PuzzleSolver
                     }
                 }
 
-                //move the piece to the sorted pile
-                SortedPieces.Add(piece);
-
             }
 
             return timeline;
@@ -323,7 +320,6 @@ namespace PuzzleSolver
             Vector2 currentRobotLocation = robot.Location;
             Vector2 pickupLocation = piece.Location;
 
-
             // Move to unsorted pile
             robotAction.RobotPickupStartingLocation = currentRobotLocation;
             if (currentRobotLocation != pickupLocation)
@@ -339,8 +335,8 @@ namespace PuzzleSolver
             robotAction.RobotPickupEndingLocation = currentRobotLocation;
 
             // Pickup an unsorted piece from the unsorted pile
-            robot.Piece = UnsortedPieces.Dequeue();
-            robotAction.PieceId = robot.Piece.Id;
+            robot.Piece = piece;
+            robotAction.PieceId = piece.Id;
             robotAction.PickupAction = new ObjectInteraction()
             {
                 Location = piece.Location

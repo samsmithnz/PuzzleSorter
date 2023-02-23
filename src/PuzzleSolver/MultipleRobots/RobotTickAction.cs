@@ -9,7 +9,6 @@ namespace PuzzleSolver
     {
         public int RobotID { get; set; }
         public List<Vector2> Movement { get; set; } = null;
-        public PathFindingResult PathToDropoff { get; set; } = null;
-        public ObjectInteraction DropoffAction { get; set; } = null;
+        public ObjectInteraction Action { get; set; } = null;
     }
 }
