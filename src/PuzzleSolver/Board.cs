@@ -230,27 +230,48 @@ namespace PuzzleSolver
                 Piece piece = UnsortedPieces.Dequeue();
                 RobotAction robotAction = GetRobotAction(Robots[i], piece);
                 tick++;
-                if (timeline.Ticks.Any(t => t.TickNumber == tick)==false)
-                {
-                    timeline.Ticks.Add(new Tick(tick));
-                }
-                //timeline.Ticks[tick - 1].RobotActions.Add();
-                //move to pickup 
 
+                //timeline.Ticks[tick - 1].RobotActions.Add();
+                int ticksNeeded = 0;
+                //move to pickup
+                ticksNeeded += robotAction.PathToPickup.Path.Count;
                 //pickup piece
+                if (robotAction.PickupAction != null)
+                {
+                    ticksNeeded++;
+                }
                 //move to drop off
+                ticksNeeded += robotAction.PathToDropoff.Path.Count;
                 //drop off
+                if (robotAction.DropoffAction != null)
+                {
+                    ticksNeeded++;
+                }
+                //Initialize the ticks needed
+                for (int j = tick - 1; j < tick + ticksNeeded; j++)
+                {
+                    if (timeline.Ticks.Any(t => t.TickNumber == j + 1) == false)
+                    {
+                        timeline.Ticks.Add(new Tick(tick));
+                    }
+                }
+
+                //Now populate these ticks
+                timeline.Ticks[tick + 1].RobotActions.Add(new RobotTickAction()
+                {
+                    Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToPickup.Path[0] }
+                });
             }
 
             return timeline;
         }
 
-        //private Tick AddTick(RobotAction robotAction)
-        //{
-        //    Tick tick = new Tick();
+        private Tick AddTick(RobotAction robotAction)
+        {
+            Tick tick = new Tick();
 
-        //    return tick;
-        //}
+            return tick;
+        }
 
         private RobotAction GetRobotAction(Robot robot, Piece piece)
         {
