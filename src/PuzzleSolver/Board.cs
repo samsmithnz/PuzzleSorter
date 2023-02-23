@@ -262,7 +262,7 @@ namespace PuzzleSolver
                     }
                 }
 
-                //Now populate these ticks with the pickup path
+                //Now populate the ticks with the pickup path
                 if (robotAction.PathToPickup != null &&
                     robotAction.PathToPickup.Path != null &&
                     robotAction.PathToPickup.Path.Count > 0)
