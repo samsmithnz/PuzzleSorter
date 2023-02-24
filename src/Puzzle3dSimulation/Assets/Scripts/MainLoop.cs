@@ -183,11 +183,11 @@ public class MainLoop : MonoBehaviour
             }
             if (checkCount > 1)
             {
-                Debug.LogError("Tick " + tick + ", Robot " + item.RobotID + " has " + checkCount + " actions - only 1 was expected");
+                Debug.LogError("Tick " + tick + ", Robot " + item.RobotId + " has " + checkCount + " actions - only 1 was expected");
             }
             if (item.Movement != null && item.Movement.Count > 0)
             {
-                StartCoroutine(MoveToLocation2(item.RobotID, item.Movement[0], item.Movement[1]));
+                StartCoroutine(MoveToLocation2(item.RobotId, item.Movement[0], item.Movement[1]));
             }
             if (item.PickupAction != null)
             {
