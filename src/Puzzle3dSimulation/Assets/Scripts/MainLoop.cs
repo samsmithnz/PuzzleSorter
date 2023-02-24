@@ -2,6 +2,7 @@ using Assets.Scripts.Common;
 using PuzzleSolver;
 using PuzzleSolver.Images;
 using PuzzleSolver.Map;
+using PuzzleSolver.MultipleRobots;
 using PuzzleSolver.Processing;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
@@ -19,6 +20,7 @@ public class MainLoop : MonoBehaviour
     private readonly bool _ShowCoordOnFloor = true;
     private readonly bool _ShowLinesOnFloor = true;
     private Queue<RobotAction> _RobotActions = null;
+    private TimeLine _Timeline = null;
     private GameObject _RobotObject = null;
     private bool _ProcessingQueueItem = false;
     private int _ActionCount = 0;
@@ -42,14 +44,17 @@ public class MainLoop : MonoBehaviour
         //List<Piece> pieces = GetRandomPieceList(36, colorPalette);
         List<Piece> pieces = GetPiecesFromImage(_PieceSize, _PieceSize, palette, centerPointLocation);
         List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
-        Robot robot = new Robot(new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y - 1));
+        List<Robot> robots = new() {
+            new Robot(1, new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y - 1), new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y - 1)),
+            new Robot(2, new System.Numerics.Vector2(centerPointLocation.X - 1, centerPointLocation.Y), new System.Numerics.Vector2(centerPointLocation.X - 1, centerPointLocation.Y))
+        };
         //Initialize the game board
         Board board = new(map,
             centerPointLocation,
             palette,
             pieces,
             sortedDropZones,
-            robot);
+            robots);
 
         //Setup map
         Utility.LogWithTime("Setting up map");
@@ -60,7 +65,7 @@ public class MainLoop : MonoBehaviour
 
         //Get the robot actions
         Utility.LogWithTime("Calculating robot moves");
-        _RobotActions = board.RunRobot();
+        _Timeline = board.RunRobots();
 
         //Add unsorted pieces
         Utility.LogWithTime("Building stack of unsorted pieces");
