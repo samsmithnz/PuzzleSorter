@@ -103,12 +103,17 @@ public class MainLoop : MonoBehaviour
         }
 
         //Add the robot
-        Utility.LogWithTime("Creating robot entity");
-        _RobotObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-        _RobotObject.transform.position = new Vector3(board.Robot.Location.X, 0.5f, board.Robot.Location.Y);
-        _RobotObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        _RobotObject.name = "robot";
-        _RobotObject.GetComponent<Renderer>().material.color = UnityEngine.Color.gray; //dark gray
+        Utility.LogWithTime("Creating robot entities");
+        List<Rgb24> robotPalette = ColorPalettes.Get3ColorPalette();
+        for (int i = 0; i < board.Robots.Count; i++)
+        {
+            Robot robot = board.Robots[i];
+            _RobotObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            _RobotObject.transform.position = new Vector3(robot.Location.X, 0.5f, robot.Location.Y);
+            _RobotObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            _RobotObject.name = "robot_" + robot.RobotId;
+            _RobotObject.GetComponent<Renderer>().material.color = Utility.ConvertToUnityColor(robotPalette[i]); //UnityEngine.Color.gray; //dark gray
+        }
 
         ////Add lines on puzzle map, Drawing line renderers
         //int width = 4;
