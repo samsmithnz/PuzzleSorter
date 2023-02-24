@@ -31,7 +31,7 @@ namespace PuzzleSolver
             List<Rgb24> colorPalette,
             List<Piece> unsortedPieceList,
             List<SortedDropZone> sortedDropZones,
-            Robot robot)
+            List<Robot> robots)
         {
             Map = map;
             UnsortedPiecesLocation = unsortedPiecesLocation;
@@ -46,10 +46,7 @@ namespace PuzzleSolver
             }
             SortedDropZones = sortedDropZones;
             SortedPieces = new List<Piece>();
-            Robots = new List<Robot>
-            {
-                robot
-            };
+            Robots = robots;
         }
 
         //Function to calculate the robot moves
