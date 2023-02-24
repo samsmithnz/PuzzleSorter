@@ -324,6 +324,24 @@ namespace PuzzleSolver
                     }
                 }
             }
+            if (UnsortedPieces.Count == 0)
+            {
+                //Add last action to return to the starting point
+                RobotAction robotActionReset = new RobotAction();
+                robotActionReset.RobotPickupStartingLocation = currentRobotLocation;
+                if (currentRobotLocation != PickUpLocation)
+                {
+                    PathFindingResult pathFindingResultForPickup = PathFinding.FindPath(Map, currentRobotLocation, PickUpLocation);
+                    if (pathFindingResultForPickup != null && pathFindingResultForPickup.Path.Any())
+                    {
+                        //Move robot
+                        robotActionReset.PathToPickup = pathFindingResultForPickup;
+                        currentRobotLocation = pathFindingResultForPickup.Path.Last();
+                    }
+                }
+                robotActionReset.RobotPickupEndingLocation = currentRobotLocation;
+                results.Enqueue(robotActionReset);
+            }
 
             return timeline;
         }
