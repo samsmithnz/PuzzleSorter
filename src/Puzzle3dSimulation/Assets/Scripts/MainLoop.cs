@@ -253,7 +253,6 @@ public class MainLoop : MonoBehaviour
         if (robotObject != null)
         {
             //Debug.Log("Moving from " + startLocation + " to location " + path.GetLastTile().Location.ToString());
-
             Movement movementScript = robotObject.GetComponent<Movement>();
             if (movementScript == null)
             {
