@@ -28,6 +28,7 @@ public class MainLoop : MonoBehaviour
     private float _PieceHeight = 0.25f;
     private float _PieceDepth = 0.5f;
     private int _PieceSize = 100;
+    private int _Tick = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -151,12 +152,18 @@ public class MainLoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_RobotActions != null && _RobotActions.Count > 0 && _ProcessingQueueItem == false)
+        if (_Timeline != null && _Timeline.Ticks.Count > 0 && _ProcessingQueueItem == false)
         {
             _ProcessingQueueItem = true;
-            //Get and process a robot action from the queue
-            StartCoroutine(ProcessQueueItem(_RobotActions.Dequeue()));
+            _Tick++;
+            //Process robot actions for this tick
+            StartCoroutine(ProcessTick(_Tick));
         }
+    }
+
+    private IEnumerator ProcessTick(int tick)
+    {
+
     }
 
     private IEnumerator ProcessQueueItem(RobotAction robotAction)
