@@ -22,7 +22,7 @@ public class MainLoop : MonoBehaviour
     private Queue<RobotAction> _RobotActions = null;
     private TimeLine _Timeline = null;
     private GameObject _RobotObject = null;
-    private bool _ProcessingQueueItem = false;
+    private int _ProcessingQueueItem = 0;
     private int _ActionCount = 0;
     private float _PieceWidth = 0.5f;
     private float _PieceHeight = 0.25f;
@@ -153,9 +153,8 @@ public class MainLoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_Timeline != null && _Timeline.Ticks.Count > 0 && _ProcessingQueueItem == false && _Tick < _Timeline.Ticks.Count)
+        if (_Timeline != null && _Timeline.Ticks.Count > 0 && _ProcessingQueueItem == 0 && _Tick < _Timeline.Ticks.Count)
         {
-            _ProcessingQueueItem = true;
             _Tick++;
             //Process robot actions for this tick
             StartCoroutine(ProcessTick(_Tick));
@@ -168,6 +167,7 @@ public class MainLoop : MonoBehaviour
 
         foreach (RobotTickAction item in _Timeline.Ticks[tick - 1].RobotActions)
         {
+            _ProcessingQueueItem++;
             //Double check we are only doing one thing. This shouldn't be needed, but is important to check. 
             int checkCount = 0;
             if (item.Movement != null)
@@ -286,7 +286,7 @@ public class MainLoop : MonoBehaviour
             }
             //Utility.LogWithTime("Starting movement");
             yield return StartCoroutine(movementScript.MoveRobot2(robotObject, startLocation, endLocation));
-            _ProcessingQueueItem = false;
+            _ProcessingQueueItem--;
         }
         else
         {
@@ -327,7 +327,7 @@ public class MainLoop : MonoBehaviour
                 new Vector3(pieceObject.transform.position.x, 1.25f, _RobotObject.transform.position.z)
             };
             yield return StartCoroutine(movementScript.MovePiece(pieceObject, path, _RobotObject.transform));
-            _ProcessingQueueItem = false;
+            _ProcessingQueueItem--;
         }
         else
         {
@@ -371,7 +371,7 @@ public class MainLoop : MonoBehaviour
                 new Vector3(dropOffAction.Location.X, endingY, dropOffAction.Location.Y)
             };
             yield return StartCoroutine(movementScript.MovePiece(pieceObject, path, null));
-            _ProcessingQueueItem = false;
+            _ProcessingQueueItem--;
         }
         else
         {
