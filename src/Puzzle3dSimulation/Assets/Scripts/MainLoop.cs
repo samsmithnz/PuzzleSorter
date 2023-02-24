@@ -163,7 +163,18 @@ public class MainLoop : MonoBehaviour
 
     private IEnumerator ProcessTick(int tick)
     {
+        Debug.Log("Tick " + tick + " processing");
 
+        foreach (RobotTickAction item in _Timeline.Ticks[tick].RobotActions)
+        {
+            if (item.Movement != null && item.Movement.Count > 0)
+            {
+                StartCoroutine(MoveToLocation2(item.RobotID, item.Movement[0], item.Movement[1]));
+            }
+        }
+
+        _ProcessingQueueItem = false;
+        yield return null;
     }
 
     private IEnumerator ProcessQueueItem(RobotAction robotAction)
@@ -225,6 +236,31 @@ public class MainLoop : MonoBehaviour
             }
             //Utility.LogWithTime("Starting movement");
             yield return StartCoroutine(movementScript.MoveRobot(robotObject, startLocation, path));
+        }
+        else
+        {
+            Debug.Log("No movement needed - at end location");
+            yield return null;
+        }
+    }
+
+    //MoveToLocation2(item.RobotID, item.Movement[0], item.Movement[1])
+    private IEnumerator MoveToLocation2(int robotId, System.Numerics.Vector2 startLocation, System.Numerics.Vector2 endLocation)
+    {
+        GameObject robotObject = null;
+        robotObject = GameObject.Find("robot_" +  robotId);
+    
+        if (robotObject != null)
+        {
+            //Debug.Log("Moving from " + startLocation + " to location " + path.GetLastTile().Location.ToString());
+
+            Movement movementScript = robotObject.GetComponent<Movement>();
+            if (movementScript == null)
+            {
+                movementScript = robotObject.AddComponent<Movement>();
+            }
+            //Utility.LogWithTime("Starting movement");
+            yield return StartCoroutine(movementScript.MoveRobot2(robotObject, startLocation, endLocation));
         }
         else
         {

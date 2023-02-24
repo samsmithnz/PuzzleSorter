@@ -78,4 +78,27 @@ public class Movement : MonoBehaviour
         yield return null;
     }
 
+    public IEnumerator MoveRobot2(GameObject robotObject, System.Numerics.Vector2 startLocation, System.Numerics.Vector2 endLocation)
+    {
+        const float time = 0.1f;
+        if (robotObject != null)
+        {
+            MoveObject moveObjectScript = robotObject.GetComponent<MoveObject>();
+            if (moveObjectScript == null)
+            {
+                moveObjectScript = robotObject.AddComponent<MoveObject>();
+            }
+            //Debug.Log("Walking from: (" + startLocation.X.ToString() + "," + startLocation.Y.ToString() + ") for " + path.Path.Count + " tiles");
+
+            float robotY = 0.5f;
+            Vector3 start = Utility.ConvertToUnity3DV3(startLocation, robotY);
+            Vector3 end = Utility.ConvertToUnity3DV3(endLocation, robotY);
+            yield return StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(robotObject.transform,
+                start,
+                end,
+                time));
+        }
+        yield return null;
+    }
+
 }
