@@ -529,14 +529,18 @@ namespace PuzzleSolver.Tests
 
             //Assert           
             Assert.IsNotNull(board);
-            Assert.AreEqual(8, board.UnsortedPieces.Count);
-            Assert.AreEqual(2, board.SortedPieces.Count);
+            Assert.AreEqual(0, board.UnsortedPieces.Count);
+            Assert.AreEqual(10, board.SortedPieces.Count);
             Assert.IsNotNull(results);
-            Assert.AreEqual(3, results.Ticks.Count);
+            Assert.AreEqual(16, results.Ticks.Count);
 
             //check the first tick
             Assert.AreEqual(1, results.Ticks[0].TickNumber);
             Assert.AreEqual(2, results.Ticks[0].RobotActions.Count);
+
+            //check the last tick
+            Assert.AreEqual(16, results.Ticks[results.Ticks.Count - 1].TickNumber);
+            Assert.AreEqual(2, results.Ticks[results.Ticks.Count - 1].RobotActions.Count);
 
             //RobotAction robotAction1 = results.Dequeue();
             //Assert.IsNotNull(robotAction1);
