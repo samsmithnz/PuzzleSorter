@@ -191,11 +191,11 @@ public class MainLoop : MonoBehaviour
             }
             if (item.PickupAction != null)
             {
-                //StartCoroutine(PickUpPiece(item.PieceId, ));
+                StartCoroutine(PickUpPiece(item.PieceId, item.PickupAction));
             }
             if (item.DropoffAction != null)
             {
-                //StartCoroutine(DropoffPiece(item.PieceId, ));
+                StartCoroutine(DropOffPiece(item.PieceId, item.DropoffAction));
             }
         }
 
@@ -294,15 +294,19 @@ public class MainLoop : MonoBehaviour
         }
     }
 
-    private IEnumerator PickUpPiece(int pieceId, float startingY, ObjectInteraction pickupAction)
+    private IEnumerator PickUpPiece(int pieceId, ObjectInteraction pickupAction)
     {
         Debug.Log("Picking up piece " + pickupAction.Location.ToString());
         GameObject pieceObject = GameObject.Find("piece_" + pieceId);
+        float startingY = pieceObject.transform.position.y;
+        if (startingY < _PieceHeight / 2f)
+        {
+            startingY = _PieceHeight / 2f;
+        }
         if (startingY < 1.25f)
         {
             startingY = 1.25f;
         }
-
         if (pieceObject != null)
         {
             Movement movementScript = pieceObject.GetComponent<Movement>();
@@ -329,7 +333,7 @@ public class MainLoop : MonoBehaviour
         }
     }
 
-    private IEnumerator DropOffPiece(int pieceId, float endingY, ObjectInteraction dropOffAction)
+    private IEnumerator DropOffPiece(int pieceId, ObjectInteraction dropOffAction)
     {
         if (dropOffAction != null && dropOffAction.Location != null)
         {
@@ -340,6 +344,7 @@ public class MainLoop : MonoBehaviour
             Debug.Log("Piece " + pieceId + " does not a drop off action");
         }
         GameObject pieceObject = GameObject.Find("piece_" + pieceId);
+        float endingY = (_PieceHeight / 2f) + (_PieceHeight * robotAction.DropoffPieceCount) - _PieceHeight;       
         float robotDetachY = endingY;
         if (robotDetachY < 1.25f)
         {

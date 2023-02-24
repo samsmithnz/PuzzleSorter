@@ -313,6 +313,7 @@ namespace PuzzleSolver
 
                         if (robotAction.DropoffAction != null)
                         {
+                            robotAction.DropoffAction.DestinationPieceCount = GetPieceCount(robotAction.DropoffAction.Location);
                             timeline.Ticks[pickupCounter + dropoffCounter + tick].RobotActions.Add(new RobotTickAction(robot.RobotId, piece.Id)
                             {
                                 DropoffAction = robotAction.DropoffAction
