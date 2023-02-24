@@ -537,10 +537,13 @@ namespace PuzzleSolver.Tests
             //check the first tick
             Assert.AreEqual(1, results.Ticks[0].TickNumber);
             Assert.AreEqual(2, results.Ticks[0].RobotActions.Count);
+            //check the second to last tick
+            Assert.AreEqual(15, results.Ticks[results.Ticks.Count - 2].TickNumber);
+            Assert.AreEqual(2, results.Ticks[results.Ticks.Count - 2].RobotActions.Count);
 
             //check the last tick
             Assert.AreEqual(16, results.Ticks[results.Ticks.Count - 1].TickNumber);
-            Assert.AreEqual(2, results.Ticks[results.Ticks.Count - 1].RobotActions.Count);
+            Assert.AreEqual(1, results.Ticks[results.Ticks.Count - 1].RobotActions.Count);
 
             //RobotAction robotAction1 = results.Dequeue();
             //Assert.IsNotNull(robotAction1);
