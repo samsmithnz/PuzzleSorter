@@ -55,11 +55,7 @@ namespace PuzzleSolver
             Queue<RobotAction> results = new Queue<RobotAction>();
 
             //Get the pickup location
-            Vector2 PickUpLocation = UnsortedPiecesLocation;
-            if (UnsortedPiecesLocation.Y > 0)
-            {
-                PickUpLocation = new Vector2(UnsortedPiecesLocation.X, UnsortedPiecesLocation.Y - 1);
-            }
+            Vector2 PickUpLocation = Robots[0].PickupLocation;
             Vector2 currentRobotLocation = Robots[0].Location;
 
             //Loop through the queue of unsorted pieces
@@ -331,19 +327,12 @@ namespace PuzzleSolver
             return timeline;
         }
 
-        //private Tick AddTick(RobotAction robotAction)
-        //{
-        //    Tick tick = new Tick();
-
-        //    return tick;
-        //}
-
         private RobotAction GetRobotAction(Robot robot, Piece piece)
         {
             RobotAction robotAction = new RobotAction();
 
             Vector2 currentRobotLocation = robot.Location;
-            Vector2 pickupLocation = piece.Location;
+            Vector2 pickupLocation = robot.PickupLocation;
 
             // Move to unsorted pile
             robotAction.RobotPickupStartingLocation = currentRobotLocation;
