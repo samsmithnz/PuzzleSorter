@@ -216,14 +216,15 @@ namespace PuzzleSolver
         {
             TimeLine timeline = new TimeLine();
 
-            //for (int i = 0; i < numberOfRobots; i++)
-            //{
-            //    //Need to give each robot a route. 
-            //}
-            Dictionary<string, int> RobotProgress = new Dictionary<string, int>();
-            int i = 0;
+            //Create a dictonary to track robot tick progress over time
+            Dictionary<int, int> robotProgress = new Dictionary<int, int>();
+            foreach (Robot robot in Robots)
+            {
+                robotProgress.Add(robot.RobotId, 0);
+            }
+
             int tick = 0;
-            while (UnsortedPieces.Count > 9)
+            while (UnsortedPieces.Count > 8)
             {
                 foreach (Robot robot in Robots)
                 {
@@ -321,6 +322,7 @@ namespace PuzzleSolver
                         });
                         dropoffCounter++;
                     }
+                    robotProgress[robot.RobotId] += pickupCounter + dropoffCounter;
 
                 }
 
