@@ -200,7 +200,6 @@ public class MainLoop : MonoBehaviour
             }
         }
 
-        _ProcessingQueueItem = false;
         yield return null;
     }
 
@@ -287,6 +286,7 @@ public class MainLoop : MonoBehaviour
             }
             //Utility.LogWithTime("Starting movement");
             yield return StartCoroutine(movementScript.MoveRobot2(robotObject, startLocation, endLocation));
+            _ProcessingQueueItem = false;
         }
         else
         {
@@ -327,6 +327,7 @@ public class MainLoop : MonoBehaviour
                 new Vector3(pieceObject.transform.position.x, 1.25f, _RobotObject.transform.position.z)
             };
             yield return StartCoroutine(movementScript.MovePiece(pieceObject, path, _RobotObject.transform));
+            _ProcessingQueueItem = false;
         }
         else
         {
@@ -370,6 +371,7 @@ public class MainLoop : MonoBehaviour
                 new Vector3(dropOffAction.Location.X, endingY, dropOffAction.Location.Y)
             };
             yield return StartCoroutine(movementScript.MovePiece(pieceObject, path, null));
+            _ProcessingQueueItem = false;
         }
         else
         {
