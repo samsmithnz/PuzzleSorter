@@ -27,7 +27,7 @@ public class MainLoop : MonoBehaviour
     private float _PieceWidth = 0.5f;
     private float _PieceHeight = 0.25f;
     private float _PieceDepth = 0.5f;
-    private int _PieceSize = 100;
+    private int _PieceSize = 250;
     private int _Tick = 0;
 
     // Start is called before the first frame update
