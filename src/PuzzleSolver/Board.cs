@@ -250,7 +250,7 @@ namespace PuzzleSolver
                         ticksNeeded++;
                     }
                     //Initialize the ticks needed for this robot to complete it's turn
-                    for (int j = tick; j < tick + ticksNeeded - 1; j++)
+                    for (int j = tick; j < tick + ticksNeeded; j++)
                     {
                         if (timeline.Ticks.Any(t => t.TickNumber == j + 1) == false)
                         {
@@ -272,7 +272,7 @@ namespace PuzzleSolver
                         for (int j = 1; j < robotAction.PathToPickup.Path.Count - 1; j++)
                         {
                             pickupCounter++;
-                            timeline.Ticks[tick  + j].RobotActions.Add(new RobotTickAction()
+                            timeline.Ticks[tick + j].RobotActions.Add(new RobotTickAction()
                             {
                                 Movement = new List<Vector2>() { robotAction.PathToPickup.Path[j - 1], robotAction.PathToPickup.Path[j] }
                             });
@@ -281,7 +281,7 @@ namespace PuzzleSolver
 
                     if (robotAction.PickupAction != null)
                     {
-                        timeline.Ticks[pickupCounter + tick ].RobotActions.Add(new RobotTickAction()
+                        timeline.Ticks[pickupCounter + tick].RobotActions.Add(new RobotTickAction()
                         {
                             Action = robotAction.PickupAction
                         });
