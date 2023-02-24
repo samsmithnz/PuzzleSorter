@@ -267,14 +267,14 @@ namespace PuzzleSolver
                             robotAction.PathToPickup.Path.Count > 0)
                         {
                             pickupCounter++;
-                            timeline.Ticks[tick].RobotActions.Add(new RobotTickAction()
+                            timeline.Ticks[tick].RobotActions.Add(new RobotTickAction(robot.RobotId, piece.Id)
                             {
                                 Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToPickup.Path[0] }
                             });
                             for (int j = 1; j < robotAction.PathToPickup.Path.Count - 1; j++)
                             {
                                 pickupCounter++;
-                                timeline.Ticks[tick + j].RobotActions.Add(new RobotTickAction()
+                                timeline.Ticks[tick + j].RobotActions.Add(new RobotTickAction(robot.RobotId, piece.Id)
                                 {
                                     Movement = new List<Vector2>() { robotAction.PathToPickup.Path[j - 1], robotAction.PathToPickup.Path[j] }
                                 });
@@ -283,7 +283,7 @@ namespace PuzzleSolver
 
                         if (robotAction.PickupAction != null)
                         {
-                            timeline.Ticks[pickupCounter + tick].RobotActions.Add(new RobotTickAction()
+                            timeline.Ticks[pickupCounter + tick].RobotActions.Add(new RobotTickAction(robot.RobotId, piece.Id)
                             {
                                 PickupAction = robotAction.PickupAction
                             });
@@ -297,14 +297,14 @@ namespace PuzzleSolver
                             robotAction.PathToDropoff.Path.Count > 0)
                         {
                             dropoffCounter++;
-                            timeline.Ticks[pickupCounter + tick].RobotActions.Add(new RobotTickAction()
+                            timeline.Ticks[pickupCounter + tick].RobotActions.Add(new RobotTickAction(robot.RobotId, piece.Id)
                             {
                                 Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToDropoff.Path[0] }
                             });
                             for (int j = 1; j < robotAction.PathToDropoff.Path.Count - 1; j++)
                             {
                                 dropoffCounter++;
-                                timeline.Ticks[pickupCounter + tick + j].RobotActions.Add(new RobotTickAction()
+                                timeline.Ticks[pickupCounter + tick + j].RobotActions.Add(new RobotTickAction(robot.RobotId, piece.Id)
                                 {
                                     Movement = new List<Vector2>() { robotAction.PathToDropoff.Path[j - 1], robotAction.PathToDropoff.Path[j] }
                                 });
@@ -313,7 +313,7 @@ namespace PuzzleSolver
 
                         if (robotAction.DropoffAction != null)
                         {
-                            timeline.Ticks[pickupCounter + dropoffCounter + tick].RobotActions.Add(new RobotTickAction()
+                            timeline.Ticks[pickupCounter + dropoffCounter + tick].RobotActions.Add(new RobotTickAction(robot.RobotId, piece.Id)
                             {
                                 DropoffAction = robotAction.DropoffAction
                             });

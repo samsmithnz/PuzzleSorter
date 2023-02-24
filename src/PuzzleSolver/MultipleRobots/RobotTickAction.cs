@@ -11,5 +11,11 @@ namespace PuzzleSolver
         public List<Vector2> Movement { get; set; } = null;
         public ObjectInteraction PickupAction { get; set; } = null;
         public ObjectInteraction DropoffAction { get; set; } = null;
+
+        public RobotTickAction(int robotId, int pieceId)
+        {
+            RobotId = robotId;
+            PieceId = pieceId;
+        }
     }
 }
