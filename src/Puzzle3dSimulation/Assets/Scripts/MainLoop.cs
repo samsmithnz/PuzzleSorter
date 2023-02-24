@@ -167,13 +167,35 @@ public class MainLoop : MonoBehaviour
 
         foreach (RobotTickAction item in _Timeline.Ticks[tick].RobotActions)
         {
+            //Double check we are only doing one thing. This shouldn't be needed, but is important to check. 
+            int checkCount = 0;
+            if (item.Movement != null)
+            {
+                checkCount++;
+            }
+            if (item.PickupAction != null)
+            {
+                checkCount++;
+            }
+            if (item.DropoffAction != null)
+            {
+                checkCount++;
+            }
+            if (checkCount > 1)
+            {
+                Debug.LogError("Tick " + tick + ", Robot " + item.RobotID + " has " + checkCount + " actions - only 1 was expected");
+            }
             if (item.Movement != null && item.Movement.Count > 0)
             {
                 StartCoroutine(MoveToLocation2(item.RobotID, item.Movement[0], item.Movement[1]));
             }
             if (item.PickupAction != null)
             {
-                StartCoroutine(PickUpPiece());
+                //StartCoroutine(PickUpPiece(item.PieceId, ));
+            }
+            if (item.DropoffAction != null)
+            {
+                //StartCoroutine(PickUpPiece(item.PieceId, ));
             }
         }
 
@@ -252,8 +274,8 @@ public class MainLoop : MonoBehaviour
     private IEnumerator MoveToLocation2(int robotId, System.Numerics.Vector2 startLocation, System.Numerics.Vector2 endLocation)
     {
         GameObject robotObject = null;
-        robotObject = GameObject.Find("robot_" +  robotId);
-    
+        robotObject = GameObject.Find("robot_" + robotId);
+
         if (robotObject != null)
         {
             //Debug.Log("Moving from " + startLocation + " to location " + path.GetLastTile().Location.ToString());
