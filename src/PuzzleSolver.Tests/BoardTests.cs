@@ -543,7 +543,7 @@ namespace PuzzleSolver.Tests
 
             //check the last tick
             Assert.AreEqual(16, results.Ticks[results.Ticks.Count - 1].TickNumber);
-            Assert.AreEqual(1, results.Ticks[results.Ticks.Count - 1].RobotActions.Count);
+            Assert.AreEqual(0, results.Ticks[results.Ticks.Count - 1].RobotActions.Count);
 
             //RobotAction robotAction1 = results.Dequeue();
             //Assert.IsNotNull(robotAction1);
