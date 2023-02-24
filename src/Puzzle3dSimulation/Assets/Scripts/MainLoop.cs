@@ -171,78 +171,79 @@ public class MainLoop : MonoBehaviour
             {
                 StartCoroutine(MoveToLocation2(item.RobotID, item.Movement[0], item.Movement[1]));
             }
+            //if (item.Action)
         }
 
         _ProcessingQueueItem = false;
         yield return null;
     }
 
-    private IEnumerator ProcessQueueItem(RobotAction robotAction)
-    {
-        _ActionCount++;
-        Debug.Log("Action #" + _ActionCount + " processing");
+    //private IEnumerator ProcessQueueItem(RobotAction robotAction)
+    //{
+    //    _ActionCount++;
+    //    Debug.Log("Action #" + _ActionCount + " processing");
 
-        //Move to pickup zone
-        if (robotAction.PathToPickup != null && robotAction.PathToPickup.Path.Count > 0)
-        {
-            yield return StartCoroutine(MoveToLocation(_RobotObject, robotAction.RobotPickupStartingLocation, robotAction.PathToPickup));
-        }
-        else
-        {
-            Debug.Log("No pickup path for action " + _ActionCount);
-        }
+    //    //Move to pickup zone
+    //    if (robotAction.PathToPickup != null && robotAction.PathToPickup.Path.Count > 0)
+    //    {
+    //        yield return StartCoroutine(MoveToLocation(_RobotObject, robotAction.RobotPickupStartingLocation, robotAction.PathToPickup));
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("No pickup path for action " + _ActionCount);
+    //    }
 
-        //Pickup piece
-        if (robotAction.PickupAction != null)
-        {
-            float startingY = GameObject.Find("piece_" + robotAction.PieceId).transform.position.y;
-            if (startingY < _PieceHeight / 2f)
-            {
-                startingY = _PieceHeight / 2f;
-            }
-            yield return StartCoroutine(PickUpPiece(robotAction.PieceId, startingY, robotAction.PickupAction));
-        }
+    //    //Pickup piece
+    //    if (robotAction.PickupAction != null)
+    //    {
+    //        float startingY = GameObject.Find("piece_" + robotAction.PieceId).transform.position.y;
+    //        if (startingY < _PieceHeight / 2f)
+    //        {
+    //            startingY = _PieceHeight / 2f;
+    //        }
+    //        yield return StartCoroutine(PickUpPiece(robotAction.PieceId, startingY, robotAction.PickupAction));
+    //    }
 
-        //Move to drop off zone
-        if (robotAction.PathToDropoff != null && robotAction.PathToDropoff.Path.Count > 0)
-        {
-            yield return StartCoroutine(MoveToLocation(_RobotObject, robotAction.RobotDropoffStartingLocation, robotAction.PathToDropoff));
-        }
-        else
-        {
-            Debug.Log("No drop off path for action " + _ActionCount);
-        }
+    //    //Move to drop off zone
+    //    if (robotAction.PathToDropoff != null && robotAction.PathToDropoff.Path.Count > 0)
+    //    {
+    //        yield return StartCoroutine(MoveToLocation(_RobotObject, robotAction.RobotDropoffStartingLocation, robotAction.PathToDropoff));
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("No drop off path for action " + _ActionCount);
+    //    }
 
-        //Drop piece
-        if (robotAction.DropoffAction != null)
-        {
-            float endingY = (_PieceHeight / 2f) + (_PieceHeight * robotAction.DropoffPieceCount) - _PieceHeight;
-            yield return StartCoroutine(DropOffPiece(robotAction.PieceId, endingY, robotAction.DropoffAction));
-        }
-        _ProcessingQueueItem = false;
-        yield return null;
-    }
+    //    //Drop piece
+    //    if (robotAction.DropoffAction != null)
+    //    {
+    //        float endingY = (_PieceHeight / 2f) + (_PieceHeight * robotAction.DropoffPieceCount) - _PieceHeight;
+    //        yield return StartCoroutine(DropOffPiece(robotAction.PieceId, endingY, robotAction.DropoffAction));
+    //    }
+    //    _ProcessingQueueItem = false;
+    //    yield return null;
+    //}
 
-    private IEnumerator MoveToLocation(GameObject robotObject, System.Numerics.Vector2 startLocation, PathFindingResult path)
-    {
-        if (path != null && path.GetLastTile() != null)
-        {
-            //Debug.Log("Moving from " + startLocation + " to location " + path.GetLastTile().Location.ToString());
+    //private IEnumerator MoveToLocation(GameObject robotObject, System.Numerics.Vector2 startLocation, PathFindingResult path)
+    //{
+    //    if (path != null && path.GetLastTile() != null)
+    //    {
+    //        //Debug.Log("Moving from " + startLocation + " to location " + path.GetLastTile().Location.ToString());
 
-            Movement movementScript = robotObject.GetComponent<Movement>();
-            if (movementScript == null)
-            {
-                movementScript = robotObject.AddComponent<Movement>();
-            }
-            //Utility.LogWithTime("Starting movement");
-            yield return StartCoroutine(movementScript.MoveRobot(robotObject, startLocation, path));
-        }
-        else
-        {
-            Debug.Log("No movement needed - at end location");
-            yield return null;
-        }
-    }
+    //        Movement movementScript = robotObject.GetComponent<Movement>();
+    //        if (movementScript == null)
+    //        {
+    //            movementScript = robotObject.AddComponent<Movement>();
+    //        }
+    //        //Utility.LogWithTime("Starting movement");
+    //        yield return StartCoroutine(movementScript.MoveRobot(robotObject, startLocation, path));
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("No movement needed - at end location");
+    //        yield return null;
+    //    }
+    //}
 
     //MoveToLocation2(item.RobotID, item.Movement[0], item.Movement[1])
     private IEnumerator MoveToLocation2(int robotId, System.Numerics.Vector2 startLocation, System.Numerics.Vector2 endLocation)
