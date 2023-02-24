@@ -285,7 +285,7 @@ namespace PuzzleSolver
                         {
                             timeline.Ticks[pickupCounter + tick].RobotActions.Add(new RobotTickAction()
                             {
-                                Action = robotAction.PickupAction
+                                PickupAction = robotAction.PickupAction
                             });
                             pickupCounter++;
                         }
@@ -315,7 +315,7 @@ namespace PuzzleSolver
                         {
                             timeline.Ticks[pickupCounter + dropoffCounter + tick].RobotActions.Add(new RobotTickAction()
                             {
-                                Action = robotAction.DropoffAction
+                                DropoffAction = robotAction.DropoffAction
                             });
                             dropoffCounter++;
                         }
