@@ -219,14 +219,13 @@ namespace PuzzleSolver
                 robotProgress.Add(robot.RobotId, 0);
             }
 
-            int tick = 0;
             while (UnsortedPieces.Count > 8)
             {
                 foreach (Robot robot in Robots)
                 {
                     Piece piece = UnsortedPieces.Dequeue();
                     RobotAction robotAction = GetRobotAction(robot, piece);
-                    tick++;
+                    int tick = robotProgress[robot.RobotId];
 
                     //timeline.Ticks[tick - 1].RobotActions.Add();
                     int ticksNeeded = 0;
