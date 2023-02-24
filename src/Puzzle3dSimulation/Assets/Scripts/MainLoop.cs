@@ -67,6 +67,7 @@ public class MainLoop : MonoBehaviour
         //Get the robot actions
         Utility.LogWithTime("Calculating robot moves");
         _Timeline = board.RunRobots();
+        Utility.LogWithTime(_Timeline.Ticks.Count + " ticks found");
 
         //Add unsorted pieces
         Utility.LogWithTime("Building stack of unsorted pieces");
@@ -344,7 +345,7 @@ public class MainLoop : MonoBehaviour
             Debug.Log("Piece " + pieceId + " does not a drop off action");
         }
         GameObject pieceObject = GameObject.Find("piece_" + pieceId);
-        float endingY = (_PieceHeight / 2f) + (_PieceHeight * dropOffAction.DestinationPieceCount) - _PieceHeight;       
+        float endingY = (_PieceHeight / 2f) + (_PieceHeight * dropOffAction.DestinationPieceCount) - _PieceHeight;
         float robotDetachY = endingY;
         if (robotDetachY < 1.25f)
         {
