@@ -53,7 +53,7 @@ namespace PuzzleSolver.Tests
                     }
                 },
                 sortedDropZones,
-                robot);
+                new List<Robot>() { robot });
 
             //Act
 
@@ -110,7 +110,7 @@ namespace PuzzleSolver.Tests
                     }
                 },
                 sortedDropZones,
-                robot);
+                new List<Robot>() { robot });
 
             //Act
 
@@ -167,7 +167,7 @@ namespace PuzzleSolver.Tests
                     }
                 },
                 sortedDropZones,
-                robot);
+                new List<Robot>() { robot });
 
             //Act
             Queue<RobotAction> results = board.RunRobot();
@@ -306,7 +306,7 @@ namespace PuzzleSolver.Tests
                     }
                 },
                 sortedDropZones,
-                robot);
+                new List<Robot>() { robot });
 
             //Act
             Queue<RobotAction> results = board.RunRobot();
@@ -437,7 +437,7 @@ namespace PuzzleSolver.Tests
                 palette,
                 pieces,
                 sortedDropZones,
-                robot);
+                new List<Robot>() { robot });
 
             //Act
             Queue<RobotAction> results = board.RunRobot();
@@ -519,7 +519,7 @@ namespace PuzzleSolver.Tests
                     }
                 },
                 sortedDropZones,
-                robot);
+                new List<Robot>() { robot });
 
             //Act
             TimeLine results = board.RunRobots();
