@@ -344,7 +344,7 @@ public class MainLoop : MonoBehaviour
             Debug.Log("Piece " + pieceId + " does not a drop off action");
         }
         GameObject pieceObject = GameObject.Find("piece_" + pieceId);
-        float endingY = (_PieceHeight / 2f) + (_PieceHeight * robotAction.DropoffPieceCount) - _PieceHeight;       
+        float endingY = (_PieceHeight / 2f) + (_PieceHeight * dropOffAction.DestinationPieceCount) - _PieceHeight;       
         float robotDetachY = endingY;
         if (robotDetachY < 1.25f)
         {
