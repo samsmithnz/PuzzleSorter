@@ -153,7 +153,7 @@ public class MainLoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_Timeline != null && _Timeline.Ticks.Count > 0 && _ProcessingQueueItem == false)
+        if (_Timeline != null && _Timeline.Ticks.Count > 0 && _ProcessingQueueItem == false && _Tick < _Timeline.Ticks.Count)
         {
             _ProcessingQueueItem = true;
             _Tick++;
@@ -166,7 +166,7 @@ public class MainLoop : MonoBehaviour
     {
         Debug.Log("Tick " + tick + " processing");
 
-        foreach (RobotTickAction item in _Timeline.Ticks[tick].RobotActions)
+        foreach (RobotTickAction item in _Timeline.Ticks[tick - 1].RobotActions)
         {
             //Double check we are only doing one thing. This shouldn't be needed, but is important to check. 
             int checkCount = 0;
