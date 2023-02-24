@@ -529,8 +529,8 @@ namespace PuzzleSolver.Tests
 
             //Assert           
             Assert.IsNotNull(board);
-            Assert.AreEqual(9, board.UnsortedPieces.Count);
-            Assert.AreEqual(1, board.SortedPieces.Count);
+            Assert.AreEqual(8, board.UnsortedPieces.Count);
+            Assert.AreEqual(2, board.SortedPieces.Count);
             Assert.IsNotNull(results);
             Assert.AreEqual(3, results.Ticks.Count);
 
