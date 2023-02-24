@@ -529,7 +529,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(9, board.UnsortedPieces.Count);
             Assert.AreEqual(1, board.SortedPieces.Count);
             Assert.IsNotNull(results);
-            Assert.AreEqual(4,  results.Ticks.Count);
+            Assert.AreEqual(3,  results.Ticks.Count);
 
             ////Complete the first action
             //RobotAction robotAction1 = results.Dequeue();
