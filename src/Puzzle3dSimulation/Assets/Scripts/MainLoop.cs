@@ -171,7 +171,10 @@ public class MainLoop : MonoBehaviour
             {
                 StartCoroutine(MoveToLocation2(item.RobotID, item.Movement[0], item.Movement[1]));
             }
-            //if (item.Action)
+            if (item.PickupAction != null)
+            {
+                StartCoroutine(PickUpPiece());
+            }
         }
 
         _ProcessingQueueItem = false;
