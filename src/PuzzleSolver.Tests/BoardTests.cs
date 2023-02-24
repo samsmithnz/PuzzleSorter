@@ -461,7 +461,10 @@ namespace PuzzleSolver.Tests
             Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
             List<Rgb24> palette = ColorPalettes.Get6ColorPalette();
             List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
-            Robot robot = new Robot(new Vector2(centerPointLocation.X, centerPointLocation.Y - 1));
+            List<Robot> robots = new() {
+                new Robot(new Vector2(centerPointLocation.X, centerPointLocation.Y - 1)),
+                new Robot(new Vector2(centerPointLocation.X - 1, centerPointLocation.Y))
+            };
             //Initialize the game board
             Board board = new(map,
                 centerPointLocation,
@@ -519,7 +522,7 @@ namespace PuzzleSolver.Tests
                     }
                 },
                 sortedDropZones,
-                new List<Robot>() { robot });
+                robots);
 
             //Act
             TimeLine results = board.RunRobots();
@@ -529,7 +532,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(9, board.UnsortedPieces.Count);
             Assert.AreEqual(1, board.SortedPieces.Count);
             Assert.IsNotNull(results);
-            Assert.AreEqual(3,  results.Ticks.Count);
+            Assert.AreEqual(3, results.Ticks.Count);
 
             ////Complete the first action
             //RobotAction robotAction1 = results.Dequeue();
