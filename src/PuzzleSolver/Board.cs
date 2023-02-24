@@ -223,12 +223,12 @@ namespace PuzzleSolver
             {
                 foreach (Robot robot in Robots)
                 {
+                    //retrieve piece from queue/pile and setup robot to take action on the piece
                     Piece piece = UnsortedPieces.Dequeue();
                     RobotAction robotAction = GetRobotAction(robot, piece);
                     int tick = robotProgress[robot.RobotId];
-
-                    //timeline.Ticks[tick - 1].RobotActions.Add();
                     int ticksNeeded = 0;
+
                     //move to pickup
                     if (robotAction.PathToPickup != null)
                     {
@@ -250,7 +250,7 @@ namespace PuzzleSolver
                         ticksNeeded++;
                     }
                     //Initialize the ticks needed for this robot to complete it's turn
-                    for (int j = tick - 1; j < tick + ticksNeeded - 1; j++)
+                    for (int j = tick; j < tick + ticksNeeded - 1; j++)
                     {
                         if (timeline.Ticks.Any(t => t.TickNumber == j + 1) == false)
                         {
@@ -265,14 +265,14 @@ namespace PuzzleSolver
                         robotAction.PathToPickup.Path.Count > 0)
                     {
                         pickupCounter++;
-                        timeline.Ticks[tick - 1].RobotActions.Add(new RobotTickAction()
+                        timeline.Ticks[tick].RobotActions.Add(new RobotTickAction()
                         {
                             Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToPickup.Path[0] }
                         });
                         for (int j = 1; j < robotAction.PathToPickup.Path.Count - 1; j++)
                         {
                             pickupCounter++;
-                            timeline.Ticks[tick - 1 + j].RobotActions.Add(new RobotTickAction()
+                            timeline.Ticks[tick  + j].RobotActions.Add(new RobotTickAction()
                             {
                                 Movement = new List<Vector2>() { robotAction.PathToPickup.Path[j - 1], robotAction.PathToPickup.Path[j] }
                             });
@@ -281,7 +281,7 @@ namespace PuzzleSolver
 
                     if (robotAction.PickupAction != null)
                     {
-                        timeline.Ticks[pickupCounter + tick - 1].RobotActions.Add(new RobotTickAction()
+                        timeline.Ticks[pickupCounter + tick ].RobotActions.Add(new RobotTickAction()
                         {
                             Action = robotAction.PickupAction
                         });
@@ -295,14 +295,14 @@ namespace PuzzleSolver
                         robotAction.PathToDropoff.Path.Count > 0)
                     {
                         dropoffCounter++;
-                        timeline.Ticks[pickupCounter + tick - 1].RobotActions.Add(new RobotTickAction()
+                        timeline.Ticks[pickupCounter + tick].RobotActions.Add(new RobotTickAction()
                         {
                             Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToDropoff.Path[0] }
                         });
                         for (int j = 1; j < robotAction.PathToDropoff.Path.Count - 1; j++)
                         {
                             dropoffCounter++;
-                            timeline.Ticks[pickupCounter + tick - 1 + j].RobotActions.Add(new RobotTickAction()
+                            timeline.Ticks[pickupCounter + tick + j].RobotActions.Add(new RobotTickAction()
                             {
                                 Movement = new List<Vector2>() { robotAction.PathToDropoff.Path[j - 1], robotAction.PathToDropoff.Path[j] }
                             });
@@ -311,7 +311,7 @@ namespace PuzzleSolver
 
                     if (robotAction.DropoffAction != null)
                     {
-                        timeline.Ticks[pickupCounter + dropoffCounter + tick - 1].RobotActions.Add(new RobotTickAction()
+                        timeline.Ticks[pickupCounter + dropoffCounter + tick].RobotActions.Add(new RobotTickAction()
                         {
                             Action = robotAction.DropoffAction
                         });
