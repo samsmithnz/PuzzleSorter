@@ -322,7 +322,6 @@ namespace PuzzleSolver
                         robotProgress[robot.RobotId] += pickupCounter + dropoffCounter;
                     }
                 }
-
             }
 
             return timeline;
