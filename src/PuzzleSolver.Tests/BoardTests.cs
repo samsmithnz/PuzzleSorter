@@ -537,6 +537,7 @@ namespace PuzzleSolver.Tests
             //check the first tick
             Assert.AreEqual(1, results.Ticks[0].TickNumber);
             Assert.AreEqual(2, results.Ticks[0].RobotActions.Count);
+
             //check the second to last tick
             Assert.AreEqual(15, results.Ticks[results.Ticks.Count - 2].TickNumber);
             Assert.AreEqual(2, results.Ticks[results.Ticks.Count - 2].RobotActions.Count);
@@ -544,78 +545,6 @@ namespace PuzzleSolver.Tests
             //check the last tick
             Assert.AreEqual(16, results.Ticks[results.Ticks.Count - 1].TickNumber);
             Assert.AreEqual(0, results.Ticks[results.Ticks.Count - 1].RobotActions.Count);
-
-            //RobotAction robotAction1 = results.Dequeue();
-            //Assert.IsNotNull(robotAction1);
-            //Assert.IsNotNull(robotAction1.PieceId);
-            //Assert.IsNull(robotAction1.PathToPickup); //This is null because we start in the right location
-            //Assert.IsNotNull(robotAction1.PickupAction);
-            //Assert.IsNotNull(robotAction1.PathToDropoff);
-            //Assert.AreEqual(new(2, 1), robotAction1.RobotDropoffStartingLocation);
-            //Assert.AreEqual(new(1, 1), robotAction1.PathToDropoff.Path[0]);
-            //Assert.AreEqual(new(1, 1), robotAction1.RobotDropoffEndingLocation);
-            //Assert.AreEqual(1, robotAction1.DropoffPieceCount);
-            //Assert.IsNotNull(robotAction1.DropoffAction);
-            //Assert.AreEqual(new(0, 1), board.SortedPieces[0].Location);
-            //Assert.AreEqual(10, results.Count);
-
-            ////Complete the second action
-            //RobotAction robotAction2 = results.Dequeue();
-            //Assert.IsNotNull(robotAction2);
-            //Assert.IsNotNull(robotAction2.PieceId);
-            //Assert.IsNotNull(robotAction2.PathToPickup);
-            //Assert.AreEqual(new(1, 1), robotAction2.RobotPickupStartingLocation);
-            //Assert.AreEqual(new(2, 1), robotAction2.PathToPickup.Path[0]);
-            //Assert.AreEqual(new(2, 1), robotAction2.RobotPickupEndingLocation);
-            //Assert.IsNotNull(robotAction2.PickupAction);
-            //Assert.IsNotNull(robotAction2.PathToDropoff);
-            //Assert.AreEqual(new(2, 1), robotAction2.RobotDropoffStartingLocation);
-            //Assert.AreEqual(new(1, 1), robotAction2.PathToDropoff.Path[0]);
-            //Assert.AreEqual(new(1, 2), robotAction2.PathToDropoff.Path[1]);
-            //Assert.AreEqual(new(1, 3), robotAction2.PathToDropoff.Path[2]);
-            //Assert.AreEqual(new(1, 3), robotAction2.RobotDropoffEndingLocation);
-            //Assert.AreEqual(1, robotAction2.DropoffPieceCount);
-            //Assert.IsNotNull(robotAction2.DropoffAction);
-            //Assert.AreEqual(9, results.Count);
-
-            ////Complete the third action
-            //RobotAction robotAction3 = results.Dequeue();
-            //Assert.IsNotNull(robotAction3);
-            //Assert.IsNotNull(robotAction3.PieceId);
-            //Assert.IsNotNull(robotAction3.PathToPickup);
-            //Assert.AreEqual(new(1, 3), robotAction3.RobotPickupStartingLocation);
-            //Assert.AreEqual(new(1, 2), robotAction3.PathToPickup.Path[0]);
-            //Assert.AreEqual(new(1, 1), robotAction3.PathToPickup.Path[1]);
-            //Assert.AreEqual(new(2, 1), robotAction3.PathToPickup.Path[2]);
-            //Assert.AreEqual(new(2, 1), robotAction3.RobotPickupEndingLocation);
-            //Assert.IsNotNull(robotAction3.PickupAction);
-            //Assert.IsNotNull(robotAction3.PathToDropoff);
-            //Assert.AreEqual(new(2, 1), robotAction3.RobotDropoffStartingLocation);
-            //Assert.AreEqual(new(1, 1), robotAction3.PathToDropoff.Path[0]);
-            //Assert.AreEqual(new(1, 1), robotAction3.RobotDropoffEndingLocation);
-            //Assert.AreEqual(2, robotAction3.DropoffPieceCount);
-            //Assert.IsNotNull(robotAction3.DropoffAction);
-            //Assert.AreEqual(8, results.Count);
-
-            ////Complete the fourth action
-            //RobotAction robotAction4 = results.Dequeue();
-            //Assert.IsNotNull(robotAction4);
-            //Assert.IsNotNull(robotAction4.PieceId);
-            //Assert.IsNotNull(robotAction4.PathToPickup);
-            //Assert.IsNotNull(robotAction4.PickupAction);
-            //Assert.IsNotNull(robotAction4.PathToDropoff);
-            //Assert.AreEqual(1, robotAction4.DropoffPieceCount);
-            //Assert.IsNotNull(robotAction4.DropoffAction);
-            //Assert.AreEqual(7, results.Count);
-
-            //Assert.AreEqual(Color.Red.ToPixel<Rgb24>(), board.SortedPieces[0].TopColorGroup);
-            //Assert.AreEqual(4, board.SortedDropZones[0].Count);
-            //Assert.AreEqual(1, board.SortedDropZones[1].Count);
-            //Assert.AreEqual(2, board.SortedDropZones[2].Count);
-            //Assert.AreEqual(1, board.SortedDropZones[3].Count);
-            //Assert.AreEqual(1, board.SortedDropZones[4].Count);
-            //Assert.AreEqual(1, board.SortedDropZones[5].Count);
-            //Assert.AreEqual(4, board.GetPieceCount(board.SortedDropZones[0].Location));
         }
     }
 }
