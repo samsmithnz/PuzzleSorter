@@ -28,6 +28,7 @@ public class Movement : MonoBehaviour
                         time));
                 }
             }
+            //Attach/detach to the robot parent
             if (robotTransform != null)
             {
                 pieceObject.transform.parent = robotTransform;
