@@ -35,6 +35,7 @@ public class Movement : MonoBehaviour
             }
             else
             {
+                Debug.LogWarning("Detaching piece " + pieceObject.name);
                 pieceObject.transform.parent = null;
             }
         }
