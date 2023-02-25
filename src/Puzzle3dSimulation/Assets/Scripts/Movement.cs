@@ -22,10 +22,12 @@ public class Movement : MonoBehaviour
                 {
                     Vector3 start = path[i];
                     Vector3 end = path[i + 1];
-                    yield return StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(pieceObject.transform,
-                        start,
-                        end,
-                        time));
+                    //yield return 
+                    StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(pieceObject.transform,
+                    start,
+                    end,
+                    time));
+                    yield return new WaitForSeconds(time);
                 }
             }
             //Attach/detach to the robot parent
@@ -57,10 +59,12 @@ public class Movement : MonoBehaviour
             float robotY = 0.5f;
             Vector3 start = Utility.ConvertToUnity3DV3(startLocation, robotY);
             Vector3 end = Utility.ConvertToUnity3DV3(path.Path[0], robotY);
-            yield return StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(robotObject.transform,
-                start,
-                end,
-                time));
+            //yield return 
+            StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(robotObject.transform,
+            start,
+            end,
+            time));
+            yield return new WaitForSeconds(time);
 
             for (int i = 0; i < path.Path.Count; i++)
             {
@@ -70,10 +74,12 @@ public class Movement : MonoBehaviour
                     end = Utility.ConvertToUnity3DV3(path.Path[i + 1], robotY);
                     // Debug.Log("Position " + i + ": (" + end.x.ToString() + "," + end.z.ToString() + ")");
                     // Debug.Log("Moving from " + start.ToString() + " to " + end.ToString());
-                    yield return StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(robotObject.transform,
-                        start,
-                        end,
-                        time));
+                    //yield return 
+                    StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(robotObject.transform,
+                    start,
+                    end,
+                    time));
+                    yield return new WaitForSeconds(time);
                 }
             }
         }
@@ -95,10 +101,12 @@ public class Movement : MonoBehaviour
             float robotY = 0.5f;
             Vector3 start = Utility.ConvertToUnity3DV3(startLocation, robotY);
             Vector3 end = Utility.ConvertToUnity3DV3(endLocation, robotY);
-            yield return StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(robotObject.transform,
-                start,
-                end,
-                time));
+            //yield return 
+            StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(robotObject.transform,
+            start,
+            end,
+            time));
+            yield return new WaitForSeconds(time);
         }
         yield return null;
     }

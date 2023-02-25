@@ -291,7 +291,8 @@ public class MainLoop : MonoBehaviour
                 movementScript = robotObject.AddComponent<Movement>();
             }
             //Utility.LogWithTime("Starting movement");
-            yield return StartCoroutine(movementScript.MoveRobot2(robotObject, startLocation, endLocation));
+            //yield return
+            StartCoroutine(movementScript.MoveRobot2(robotObject, startLocation, endLocation));
             _ProcessingRobotsInTickCounter--;
         }
         else
@@ -333,7 +334,8 @@ public class MainLoop : MonoBehaviour
                 //Drop piece on robot, and attach to parent robot at y 1.25s
                 new Vector3(pieceObject.transform.position.x, 1.25f, robotObject.transform.position.z)
             };
-            yield return StartCoroutine(movementScript.MovePiece(pieceObject, path, robotObject.transform));
+            //yield return 
+            StartCoroutine(movementScript.MovePiece(pieceObject, path, robotObject.transform));
             _ProcessingRobotsInTickCounter--;
         }
         else
@@ -378,7 +380,8 @@ public class MainLoop : MonoBehaviour
                 //drop to sorted pile
                 new Vector3(dropOffAction.Location.X, endingY, dropOffAction.Location.Y)
             };
-            yield return StartCoroutine(movementScript.MovePiece(pieceObject, path, null));
+            //yield return
+            StartCoroutine(movementScript.MovePiece(pieceObject, path, null));
             _ProcessingRobotsInTickCounter--;
         }
         else
