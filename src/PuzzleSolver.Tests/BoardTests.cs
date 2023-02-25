@@ -535,10 +535,27 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(16, results.Ticks.Count);
 
             //check the first tick
-            Assert.AreEqual(1, results.Ticks[0].TickNumber);
-            Assert.AreEqual(2, results.Ticks[0].RobotActions.Count);
-            Assert.AreEqual(1, results.Ticks[0].RobotActions[0].PieceId);
-            Assert.AreEqual(2, results.Ticks[0].RobotActions[1].PieceId);
+            Tick tick1 = results.Ticks[0];
+            Assert.AreEqual(1, tick1.TickNumber);
+            Assert.AreEqual(2, tick1.RobotActions.Count);
+            Assert.AreEqual(1, tick1.RobotActions[0].PieceId);
+            Assert.AreEqual(2, tick1.RobotActions[1].PieceId);
+            
+            Tick tick2 = results.Ticks[1];
+            Assert.AreEqual(2, tick2.TickNumber);
+            Assert.AreEqual(2, tick2.RobotActions.Count);
+            Assert.AreEqual(1, tick2.RobotActions[0].PieceId);
+            Assert.AreEqual(2, tick2.RobotActions[1].PieceId);
+                       
+            Tick tick3 = results.Ticks[2];
+            Assert.AreEqual(3, tick3.TickNumber);
+            Assert.AreEqual(2, tick3.RobotActions.Count);
+            Assert.AreEqual(1, tick3.RobotActions[0].PieceId);
+            Assert.AreEqual(1, tick3.RobotActions[0].DropoffAction.DestinationPieceCount);
+            Assert.AreEqual(2, tick3.RobotActions[1].PieceId);
+            Assert.AreEqual(2, tick3.RobotActions[1].DropoffAction.DestinationPieceCount);
+
+
 
             //check the second to last tick
             Assert.AreEqual(15, results.Ticks[results.Ticks.Count - 2].TickNumber);
