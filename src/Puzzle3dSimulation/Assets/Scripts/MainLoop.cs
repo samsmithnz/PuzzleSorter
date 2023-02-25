@@ -11,8 +11,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
-using static UnityEditor.Progress;
-using static UnityEditor.Recorder.OutputPath;
 
 public class MainLoop : MonoBehaviour
 {
@@ -49,7 +47,7 @@ public class MainLoop : MonoBehaviour
         List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
         List<Robot> robots = new() {
             new Robot(1, new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y - 1), new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y - 1)),
-            new Robot(2, new System.Numerics.Vector2(centerPointLocation.X - 1, centerPointLocation.Y), new System.Numerics.Vector2(centerPointLocation.X - 1, centerPointLocation.Y))
+            //new Robot(2, new System.Numerics.Vector2(centerPointLocation.X - 1, centerPointLocation.Y), new System.Numerics.Vector2(centerPointLocation.X - 1, centerPointLocation.Y))
         };
         //Initialize the game board
         Board board = new(map,
@@ -199,7 +197,7 @@ public class MainLoop : MonoBehaviour
             {
                 StartCoroutine(DropOffPiece(item.RobotId, item.PieceId, item.DropoffAction));
             }
-            yield return StartCoroutine(DelayTick(item));
+            //yield return StartCoroutine(DelayTick(item));
         }
         yield return null;
     }
@@ -291,8 +289,7 @@ public class MainLoop : MonoBehaviour
                 movementScript = robotObject.AddComponent<Movement>();
             }
             //Utility.LogWithTime("Starting movement");
-            //yield return
-            StartCoroutine(movementScript.MoveRobot2(robotObject, startLocation, endLocation));
+            yield return StartCoroutine(movementScript.MoveRobot2(robotObject, startLocation, endLocation));
             _ProcessingRobotsInTickCounter--;
         }
         else
@@ -334,8 +331,7 @@ public class MainLoop : MonoBehaviour
                 //Drop piece on robot, and attach to parent robot at y 1.25s
                 new Vector3(pieceObject.transform.position.x, 1.25f, robotObject.transform.position.z)
             };
-            //yield return 
-            StartCoroutine(movementScript.MovePiece(pieceObject, path, robotObject.transform));
+            yield return StartCoroutine(movementScript.MovePiece(pieceObject, path, robotObject.transform));
             _ProcessingRobotsInTickCounter--;
         }
         else
@@ -381,8 +377,7 @@ public class MainLoop : MonoBehaviour
                 //drop to sorted pile
                 new Vector3(dropOffAction.Location.X, endingY, dropOffAction.Location.Y)
             };
-            //yield return
-            StartCoroutine(movementScript.MovePiece(pieceObject, path, null));
+            yield return StartCoroutine(movementScript.MovePiece(pieceObject, path, null));
             _ProcessingRobotsInTickCounter--;
         }
         else
