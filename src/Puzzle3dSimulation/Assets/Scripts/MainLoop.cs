@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using static UnityEditor.Progress;
+using static UnityEditor.Recorder.OutputPath;
 
 public class MainLoop : MonoBehaviour
 {
@@ -84,7 +85,7 @@ public class MainLoop : MonoBehaviour
             pieceObject.transform.localScale = new Vector3(_PieceWidth, _PieceHeight, _PieceDepth);
             //Vector3 rotation = pieceObject.transform.rotation.eulerAngles;
             //pieceObject.transform.rotation = Quaternion.Euler(new Vector3(rotation.x, 180, rotation.z));
-            pieceObject.name = "piece_" + i.ToString();
+            pieceObject.name = GetPieceName(i);
             if (piece != null && piece.TopColorGroup != null)
             {
                 pieceObject.GetComponent<Renderer>().material = PieceMaterial;
@@ -94,7 +95,6 @@ public class MainLoop : MonoBehaviour
             GameObject pieceImageObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
             Texture texture = Image2Texture(piece.Image);
             Material material = new Material(Shader.Find("Standard"));
-            //material.SetTexture("Piece_" + i.ToString() + "_Texture", texture);
             material.mainTexture = texture;
             Renderer renderer = pieceImageObject.GetComponent<Renderer>();
             renderer.material = material;
@@ -114,7 +114,7 @@ public class MainLoop : MonoBehaviour
             GameObject robotObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             robotObject.transform.position = new Vector3(robot.Location.X, 0.5f, robot.Location.Y);
             robotObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-            robotObject.name = "robot_" + robot.RobotId;
+            robotObject.name = GetRobotName(robot.RobotId);
             robotObject.GetComponent<Renderer>().material.color = Utility.ConvertToUnityColor(robotPalette[j]); //UnityEngine.Color.gray; //dark gray
         }
 
@@ -280,7 +280,7 @@ public class MainLoop : MonoBehaviour
     private IEnumerator MoveToLocation2(int robotId, System.Numerics.Vector2 startLocation, System.Numerics.Vector2 endLocation)
     {
         GameObject robotObject = null;
-        robotObject = GameObject.Find("robot_" + robotId);
+        robotObject = GameObject.Find(GetRobotName(robotId));
 
         if (robotObject != null)
         {
@@ -304,8 +304,8 @@ public class MainLoop : MonoBehaviour
     private IEnumerator PickUpPiece(int robotId, int pieceId, ObjectInteraction pickupAction)
     {
         Debug.Log("Picking up piece " + pickupAction.Location.ToString());
-        GameObject robotObject = GameObject.Find("robot_" + robotId);
-        GameObject pieceObject = GameObject.Find("piece_" + pieceId);
+        GameObject robotObject = GameObject.Find(GetRobotName(robotId));
+        GameObject pieceObject = GameObject.Find(GetPieceName(pieceId));
         float startingY = pieceObject.transform.position.y;
         if (startingY < _PieceHeight / 2f)
         {
@@ -352,8 +352,8 @@ public class MainLoop : MonoBehaviour
         {
             Debug.Log("Piece " + pieceId + " does not a drop off action");
         }
-        GameObject robotObject = GameObject.Find("robot_" + robotId);
-        GameObject pieceObject = GameObject.Find("piece_" + pieceId);
+        GameObject robotObject = GameObject.Find(GetRobotName(robotId));
+        GameObject pieceObject = GameObject.Find(GetPieceName(pieceId));
         float endingY = (_PieceHeight / 2f) + (_PieceHeight * dropOffAction.DestinationPieceCount) - _PieceHeight;
         float robotDetachY = endingY;
         if (robotDetachY < 1.25f)
@@ -489,6 +489,16 @@ public class MainLoop : MonoBehaviour
         ms.Close();
 
         return tex;
+    }
+
+    private string GetRobotName(int robotId)
+    {
+        return "robot_" + robotId;
+    }
+
+    private string GetPieceName(int pieceId)
+    {
+        return "piece_" + pieceId;
     }
 
 }
