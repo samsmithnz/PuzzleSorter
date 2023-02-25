@@ -22,7 +22,7 @@ public class MainLoop : MonoBehaviour
     private readonly bool _ShowLinesOnFloor = true;
     private Queue<RobotAction> _RobotActions = null;
     private TimeLine _Timeline = null;
-    private GameObject _RobotObject = null;
+    //private GameObject _RobotObject = null;
     private int _ProcessingRobotsInTickCounter = 0;
     private int _ActionCount = 0;
     private float _PieceWidth = 0.5f;
@@ -111,11 +111,11 @@ public class MainLoop : MonoBehaviour
         for (int j = 0; j < board.Robots.Count; j++)
         {
             Robot robot = board.Robots[j];
-            _RobotObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            _RobotObject.transform.position = new Vector3(robot.Location.X, 0.5f, robot.Location.Y);
-            _RobotObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-            _RobotObject.name = "robot_" + robot.RobotId;
-            _RobotObject.GetComponent<Renderer>().material.color = Utility.ConvertToUnityColor(robotPalette[j]); //UnityEngine.Color.gray; //dark gray
+            GameObject robotObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            robotObject.transform.position = new Vector3(robot.Location.X, 0.5f, robot.Location.Y);
+            robotObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            robotObject.name = "robot_" + robot.RobotId;
+            robotObject.GetComponent<Renderer>().material.color = Utility.ConvertToUnityColor(robotPalette[j]); //UnityEngine.Color.gray; //dark gray
         }
 
         ////Add lines on puzzle map, Drawing line renderers
@@ -187,26 +187,26 @@ public class MainLoop : MonoBehaviour
             {
                 Debug.LogError("Tick " + tick + ", Robot " + item.RobotId + " has " + checkCount + " actions - only 1 was expected");
             }
-            yield return StartCoroutine(RunTick(item));
+            if (item.Movement != null && item.Movement.Count > 0)
+            {
+                StartCoroutine(MoveToLocation2(item.RobotId, item.Movement[0], item.Movement[1]));
+            }
+            if (item.PickupAction != null)
+            {
+                StartCoroutine(PickUpPiece(item.RobotId, item.PieceId, item.PickupAction));
+            }
+            if (item.DropoffAction != null)
+            {
+                StartCoroutine(DropOffPiece(item.RobotId, item.PieceId, item.DropoffAction));
+            }
+            yield return StartCoroutine(DelayTick(item));
         }
         yield return null;
     }
 
-    private IEnumerator RunTick(RobotTickAction item)
+    private IEnumerator DelayTick(RobotTickAction item)
     {
-        if (item.Movement != null && item.Movement.Count > 0)
-        {
-            StartCoroutine(MoveToLocation2(item.RobotId, item.Movement[0], item.Movement[1]));
-        }
-        if (item.PickupAction != null)
-        {
-            StartCoroutine(PickUpPiece(item.PieceId, item.PickupAction));
-        }
-        if (item.DropoffAction != null)
-        {
-            StartCoroutine(DropOffPiece(item.PieceId, item.DropoffAction));
-        }
-        yield return null;
+        yield return new WaitForSeconds(2f);
     }
 
     //private IEnumerator ProcessQueueItem(RobotAction robotAction)
@@ -301,9 +301,10 @@ public class MainLoop : MonoBehaviour
         }
     }
 
-    private IEnumerator PickUpPiece(int pieceId, ObjectInteraction pickupAction)
+    private IEnumerator PickUpPiece(int robotId, int pieceId, ObjectInteraction pickupAction)
     {
         Debug.Log("Picking up piece " + pickupAction.Location.ToString());
+        GameObject robotObject = GameObject.Find("robot_" + robotId);
         GameObject pieceObject = GameObject.Find("piece_" + pieceId);
         float startingY = pieceObject.transform.position.y;
         if (startingY < _PieceHeight / 2f)
@@ -328,11 +329,11 @@ public class MainLoop : MonoBehaviour
                 //Raise piece off pile
                 new Vector3(pieceObject.transform.position.x, startingY, pieceObject.transform.position.z),
                 //Move above robot
-                new Vector3(pieceObject.transform.position.x, startingY, _RobotObject.transform.position.z),
+                new Vector3(pieceObject.transform.position.x, startingY, robotObject.transform.position.z),
                 //Drop piece on robot, and attach to parent robot at y 1.25s
-                new Vector3(pieceObject.transform.position.x, 1.25f, _RobotObject.transform.position.z)
+                new Vector3(pieceObject.transform.position.x, 1.25f, robotObject.transform.position.z)
             };
-            yield return StartCoroutine(movementScript.MovePiece(pieceObject, path, _RobotObject.transform));
+            yield return StartCoroutine(movementScript.MovePiece(pieceObject, path, robotObject.transform));
             _ProcessingRobotsInTickCounter--;
         }
         else
@@ -341,7 +342,7 @@ public class MainLoop : MonoBehaviour
         }
     }
 
-    private IEnumerator DropOffPiece(int pieceId, ObjectInteraction dropOffAction)
+    private IEnumerator DropOffPiece(int robotId, int pieceId, ObjectInteraction dropOffAction)
     {
         if (dropOffAction != null && dropOffAction.Location != null)
         {
@@ -351,6 +352,7 @@ public class MainLoop : MonoBehaviour
         {
             Debug.Log("Piece " + pieceId + " does not a drop off action");
         }
+        GameObject robotObject = GameObject.Find("robot_" + robotId);
         GameObject pieceObject = GameObject.Find("piece_" + pieceId);
         float endingY = (_PieceHeight / 2f) + (_PieceHeight * dropOffAction.DestinationPieceCount) - _PieceHeight;
         float robotDetachY = endingY;
@@ -370,7 +372,7 @@ public class MainLoop : MonoBehaviour
                 //detach piece from parent robot at y 1.25s
                 pieceObject.transform.position,
                 //raise piece off robot
-                new Vector3(pieceObject.transform.position.x, robotDetachY, _RobotObject.transform.position.z),
+                new Vector3(pieceObject.transform.position.x, robotDetachY, robotObject.transform.position.z),
                 //move above destination pile
                 new Vector3(dropOffAction.Location.X, robotDetachY, dropOffAction.Location.Y),
                 //drop to sorted pile
