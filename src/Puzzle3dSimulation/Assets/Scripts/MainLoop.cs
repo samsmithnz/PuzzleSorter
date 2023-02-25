@@ -196,15 +196,15 @@ public class MainLoop : MonoBehaviour
     {
         if (item.Movement != null && item.Movement.Count > 0)
         {
-            yield return StartCoroutine(MoveToLocation2(item.RobotId, item.Movement[0], item.Movement[1]));
+            StartCoroutine(MoveToLocation2(item.RobotId, item.Movement[0], item.Movement[1]));
         }
         if (item.PickupAction != null)
         {
-            yield return StartCoroutine(PickUpPiece(item.PieceId, item.PickupAction));
+            StartCoroutine(PickUpPiece(item.PieceId, item.PickupAction));
         }
         if (item.DropoffAction != null)
         {
-            yield return StartCoroutine(DropOffPiece(item.PieceId, item.DropoffAction));
+            StartCoroutine(DropOffPiece(item.PieceId, item.DropoffAction));
         }
         yield return null;
     }
