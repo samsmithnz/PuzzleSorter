@@ -342,6 +342,7 @@ public class MainLoop : MonoBehaviour
         {
             Debug.Log("Piece " + pieceId + " not found");
         }
+        yield return null;
     }
 
     private IEnumerator DropOffPiece(int robotId, int pieceId, ObjectInteraction dropOffAction)
@@ -388,6 +389,7 @@ public class MainLoop : MonoBehaviour
         {
             Debug.Log("Piece " + pieceId + " not found");
         }
+        yield return null;
     }
 
     private List<Piece> GetRandomPieceList(int count, List<Rgb24> palette)
