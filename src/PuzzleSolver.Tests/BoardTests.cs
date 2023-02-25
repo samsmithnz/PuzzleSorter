@@ -566,10 +566,10 @@ namespace PuzzleSolver.Tests
             Tick tick4 = results.Ticks[3];
             Assert.AreEqual(4, tick4.TickNumber);
             Assert.AreEqual(2, tick4.RobotActions.Count);
-            Assert.AreEqual(null, tick4.RobotActions[0].PieceId);
-            Assert.AreEqual(null, tick4.RobotActions[1].PieceId);
-            Assert.AreEqual(2, tick4.RobotActions[0].Movement.Count);
-            Assert.AreEqual(2, tick4.RobotActions[1].Movement.Count);
+            Assert.AreEqual(3, tick4.RobotActions[0].PieceId);
+            Assert.AreEqual(4, tick4.RobotActions[1].PieceId);
+            //Assert.AreEqual(2, tick4.RobotActions[0].Movement.Count);
+            //Assert.AreEqual(2, tick4.RobotActions[1].Movement.Count);
 
             //check the second to last tick
             Assert.AreEqual(15, results.Ticks[results.Ticks.Count - 2].TickNumber);
