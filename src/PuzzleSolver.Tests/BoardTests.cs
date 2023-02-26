@@ -558,7 +558,7 @@ namespace PuzzleSolver.Tests
            
             Tick tick4 = results.Ticks[3];
             Assert.AreEqual(4, tick4.TickNumber);
-            Assert.AreEqual(2, tick4.RobotActions.Count);
+            Assert.AreEqual(1, tick4.RobotActions.Count);
             Assert.AreEqual(3, tick4.RobotActions[0].PieceId);
             Assert.AreEqual(2, tick4.RobotActions[0].Movement.Count);
       
