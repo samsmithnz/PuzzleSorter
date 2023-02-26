@@ -271,7 +271,7 @@ namespace PuzzleSolver
                             {
                                 Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToPickup.Path[0] }
                             });
-                            for (int j = 1; j < robotAction.PathToPickup.Path.Count - 1; j++)
+                            for (int j = 1; j <= robotAction.PathToPickup.Path.Count - 1; j++)
                             {
                                 pickupCounter++;
                                 timeline.Turns[turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, piece.Id)
@@ -302,13 +302,14 @@ namespace PuzzleSolver
                             {
                                 Movement = new List<Vector2>() { robotAction.RobotDropoffStartingLocation, robotAction.PathToDropoff.Path[0] }
                             });
-                            for (int j = 1; j < robotAction.PathToDropoff.Path.Count - 1; j++)
+                            for (int j = 1; j <= robotAction.PathToDropoff.Path.Count - 1; j++)
                             {
                                 dropoffCounter++;
                                 timeline.Turns[pickupCounter + turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, piece.Id)
                                 {
                                     Movement = new List<Vector2>() { robotAction.PathToDropoff.Path[j - 1], robotAction.PathToDropoff.Path[j] }
                                 });
+                                int x = 0;
                             }
                         }
 
