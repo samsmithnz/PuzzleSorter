@@ -271,7 +271,7 @@ namespace PuzzleSolver
                             {
                                 Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToPickup.Path[0] }
                             });
-                            for (int j = 1; j < robotAction.PathToPickup.Path.Count - 1; j++)
+                            for (int j = 1; j <= robotAction.PathToPickup.Path.Count - 1; j++)
                             {
                                 pickupCounter++;
                                 timeline.Ticks[tick + j].RobotActions.Add(new RobotTickAction(robot.RobotId, piece.Id)
