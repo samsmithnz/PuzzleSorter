@@ -452,6 +452,142 @@ namespace PuzzleSolver.Tests
         }
 
         [TestMethod]
+        public void Board6ColorsSingleRobotRunTest()
+        {
+            //Arrange
+            int width = 5;
+            int height = 5;
+            string[,] map = MapGeneration.GenerateMap(width, height);
+            Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
+            List<Rgb24> palette = ColorPalettes.Get6ColorPalette();
+            List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
+            List<Robot> robots = new() {
+                new Robot(1, new Vector2(centerPointLocation.X, centerPointLocation.Y - 1), new Vector2(centerPointLocation.X, centerPointLocation.Y - 1)),
+                new Robot(2, new Vector2(centerPointLocation.X - 1, centerPointLocation.Y), new Vector2(centerPointLocation.X - 1, centerPointLocation.Y))
+            };
+            //Initialize the game board
+            Board board = new(map,
+                centerPointLocation,
+                palette,
+                new List<Piece>() {
+                    new Piece() {
+                        Id = 1,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 2,
+                        Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 3,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 4,
+                        Image = ImageCropping.CreateImage(Color.Green.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 5,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 6,
+                        Image = ImageCropping.CreateImage(Color.Purple.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 7,
+                        Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 8,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 9,
+                        Image = ImageCropping.CreateImage(Color.Yellow.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 10,
+                        Image = ImageCropping.CreateImage(Color.Orange.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    }
+                },
+                sortedDropZones,
+                robots);
+
+            //Act
+            TimeLine results = board.RunRobots();
+
+            //Assert           
+            Assert.IsNotNull(board);
+            Assert.AreEqual(0, board.UnsortedPieces.Count);
+            Assert.AreEqual(10, board.SortedPieces.Count);
+            Assert.IsNotNull(results);
+            Assert.AreEqual(21, results.Ticks.Count);
+
+            //check the first tick
+            Tick tick1 = results.Ticks[0];
+            Assert.AreEqual(1, tick1.TickNumber);
+            Assert.AreEqual(2, tick1.RobotActions.Count);
+            Assert.AreEqual(1, tick1.RobotActions[0].PieceId);
+            Assert.AreEqual(2, tick1.RobotActions[1].PieceId);
+            Assert.IsNull(tick1.RobotActions[0].Movement);
+            Assert.IsNull(tick1.RobotActions[1].Movement);
+
+            Tick tick2 = results.Ticks[1];
+            Assert.AreEqual(2, tick2.TickNumber);
+            Assert.AreEqual(2, tick2.RobotActions.Count);
+            Assert.AreEqual(1, tick2.RobotActions[0].PieceId);
+            Assert.AreEqual(2, tick2.RobotActions[1].PieceId);
+            Assert.AreEqual(2, tick2.RobotActions[0].Movement.Count);
+            Assert.AreEqual(2, tick2.RobotActions[1].Movement.Count);
+            Assert.AreEqual(new Vector2(2, 1), tick2.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 1), tick2.RobotActions[0].Movement[1]);
+            Assert.AreEqual(new Vector2(1, 2), tick2.RobotActions[1].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 3), tick2.RobotActions[1].Movement[1]);
+
+            Tick tick3 = results.Ticks[2];
+            Assert.AreEqual(3, tick3.TickNumber);
+            Assert.AreEqual(2, tick3.RobotActions.Count);
+            Assert.AreEqual(1, tick3.RobotActions[0].PieceId);
+            Assert.AreEqual(2, tick3.RobotActions[1].PieceId);
+            Assert.AreEqual(new Vector2(0, 1), tick3.RobotActions[0].DropoffAction.Location);
+            Assert.AreEqual(new Vector2(0, 3), tick3.RobotActions[1].DropoffAction.Location);
+            Assert.AreEqual(1, tick3.RobotActions[0].DropoffAction.DestinationPieceCount);
+            Assert.AreEqual(1, tick3.RobotActions[1].DropoffAction.DestinationPieceCount);
+            Assert.IsNull(tick3.RobotActions[0].Movement);
+            Assert.IsNull(tick3.RobotActions[1].Movement);
+
+            Tick tick4 = results.Ticks[3];
+            Assert.AreEqual(4, tick4.TickNumber);
+            Assert.AreEqual(2, tick4.RobotActions.Count);
+            Assert.AreEqual(3, tick4.RobotActions[0].PieceId);
+            Assert.AreEqual(4, tick4.RobotActions[1].PieceId);
+            Assert.AreEqual(2, tick4.RobotActions[0].Movement.Count);
+            Assert.AreEqual(2, tick4.RobotActions[1].Movement.Count);
+
+            //check the second to last tick
+            Assert.AreEqual(20, results.Ticks[results.Ticks.Count - 2].TickNumber);
+            Assert.AreEqual(1, results.Ticks[results.Ticks.Count - 2].RobotActions.Count);
+            Assert.AreEqual(9, results.Ticks[results.Ticks.Count - 2].RobotActions[0].PieceId);
+
+            //check the last tick
+            Assert.AreEqual(21, results.Ticks[results.Ticks.Count - 1].TickNumber);
+            Assert.AreEqual(0, results.Ticks[results.Ticks.Count - 1].RobotActions.Count);
+            //Assert.AreEqual(10, results.Ticks[results.Ticks.Count - 1].RobotActions[0].PieceId);
+
+        }
+
+        [TestMethod]
         public void Board6ColorsMultipleRobotsRunTest()
         {
             //Arrange
