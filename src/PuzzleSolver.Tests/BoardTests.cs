@@ -579,11 +579,12 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(20, results.Ticks[results.Ticks.Count - 2].TickNumber);
             Assert.AreEqual(1, results.Ticks[results.Ticks.Count - 2].RobotActions.Count);
             Assert.AreEqual(9, results.Ticks[results.Ticks.Count - 2].RobotActions[0].PieceId);
-            Assert.AreEqual(10, results.Ticks[results.Ticks.Count - 2].RobotActions[1].PieceId);
-
+            
             //check the last tick
-            Assert.AreEqual(16, results.Ticks[results.Ticks.Count - 1].TickNumber);
-            Assert.AreEqual(0, results.Ticks[results.Ticks.Count - 1].RobotActions.Count);
+            Assert.AreEqual(21, results.Ticks[results.Ticks.Count - 1].TickNumber);
+            Assert.AreEqual(1, results.Ticks[results.Ticks.Count - 1].RobotActions.Count);
+            Assert.AreEqual(10, results.Ticks[results.Ticks.Count - 1].RobotActions[0].PieceId);
+
         }
     }
 }
