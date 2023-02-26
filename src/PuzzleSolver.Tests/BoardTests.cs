@@ -462,8 +462,7 @@ namespace PuzzleSolver.Tests
             List<Rgb24> palette = ColorPalettes.Get6ColorPalette();
             List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
             List<Robot> robots = new() {
-                new Robot(1, new Vector2(centerPointLocation.X, centerPointLocation.Y - 1), new Vector2(centerPointLocation.X, centerPointLocation.Y - 1)),
-                new Robot(2, new Vector2(centerPointLocation.X - 1, centerPointLocation.Y), new Vector2(centerPointLocation.X - 1, centerPointLocation.Y))
+                new Robot(1, new Vector2(centerPointLocation.X, centerPointLocation.Y - 1), new Vector2(centerPointLocation.X, centerPointLocation.Y - 1))
             };
             //Initialize the game board
             Board board = new(map,
