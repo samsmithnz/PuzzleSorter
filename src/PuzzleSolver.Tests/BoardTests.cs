@@ -550,6 +550,10 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(2, tick2.RobotActions[1].PieceId);
             Assert.AreEqual(2, tick2.RobotActions[0].Movement.Count);
             Assert.AreEqual(2, tick2.RobotActions[1].Movement.Count);
+            Assert.AreEqual(new Vector2(2,1), tick2.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(1,1), tick2.RobotActions[0].Movement[1]);
+            Assert.AreEqual(new Vector2(1,2), tick2.RobotActions[1].Movement[0]);
+            Assert.AreEqual(new Vector2(1,3), tick2.RobotActions[1].Movement[1]);
 
             Tick tick3 = results.Ticks[2];
             Assert.AreEqual(3, tick3.TickNumber);
@@ -568,8 +572,8 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(2, tick4.RobotActions.Count);
             Assert.AreEqual(3, tick4.RobotActions[0].PieceId);
             Assert.AreEqual(4, tick4.RobotActions[1].PieceId);
-            //Assert.AreEqual(2, tick4.RobotActions[0].Movement.Count);
-            //Assert.AreEqual(2, tick4.RobotActions[1].Movement.Count);
+            Assert.AreEqual(2, tick4.RobotActions[0].Movement.Count);
+            Assert.AreEqual(2, tick4.RobotActions[1].Movement.Count);
 
             //check the second to last tick
             Assert.AreEqual(15, results.Ticks[results.Ticks.Count - 2].TickNumber);
