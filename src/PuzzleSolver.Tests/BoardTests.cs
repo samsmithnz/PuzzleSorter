@@ -609,7 +609,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(2, turn9.RobotActions[0].PieceId); ;
             Assert.AreEqual(new Vector2(0, 3), turn9.RobotActions[0].DropoffAction.Location);
             Assert.AreEqual(1, turn9.RobotActions[0].DropoffAction.DestinationPieceCount);
-            Assert.IsNull(turn7.RobotActions[0].Movement);
+            Assert.IsNull(turn9.RobotActions[0].Movement);
 
 
             //Move from 1,3 to 1,2 to pickup new piece
