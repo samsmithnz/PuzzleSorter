@@ -212,7 +212,7 @@ namespace PuzzleSolver
         {
             TimeLine timeline = new TimeLine();
 
-            //Create a dictonary to track robot tick progress over time
+            //Create a dictonary to track robot turn progress over time
             Dictionary<int, int> robotProgress = new Dictionary<int, int>();
             foreach (Robot robot in Robots)
             {
@@ -228,61 +228,61 @@ namespace PuzzleSolver
                         //retrieve piece from queue/pile and setup robot to take action on the piece
                         Piece piece = UnsortedPieces.Dequeue();
                         RobotAction robotAction = GetRobotAction(robot, piece);
-                        int tick = robotProgress[robot.RobotId];
-                        int ticksNeeded = 0;
+                        int turn = robotProgress[robot.RobotId];
+                        int turnsNeeded = 0;
 
                         //move to pickup
                         if (robotAction.PathToPickup != null)
                         {
                             if (robotAction.RobotPickupStartingLocation != robotAction.RobotPickupEndingLocation)
                             {
-                                ticksNeeded++;
+                                turnsNeeded++;
                             }
-                            ticksNeeded += robotAction.PathToPickup.Path.Count;
+                            turnsNeeded += robotAction.PathToPickup.Path.Count;
                         }
                         //pickup piece
                         if (robotAction.PickupAction != null)
                         {
-                            ticksNeeded++;
+                            turnsNeeded++;
                         }
                         //move to drop off
                         if (robotAction.PathToDropoff != null)
                         {
                             if (robotAction.RobotDropoffStartingLocation != robotAction.RobotDropoffEndingLocation)
                             {
-                                ticksNeeded++;
+                                turnsNeeded++;
                             }
-                            ticksNeeded += robotAction.PathToDropoff.Path.Count;
+                            turnsNeeded += robotAction.PathToDropoff.Path.Count;
                         }
                         //drop off piece
                         if (robotAction.DropoffAction != null)
                         {
-                            ticksNeeded++;
+                            turnsNeeded++;
                         }
-                        //Initialize the ticks needed for this robot to complete it's turn
-                        for (int j = tick; j < tick + ticksNeeded; j++)
+                        //Initialize the turns needed for this robot to complete it's turn
+                        for (int j = turn; j < turn + turnsNeeded; j++)
                         {
-                            if (timeline.Ticks.Any(t => t.TickNumber == j + 1) == false)
+                            if (timeline.Turns.Any(t => t.TurnNumber == j + 1) == false)
                             {
-                                timeline.Ticks.Add(new Tick(j + 1));
+                                timeline.Turns.Add(new Turn(j + 1));
                             }
                         }
 
-                        //Now populate the ticks with the pickup path
+                        //Now populate the turns with the pickup path
                         int pickupCounter = 0;
                         if (robotAction.PathToPickup != null &&
                             robotAction.PathToPickup.Path != null &&
                             robotAction.PathToPickup.Path.Count > 0)
                         {
                             pickupCounter++;
-                            timeline.Ticks[tick].RobotActions.Add(new RobotTickAction(robot.RobotId, piece.Id)
+                            timeline.Turns[turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, piece.Id)
                             {
                                 Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToPickup.Path[0] }
                             });
                             for (int j = 1; j <= robotAction.PathToPickup.Path.Count - 1; j++)
                             {
                                 pickupCounter++;
-                                timeline.Ticks[tick + j].RobotActions.Add(new RobotTickAction(robot.RobotId, piece.Id)
+                                timeline.Turns[turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, piece.Id)
                                 {
                                     Movement = new List<Vector2>() { robotAction.PathToPickup.Path[j - 1], robotAction.PathToPickup.Path[j] }
                                 });
@@ -291,7 +291,7 @@ namespace PuzzleSolver
 
                         if (robotAction.PickupAction != null)
                         {
-                            timeline.Ticks[pickupCounter + tick].RobotActions.Add(new RobotTickAction(robot.RobotId, piece.Id)
+                            timeline.Turns[pickupCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, piece.Id)
                             {
                                 PickupAction = robotAction.PickupAction
                             });
@@ -299,21 +299,21 @@ namespace PuzzleSolver
                             robot.Location = robotAction.RobotPickupEndingLocation;
                         }
 
-                        //Now populate the ticks with the dropoff path
+                        //Now populate the turns with the dropoff path
                         int dropoffCounter = 0;
                         if (robotAction.PathToDropoff != null &&
                             robotAction.PathToDropoff.Path != null &&
                             robotAction.PathToDropoff.Path.Count > 0)
                         {
                             dropoffCounter++;
-                            timeline.Ticks[pickupCounter + tick].RobotActions.Add(new RobotTickAction(robot.RobotId, piece.Id)
+                            timeline.Turns[pickupCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, piece.Id)
                             {
                                 Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToDropoff.Path[0] }
                             });
                             for (int j = 1; j < robotAction.PathToDropoff.Path.Count - 1; j++)
                             {
                                 dropoffCounter++;
-                                timeline.Ticks[pickupCounter + tick + j].RobotActions.Add(new RobotTickAction(robot.RobotId, piece.Id)
+                                timeline.Turns[pickupCounter + turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, piece.Id)
                                 {
                                     Movement = new List<Vector2>() { robotAction.PathToDropoff.Path[j - 1], robotAction.PathToDropoff.Path[j] }
                                 });
@@ -323,7 +323,7 @@ namespace PuzzleSolver
                         if (robotAction.DropoffAction != null)
                         {
                             robotAction.DropoffAction.DestinationPieceCount = GetPieceCount(robotAction.DropoffAction.Location);
-                            timeline.Ticks[pickupCounter + dropoffCounter + tick].RobotActions.Add(new RobotTickAction(robot.RobotId, piece.Id)
+                            timeline.Turns[pickupCounter + dropoffCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, piece.Id)
                             {
                                 DropoffAction = robotAction.DropoffAction
                             });

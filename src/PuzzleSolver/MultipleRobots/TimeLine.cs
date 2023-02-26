@@ -4,11 +4,11 @@ namespace PuzzleSolver.MultipleRobots
 {
     public class TimeLine
     {
-        public List<Tick> Ticks { get; set; }
+        public List<Turn> Turns { get; set; }
 
         public TimeLine()
         {
-            Ticks = new List<Tick>();
+            Turns = new List<Turn>();
         }
     }
 }
