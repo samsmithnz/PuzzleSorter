@@ -532,7 +532,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(0, board.UnsortedPieces.Count);
             Assert.AreEqual(10, board.SortedPieces.Count);
             Assert.IsNotNull(results);
-            Assert.AreEqual(16, results.Ticks.Count);
+            Assert.AreEqual(21, results.Ticks.Count);
 
             //check the first tick
             Tick tick1 = results.Ticks[0];
