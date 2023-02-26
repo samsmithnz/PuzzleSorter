@@ -288,6 +288,7 @@ namespace PuzzleSolver
                                 PickupAction = robotAction.PickupAction
                             });
                             pickupCounter++;
+                            robot.Location = robotAction.RobotPickupEndingLocation;
                         }
 
                         //Now populate the ticks with the dropoff path
@@ -319,6 +320,7 @@ namespace PuzzleSolver
                                 DropoffAction = robotAction.DropoffAction
                             });
                             dropoffCounter++;
+                            robot.Location = robotAction.RobotDropoffEndingLocation;
                         }
                         robotProgress[robot.RobotId] += pickupCounter + dropoffCounter;
                     }
