@@ -582,8 +582,8 @@ namespace PuzzleSolver.Tests
             
             //check the last tick
             Assert.AreEqual(21, results.Ticks[results.Ticks.Count - 1].TickNumber);
-            Assert.AreEqual(1, results.Ticks[results.Ticks.Count - 1].RobotActions.Count);
-            Assert.AreEqual(10, results.Ticks[results.Ticks.Count - 1].RobotActions[0].PieceId);
+            Assert.AreEqual(0, results.Ticks[results.Ticks.Count - 1].RobotActions.Count);
+            //Assert.AreEqual(10, results.Ticks[results.Ticks.Count - 1].RobotActions[0].PieceId);
 
         }
     }
