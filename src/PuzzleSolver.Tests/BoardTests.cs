@@ -578,7 +578,7 @@ namespace PuzzleSolver.Tests
             Tick tick6 = results.Ticks[5];
             Assert.AreEqual(6, tick6.TickNumber);
             Assert.AreEqual(1, tick6.RobotActions.Count);
-            Assert.AreEqual(1, tick6.RobotActions[0].PieceId);
+            Assert.AreEqual(2, tick6.RobotActions[0].PieceId);
             Assert.AreEqual(2, tick6.RobotActions[0].Movement.Count);
             Assert.AreEqual(new Vector2(2, 1), tick6.RobotActions[0].Movement[0]);
             Assert.AreEqual(new Vector2(1, 1), tick6.RobotActions[0].Movement[1]);
@@ -587,7 +587,7 @@ namespace PuzzleSolver.Tests
             Tick tick7 = results.Ticks[6];
             Assert.AreEqual(7, tick7.TickNumber);
             Assert.AreEqual(1, tick7.RobotActions.Count);
-            Assert.AreEqual(1, tick7.RobotActions[0].PieceId); ;
+            Assert.AreEqual(2, tick7.RobotActions[0].PieceId); ;
             Assert.AreEqual(new Vector2(0, 1), tick7.RobotActions[0].DropoffAction.Location);
             Assert.AreEqual(1, tick7.RobotActions[0].DropoffAction.DestinationPieceCount);
             Assert.IsNull(tick7.RobotActions[0].Movement);
