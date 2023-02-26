@@ -234,10 +234,10 @@ namespace PuzzleSolver
                         //move to pickup
                         if (robotAction.PathToPickup != null)
                         {
-                            if (robotAction.RobotPickupStartingLocation != robotAction.RobotPickupEndingLocation)
-                            {
-                                turnsNeeded++;
-                            }
+                            //if (robotAction.RobotPickupStartingLocation != robotAction.RobotPickupEndingLocation)
+                            //{
+                            //    turnsNeeded++;
+                            //}
                             turnsNeeded += robotAction.PathToPickup.Path.Count;
                         }
                         //pickup piece
@@ -248,10 +248,10 @@ namespace PuzzleSolver
                         //move to drop off
                         if (robotAction.PathToDropoff != null)
                         {
-                            if (robotAction.RobotDropoffStartingLocation != robotAction.RobotDropoffEndingLocation)
-                            {
-                                turnsNeeded++;
-                            }
+                            //if (robotAction.RobotDropoffStartingLocation != robotAction.RobotDropoffEndingLocation)
+                            //{
+                            //    turnsNeeded++;
+                            //}
                             turnsNeeded += robotAction.PathToDropoff.Path.Count;
                         }
                         //drop off piece
