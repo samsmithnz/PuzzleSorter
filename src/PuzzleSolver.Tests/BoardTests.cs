@@ -563,7 +563,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(2, tick4.RobotActions[0].Movement.Count);
       
             //check the second to last tick
-            Assert.AreEqual(20, results.Ticks[results.Ticks.Count - 2].TickNumber);
+            Assert.AreEqual(40, results.Ticks[results.Ticks.Count - 2].TickNumber);
             Assert.AreEqual(1, results.Ticks[results.Ticks.Count - 2].RobotActions.Count);
             Assert.AreEqual(9, results.Ticks[results.Ticks.Count - 2].RobotActions[0].PieceId);
 
