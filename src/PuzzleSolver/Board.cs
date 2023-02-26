@@ -234,10 +234,6 @@ namespace PuzzleSolver
                         //move to pickup
                         if (robotAction.PathToPickup != null)
                         {
-                            //if (robotAction.RobotPickupStartingLocation != robotAction.RobotPickupEndingLocation)
-                            //{
-                            //    turnsNeeded++;
-                            //}
                             turnsNeeded += robotAction.PathToPickup.Path.Count;
                         }
                         //pickup piece
@@ -248,10 +244,6 @@ namespace PuzzleSolver
                         //move to drop off
                         if (robotAction.PathToDropoff != null)
                         {
-                            //if (robotAction.RobotDropoffStartingLocation != robotAction.RobotDropoffEndingLocation)
-                            //{
-                            //    turnsNeeded++;
-                            //}
                             turnsNeeded += robotAction.PathToDropoff.Path.Count;
                         }
                         //drop off piece
@@ -279,7 +271,7 @@ namespace PuzzleSolver
                             {
                                 Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToPickup.Path[0] }
                             });
-                            for (int j = 1; j <= robotAction.PathToPickup.Path.Count - 1; j++)
+                            for (int j = 1; j < robotAction.PathToPickup.Path.Count - 1; j++)
                             {
                                 pickupCounter++;
                                 timeline.Turns[turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, piece.Id)
@@ -308,7 +300,7 @@ namespace PuzzleSolver
                             dropoffCounter++;
                             timeline.Turns[pickupCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, piece.Id)
                             {
-                                Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToDropoff.Path[0] }
+                                Movement = new List<Vector2>() { robotAction.RobotDropoffStartingLocation, robotAction.PathToDropoff.Path[0] }
                             });
                             for (int j = 1; j < robotAction.PathToDropoff.Path.Count - 1; j++)
                             {
