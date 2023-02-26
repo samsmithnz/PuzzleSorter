@@ -533,14 +533,14 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(results);
             Assert.AreEqual(44, results.Ticks.Count);
 
-            //Pickup first piece from 2,2
+            //Pickup piece 1 from 2,2
             Tick tick1 = results.Ticks[0];
             Assert.AreEqual(1, tick1.TickNumber);
             Assert.AreEqual(1, tick1.RobotActions.Count);
             Assert.AreEqual(1, tick1.RobotActions[0].PieceId);
             Assert.IsNull(tick1.RobotActions[0].Movement);
 
-            //Move from 2,1 to 1,1
+            //Move piece 1 from 2,1 to 1,1
             Tick tick2 = results.Ticks[1];
             Assert.AreEqual(2, tick2.TickNumber);
             Assert.AreEqual(1, tick2.RobotActions.Count);
@@ -548,8 +548,8 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(2, tick2.RobotActions[0].Movement.Count);
             Assert.AreEqual(new Vector2(2, 1), tick2.RobotActions[0].Movement[0]);
             Assert.AreEqual(new Vector2(1, 1), tick2.RobotActions[0].Movement[1]);
-         
-            //Dropoff first piece to 0,1
+
+            //Dropoff piece 1 to 0,1
             Tick tick3 = results.Ticks[2];
             Assert.AreEqual(3, tick3.TickNumber);
             Assert.AreEqual(1, tick3.RobotActions.Count);
@@ -558,7 +558,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(1, tick3.RobotActions[0].DropoffAction.DestinationPieceCount);
             Assert.IsNull(tick3.RobotActions[0].Movement);
            
-            //Move from 1,1 to 2,1
+            //Move from 1,1 to 2,1 to pickup new piece
             Tick tick4 = results.Ticks[3];
             Assert.AreEqual(4, tick4.TickNumber);
             Assert.AreEqual(1, tick4.RobotActions.Count);
@@ -566,6 +566,42 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(2, tick4.RobotActions[0].Movement.Count);
             Assert.AreEqual(new Vector2(1, 1), tick4.RobotActions[0].Movement[0]);
             Assert.AreEqual(new Vector2(2, 1), tick4.RobotActions[0].Movement[1]);
+
+            //Pickup piece 2 from 2,2
+            Tick tick5 = results.Ticks[4];
+            Assert.AreEqual(5, tick5.TickNumber);
+            Assert.AreEqual(1, tick5.RobotActions.Count);
+            Assert.AreEqual(2, tick5.RobotActions[0].PieceId);
+            Assert.IsNull(tick5.RobotActions[0].Movement);
+
+            //Move piece 2 from 2,1 to 1,1
+            Tick tick6 = results.Ticks[5];
+            Assert.AreEqual(6, tick6.TickNumber);
+            Assert.AreEqual(1, tick6.RobotActions.Count);
+            Assert.AreEqual(1, tick6.RobotActions[0].PieceId);
+            Assert.AreEqual(2, tick6.RobotActions[0].Movement.Count);
+            Assert.AreEqual(new Vector2(2, 1), tick6.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 1), tick6.RobotActions[0].Movement[1]);
+
+            //Dropoff piece 2 to 0,1
+            Tick tick7 = results.Ticks[6];
+            Assert.AreEqual(7, tick7.TickNumber);
+            Assert.AreEqual(1, tick7.RobotActions.Count);
+            Assert.AreEqual(1, tick7.RobotActions[0].PieceId); ;
+            Assert.AreEqual(new Vector2(0, 1), tick7.RobotActions[0].DropoffAction.Location);
+            Assert.AreEqual(1, tick7.RobotActions[0].DropoffAction.DestinationPieceCount);
+            Assert.IsNull(tick7.RobotActions[0].Movement);
+
+            //Move from 1,1 to 2,1 to pickup new piece
+            Tick tick8 = results.Ticks[7];
+            Assert.AreEqual(8, tick8.TickNumber);
+            Assert.AreEqual(1, tick8.RobotActions.Count);
+            Assert.AreEqual(2, tick8.RobotActions[0].PieceId);
+            Assert.AreEqual(2, tick8.RobotActions[0].Movement.Count);
+            Assert.AreEqual(new Vector2(1, 1), tick8.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(2, 1), tick8.RobotActions[0].Movement[1]);
+
+
 
             //check the second to last tick
             Assert.AreEqual(43, results.Ticks[results.Ticks.Count - 2].TickNumber);
