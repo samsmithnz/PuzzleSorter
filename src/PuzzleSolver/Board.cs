@@ -309,7 +309,6 @@ namespace PuzzleSolver
                                 {
                                     Movement = new List<Vector2>() { robotAction.PathToDropoff.Path[j - 1], robotAction.PathToDropoff.Path[j] }
                                 });
-                                int x = 0;
                             }
                         }
 
