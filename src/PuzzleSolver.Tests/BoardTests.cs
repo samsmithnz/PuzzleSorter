@@ -758,6 +758,16 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(2, turn4.RobotActions[0].Movement.Count);
             Assert.AreEqual(2, turn4.RobotActions[1].Movement.Count);
 
+            //check the fourth to last turn
+            Assert.AreEqual(19, results.Turns[results.Turns.Count - 4].TurnNumber);
+            Assert.AreEqual(2, results.Turns[results.Turns.Count - 4].RobotActions.Count);
+            Assert.AreEqual(9, results.Turns[results.Turns.Count - 4].RobotActions[0].PieceId);
+
+            //check the third to last turn
+            Assert.AreEqual(20, results.Turns[results.Turns.Count - 3].TurnNumber);
+            Assert.AreEqual(1, results.Turns[results.Turns.Count - 3].RobotActions.Count);
+            Assert.AreEqual(9, results.Turns[results.Turns.Count - 3].RobotActions[0].PieceId);
+
             //check the second to last turn
             Assert.AreEqual(21, results.Turns[results.Turns.Count - 2].TurnNumber);
             Assert.AreEqual(1, results.Turns[results.Turns.Count - 2].RobotActions.Count);
@@ -766,7 +776,7 @@ namespace PuzzleSolver.Tests
             //check the last turn
             Assert.AreEqual(22, results.Turns[results.Turns.Count - 1].TurnNumber);
             Assert.AreEqual(1, results.Turns[results.Turns.Count - 1].RobotActions.Count);
-            Assert.AreEqual(10, results.Turns[results.Turns.Count - 1].RobotActions[0].PieceId);
+            Assert.AreEqual(9, results.Turns[results.Turns.Count - 1].RobotActions[0].PieceId);
 
         }
     }
