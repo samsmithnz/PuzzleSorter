@@ -202,7 +202,7 @@ public class MainLoop : MonoBehaviour
         yield return null;
     }
 
-    private IEnumerator DelayTick(RobotTickAction item)
+    private IEnumerator DelayTick(RobotTurnAction item)
     {
         yield return new WaitForSeconds(2f);
     }
