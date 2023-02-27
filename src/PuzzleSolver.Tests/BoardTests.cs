@@ -765,8 +765,8 @@ namespace PuzzleSolver.Tests
             
             //check the last turn
             Assert.AreEqual(22, results.Turns[results.Turns.Count - 1].TurnNumber);
-            Assert.AreEqual(0, results.Turns[results.Turns.Count - 1].RobotActions.Count);
-            //Assert.AreEqual(10, results.turns[results.turns.Count - 1].RobotActions[0].PieceId);
+            Assert.AreEqual(1, results.Turns[results.Turns.Count - 1].RobotActions.Count);
+            Assert.AreEqual(10, results.Turns[results.Turns.Count - 1].RobotActions[0].PieceId);
 
         }
     }
