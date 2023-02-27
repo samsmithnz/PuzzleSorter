@@ -47,7 +47,7 @@ public class MainLoop : MonoBehaviour
         List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
         List<Robot> robots = new() {
             new Robot(1, new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y - 1), new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y - 1)),
-            //new Robot(2, new System.Numerics.Vector2(centerPointLocation.X - 1, centerPointLocation.Y), new System.Numerics.Vector2(centerPointLocation.X - 1, centerPointLocation.Y))
+            new Robot(2, new System.Numerics.Vector2(centerPointLocation.X - 1, centerPointLocation.Y), new System.Numerics.Vector2(centerPointLocation.X - 1, centerPointLocation.Y))
         };
         //Initialize the game board
         Board board = new(map,
