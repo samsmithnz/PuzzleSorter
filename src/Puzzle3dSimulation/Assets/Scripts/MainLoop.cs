@@ -67,7 +67,7 @@ public class MainLoop : MonoBehaviour
         //Get the robot actions
         Utility.LogWithTime("Calculating robot moves");
         _Timeline = board.RunRobots();
-        Utility.LogWithTime(_Timeline.Ticks.Count + " ticks found");
+        Utility.LogWithTime(_Timeline.Turns.Count + " ticks found");
 
         //Add unsorted pieces
         Utility.LogWithTime("Building stack of unsorted pieces");
