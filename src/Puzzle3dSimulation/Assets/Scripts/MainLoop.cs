@@ -152,7 +152,7 @@ public class MainLoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_Timeline != null && _Timeline.Ticks.Count > 0 && _ProcessingRobotsInTickCounter == 0 && _Tick < _Timeline.Ticks.Count)
+        if (_Timeline != null && _Timeline.Turns.Count > 0 && _ProcessingRobotsInTickCounter == 0 && _Tick < _Timeline.Ticks.Count)
         {
             _Tick++;
             //Process robot actions for this tick
