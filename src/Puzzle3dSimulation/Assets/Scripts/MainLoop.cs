@@ -282,7 +282,7 @@ public class MainLoop : MonoBehaviour
 
         if (robotObject != null)
         {
-            Debug.Log("Moving from " + startLocation + " to location " + endLocation.ToString());
+            Debug.Log("Robot " + robotId + " moving from " + startLocation + " to location " + endLocation.ToString());
             Movement movementScript = robotObject.GetComponent<Movement>();
             if (movementScript == null)
             {
@@ -294,14 +294,14 @@ public class MainLoop : MonoBehaviour
         }
         else
         {
-            Debug.Log("No movement needed - at end location");
+            Debug.Log("Robot " + robotId + " no movement needed - at end location");
             yield return null;
         }
     }
 
     private IEnumerator PickUpPiece(int robotId, int pieceId, ObjectInteraction pickupAction)
     {
-        Debug.Log("Picking up piece " + pickupAction.Location.ToString());
+        Debug.Log("Robot " + robotId + " picking up piece " + pickupAction.Location.ToString());
         GameObject robotObject = GameObject.Find(GetRobotName(robotId));
         GameObject pieceObject = GameObject.Find(GetPieceName(pieceId));
         float startingY = pieceObject.transform.position.y;
@@ -345,11 +345,11 @@ public class MainLoop : MonoBehaviour
     {
         if (dropOffAction != null && dropOffAction.Location != null)
         {
-            Debug.Log("Dropping off piece " + dropOffAction.Location.ToString());
+            Debug.Log("Robot " + robotId + " dropping off piece " + dropOffAction.Location.ToString());
         }
         else
         {
-            Debug.Log("Piece " + pieceId + " does not a drop off action");
+            Debug.Log("Robot " + robotId + " with piece " + pieceId + " does not a drop off action");
         }
         GameObject robotObject = GameObject.Find(GetRobotName(robotId));
         GameObject pieceObject = GameObject.Find(GetPieceName(pieceId));
