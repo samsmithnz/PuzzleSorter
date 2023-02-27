@@ -146,7 +146,7 @@ public class MainLoop : MonoBehaviour
         //    }
         //}
 
-        Utility.LogWithTime("Robot ready to roll!");
+        Utility.LogWithTime(board.Robots.Count + " robots ready to roll!");
     }
 
     // Update is called once per frame
