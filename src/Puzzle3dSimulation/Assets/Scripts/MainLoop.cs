@@ -114,6 +114,7 @@ public class MainLoop : MonoBehaviour
             robotObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             robotObject.name = GetRobotName(robot.RobotId);
             robotObject.GetComponent<Renderer>().material.color = Utility.ConvertToUnityColor(robotPalette[j]); //UnityEngine.Color.gray; //dark gray
+            Utility.LogWithTime("Robot " + robot.RobotId + " created at " + robot.Location);
         }
 
         ////Add lines on puzzle map, Drawing line renderers
