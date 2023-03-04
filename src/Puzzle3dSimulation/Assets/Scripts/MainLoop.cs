@@ -222,7 +222,7 @@ public class MainLoop : MonoBehaviour
 
     private IEnumerator ProcessTurn(int tick)
     {
-        Debug.Log("Tick " + tick + " processing");
+        Debug.Log("Turn " + tick + " processing");
 
         foreach (RobotTurnAction item in _Timeline.Turns[tick - 1].RobotActions)
         {
