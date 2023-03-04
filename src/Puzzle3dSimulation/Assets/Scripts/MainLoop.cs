@@ -215,12 +215,12 @@ public class MainLoop : MonoBehaviour
         if (_Timeline != null && _Timeline.Turns.Count > 0 && _ProcessingRobotsInTurnCounter == 0 && _Turn < _Timeline.Turns.Count)
         {
             _Turn++;
-            //Process robot actions for this tick
-            StartCoroutine(ProcessTick(_Turn));
+            //Process robot actions for this turn
+            StartCoroutine(ProcessTurn(_Turn));
         }
     }
 
-    private IEnumerator ProcessTick(int tick)
+    private IEnumerator ProcessTurn(int tick)
     {
         Debug.Log("Tick " + tick + " processing");
 
