@@ -47,60 +47,9 @@ public class MainLoop : MonoBehaviour
         robotStartingLocations.Add(2, new System.Numerics.Vector2(centerPointLocation.X - 1, centerPointLocation.Y));
         //List<Piece> pieces = GetRandomPieceList(36, colorPalette);
         //List<Piece> pieces = GetPiecesFromImage(_PieceSize, _PieceSize, palette, centerPointLocation);
+        List<Piece> pieces = GetColoredPieceList(centerPointLocation);
         List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
-        List<Piece> pieces = new List<Piece>()
-        {
-            new Piece() {
-                Id = 1,
-                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
-                Location = centerPointLocation
-            },
-            new Piece() {
-                Id = 2,
-                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>()),
-                Location = centerPointLocation
-            },
-            new Piece() {
-                Id = 3,
-                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
-                Location = centerPointLocation
-            },
-            new Piece() {
-                Id = 4,
-                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>()),
-                Location = centerPointLocation
-            },
-            new Piece() {
-                Id = 5,
-                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
-                Location = centerPointLocation
-            },
-            new Piece() {
-                Id = 6,
-                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Purple.ToPixel<Rgb24>()),
-                Location = centerPointLocation
-            },
-            new Piece() {
-                Id = 7,
-                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>()),
-                Location = centerPointLocation
-            },
-            new Piece() {
-                Id = 8,
-                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
-                Location = centerPointLocation
-            },
-            new Piece() {
-                Id = 9,
-                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Yellow.ToPixel<Rgb24>()),
-                Location = centerPointLocation
-            },
-            new Piece() {
-                Id = 10,
-                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Orange.ToPixel<Rgb24>()),
-                Location = centerPointLocation
-            }
-        };
+
         List<Robot> robots = new() {
             new Robot(1, robotStartingLocations[1], robotStartingLocations[1]),
             new Robot(2, robotStartingLocations[2], robotStartingLocations[2])
@@ -505,6 +454,64 @@ public class MainLoop : MonoBehaviour
         }
 
         return pieceList;
+    }
+
+    private List<Piece> GetColoredPieceList(System.Numerics.Vector2 centerPointLocation)
+    {
+        List<Piece> pieces = new List<Piece>()
+        {
+            new Piece() {
+                Id = 1,
+                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
+                Location = centerPointLocation
+            },
+            new Piece() {
+                Id = 2,
+                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>()),
+                Location = centerPointLocation
+            },
+            new Piece() {
+                Id = 3,
+                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
+                Location = centerPointLocation
+            },
+            new Piece() {
+                Id = 4,
+                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>()),
+                Location = centerPointLocation
+            },
+            new Piece() {
+                Id = 5,
+                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
+                Location = centerPointLocation
+            },
+            new Piece() {
+                Id = 6,
+                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Purple.ToPixel<Rgb24>()),
+                Location = centerPointLocation
+            },
+            new Piece() {
+                Id = 7,
+                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>()),
+                Location = centerPointLocation
+            },
+            new Piece() {
+                Id = 8,
+                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
+                Location = centerPointLocation
+            },
+            new Piece() {
+                Id = 9,
+                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Yellow.ToPixel<Rgb24>()),
+                Location = centerPointLocation
+            },
+            new Piece() {
+                Id = 10,
+                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Orange.ToPixel<Rgb24>()),
+                Location = centerPointLocation
+            }
+        };
+        return pieces;
     }
 
     public static Image<Rgb24> Texture2Image(Texture2D texture)
