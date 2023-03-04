@@ -35,8 +35,8 @@ public class MainLoop : MonoBehaviour
     {
         Utility.LogWithTime("Initializing map");
         //Setup board
-        int width = 5;
-        int height = 5;
+        int width = 7;
+        int height = 7;
         string[,] map = MapGeneration.GenerateMap(width, height);
         System.Numerics.Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
         Utility.LogWithTime("Initializing color palette");
@@ -115,6 +115,10 @@ public class MainLoop : MonoBehaviour
         //Add the robot
         Utility.LogWithTime("Creating robot entities");
         List<Rgb24> robotPalette = ColorPalettes.Get3ColorPalette();
+        if (robotPalette.Count < board.Robots.Count)
+        {
+            Debug.LogError("More robot palettes are needed to support this many robots");
+        }
         //Reset robot locations with the start locations
         foreach (Robot robot in board.Robots)
         {
