@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    private const float _movementTime = 0.25f;
+    private const float _movementTime = 0.5f;
 
     public IEnumerator MovePiece(GameObject pieceObject, List<Vector3> path, Transform robotTransform)
     {
