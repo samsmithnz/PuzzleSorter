@@ -243,7 +243,7 @@ public class MainLoop : MonoBehaviour
             }
             if (checkCount > 1)
             {
-                Debug.LogError("Tick " + turn + ", Robot " + item.RobotId + " has " + checkCount + " actions - only 1 was expected");
+                Debug.LogError("Turn " + turn + ", Robot " + item.RobotId + " has " + checkCount + " actions - only 1 was expected");
             }
             if (item.Movement != null && item.Movement.Count > 0)
             {
