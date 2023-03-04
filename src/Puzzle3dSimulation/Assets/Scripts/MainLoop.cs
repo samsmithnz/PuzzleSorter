@@ -354,7 +354,7 @@ public class MainLoop : MonoBehaviour
     {
         if (dropOffAction != null && dropOffAction.Location != null)
         {
-            Debug.Log("Robot " + robotId + " dropping off piece " + dropOffAction.Location.ToString());
+            Debug.Log("Robot " + robotId + " dropping off piece " + pieceId + " to " + dropOffAction.Location.ToString());
         }
         else
         {
