@@ -219,15 +219,42 @@ namespace PuzzleSolver
                 robotProgress.Add(robot.RobotId, 0);
             }
 
+            //Need to loop through all unsorted pieces
             while (UnsortedPieces.Count > 0)
             {
+                //For each robot
                 foreach (Robot robot in Robots)
                 {
+                    RobotAction robotPickupAction = new RobotAction();
+                    //Move the robot to the pickup zone - By doing this first we ensure we don't pick up a piece until we are there.
+                    Vector2 currentRobotLocation = robot.Location;
+                    Vector2 pickupLocation = robot.PickupLocation;
+
+                    // Move to unsorted pile
+                    robotPickupAction.RobotPickupStartingLocation = currentRobotLocation;
+                    if (currentRobotLocation != pickupLocation)
+                    {
+                        PathFindingResult pathFindingResultForPickup = PathFinding.FindPath(Map, currentRobotLocation, pickupLocation);
+                        if (pathFindingResultForPickup != null && pathFindingResultForPickup.Path.Any())
+                        {
+                            //Move robot
+                            robotPickupAction.PathToPickup = pathFindingResultForPickup;
+                            currentRobotLocation = pathFindingResultForPickup.Path.Last();
+                        }
+                    }
+                    robotPickupAction.RobotPickupEndingLocation = currentRobotLocation;
+                    robot.Location = currentRobotLocation;
+
+                    //Pick up and deliver the piece
                     if (UnsortedPieces.Count > 0)
                     {
                         //retrieve piece from queue/pile and setup robot to take action on the piece
                         Piece piece = UnsortedPieces.Dequeue();
                         RobotAction robotAction = GetRobotAction(robot, piece);
+                        //merge the pickup and piece delivery
+                        robotAction.PickupAction = robotPickupAction.PickupAction;
+                        robotAction.RobotPickupStartingLocation = robotPickupAction.RobotPickupStartingLocation;
+                        robotAction.RobotPickupEndingLocation = robotPickupAction.RobotPickupEndingLocation;
                         int turn = robotProgress[robot.RobotId];
                         int turnsNeeded = 0;
 

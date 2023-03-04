@@ -114,7 +114,7 @@ public class MainLoop : MonoBehaviour
 
         //Add the robot
         Utility.LogWithTime("Creating robot entities");
-        List<Rgb24> robotPalette = ColorPalettes.Get6ColorPalette();
+        List<Rgb24> robotPalette = ColorPalettes.Get3ColorPalette();
         if (robotPalette.Count < board.Robots.Count)
         {
             Debug.LogError("More robot palettes are needed to support this many robots");
