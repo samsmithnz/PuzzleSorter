@@ -220,11 +220,11 @@ public class MainLoop : MonoBehaviour
         }
     }
 
-    private IEnumerator ProcessTurn(int tick)
+    private IEnumerator ProcessTurn(int turn)
     {
-        Debug.Log("Turn " + tick + " processing");
+        Debug.Log("Turn " + turn + " processing");
 
-        foreach (RobotTurnAction item in _Timeline.Turns[tick - 1].RobotActions)
+        foreach (RobotTurnAction item in _Timeline.Turns[turn - 1].RobotActions)
         {
             _ProcessingRobotsInTurnCounter++;
             //Double check we are only doing one thing. This shouldn't be needed, but is important to check. 
@@ -243,7 +243,7 @@ public class MainLoop : MonoBehaviour
             }
             if (checkCount > 1)
             {
-                Debug.LogError("Tick " + tick + ", Robot " + item.RobotId + " has " + checkCount + " actions - only 1 was expected");
+                Debug.LogError("Tick " + turn + ", Robot " + item.RobotId + " has " + checkCount + " actions - only 1 was expected");
             }
             if (item.Movement != null && item.Movement.Count > 0)
             {
