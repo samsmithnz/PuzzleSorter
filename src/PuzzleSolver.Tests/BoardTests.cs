@@ -758,6 +758,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(2, turn4.RobotActions[0].Movement.Count);
             Assert.AreEqual(2, turn4.RobotActions[1].Movement.Count);
 
+            //Turn 11 check for bugs
             Turn turn11 = results.Turns[10];
             Assert.AreEqual(11, turn11.TurnNumber);
             Assert.AreEqual(2, turn11.RobotActions.Count);
