@@ -363,7 +363,7 @@ public class MainLoop : MonoBehaviour
     {
         GameObject robotObject = GameObject.Find(GetRobotName(robotId));
         GameObject pieceObject = GameObject.Find(GetPieceName(pieceId));
-        Debug.Log("Robot " + robotId + " picking up piece " + pickupAction.Location.ToString() + " to " + robotObject.transform.position.z);
+        Debug.Log("Robot " + robotId + " picking up piece " + pickupAction.Location.ToString() + " to " + robotObject.transform.position);
         float startingY = pieceObject.transform.position.y;
         if (startingY < _PieceHeight / 2f)
         {
