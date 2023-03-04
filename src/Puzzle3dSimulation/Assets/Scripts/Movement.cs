@@ -8,7 +8,7 @@ public class Movement : MonoBehaviour
 {
     public IEnumerator MovePiece(GameObject pieceObject, List<Vector3> path, Transform robotTransform)
     {
-        const float time = 1.25f;
+        const float time = 0.25f;
         if (path != null && path.Count > 0)
         {
             MoveObject moveObjectScript = pieceObject.GetComponent<MoveObject>();
