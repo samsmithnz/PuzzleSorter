@@ -26,7 +26,7 @@ public class Movement : MonoBehaviour
                     yield return StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(pieceObject.transform,
                     start,
                     end,
-                    _movementTime));
+                    _movementTime / 4f));
                     //yield return new WaitForSeconds(_movementTime);
                 }
             }
