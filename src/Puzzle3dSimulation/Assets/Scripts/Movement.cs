@@ -6,9 +6,10 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    private const float _movementTime = 0.25f;
+
     public IEnumerator MovePiece(GameObject pieceObject, List<Vector3> path, Transform robotTransform)
     {
-        const float time = 0.25f;
         if (path != null && path.Count > 0)
         {
             MoveObject moveObjectScript = pieceObject.GetComponent<MoveObject>();
@@ -25,8 +26,8 @@ public class Movement : MonoBehaviour
                     yield return StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(pieceObject.transform,
                     start,
                     end,
-                    time));
-                    yield return new WaitForSeconds(time);
+                    _movementTime));
+                    //yield return new WaitForSeconds(_movementTime);
                 }
             }
             //Attach/detach to the robot parent
@@ -45,7 +46,6 @@ public class Movement : MonoBehaviour
 
     public IEnumerator MoveRobot(GameObject robotObject, System.Numerics.Vector2 startLocation, PathFindingResult path)
     {
-        const float time = 0.1f;
         if (path != null && path.Path.Count > 0)
         {
             MoveObject moveObjectScript = robotObject.GetComponent<MoveObject>();
@@ -61,8 +61,8 @@ public class Movement : MonoBehaviour
             yield return StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(robotObject.transform,
             start,
             end,
-            time));
-            yield return new WaitForSeconds(time);
+            _movementTime));
+            //yield return new WaitForSeconds(_movementTime);
 
             for (int i = 0; i < path.Path.Count; i++)
             {
@@ -75,8 +75,8 @@ public class Movement : MonoBehaviour
                     yield return StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(robotObject.transform,
                     start,
                     end,
-                    time));
-                    yield return new WaitForSeconds(time);
+                    _movementTime));
+                    //yield return new WaitForSeconds(_movementTime);
                 }
             }
         }
@@ -85,7 +85,6 @@ public class Movement : MonoBehaviour
 
     public IEnumerator MoveRobot2(GameObject robotObject, System.Numerics.Vector2 startLocation, System.Numerics.Vector2 endLocation)
     {
-        const float time = 0.1f;
         if (robotObject != null)
         {
             MoveObject moveObjectScript = robotObject.GetComponent<MoveObject>();
@@ -99,9 +98,9 @@ public class Movement : MonoBehaviour
             Vector3 start = Utility.ConvertToUnity3DV3(startLocation, robotY);
             Vector3 end = Utility.ConvertToUnity3DV3(endLocation, robotY);
             yield return StartCoroutine(moveObjectScript.MoveObjectWithNoRotation(robotObject.transform,
-            start,
-            end,
-            time));
+                start,
+                end,
+                _movementTime));
             //yield return new WaitForSeconds(time);
         }
         yield return null;
