@@ -484,6 +484,78 @@ namespace PuzzleSolver
                     //}
                 }
             }
+
+            //Move the robots back to the start location
+            foreach (Robot robot in Robots)
+            {
+                if (robot.Location != robot.PickupLocation)
+                {
+                    RobotAction robotAction = new RobotAction();
+                    Piece piece = null;
+                    //Move the robot to the pickup zone - By doing this first we ensure we don't pick up a piece until we are there.
+                    Vector2 currentRobotLocation = robot.Location;
+                    Vector2 pickupLocation = robot.PickupLocation;
+
+                    // Move to unsorted pile
+                    robotAction.RobotPickupStartingLocation = currentRobotLocation;
+                    if (currentRobotLocation != pickupLocation)
+                    {
+                        PathFindingResult pathFindingResultForPickup = PathFinding.FindPath(Map, currentRobotLocation, pickupLocation);
+                        if (pathFindingResultForPickup != null && pathFindingResultForPickup.Path.Any())
+                        {
+                            //Move robot
+                            robotAction.PathToPickup = pathFindingResultForPickup;
+                            currentRobotLocation = pathFindingResultForPickup.Path.Last();
+                        }
+                    }
+                    robotAction.RobotPickupEndingLocation = currentRobotLocation;
+                    robot.Location = currentRobotLocation;
+
+                    //process the robot action
+                    if (robotAction != null)
+                    {
+                        int turn = robotProgress[robot.RobotId];
+                        int turnsNeeded = 0;
+
+                        //move to pickup
+                        if (robotAction.PathToPickup != null)
+                        {
+                            turnsNeeded += robotAction.PathToPickup.Path.Count;
+                        }
+                        //Initialize the turns needed for this robot to complete it's turn
+                        for (int j = turn; j < turn + turnsNeeded; j++)
+                        {
+                            if (timeline.Turns.Any(t => t.TurnNumber == j + 1) == false)
+                            {
+                                timeline.Turns.Add(new Turn(j + 1));
+                            }
+                        }
+
+                        //Now populate the turns with the pickup path
+                        int pickupCounter = 0;
+                        if (robotAction.PathToPickup != null &&
+                            robotAction.PathToPickup.Path != null &&
+                            robotAction.PathToPickup.Path.Count > 0)
+                        {
+                            pickupCounter++;
+                            timeline.Turns[turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, null)
+                            {
+                                Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToPickup.Path[0] }
+                            });
+                            for (int j = 1; j <= robotAction.PathToPickup.Path.Count - 1; j++)
+                            {
+                                pickupCounter++;
+                                timeline.Turns[turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, null)
+                                {
+                                    Movement = new List<Vector2>() { robotAction.PathToPickup.Path[j - 1], robotAction.PathToPickup.Path[j] }
+                                });
+                            }
+                        }
+                        robotProgress[robot.RobotId] += pickupCounter;
+                    }
+                }
+            }
+
             //if (UnsortedPieces.Count == 0)
             //{
             //    //Add last action to return to the starting point

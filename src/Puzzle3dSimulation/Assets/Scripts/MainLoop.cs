@@ -35,12 +35,12 @@ public class MainLoop : MonoBehaviour
     {
         Utility.LogWithTime("Initializing map");
         //Setup board
-        int width = 7;
-        int height = 7;
+        int width = 5;
+        int height = 5;
         string[,] map = MapGeneration.GenerateMap(width, height);
         System.Numerics.Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
         Utility.LogWithTime("Initializing color palette");
-        List<Rgb24> palette = ColorPalettes.Get16ColorPalette();
+        List<Rgb24> palette = ColorPalettes.Get8ColorPalette();
         Utility.LogWithTime("Initializing pieces");
         Dictionary<int, System.Numerics.Vector2> robotStartingLocations = new Dictionary<int, System.Numerics.Vector2>
         {
