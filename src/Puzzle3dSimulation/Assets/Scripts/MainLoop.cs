@@ -40,7 +40,7 @@ public class MainLoop : MonoBehaviour
         string[,] map = MapGeneration.GenerateMap(width, height);
         System.Numerics.Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
         Utility.LogWithTime("Initializing color palette");
-        List<Rgb24> palette = ColorPalettes.Get8ColorPalette();
+        List<Rgb24> palette = ColorPalettes.Get16ColorPalette();
         Utility.LogWithTime("Initializing pieces");
         Dictionary<int, System.Numerics.Vector2> robotStartingLocations = new Dictionary<int, System.Numerics.Vector2>
         {
@@ -49,7 +49,7 @@ public class MainLoop : MonoBehaviour
             { 3, new System.Numerics.Vector2(centerPointLocation.X + 1, centerPointLocation.Y) },
             { 4, new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y + 1) }
         };
-        //List<Piece> pieces = GetRandomPieceList(36, colorPalette);
+        //List<Piece> pieces = GetRandomPieceList(36, palette);
         //List<Piece> pieces = GetPiecesFromImage(_PieceSize, _PieceSize, palette, centerPointLocation);
         List<Piece> pieces = GetColoredPieceList(centerPointLocation);
         List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
@@ -57,8 +57,8 @@ public class MainLoop : MonoBehaviour
         List<Robot> robots = new() {
             new Robot(1, robotStartingLocations[1], robotStartingLocations[1]),
             new Robot(2, robotStartingLocations[2], robotStartingLocations[2]),
-            new Robot(3, robotStartingLocations[3], robotStartingLocations[3]),
-            new Robot(4, robotStartingLocations[4], robotStartingLocations[4])
+            //new Robot(3, robotStartingLocations[3], robotStartingLocations[3]),
+            //new Robot(4, robotStartingLocations[4], robotStartingLocations[4])
         };
         //Initialize the game board
         Board board = new(map,
