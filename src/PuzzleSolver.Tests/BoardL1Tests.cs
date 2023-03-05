@@ -16,7 +16,7 @@ namespace PuzzleSolver.Tests
     {
 
         [TestMethod]
-        public void StJohnImage16ColorsRunTest()
+        public void StJohnOneRobotImage16ColorsRunTest()
         {
             //Arrange
             int width = 7;
