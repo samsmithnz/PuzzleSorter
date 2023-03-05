@@ -484,8 +484,8 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(1, turn2.RobotActions.Count);
             Assert.AreEqual(1, turn2.RobotActions[0].PieceId);
             Assert.AreEqual(2, turn2.RobotActions[0].Movement.Count);
-            Assert.AreEqual(new Vector2(2, 1), turn2.RobotActions[0].Movement[0]);
-            Assert.AreEqual(new Vector2(1, 1), turn2.RobotActions[0].Movement[1]);
+            Assert.AreEqual(new Vector2(3, 2), turn2.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(2, 2), turn2.RobotActions[0].Movement[1]);
 
             //Dropoff piece 1 to 0,1
             Turn turn3 = results.Turns[2];
