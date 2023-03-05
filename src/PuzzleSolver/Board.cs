@@ -219,7 +219,7 @@ namespace PuzzleSolver
                 robotProgress.Add(robot.RobotId, 0);
             }
 
-            //Need to loop through all unsorted pieces
+            //Need to loop through all unsorted pieces until they are sorted
             while (UnsortedPieces.Count > 0)
             {
                 //For each robot
