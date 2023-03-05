@@ -62,7 +62,7 @@ namespace PuzzleSolver.Tests
                 new List<Robot>() { robot });
 
             //Act
-            Queue<RobotAction> results = board.RunRobot();
+            TimeLine results = board.RunRobots();
 
             //Assert
             Assert.IsNotNull(board);
@@ -70,7 +70,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(12, board.SortedPieces.Count);
             Assert.IsTrue(board.UnsortedPieces.Count == 0);
             Assert.IsNotNull(results);
-            Assert.AreEqual(13, results.Count);
+            Assert.AreEqual(13, results.Turns.Count);
         }
 
     }
