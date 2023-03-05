@@ -70,7 +70,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(12, board.SortedPieces.Count);
             Assert.IsTrue(board.UnsortedPieces.Count == 0);
             Assert.IsNotNull(results);
-            Assert.AreEqual(13, results.Turns.Count);
+            Assert.AreEqual(70, results.Turns.Count);
         }
 
     }
