@@ -394,6 +394,7 @@ namespace PuzzleSolver.Tests
         }
 
         [TestMethod]
+        [TestCategory("L1")]
         public void StJohnImage16ColorsRunTest()
         {
             //Arrange
