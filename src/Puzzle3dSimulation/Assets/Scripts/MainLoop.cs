@@ -57,8 +57,8 @@ public class MainLoop : MonoBehaviour
         List<Robot> robots = new() {
             new Robot(1, robotStartingLocations[1], robotStartingLocations[1]),
             new Robot(2, robotStartingLocations[2], robotStartingLocations[2]),
-            //new Robot(3, robotStartingLocations[3], robotStartingLocations[3]),
-            //new Robot(4, robotStartingLocations[4], robotStartingLocations[4])
+            new Robot(3, robotStartingLocations[3], robotStartingLocations[3]),
+            new Robot(4, robotStartingLocations[4], robotStartingLocations[4])
         };
         //Initialize the game board
         Board board = new(map,
@@ -114,7 +114,7 @@ public class MainLoop : MonoBehaviour
 
         //Add the robot
         Utility.LogWithTime("Creating robot entities");
-        List<Rgb24> robotPalette = ColorPalettes.Get3ColorPalette();
+        List<Rgb24> robotPalette = ColorPalettes.Get6ColorPalette();
         if (robotPalette.Count < board.Robots.Count)
         {
             Debug.LogError("More robot palettes are needed to support this many robots");
