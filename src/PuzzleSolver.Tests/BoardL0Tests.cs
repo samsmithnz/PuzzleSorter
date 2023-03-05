@@ -178,7 +178,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(4, board.SortedPieces.Count);
             Assert.IsTrue(board.UnsortedPieces.Count == 0);
             Assert.IsNotNull(results);
-            Assert.AreEqual(19, results.Turns.Count);
+            Assert.AreEqual(22, results.Turns.Count);
 
             //Complete the first action
             Turn turn1 = results.Turns[0];
