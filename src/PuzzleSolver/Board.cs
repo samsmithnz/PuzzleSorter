@@ -222,10 +222,6 @@ namespace PuzzleSolver
             //Need to loop through all unsorted pieces until they are sorted
             while (UnsortedPieces.Count > 0)
             {
-                if (UnsortedPieces.Count == 8)
-                {
-                    int e = 0;
-                }
                 //Sort the progress list to find the robot with the least number of turns - this is the robot who should pick up next
                 List<KeyValuePair<int, int>> orderedRobotProgress = robotProgress.OrderBy(x => x.Value).ToList();
                 //For each robot
