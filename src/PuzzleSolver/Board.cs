@@ -226,6 +226,7 @@ namespace PuzzleSolver
                 foreach (Robot robot in Robots)
                 {
                     RobotAction robotAction = new RobotAction();
+                    Piece piece = null;
                     //See if the robot needs to move to the pickup zone
                     if (robot.Location != robot.PickupLocation)
                     {
@@ -251,7 +252,7 @@ namespace PuzzleSolver
                     //Else do the pickup, dropoff and delivery
                     else if (UnsortedPieces.Count > 0)
                     {
-                        Piece piece = UnsortedPieces.Dequeue();
+                        piece = UnsortedPieces.Dequeue();
                         robotAction = GetRobotAction(robot, piece);
                     }
 
