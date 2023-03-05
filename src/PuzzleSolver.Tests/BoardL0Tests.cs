@@ -73,7 +73,7 @@ namespace PuzzleSolver.Tests
         }
 
         [TestMethod]
-        public void BoardInitializationWith7WidthTest()
+        public void BoardNoRobotInitializationWith7WidthTest()
         {
             //Arrange
             int width = 7;
