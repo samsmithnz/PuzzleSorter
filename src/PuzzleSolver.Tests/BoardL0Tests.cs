@@ -393,8 +393,8 @@ namespace PuzzleSolver.Tests
         public void BoardOneRobot6ColorsTest()
         {
             //Arrange
-            int width = 5;
-            int height = 5;
+            int width = 7;
+            int height = 7;
             string[,] map = MapGeneration.GenerateMap(width, height);
             Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
             List<Rgb24> palette = ColorPalettes.Get6ColorPalette();
