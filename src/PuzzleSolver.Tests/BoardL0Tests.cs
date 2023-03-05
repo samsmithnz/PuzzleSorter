@@ -469,7 +469,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(0, board.UnsortedPieces.Count);
             Assert.AreEqual(10, board.SortedPieces.Count);
             Assert.IsNotNull(results);
-            Assert.AreEqual(47, results.Turns.Count);
+            Assert.AreEqual(48, results.Turns.Count);
 
             //Pickup piece 1 from 2,2
             Turn turn1 = results.Turns[0];
