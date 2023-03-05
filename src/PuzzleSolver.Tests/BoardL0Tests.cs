@@ -12,7 +12,7 @@ namespace PuzzleSolver.Tests
     [ExcludeFromCodeCoverage]
     [TestClass]
     [TestCategory("L0")]
-    public class BoardTests
+    public class BoardL0Tests
     {
 
         [TestMethod]
@@ -391,65 +391,6 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(1, board.SortedDropZones[4].Count);
             Assert.AreEqual(1, board.SortedDropZones[5].Count);
             Assert.AreEqual(4, board.GetPieceCount(board.SortedDropZones[0].Location));
-        }
-
-        [TestMethod]
-        [TestCategory("L1")]
-        public void StJohnImage16ColorsRunTest()
-        {
-            //Arrange
-            int width = 7;
-            int height = 7;
-            string[,] map = MapGeneration.GenerateMap(width, height);
-            Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
-            List<Rgb24> palette = ColorPalettes.Get16ColorPalette();
-            //Process + Split the image
-            string imageDir = Environment.CurrentDirectory + @"/TestImages/st-john-beach.jpg";
-            Image<Rgb24> sourceImage = Image.Load<Rgb24>(imageDir);
-            List<Image<Rgb24>> images = ImageCropping.SplitImageIntoMultiplePieces(sourceImage, 250, 250);
-            List<ImageStats> subImages = new();
-            ImageColorGroups imageProcessing = new(palette);
-            foreach (Image<Rgb24> image in images)
-            {
-                ImageStats subitemImageStats = imageProcessing.ProcessStatsForImage(null, image, true);
-                if (subitemImageStats != null)
-                {
-                    subImages.Add(subitemImageStats);
-                }
-            }
-            int i = 0;
-            List<Piece> pieces = new List<Piece>();
-            foreach (ImageStats image in subImages)
-            {
-                i++;
-                pieces.Add(new Piece()
-                {
-                    Id = i,
-                    Image = image.Image,
-                    ImageStats = image,
-                    Location = centerPointLocation
-                });
-            }
-            List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
-            Robot robot = new Robot(1, new Vector2(centerPointLocation.X, centerPointLocation.Y - 1), new Vector2(centerPointLocation.X, centerPointLocation.Y - 1));
-            //Initialize the game board
-            Board board = new(map,
-                centerPointLocation,
-                palette,
-                pieces,
-                sortedDropZones,
-                new List<Robot>() { robot });
-
-            //Act
-            Queue<RobotAction> results = board.RunRobot();
-
-            //Assert
-            Assert.IsNotNull(board);
-            Assert.AreEqual(0, board.UnsortedPieces.Count);
-            Assert.AreEqual(12, board.SortedPieces.Count);
-            Assert.IsTrue(board.UnsortedPieces.Count == 0);
-            Assert.IsNotNull(results);
-            Assert.AreEqual(13, results.Count);
         }
 
         [TestMethod]
