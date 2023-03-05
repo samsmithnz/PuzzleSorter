@@ -16,7 +16,7 @@ namespace PuzzleSolver.Tests
     {
 
         [TestMethod]
-        public void BoardInitializationTest()
+        public void BoardNoRobotInitializationTest()
         {
             //Arrange
             int width = 5;
