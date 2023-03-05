@@ -253,7 +253,6 @@ namespace PuzzleSolver
                         RobotAction robotAction = GetRobotAction(robot, piece);
                         //merge the pickup and piece delivery
                         robotAction.PathToPickup = robotPickupAction.PathToPickup;
-                        robotAction.PickupAction = robotPickupAction.PickupAction;
                         robotAction.RobotPickupStartingLocation = robotPickupAction.RobotPickupStartingLocation;
                         robotAction.RobotPickupEndingLocation = robotPickupAction.RobotPickupEndingLocation;
                         int turn = robotProgress[robot.RobotId];
