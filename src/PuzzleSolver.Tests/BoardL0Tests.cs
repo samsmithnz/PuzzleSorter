@@ -130,7 +130,7 @@ namespace PuzzleSolver.Tests
         }
 
         [TestMethod]
-        public void Board3ColorsRunTest()
+        public void BoardOneRobot3ColorsRunTest()
         {
             //Arrange
             int width = 5;
