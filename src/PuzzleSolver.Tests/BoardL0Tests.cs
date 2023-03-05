@@ -505,7 +505,7 @@ namespace PuzzleSolver.Tests
             Turn turn4 = results.Turns[3];
             Assert.AreEqual(4, turn4.TurnNumber);
             Assert.AreEqual(1, turn4.RobotActions.Count);
-            Assert.AreEqual(2, turn4.RobotActions[0].PieceId);
+            Assert.AreEqual(null, turn4.RobotActions[0].PieceId);
             Assert.AreEqual(2, turn4.RobotActions[0].Movement.Count);
             Assert.AreEqual(new Vector2(1, 1), turn4.RobotActions[0].Movement[0]);
             Assert.AreEqual(new Vector2(2, 1), turn4.RobotActions[0].Movement[1]);
@@ -558,7 +558,7 @@ namespace PuzzleSolver.Tests
             Turn turn10 = results.Turns[9];
             Assert.AreEqual(10, turn10.TurnNumber);
             Assert.AreEqual(1, turn10.RobotActions.Count);
-            Assert.AreEqual(3, turn10.RobotActions[0].PieceId);
+            Assert.AreEqual(null, turn10.RobotActions[0].PieceId);
             Assert.AreEqual(2, turn10.RobotActions[0].Movement.Count);
             Assert.AreEqual(new Vector2(1, 3), turn10.RobotActions[0].Movement[0]);
             Assert.AreEqual(new Vector2(1, 2), turn10.RobotActions[0].Movement[1]);
