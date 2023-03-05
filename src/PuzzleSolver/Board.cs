@@ -226,11 +226,13 @@ namespace PuzzleSolver
                 {
                     int e = 0;
                 }
-                List<KeyValuePair<int, int>> orderRobots = robotProgress.OrderBy(x => x.Value).ToList();
+                //Sort the progress list to find the robot with the least number of turns - this is the robot who should pick up next
+                List<KeyValuePair<int, int>> orderedRobotProgress = robotProgress.OrderBy(x => x.Value).ToList();
                 //For each robot
                 foreach (Robot robot in Robots)
                 {
-                    if (orderRobots[0].Key == robot.RobotId)
+                    //Find the robot with the least progress, and then break
+                    if (orderedRobotProgress[0].Key == robot.RobotId)
                     {
                         RobotAction robotAction = new RobotAction();
                         Piece piece = null;
