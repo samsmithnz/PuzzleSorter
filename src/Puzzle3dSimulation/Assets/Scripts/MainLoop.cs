@@ -210,11 +210,11 @@ public class MainLoop : MonoBehaviour
             }
             if (item.PickupAction != null)
             {
-                StartCoroutine(PickUpPiece(item.RobotId, item.PieceId, item.PickupAction));
+                StartCoroutine(PickUpPiece(item.RobotId, (int)item.PieceId, item.PickupAction));
             }
             if (item.DropoffAction != null)
             {
-                StartCoroutine(DropOffPiece(item.RobotId, item.PieceId, item.DropoffAction));
+                StartCoroutine(DropOffPiece(item.RobotId, (int)item.PieceId, item.DropoffAction));
             }
             //yield return StartCoroutine(DelayTurn(item));
         }
