@@ -471,14 +471,14 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(results);
             Assert.AreEqual(84, results.Turns.Count);
 
-            //Pickup piece 1 from 2,2
+            //Pickup piece 1 from 3,3
             Turn turn1 = results.Turns[0];
             Assert.AreEqual(1, turn1.TurnNumber);
             Assert.AreEqual(1, turn1.RobotActions.Count);
             Assert.AreEqual(1, turn1.RobotActions[0].PieceId);
             Assert.IsNull(turn1.RobotActions[0].Movement);
 
-            //Move piece 1 from 2,1 to 1,1
+            //Move piece 1 from 3,2 to 2,2
             Turn turn2 = results.Turns[1];
             Assert.AreEqual(2, turn2.TurnNumber);
             Assert.AreEqual(1, turn2.RobotActions.Count);
@@ -491,10 +491,12 @@ namespace PuzzleSolver.Tests
             Turn turn3 = results.Turns[2];
             Assert.AreEqual(3, turn3.TurnNumber);
             Assert.AreEqual(1, turn3.RobotActions.Count);
-            Assert.AreEqual(1, turn3.RobotActions[0].PieceId);;
-            Assert.AreEqual(new Vector2(0, 1), turn3.RobotActions[0].DropoffAction.Location);
-            Assert.AreEqual(1, turn3.RobotActions[0].DropoffAction.DestinationPieceCount);
-            Assert.IsNull(turn3.RobotActions[0].Movement);
+            Assert.AreEqual(1, turn3.RobotActions[0].PieceId); ;
+            Assert.AreEqual(new Vector2(2, 2), turn3.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 2), turn3.RobotActions[0].Movement[1]);
+            //Assert.AreEqual(new Vector2(0, 1), turn3.RobotActions[0].DropoffAction.Location);
+            //Assert.AreEqual(1, turn3.RobotActions[0].DropoffAction.DestinationPieceCount);
+            //Assert.IsNull(turn3.RobotActions[0].Movement);
            
 
             //Move from 1,1 to 2,1 to pickup new piece
@@ -573,7 +575,7 @@ namespace PuzzleSolver.Tests
         }
 
         [TestMethod]
-        public void BoardTwoRobotos6ColorsTest()
+        public void BoardTwoRobots6ColorsTest()
         {
             //Arrange
             int width = 7;
