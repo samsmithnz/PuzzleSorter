@@ -715,7 +715,7 @@ namespace PuzzleSolver.Tests
 
             //check the third to last turn
             Assert.AreEqual(18, results.Turns[results.Turns.Count - 3].TurnNumber);
-            Assert.AreEqual(1, results.Turns[results.Turns.Count - 3].RobotActions.Count);
+            Assert.AreEqual(2, results.Turns[results.Turns.Count - 3].RobotActions.Count);
             Assert.AreEqual(9, results.Turns[results.Turns.Count - 3].RobotActions[0].PieceId);
 
             //check the second to last turn
