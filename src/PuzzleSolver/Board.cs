@@ -212,7 +212,6 @@ namespace PuzzleSolver
                 if (robot.Location != robot.PickupLocation)
                 {
                     RobotAction robotAction = new RobotAction();
-                    Piece piece = null;
                     //Move the robot to the pickup zone - By doing this first we ensure we don't pick up a piece until we are there.
                     Vector2 currentRobotLocation = robot.Location;
                     Vector2 pickupLocation = robot.PickupLocation;
@@ -347,11 +346,7 @@ namespace PuzzleSolver
             // Pickup an unsorted piece from the unsorted pile
             if (robot.Piece != null)
             {
-                throw new System.Exception("This is bad, piece " + robot.Piece.Id + " already exists");
-            }
-            else if (piece.Id == 6)
-            {
-                int h = 3;
+                throw new System.Exception("This is bad, piece " + robot.Piece.Id + " was not delivered");
             }
             robot.Piece = piece;
             robotAction.PieceId = piece.Id;
