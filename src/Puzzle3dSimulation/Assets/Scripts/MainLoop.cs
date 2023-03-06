@@ -15,6 +15,7 @@ using UnityEngine;
 public class MainLoop : MonoBehaviour
 {
     public Texture2D SourceTexture;
+    public Texture2D SourceTexture2;
     public Material PieceMaterial;
 
     private readonly bool _ShowCoordOnFloor = true;
@@ -25,7 +26,6 @@ public class MainLoop : MonoBehaviour
     private float _PieceWidth = 0.5f;
     private float _PieceHeight = 0.25f;
     private float _PieceDepth = 0.5f;
-    private int _PieceSize = 250;
     private int _Turn = 0;
 
     // Start is called before the first frame update
@@ -48,7 +48,8 @@ public class MainLoop : MonoBehaviour
             { 4, new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y + 1) }
         };
         //List<Piece> pieces = GetRandomPieceList(36, palette);
-        List<Piece> pieces = GetPiecesFromImage(_PieceSize, _PieceSize, palette, centerPointLocation);
+        //List<Piece> pieces = GetPiecesFromStJohnImage(250, 250, palette, centerPointLocation);
+        List<Piece> pieces = GetPiecesFromLegoImage(200, 200, palette, centerPointLocation);
         //List<Piece> pieces = GetColoredPieceList(centerPointLocation);
         List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
 
@@ -348,7 +349,25 @@ public class MainLoop : MonoBehaviour
         return pieceList;
     }
 
-    private List<Piece> GetPiecesFromImage(int subImageWidth, int subImageHeight, List<Rgb24> palette, System.Numerics.Vector2 centerPointLocation)
+    private List<Piece> GetPiecesFromStJohnImage(int subImageWidth, int subImageHeight, List<Rgb24> palette, System.Numerics.Vector2 centerPointLocation)
+    {
+        GameObject imageObject = GameObject.Find("PuzzleCompleteImage");
+        GameObject imageObject2 = GameObject.Find("PuzzleCompleteImage2");
+        imageObject.GetComponent<Renderer>().enabled = true;
+        imageObject2.GetComponent<Renderer>().enabled = false;
+        return GetPiecesFromImage(subImageWidth, subImageHeight, palette, centerPointLocation, SourceTexture);
+    }
+
+    private List<Piece> GetPiecesFromLegoImage(int subImageWidth, int subImageHeight, List<Rgb24> palette, System.Numerics.Vector2 centerPointLocation)
+    {
+        GameObject imageObject = GameObject.Find("PuzzleCompleteImage");
+        GameObject imageObject2 = GameObject.Find("PuzzleCompleteImage2");
+        imageObject.GetComponent<Renderer>().enabled = false;
+        imageObject2.GetComponent<Renderer>().enabled = true;
+        return GetPiecesFromImage(subImageWidth, subImageHeight, palette, centerPointLocation, SourceTexture2);
+    }
+
+    private List<Piece> GetPiecesFromImage(int subImageWidth, int subImageHeight, List<Rgb24> palette, System.Numerics.Vector2 centerPointLocation, Texture texture)
     {
         List<Piece> pieceList = new();
 
