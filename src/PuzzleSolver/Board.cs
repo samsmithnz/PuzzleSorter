@@ -86,7 +86,7 @@ namespace PuzzleSolver
                 else if (destinationLocation.Y == map.GetUpperBound(1))
                 {
                     //it's a bottom location drop-off
-                    adjacentLocation = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y - 11);
+                    adjacentLocation = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y - 1);
                 }
             }
             return adjacentLocation;
