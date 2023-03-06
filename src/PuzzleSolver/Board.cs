@@ -356,6 +356,10 @@ namespace PuzzleSolver
             {
                 throw new System.Exception("This is bad, piece " + robot.Piece.Id + " already exists");
             }
+            else if (piece.Id == 6)
+            {
+                int h = 3;
+            }
             robot.Piece = piece;
             robotAction.PieceId = piece.Id;
             robotAction.PickupAction = new ObjectInteraction()
@@ -372,6 +376,10 @@ namespace PuzzleSolver
                     destinationLocation = sortedDropZone.Location;
                     break;
                 }
+            }
+            if (destinationLocation == null)
+            {
+                throw new System.Exception("destination not found for piece " + piece.Id);
             }
 
             //Get the best adjacent location to the destination
