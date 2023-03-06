@@ -367,7 +367,7 @@ public class MainLoop : MonoBehaviour
         return GetPiecesFromImage(subImageWidth, subImageHeight, palette, centerPointLocation, SourceTexture2);
     }
 
-    private List<Piece> GetPiecesFromImage(int subImageWidth, int subImageHeight, List<Rgb24> palette, System.Numerics.Vector2 centerPointLocation, Texture texture)
+    private List<Piece> GetPiecesFromImage(int subImageWidth, int subImageHeight, List<Rgb24> palette, System.Numerics.Vector2 centerPointLocation, Texture2D texture)
     {
         List<Piece> pieceList = new();
 

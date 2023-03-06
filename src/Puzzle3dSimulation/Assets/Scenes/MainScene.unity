@@ -250,6 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SourceTexture: {fileID: 2800000, guid: e495e83d9f392e142af09fffd9f0afe5, type: 3}
+  SourceTexture2: {fileID: 2800000, guid: 41db2e62791083345886731dba3fde6b, type: 3}
   PieceMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!4 &363201918
 Transform:
@@ -284,7 +285,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &582243860
 BoxCollider:
   m_ObjectHideFlags: 0
