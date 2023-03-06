@@ -754,7 +754,6 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new Vector2(1, 3), turn12.RobotActions[1].Movement[0]);
             Assert.AreEqual(new Vector2(2, 3), turn12.RobotActions[1].Movement[1]);
 
-
             ////check the fourth to last turn
             //Assert.AreEqual(17, results.Turns[results.Turns.Count - 4].TurnNumber);
             //Assert.AreEqual(2, results.Turns[results.Turns.Count - 4].RobotActions.Count);
@@ -775,6 +774,109 @@ namespace PuzzleSolver.Tests
             //Assert.AreEqual(20, results.Turns[results.Turns.Count - 1].TurnNumber);
             //Assert.AreEqual(2, results.Turns[results.Turns.Count - 1].RobotActions.Count);
             //Assert.AreEqual(null, results.Turns[results.Turns.Count - 1].RobotActions[0].PieceId);
+
+        }
+
+
+
+        [TestMethod]
+        public void BoardTwoRobots16ColorsTest()
+        {
+            //Arrange
+            int width = 7;
+            int height = 7;
+            string[,] map = MapGeneration.GenerateMap(width, height);
+            Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
+            List<Rgb24> palette = ColorPalettes.Get16ColorPalette();
+            List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
+            List<Robot> robots = new() {
+                new Robot(1, new Vector2(centerPointLocation.X, centerPointLocation.Y - 1), new Vector2(centerPointLocation.X, centerPointLocation.Y - 1)),
+                new Robot(2, new Vector2(centerPointLocation.X - 1, centerPointLocation.Y), new Vector2(centerPointLocation.X - 1, centerPointLocation.Y))
+            };
+            //Initialize the game board
+            Board board = new(map,
+                centerPointLocation,
+                palette,
+                new List<Piece>() {
+                    new Piece() {
+                        Id = 1,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 2,
+                        Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 3,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 4,
+                        Image = ImageCropping.CreateImage(Color.Green.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 5,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 6,
+                        Image = ImageCropping.CreateImage(Color.Purple.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 7,
+                        Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 8,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 9,
+                        Image = ImageCropping.CreateImage(Color.Yellow.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 10,
+                        Image = ImageCropping.CreateImage(Color.Orange.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    }
+                },
+                sortedDropZones,
+                robots);
+
+            //Act
+            TimeLine results = board.RunRobots();
+
+            //Assert           
+            Assert.IsNotNull(board);
+            Assert.AreEqual(0, board.UnsortedPieces.Count);
+            Assert.AreEqual(9, board.SortedPieces.Count);
+            Assert.IsNotNull(results);
+            Assert.AreEqual(49, results.Turns.Count);
+
+            //Turn 25, robot 2 picks up piece 6, and then loses it
+            Turn turn25 = results.Turns[24];
+            Assert.AreEqual(25, turn25.TurnNumber);
+            Assert.AreEqual(2, turn25.RobotActions.Count);
+            Assert.AreEqual(6, turn25.RobotActions[1].PieceId);
+            //Assert.AreEqual(new Vector2(1, 3), turn25.RobotActions[1].Movement[0]);
+            //Assert.AreEqual(new Vector2(2, 3), turn25.RobotActions[1].Movement[1]);
+
+            //Turn 26, robot 2 picks up piece 6, and then loses it
+            Turn turn26 = results.Turns[25];
+            Assert.AreEqual(25, turn26.TurnNumber);
+            Assert.AreEqual(2, turn26.RobotActions.Count);
+            Assert.AreEqual(7, turn26.RobotActions[1].PieceId);
+            //Assert.AreEqual(new Vector2(1, 3), turn25.RobotActions[1].Movement[0]);
+            //Assert.AreEqual(new Vector2(2, 3), turn25.RobotActions[1].Movement[1]);
 
         }
     }
