@@ -1,4 +1,5 @@
-﻿using PuzzleSolver.Images;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PuzzleSolver.Images;
 using PuzzleSolver.Map;
 using PuzzleSolver.MultipleRobots;
 using PuzzleSolver.Processing;
@@ -733,8 +734,8 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(null, turn4.RobotActions[1].PieceId); 
             Assert.AreEqual(new Vector2(1, 2), turn4.RobotActions[0].Movement[0]);
             Assert.AreEqual(new Vector2(1, 1), turn4.RobotActions[0].Movement[1]);
-            Assert.AreEqual(new Vector2(1, 2), turn4.RobotActions[0].Movement[0]);
-            Assert.AreEqual(new Vector2(1, 1), turn4.RobotActions[0].Movement[1]);
+            Assert.AreEqual(new Vector2(1, 2), turn4.RobotActions[1].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 1), turn4.RobotActions[1].Movement[1]);
 
 
             //Turn 11 check for bugs
@@ -743,6 +744,16 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(2, turn11.RobotActions.Count);
             Assert.AreEqual(4, turn11.RobotActions[0].PieceId);
             Assert.AreEqual(null, turn11.RobotActions[1].PieceId);
+
+            //Turn 12, the bots cross paths, but shouldn't
+            Turn turn12 = results.Turns[11];
+            Assert.AreEqual(12, turn12.TurnNumber);
+            Assert.AreEqual(2, turn12.RobotActions.Count);
+            Assert.AreEqual(new Vector2(2, 3), turn12.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 3), turn12.RobotActions[0].Movement[1]);
+            Assert.AreEqual(new Vector2(1, 3), turn12.RobotActions[1].Movement[0]);
+            Assert.AreEqual(new Vector2(2, 3), turn12.RobotActions[1].Movement[1]);
+
 
             ////check the fourth to last turn
             //Assert.AreEqual(17, results.Turns[results.Turns.Count - 4].TurnNumber);
