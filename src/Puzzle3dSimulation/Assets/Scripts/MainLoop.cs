@@ -19,7 +19,6 @@ public class MainLoop : MonoBehaviour
 
     private readonly bool _ShowCoordOnFloor = true;
     private readonly bool _ShowLinesOnFloor = true;
-    private Queue<RobotAction> _RobotActions = null;
     private TimeLine _Timeline = null;
     //private GameObject _RobotObject = null;
     private int _ProcessingRobotsInTurnCounter = 0;
