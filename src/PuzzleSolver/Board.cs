@@ -49,49 +49,6 @@ namespace PuzzleSolver
             Robots = robots;
         }
 
-        public int GetPieceCount(Vector2 dropOfflocation)
-        {
-            int pieceCount = 0;
-            foreach (SortedDropZone sortedDropZone in SortedDropZones)
-            {
-                if (sortedDropZone.Location == dropOfflocation)
-                {
-                    pieceCount = sortedDropZone.Count;
-                    break;
-                }
-            }
-            return pieceCount;
-        }
-
-        private Vector2? GetAdjacentLocation(Vector2 destinationLocation, string[,] map, List<SortedDropZone> sortedDropZones)
-        {
-            Vector2? adjacentLocation = null;
-            if (destinationLocation != null)
-            {
-                if (destinationLocation.X == 0)
-                {
-                    //it's a right location drop-off
-                    adjacentLocation = new Vector2((int)destinationLocation.X + 1, (int)destinationLocation.Y);
-                }
-                else if (destinationLocation.X == map.GetUpperBound(0))
-                {
-                    //it's a left location drop-off
-                    adjacentLocation = new Vector2((int)destinationLocation.X - 1, (int)destinationLocation.Y);
-                }
-                else if (destinationLocation.Y == 0)
-                {
-                    //it's a top location drop-off
-                    adjacentLocation = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y + 1);
-                }
-                else if (destinationLocation.Y == map.GetUpperBound(1))
-                {
-                    //it's a bottom location drop-off
-                    adjacentLocation = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y - 1);
-                }
-            }
-            return adjacentLocation;
-        }
-
         public TimeLine RunRobots()
         {
             TimeLine timeline = new TimeLine();
@@ -323,11 +280,47 @@ namespace PuzzleSolver
             return timeline;
         }
 
-        private List<Turn> ProcessRobotActions(RobotAction robotAction)
+        public int GetPieceCount(Vector2 dropOfflocation)
         {
-            List<Turn> turns = new List<Turn>();
+            int pieceCount = 0;
+            foreach (SortedDropZone sortedDropZone in SortedDropZones)
+            {
+                if (sortedDropZone.Location == dropOfflocation)
+                {
+                    pieceCount = sortedDropZone.Count;
+                    break;
+                }
+            }
+            return pieceCount;
+        }
 
-            return turns;
+        private Vector2? GetAdjacentLocation(Vector2 destinationLocation, string[,] map, List<SortedDropZone> sortedDropZones)
+        {
+            Vector2? adjacentLocation = null;
+            if (destinationLocation != null)
+            {
+                if (destinationLocation.X == 0)
+                {
+                    //it's a right location drop-off
+                    adjacentLocation = new Vector2((int)destinationLocation.X + 1, (int)destinationLocation.Y);
+                }
+                else if (destinationLocation.X == map.GetUpperBound(0))
+                {
+                    //it's a left location drop-off
+                    adjacentLocation = new Vector2((int)destinationLocation.X - 1, (int)destinationLocation.Y);
+                }
+                else if (destinationLocation.Y == 0)
+                {
+                    //it's a top location drop-off
+                    adjacentLocation = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y + 1);
+                }
+                else if (destinationLocation.Y == map.GetUpperBound(1))
+                {
+                    //it's a bottom location drop-off
+                    adjacentLocation = new Vector2((int)destinationLocation.X, (int)destinationLocation.Y - 1);
+                }
+            }
+            return adjacentLocation;
         }
 
         private RobotAction GetRobotAction(Robot robot, Piece piece)
