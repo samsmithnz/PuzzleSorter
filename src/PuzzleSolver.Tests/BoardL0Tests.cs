@@ -594,10 +594,16 @@ namespace PuzzleSolver.Tests
             //Assert.AreEqual(1, results.turns[results.turns.Count - 2].RobotActions.Count);
             //Assert.AreEqual(10, results.turns[results.turns.Count - 2].RobotActions[0].PieceId);
 
-            ////check the last turn
-            //Assert.AreEqual(44, results.turns[results.turns.Count - 1].turnNumber);
-            //Assert.AreEqual(1, results.turns[results.turns.Count - 1].RobotActions.Count);
-            //Assert.AreEqual(10, results.turns[results.turns.Count - 1].RobotActions[0].PieceId);
+            //check the last turn
+            Turn turnLast = results.Turns[83];
+            Assert.AreEqual(84, turnLast.TurnNumber);
+            Assert.AreEqual(1, turnLast.RobotActions.Count);
+            Assert.AreEqual(10, turnLast.RobotActions[0].PieceId);
+            Assert.AreEqual(2, turnLast.RobotActions[0].Movement.Count);
+            Assert.AreEqual(10, turnLast.RobotActions[0].PieceId);
+            Assert.AreEqual(new Vector2(2, 2), turnLast.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(3, 2), turnLast.RobotActions[0].Movement[1]);
+
         }
 
         [TestMethod]
