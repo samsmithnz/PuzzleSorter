@@ -739,7 +739,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(11, turn11.TurnNumber);
             Assert.AreEqual(2, turn11.RobotActions.Count);
             Assert.AreEqual(4, turn11.RobotActions[0].PieceId);
-            Assert.AreEqual(7, turn11.RobotActions[1].PieceId);
+            Assert.AreEqual(null, turn11.RobotActions[1].PieceId);
 
             //check the fourth to last turn
             Assert.AreEqual(17, results.Turns[results.Turns.Count - 4].TurnNumber);
