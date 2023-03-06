@@ -346,7 +346,7 @@ namespace PuzzleSolver
             // Pickup an unsorted piece from the unsorted pile
             if (robot.Piece != null)
             {
-                throw new System.Exception("This is bad, piece " + robot.Piece.Id + " was not delivered");
+                throw new System.Exception("Piece " + robot.Piece.Id + " was not delivered");
             }
             robot.Piece = piece;
             robotAction.PieceId = piece.Id;
@@ -367,7 +367,7 @@ namespace PuzzleSolver
             }
             if (destinationLocation == null)
             {
-                throw new System.Exception("destination not found for piece " + piece.Id);
+                throw new System.Exception("Destination not found for piece " + piece.Id);
             }
 
             //Get the best adjacent location to the destination
