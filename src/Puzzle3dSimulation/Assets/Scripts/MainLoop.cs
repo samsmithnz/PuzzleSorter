@@ -48,8 +48,8 @@ public class MainLoop : MonoBehaviour
             { 4, new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y + 1) }
         };
         //List<Piece> pieces = GetRandomPieceList(36, palette);
-        //List<Piece> pieces = GetPiecesFromImage(_PieceSize, _PieceSize, palette, centerPointLocation);
-        List<Piece> pieces = GetColoredPieceList(centerPointLocation);
+        List<Piece> pieces = GetPiecesFromImage(_PieceSize, _PieceSize, palette, centerPointLocation);
+        //List<Piece> pieces = GetColoredPieceList(centerPointLocation);
         List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
 
         List<Robot> robots = new() {
