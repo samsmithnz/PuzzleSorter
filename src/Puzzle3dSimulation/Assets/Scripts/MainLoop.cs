@@ -216,14 +216,8 @@ public class MainLoop : MonoBehaviour
             {
                 StartCoroutine(DropOffPiece(item.RobotId, (int)item.PieceId, item.DropoffAction));
             }
-            //yield return StartCoroutine(DelayTurn(item));
         }
         yield return null;
-    }
-
-    private IEnumerator DelayTurn(RobotTurnAction item)
-    {
-        yield return new WaitForSeconds(2f);
     }
 
     private IEnumerator MoveToLocation2(int robotId, System.Numerics.Vector2 startLocation, System.Numerics.Vector2 endLocation)
