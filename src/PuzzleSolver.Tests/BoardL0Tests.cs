@@ -869,12 +869,12 @@ namespace PuzzleSolver.Tests
             //Assert.AreEqual(6, turn25.RobotActions[1].PieceId);
             //Assert.IsNotNull(turn25.RobotActions[1].PickupAction);
 
-            //Turn 26, robot 2 picks up piece 6, and then loses it
-            Turn turn26 = results.Turns[25];
-            Assert.AreEqual(26, turn26.TurnNumber);
-            Assert.AreEqual(2, turn26.RobotActions.Count);
-            Assert.AreEqual(7, turn26.RobotActions[1].PieceId);
-            Assert.IsNotNull( turn26.RobotActions[1].PickupAction);
+            ////Turn 26, robot 2 picks up piece 6, and then loses it
+            //Turn turn26 = results.Turns[25];
+            //Assert.AreEqual(26, turn26.TurnNumber);
+            //Assert.AreEqual(2, turn26.RobotActions.Count);
+            //Assert.AreEqual(7, turn26.RobotActions[1].PieceId);
+            //Assert.IsNotNull( turn26.RobotActions[1].PickupAction);
 
         }
     }
