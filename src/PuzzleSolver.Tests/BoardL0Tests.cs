@@ -729,7 +729,7 @@ namespace PuzzleSolver.Tests
             Turn turn4 = results.Turns[3];
             Assert.AreEqual(4, turn4.TurnNumber);
             Assert.AreEqual(2, turn4.RobotActions.Count);
-            Assert.AreEqual(null, turn4.RobotActions[0].PieceId);
+            Assert.AreEqual(1, turn4.RobotActions[0].PieceId);
             Assert.AreEqual(null, turn4.RobotActions[1].PieceId);
             Assert.AreEqual(2, turn4.RobotActions[0].Movement.Count);
             Assert.AreEqual(2, turn4.RobotActions[1].Movement.Count);
