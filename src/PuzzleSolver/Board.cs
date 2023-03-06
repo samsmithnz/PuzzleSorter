@@ -354,7 +354,7 @@ namespace PuzzleSolver
             // Pickup an unsorted piece from the unsorted pile
             if (robot.Piece != null)
             {
-                throw new System.Exception("This is bad, " + robot.Piece + " already exists");
+                throw new System.Exception("This is bad, " + robot.Piece.Id + " already exists");
             }
             robot.Piece = piece;
             robotAction.PieceId = piece.Id;
