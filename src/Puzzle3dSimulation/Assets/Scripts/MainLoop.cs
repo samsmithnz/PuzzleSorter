@@ -42,7 +42,7 @@ public class MainLoop : MonoBehaviour
         Utility.LogWithTime("Initializing color palette");
         List<Rgb24> palette = ColorPalettes.Get6ColorPalette();
         Utility.LogWithTime("Initializing pieces");
-        Dictionary<int, System.Numerics.Vector2> robotStartingLocations = new Dictionary<int, System.Numerics.Vector2>
+        Dictionary<int, System.Numerics.Vector2> robotStartingLocations = new()
         {
             { 1, new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y - 1) },
             { 2, new System.Numerics.Vector2(centerPointLocation.X - 1, centerPointLocation.Y) },
