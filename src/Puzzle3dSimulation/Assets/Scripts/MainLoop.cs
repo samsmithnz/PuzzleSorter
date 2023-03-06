@@ -551,7 +551,7 @@ public class MainLoop : MonoBehaviour
     public static Texture2D Image2Texture(SixLabors.ImageSharp.Image im)
     {
         //Memory stream to store the bitmap data.
-        MemoryStream ms = new MemoryStream();
+        MemoryStream ms = new();
 
         //Save to that memory stream.
         im.SaveAsPng(ms);
