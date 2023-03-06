@@ -38,7 +38,7 @@ public class MainLoop : MonoBehaviour
         string[,] map = MapGeneration.GenerateMap(width, height);
         System.Numerics.Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
         Utility.LogWithTime("Initializing color palette");
-        List<Rgb24> palette = ColorPalettes.Get6ColorPalette();
+        List<Rgb24> palette = ColorPalettes.Get16ColorPalette();
         Utility.LogWithTime("Initializing pieces");
         Dictionary<int, System.Numerics.Vector2> robotStartingLocations = new()
         {
@@ -379,7 +379,7 @@ public class MainLoop : MonoBehaviour
 
         //2. Split apart images/Crop the individual images next
         Utility.LogWithTime("GetPiecesFromImage: Split apart image into smaller images");
-        Image<Rgb24> sourceImg = Texture2Image(SourceTexture);
+        Image<Rgb24> sourceImg = Texture2Image(texture);
         List<Image<Rgb24>> images = ImageCropping.SplitImageIntoMultiplePieces(sourceImg, subImageWidth, subImageHeight);
 
         //Get image stats for each individual image and combine in one list
