@@ -319,7 +319,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(10, board.SortedPieces.Count);
             Assert.IsTrue(board.UnsortedPieces.Count == 0);
             Assert.IsNotNull(results);
-            Assert.AreEqual(48, results.Turns.Count);
+            Assert.AreEqual(52, results.Turns.Count);
 
             //Complete the first action
             Turn turn1 = results.Turns[0];
@@ -858,7 +858,7 @@ namespace PuzzleSolver.Tests
             //Assert           
             Assert.IsNotNull(board);
             Assert.AreEqual(0, board.UnsortedPieces.Count);
-            Assert.AreEqual(9, board.SortedPieces.Count);
+            Assert.AreEqual(10, board.SortedPieces.Count);
             Assert.IsNotNull(results);
             Assert.AreEqual(49, results.Turns.Count);
 
