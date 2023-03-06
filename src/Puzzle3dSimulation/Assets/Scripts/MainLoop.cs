@@ -22,7 +22,6 @@ public class MainLoop : MonoBehaviour
     private TimeLine _Timeline = null;
     //private GameObject _RobotObject = null;
     private int _ProcessingRobotsInTurnCounter = 0;
-    private int _ActionCount = 0;
     private float _PieceWidth = 0.5f;
     private float _PieceHeight = 0.25f;
     private float _PieceDepth = 0.5f;
