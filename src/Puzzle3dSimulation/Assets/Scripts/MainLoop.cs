@@ -49,15 +49,15 @@ public class MainLoop : MonoBehaviour
         };
         //List<Piece> pieces = GetRandomPieceList(36, palette);
         //List<Piece> pieces = GetPiecesFromStJohnImage(250, 250, palette, centerPointLocation);
-        List<Piece> pieces = GetPiecesFromLegoImage(100, 100, palette, centerPointLocation);
-        //List<Piece> pieces = GetColoredPieceList(centerPointLocation);
+        //List<Piece> pieces = GetPiecesFromLegoImage(100, 100, palette, centerPointLocation);
+        List<Piece> pieces = GetColoredPieceList(centerPointLocation);
         List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
 
         List<Robot> robots = new() {
             new Robot(1, robotStartingLocations[1], robotStartingLocations[1]),
             new Robot(2, robotStartingLocations[2], robotStartingLocations[2]),
-            new Robot(3, robotStartingLocations[3], robotStartingLocations[3]),
-            new Robot(4, robotStartingLocations[4], robotStartingLocations[4])
+            //new Robot(3, robotStartingLocations[3], robotStartingLocations[3]),
+            //new Robot(4, robotStartingLocations[4], robotStartingLocations[4])
         };
         //Initialize the game board
         Board board = new(map,
