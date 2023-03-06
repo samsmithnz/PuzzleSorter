@@ -99,8 +99,10 @@ public class MainLoop : MonoBehaviour
             }
             GameObject pieceImageObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
             Texture texture = Image2Texture(piece.Image);
-            Material material = new(Shader.Find("Standard"));
-            material.mainTexture = texture;
+            Material material = new(Shader.Find("Standard"))
+            {
+                mainTexture = texture
+            };
             Renderer renderer = pieceImageObject.GetComponent<Renderer>();
             renderer.material = material;
             pieceImageObject.transform.parent = pieceObject.transform;
