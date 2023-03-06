@@ -534,7 +534,7 @@ public class MainLoop : MonoBehaviour
         byte[] bytes = texture.EncodeToPNG();
 
         //Memory stream to store the bitmap data.
-        MemoryStream ms = new MemoryStream(bytes);
+        MemoryStream ms = new(bytes);
 
         //Seek the beginning of the stream.
         ms.Seek(0, SeekOrigin.Begin);
