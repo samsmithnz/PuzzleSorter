@@ -84,7 +84,7 @@ namespace PuzzleSolver
                             robotAction.RobotPickupStartingLocation = currentRobotLocation;
                             if (currentRobotLocation != pickupLocation)
                             {
-                                PathFindingResult pathFindingResultForPickup = PathFinding.FindPath(Map, currentRobotLocation, pickupLocation);
+                                PathFindingResult pathFindingResultForPickup = PathFinding.FindPath(Map, currentRobotLocation, pickupLocation, Robots);
                                 if (pathFindingResultForPickup != null && pathFindingResultForPickup.Path.Any())
                                 {
                                     //Move robot
@@ -220,7 +220,7 @@ namespace PuzzleSolver
                     robotAction.RobotPickupStartingLocation = currentRobotLocation;
                     if (currentRobotLocation != pickupLocation)
                     {
-                        PathFindingResult pathFindingResultForPickup = PathFinding.FindPath(Map, currentRobotLocation, pickupLocation);
+                        PathFindingResult pathFindingResultForPickup = PathFinding.FindPath(Map, currentRobotLocation, pickupLocation, Robots);
                         if (pathFindingResultForPickup != null && pathFindingResultForPickup.Path.Any())
                         {
                             //Move robot
@@ -333,7 +333,7 @@ namespace PuzzleSolver
             robotAction.RobotPickupStartingLocation = currentRobotLocation;
             if (currentRobotLocation != pickupLocation)
             {
-                PathFindingResult pathFindingResultForPickup = PathFinding.FindPath(Map, currentRobotLocation, pickupLocation);
+                PathFindingResult pathFindingResultForPickup = PathFinding.FindPath(Map, currentRobotLocation, pickupLocation, Robots);
                 if (pathFindingResultForPickup != null && pathFindingResultForPickup.Path.Any())
                 {
                     //Move robot
@@ -386,7 +386,7 @@ namespace PuzzleSolver
             if (destinationLocation != null && pathDestinationLocation != null)
             {
                 //now find the path
-                PathFindingResult pathFindingResultForDropoff = PathFinding.FindPath(Map, currentRobotLocation, (Vector2)pathDestinationLocation);
+                PathFindingResult pathFindingResultForDropoff = PathFinding.FindPath(Map, currentRobotLocation, (Vector2)pathDestinationLocation, Robots);
                 if (pathFindingResultForDropoff != null && pathFindingResultForDropoff.Path.Count >= 0)
                 {
                     //Move robot

@@ -1,4 +1,5 @@
 ﻿using PuzzleSolver.Map;
+using PuzzleSolver.Processing;
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 
@@ -32,7 +33,7 @@ namespace PuzzleSolver.Tests
 ";
 
             //Act
-            PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
+            PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation, new List<Robot>());
             string mapString = MapCore.GetMapString(map);
 
             //Assert
@@ -70,7 +71,7 @@ namespace PuzzleSolver.Tests
 ";
 
             //Act
-            PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
+            PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation, new List<Robot>());
             string mapString = MapCore.GetMapString(map);
 
             //Assert
