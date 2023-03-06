@@ -69,7 +69,7 @@ namespace PuzzleSolver
                 foreach (Robot robot in Robots)
                 {
                     //Find the robot with the least progress, and then break
-                    if (orderedRobotProgress[0].Key == robot.RobotId)
+                    if (robot.Piece == null && orderedRobotProgress[0].Key == robot.RobotId)
                     {
                         RobotAction robotAction = new RobotAction();
                         Piece piece = null;
@@ -96,11 +96,24 @@ namespace PuzzleSolver
                             robot.Location = currentRobotLocation;
                         }
                         //Else do the pickup, dropoff and delivery
-                        else if (UnsortedPieces.Count > 0)
+                        else if (robot.Piece == null && UnsortedPieces.Count > 0)
                         {
                             piece = UnsortedPieces.Dequeue();
                             robotAction = GetRobotAction(robot, piece);
                         }
+                        ////Robot is holding the piece
+                        //else if (robot.Piece != null)
+                        //{
+                        //    robotAction = GetRobotAction(robot, robot.Piece);
+                        //    if (robot.Location != robotAction.RobotDropoffEndingLocation)
+                        //    {
+                        //        //need to find a dropoff path
+                        //    }
+                        //    else
+                        //    {
+                        //        //is at the dropoff point
+                        //    }
+                        //}
 
                         //process the robot action
                         if (robotAction != null)
