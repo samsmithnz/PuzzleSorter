@@ -559,7 +559,7 @@ public class MainLoop : MonoBehaviour
         //Go to the beginning of the memory stream.
         ms.Seek(0, SeekOrigin.Begin);
         //make a new Texture2D
-        Texture2D tex = new Texture2D(im.Width, im.Height);
+        Texture2D tex = new(im.Width, im.Height);
         tex.LoadImage(ms.ToArray());
 
         //Close the stream.
