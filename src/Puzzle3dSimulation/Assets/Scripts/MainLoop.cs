@@ -468,7 +468,7 @@ public class MainLoop : MonoBehaviour
 
     private List<Piece> GetColoredPieceList(System.Numerics.Vector2 centerPointLocation)
     {
-        List<Piece> pieces = new List<Piece>()
+        List<Piece> pieces = new()
         {
             new Piece() {
                 Id = 1,
