@@ -352,6 +352,10 @@ namespace PuzzleSolver
             robotAction.RobotPickupEndingLocation = currentRobotLocation;
 
             // Pickup an unsorted piece from the unsorted pile
+            if (robot.Piece != null)
+            {
+                throw new System.Exception("This is bad, " + robot.Piece + " already exists");
+            }
             robot.Piece = piece;
             robotAction.PieceId = piece.Id;
             robotAction.PickupAction = new ObjectInteraction()
