@@ -223,8 +223,7 @@ public class MainLoop : MonoBehaviour
 
     private IEnumerator MoveToLocation2(int robotId, System.Numerics.Vector2 startLocation, System.Numerics.Vector2 endLocation)
     {
-        GameObject robotObject = null;
-        robotObject = GameObject.Find(GetRobotName(robotId));
+        GameObject robotObject = GameObject.Find(GetRobotName(robotId));
 
         if (robotObject != null)
         {
