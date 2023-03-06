@@ -730,9 +730,12 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(4, turn4.TurnNumber);
             Assert.AreEqual(2, turn4.RobotActions.Count);
             Assert.AreEqual(1, turn4.RobotActions[0].PieceId);
-            Assert.AreEqual(null, turn4.RobotActions[1].PieceId);
-            Assert.AreEqual(2, turn4.RobotActions[0].Movement.Count);
-            Assert.AreEqual(2, turn4.RobotActions[1].Movement.Count);
+            Assert.AreEqual(null, turn4.RobotActions[1].PieceId); 
+            Assert.AreEqual(new Vector2(2, 2), turn4.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 2), turn4.RobotActions[0].Movement[1]);
+            Assert.AreEqual(new Vector2(2, 2), turn4.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 2), turn4.RobotActions[0].Movement[1]);
+
 
             //Turn 11 check for bugs
             Turn turn11 = results.Turns[10];
