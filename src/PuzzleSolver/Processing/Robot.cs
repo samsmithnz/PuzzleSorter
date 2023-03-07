@@ -8,12 +8,21 @@ namespace PuzzleSolver.Processing
         public Vector2 Location { get; set; }
         public Vector2 PickupLocation { get; set; }
         public Piece Piece { get; set; }
+        public RobotStatusEnum RobotStatus { get; set; }
 
         public Robot(int robotId, Vector2 pickupLocation, Vector2 location)
         {
             RobotId = robotId;
             PickupLocation = pickupLocation;
             Location = location;
+        }
+
+        public enum RobotStatusEnum
+        {
+            MovingToPickup,
+            Pickup,
+            MovingToDropoff,
+            Droppingoff
         }
     }
 }
