@@ -21,9 +21,9 @@ namespace PuzzleSolver.Processing
         {
             None,
             MovingToPickup,
-            Pickup,
+            PickingUp,
             MovingToDropoff,
-            Droppingoff
+            DroppingOff
         }
     }
 }
