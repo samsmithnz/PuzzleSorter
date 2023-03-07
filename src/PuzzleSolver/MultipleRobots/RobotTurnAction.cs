@@ -17,5 +17,6 @@ namespace PuzzleSolver
             RobotId = robotId;
             PieceId = pieceId;
         }
+
     }
 }

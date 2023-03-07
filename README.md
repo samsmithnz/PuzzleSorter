@@ -10,4 +10,4 @@ Some early prototypes:
 
 # How it works
 Based on the number of robots (agents that complete work), a timeline is created with the number of turns required. 
-- Each turn enables each robot to run one action, either a move from adjacent tile to another tile, a pickup, or a dropoff.
+- Each turn enables each robot to run one action, either a move from adjacent tile to another tile, pickup a piece, or a dropoff a piece.
