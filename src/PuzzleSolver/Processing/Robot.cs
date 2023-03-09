@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using static PuzzleSolver.Processing.RobotStatus;
 
 namespace PuzzleSolver.Processing
 {
@@ -15,15 +16,6 @@ namespace PuzzleSolver.Processing
             RobotId = robotId;
             PickupLocation = pickupLocation;
             Location = location;
-        }
-
-        public enum RobotStatusEnum
-        {
-            NoAction = 0,
-            MovingToPickup = 1,
-            PickingUp = 2,
-            MovingToDropoff = 3,
-            DroppingOff = 4
         }
     }
 }

@@ -69,19 +69,19 @@ namespace PuzzleSolver
                 {
                     switch (robot.RobotStatus)
                     {
-                        case Robot.RobotStatusEnum.None:
+                        case RobotStatus.RobotStatusEnum.NoAction:
                             //If there are unsorted pieces, move to pickup
                             break;
-                        case Robot.RobotStatusEnum.MovingToPickup:
+                        case RobotStatus.RobotStatusEnum.MovingToPickup:
                             //If we are at the pickup location, and there are pieces, pick up the piece
                             break;
-                        case Robot.RobotStatusEnum.PickingUp:
+                        case RobotStatus.RobotStatusEnum.PickingUp:
                             //If the piece is picked up, move to dropoff
                             break;
-                        case Robot.RobotStatusEnum.MovingToDropoff:
+                        case RobotStatus.RobotStatusEnum.MovingToDropoff:
                             //If we are at the dropoff location, drop off the piece
                             break;
-                        case Robot.RobotStatusEnum.DroppingOff:
+                        case RobotStatus.RobotStatusEnum.DroppingOff:
                             //If the piece is dropped off, move to pickup
                             break;
                     }
