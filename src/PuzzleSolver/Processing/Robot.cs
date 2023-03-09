@@ -8,7 +8,7 @@ namespace PuzzleSolver.Processing
         public Vector2 Location { get; set; }
         public Vector2 PickupLocation { get; set; }
         public Piece Piece { get; set; }
-        public RobotStatusEnum RobotStatus { get; set; } = RobotStatusEnum.None;
+        public RobotStatusEnum RobotStatus { get; set; } = RobotStatusEnum.NoAction;
 
         public Robot(int robotId, Vector2 pickupLocation, Vector2 location)
         {
@@ -19,11 +19,11 @@ namespace PuzzleSolver.Processing
 
         public enum RobotStatusEnum
         {
-            None,
-            MovingToPickup,
-            PickingUp,
-            MovingToDropoff,
-            DroppingOff
+            NoAction = 0,
+            MovingToPickup = 1,
+            PickingUp = 2,
+            MovingToDropoff = 3,
+            DroppingOff = 4
         }
     }
 }
