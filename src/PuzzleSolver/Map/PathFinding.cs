@@ -29,6 +29,10 @@ namespace PuzzleSolver.Map
                     _tiles[x, y] = new MapTile(x, y, map[x, y], _endLocation);
                 }
             }
+            //foreach (Robot robot in robots)
+            //{
+            //    _tiles[(int)robot.Location.X, (int)robot.Location.Y].TileType = "0";
+            //}
             
             //Establish the start and end tiles
             MapTile startTile = _tiles[(int)startLocation.X, (int)startLocation.Y];
