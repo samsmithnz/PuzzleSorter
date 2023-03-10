@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace PuzzleSolver
+namespace PuzzleSolver.Actions
 {
     public class Turn
     {

@@ -1,4 +1,4 @@
-﻿using PuzzleSolver.Processing;
+﻿using PuzzleSolver.Entities;
 using System.Collections.Generic;
 using System.Numerics;
 

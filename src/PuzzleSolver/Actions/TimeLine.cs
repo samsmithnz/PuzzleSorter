@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PuzzleSolver.MultipleRobots
+namespace PuzzleSolver.Actions
 {
     public class TimeLine
     {

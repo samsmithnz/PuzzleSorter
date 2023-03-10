@@ -3,7 +3,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Numerics;
 
-namespace PuzzleSolver.Processing
+namespace PuzzleSolver.Entities
 {
     public class Piece
     {

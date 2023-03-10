@@ -1,4 +1,4 @@
-﻿namespace PuzzleSolver.Processing
+﻿namespace PuzzleSolver.Actions
 {
     public class RobotStatus
     {

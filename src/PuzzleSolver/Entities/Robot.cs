@@ -1,7 +1,7 @@
 ﻿using System.Numerics;
-using static PuzzleSolver.Processing.RobotStatus;
+using static PuzzleSolver.Actions.RobotStatus;
 
-namespace PuzzleSolver.Processing
+namespace PuzzleSolver.Entities
 {
     public class Robot
     {

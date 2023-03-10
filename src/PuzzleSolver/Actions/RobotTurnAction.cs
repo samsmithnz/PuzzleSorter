@@ -1,9 +1,8 @@
-using PuzzleSolver.Processing;
 using System.Collections.Generic;
 using System.Numerics;
-using static PuzzleSolver.Processing.RobotStatus;
+using static PuzzleSolver.Actions.RobotStatus;
 
-namespace PuzzleSolver
+namespace PuzzleSolver.Actions
 {
     public class RobotTurnAction
     {

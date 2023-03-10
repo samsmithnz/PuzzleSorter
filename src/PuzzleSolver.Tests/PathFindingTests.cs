@@ -1,5 +1,5 @@
-﻿using PuzzleSolver.Map;
-using PuzzleSolver.Processing;
+﻿using PuzzleSolver.Entities;
+using PuzzleSolver.Map;
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 

@@ -1,7 +1,7 @@
 ﻿using PuzzleSolver.Map;
 using System.Numerics;
 
-namespace PuzzleSolver.Processing
+namespace PuzzleSolver.Actions
 {
     public class RobotAction
     {
