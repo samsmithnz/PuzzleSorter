@@ -9,7 +9,7 @@ namespace PuzzleSolver.Processing
         public Vector2 Location { get; set; }
         public Vector2 PickupLocation { get; set; }
         public Piece Piece { get; set; }
-        public RobotStatusEnum RobotStatus { get; set; } = RobotStatusEnum.NoAction;
+        public RobotStatusEnum RobotStatus { get; set; } = RobotStatusEnum.LookingForJob;
 
         public Robot(int robotId, Vector2 pickupLocation, Vector2 location)
         {

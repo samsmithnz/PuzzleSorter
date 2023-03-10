@@ -69,7 +69,7 @@ namespace PuzzleSolver
                 {
                     switch (robot.RobotStatus)
                     {
-                        case RobotStatus.RobotStatusEnum.NoAction:
+                        case RobotStatus.RobotStatusEnum.LookingForJob:
                             //If there are unsorted pieces, move to pickup
                             break;
                         case RobotStatus.RobotStatusEnum.MovingToPickup:

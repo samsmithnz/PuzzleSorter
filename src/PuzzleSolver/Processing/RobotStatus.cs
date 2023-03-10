@@ -4,7 +4,7 @@
     {
         public enum RobotStatusEnum
         {
-            NoAction = 0,
+            LookingForJob = 0,
             MovingToPickup = 1,
             PickingUp = 2,
             MovingToDropoff = 3,
