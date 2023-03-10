@@ -11,3 +11,17 @@ Some early prototypes:
 # How it works
 Based on the number of robots (agents that complete work), a timeline is created with the number of turns required. 
 - Each turn enables each robot to run one action, either a move from adjacent tile to another tile, pickup a piece, or a dropoff a piece.
+
+There are jobs:
+
+```mermaid
+flowchart TD
+    id0[Start] --> id1[Looking for new job]
+    id1[Looking for new job] --> idLook[Are there jobs]
+    idLook[Are there jobs?] --yes--> id2[Moving to pick up location]
+    id2[Moving to pick up location] --> id3[Picking up package]
+    id3[Picking up package] --> id4[Moving to delivery location]
+    id4[Moving to delivery location] --> id5[delivering package]
+    id5[Delivering package] --> id1[Looking for new job]
+    idLook[Are there jobs?] --no--> idEnd[End] 
+```
