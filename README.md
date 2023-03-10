@@ -14,6 +14,7 @@ Based on the number of robots (agents that complete work), a timeline is created
 
 There are jobs:
 
+```mermaid
 flowchart TD
     id0[Start] --> id1[Looking for new job]
     id1[Looking for new job] --> idLook[Are there jobs]
@@ -23,3 +24,4 @@ flowchart TD
     id4[Moving to delivery location] --> id5[delivering package]
     id5[Delivering package] --> id1[Looking for new job]
     idLook[Are there jobs?] --no--> idEnd[End] 
+```
