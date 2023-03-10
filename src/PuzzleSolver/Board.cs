@@ -49,47 +49,47 @@ namespace PuzzleSolver
             Robots = robots;
         }
 
-        public TimeLine RunRobots2()
-        {
-            TimeLine timeLine = new TimeLine();
-            //Create a dictonary to track robot turn progress over time
-            Dictionary<int, int> robotProgress = new Dictionary<int, int>();
-            foreach (Robot robot in Robots)
-            {
-                robotProgress.Add(robot.RobotId, 0);
-            }
+        //public TimeLine RunRobots2()
+        //{
+        //    TimeLine timeLine = new TimeLine();
+        //    //Create a dictonary to track robot turn progress over time
+        //    Dictionary<int, int> robotProgress = new Dictionary<int, int>();
+        //    foreach (Robot robot in Robots)
+        //    {
+        //        robotProgress.Add(robot.RobotId, 0);
+        //    }
 
-            //Need to loop through all unsorted pieces until they are sorted
-            while (UnsortedPieces.Count > 0)
-            {
-                //Sort the progress list to find the robot with the least number of turns - this is the robot who should pick up next
-                List<KeyValuePair<int, int>> orderedRobotProgress = robotProgress.OrderBy(x => x.Value).ToList();
-                //For each robot
-                foreach (Robot robot in Robots)
-                {
-                    switch (robot.RobotStatus)
-                    {
-                        case RobotStatus.RobotStatusEnum.LookingForJob:
-                            //If there are unsorted pieces, move to pickup
-                            break;
-                        case RobotStatus.RobotStatusEnum.MovingToPickupLocation:
-                            //If we are at the pickup location, and there are pieces, pick up the piece
-                            break;
-                        case RobotStatus.RobotStatusEnum.PickingUpPackage:
-                            //If the piece is picked up, move to dropoff
-                            break;
-                        case RobotStatus.RobotStatusEnum.MovingToDeliveryLocation:
-                            //If we are at the dropoff location, drop off the piece
-                            break;
-                        case RobotStatus.RobotStatusEnum.DeliveringPackage:
-                            //If the piece is dropped off, move to pickup
-                            break;
-                    }
-                }
-            }
+        //    //Need to loop through all unsorted pieces until they are sorted
+        //    while (UnsortedPieces.Count > 0)
+        //    {
+        //        //Sort the progress list to find the robot with the least number of turns - this is the robot who should pick up next
+        //        List<KeyValuePair<int, int>> orderedRobotProgress = robotProgress.OrderBy(x => x.Value).ToList();
+        //        //For each robot
+        //        foreach (Robot robot in Robots)
+        //        {
+        //            switch (robot.RobotStatus)
+        //            {
+        //                case RobotStatus.RobotStatusEnum.LookingForJob:
+        //                    //If there are unsorted pieces, move to pickup
+        //                    break;
+        //                case RobotStatus.RobotStatusEnum.MovingToPickupLocation:
+        //                    //If we are at the pickup location, and there are pieces, pick up the piece
+        //                    break;
+        //                case RobotStatus.RobotStatusEnum.PickingUpPackage:
+        //                    //If the piece is picked up, move to dropoff
+        //                    break;
+        //                case RobotStatus.RobotStatusEnum.MovingToDeliveryLocation:
+        //                    //If we are at the dropoff location, drop off the piece
+        //                    break;
+        //                case RobotStatus.RobotStatusEnum.DeliveringPackage:
+        //                    //If the piece is dropped off, move to pickup
+        //                    break;
+        //            }
+        //        }
+        //    }
 
-            return timeLine;
-        }
+        //    return timeLine;
+        //}
 
         public TimeLine RunRobots()
         {
