@@ -5,10 +5,10 @@
         public enum RobotStatusEnum
         {
             LookingForJob = 0,
-            MovingToPickup = 1,
-            PickingUp = 2,
-            MovingToDropoff = 3,
-            DroppingOff = 4
+            MovingToPickupLocation = 1,
+            PickingUpPackage = 2,
+            MovingToDeliveryLocation = 3,
+            DeliveringPackage = 4
         }
     }
 }

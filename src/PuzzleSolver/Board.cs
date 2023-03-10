@@ -72,16 +72,16 @@ namespace PuzzleSolver
                         case RobotStatus.RobotStatusEnum.LookingForJob:
                             //If there are unsorted pieces, move to pickup
                             break;
-                        case RobotStatus.RobotStatusEnum.MovingToPickup:
+                        case RobotStatus.RobotStatusEnum.MovingToPickupLocation:
                             //If we are at the pickup location, and there are pieces, pick up the piece
                             break;
-                        case RobotStatus.RobotStatusEnum.PickingUp:
+                        case RobotStatus.RobotStatusEnum.PickingUpPackage:
                             //If the piece is picked up, move to dropoff
                             break;
-                        case RobotStatus.RobotStatusEnum.MovingToDropoff:
+                        case RobotStatus.RobotStatusEnum.MovingToDeliveryLocation:
                             //If we are at the dropoff location, drop off the piece
                             break;
-                        case RobotStatus.RobotStatusEnum.DroppingOff:
+                        case RobotStatus.RobotStatusEnum.DeliveringPackage:
                             //If the piece is dropped off, move to pickup
                             break;
                     }
