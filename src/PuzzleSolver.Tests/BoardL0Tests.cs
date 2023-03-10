@@ -188,6 +188,7 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(turn1.RobotActions[0].PieceId);
             Assert.IsNull(turn1.RobotActions[0].Movement); //This is null because we start in the right location
             Assert.IsNotNull(turn1.RobotActions[0].PickupAction);
+            Assert.AreEqual(RobotStatus.RobotStatusEnum.PickingUpPackage, turn1.RobotActions[0].RobotStatus);
 
 
             //Assert.AreEqual(new(2, 1), turn1.RobotActions[0].RobotDropoffStartingLocation);
@@ -731,7 +732,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(4, turn4.TurnNumber);
             Assert.AreEqual(2, turn4.RobotActions.Count);
             Assert.AreEqual(1, turn4.RobotActions[0].PieceId);
-            Assert.AreEqual(null, turn4.RobotActions[1].PieceId); 
+            Assert.AreEqual(null, turn4.RobotActions[1].PieceId);
             Assert.AreEqual(new Vector2(1, 2), turn4.RobotActions[0].Movement[0]);
             Assert.AreEqual(new Vector2(1, 1), turn4.RobotActions[0].Movement[1]);
             Assert.AreEqual(new Vector2(1, 3), turn4.RobotActions[1].Movement[0]);
