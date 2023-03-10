@@ -118,6 +118,7 @@ namespace PuzzleSolver
                         //See if the robot needs to move to the pickup zone
                         if (robot.Location != robot.PickupLocation)
                         {
+                            robot.RobotStatus = RobotStatus.RobotStatusEnum.MovingToPickupLocation;
                             //Move the robot to the pickup zone - By doing this first we ensure we don't pick up a piece until we are there.
                             Vector2 currentRobotLocation = robot.Location;
                             Vector2 pickupLocation = robot.PickupLocation;
@@ -199,14 +200,14 @@ namespace PuzzleSolver
                                 robotAction.PathToPickup.Path.Count > 0)
                             {
                                 pickupCounter++;
-                                timeline.Turns[turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, null)
+                                timeline.Turns[turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToPickupLocation, null)
                                 {
                                     Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToPickup.Path[0] }
                                 });
                                 for (int j = 1; j <= robotAction.PathToPickup.Path.Count - 1; j++)
                                 {
                                     pickupCounter++;
-                                    timeline.Turns[turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, null)
+                                    timeline.Turns[turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToPickupLocation, null)
                                     {
                                         Movement = new List<Vector2>() { robotAction.PathToPickup.Path[j - 1], robotAction.PathToPickup.Path[j] }
                                     });
@@ -215,7 +216,7 @@ namespace PuzzleSolver
 
                             if (robotAction.PickupAction != null)
                             {
-                                timeline.Turns[pickupCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, piece.Id)
+                                timeline.Turns[pickupCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.PickingUpPackage, piece.Id)
                                 {
                                     PickupAction = robotAction.PickupAction
                                 });
@@ -230,14 +231,14 @@ namespace PuzzleSolver
                                 robotAction.PathToDropoff.Path.Count > 0)
                             {
                                 dropoffCounter++;
-                                timeline.Turns[pickupCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, piece.Id)
+                                timeline.Turns[pickupCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToDeliveryLocation, piece.Id)
                                 {
                                     Movement = new List<Vector2>() { robotAction.RobotDropoffStartingLocation, robotAction.PathToDropoff.Path[0] }
                                 });
                                 for (int j = 1; j <= robotAction.PathToDropoff.Path.Count - 1; j++)
                                 {
                                     dropoffCounter++;
-                                    timeline.Turns[pickupCounter + turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, piece.Id)
+                                    timeline.Turns[pickupCounter + turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToDeliveryLocation, piece.Id)
                                     {
                                         Movement = new List<Vector2>() { robotAction.PathToDropoff.Path[j - 1], robotAction.PathToDropoff.Path[j] }
                                     });
@@ -247,7 +248,7 @@ namespace PuzzleSolver
                             if (robotAction.DropoffAction != null)
                             {
                                 robotAction.DropoffAction.DestinationPieceCount = GetPieceCount(robotAction.DropoffAction.Location);
-                                timeline.Turns[pickupCounter + dropoffCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, piece.Id)
+                                timeline.Turns[pickupCounter + dropoffCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.DeliveringPackage, piece.Id)
                                 {
                                     DropoffAction = robotAction.DropoffAction
                                 });
@@ -313,14 +314,14 @@ namespace PuzzleSolver
                             robotAction.PathToPickup.Path.Count > 0)
                         {
                             pickupCounter++;
-                            timeline.Turns[turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, null)
+                            timeline.Turns[turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToPickupLocation, null)
                             {
                                 Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToPickup.Path[0] }
                             });
                             for (int j = 1; j <= robotAction.PathToPickup.Path.Count - 1; j++)
                             {
                                 pickupCounter++;
-                                timeline.Turns[turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, null)
+                                timeline.Turns[turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToPickupLocation, null)
                                 {
                                     Movement = new List<Vector2>() { robotAction.PathToPickup.Path[j - 1], robotAction.PathToPickup.Path[j] }
                                 });
@@ -388,6 +389,7 @@ namespace PuzzleSolver
             robotAction.RobotPickupStartingLocation = currentRobotLocation;
             if (currentRobotLocation != pickupLocation)
             {
+                robot.RobotStatus = RobotStatus.RobotStatusEnum.MovingToPickupLocation;
                 PathFindingResult pathFindingResultForPickup = PathFinding.FindPath(Map, currentRobotLocation, pickupLocation, Robots);
                 if (pathFindingResultForPickup != null && pathFindingResultForPickup.Path.Any())
                 {
@@ -403,6 +405,7 @@ namespace PuzzleSolver
             {
                 throw new System.Exception("Piece " + robot.Piece.Id + " was not delivered");
             }
+            robot.RobotStatus = RobotStatus.RobotStatusEnum.PickingUpPackage;
             robot.Piece = piece;
             robotAction.PieceId = piece.Id;
             robotAction.PickupAction = new ObjectInteraction()
@@ -440,6 +443,7 @@ namespace PuzzleSolver
             robotAction.RobotDropoffStartingLocation = currentRobotLocation;
             if (destinationLocation != null && pathDestinationLocation != null)
             {
+                robot.RobotStatus = RobotStatus.RobotStatusEnum.MovingToDeliveryLocation;
                 //now find the path
                 PathFindingResult pathFindingResultForDropoff = PathFinding.FindPath(Map, currentRobotLocation, (Vector2)pathDestinationLocation, Robots);
                 if (pathFindingResultForDropoff != null && pathFindingResultForDropoff.Path.Count >= 0)
@@ -451,6 +455,7 @@ namespace PuzzleSolver
                         Location = (Vector2)destinationLocation
                     };
                     //Move the piece from the robot to the sorted pile
+                    robot.RobotStatus = RobotStatus.RobotStatusEnum.DeliveringPackage;
                     robot.Piece.Location = robotAction.DropoffAction.Location;
                     SortedPieces.Add(robot.Piece);
                     foreach (SortedDropZone sortedDropZone in SortedDropZones)
@@ -469,6 +474,7 @@ namespace PuzzleSolver
                     }
                 }
             }
+            robot.RobotStatus = RobotStatus.RobotStatusEnum.LookingForJob;
             robotAction.RobotDropoffEndingLocation = currentRobotLocation;
 
             return robotAction;

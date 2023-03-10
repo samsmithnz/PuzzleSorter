@@ -13,9 +13,10 @@ namespace PuzzleSolver.Actions
         public ObjectInteraction PickupAction { get; set; } = null;
         public ObjectInteraction DropoffAction { get; set; } = null;
 
-        public RobotTurnAction(int robotId, int? pieceId)
+        public RobotTurnAction(int robotId, RobotStatusEnum robotStatus, int? pieceId)
         {
             RobotId = robotId;
+            RobotStatus = robotStatus;
             PieceId = pieceId;
         }
 
