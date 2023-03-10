@@ -331,6 +331,7 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(turn1.RobotActions[0].PickupAction);
             Assert.IsNull(turn1.RobotActions[0].DropoffAction);
             Assert.AreEqual(new(0, 1), board.SortedPieces[0].Location);
+            Assert.AreEqual(RobotStatus.RobotStatusEnum.PickingUpPackage, turn1.RobotActions[0].RobotStatus);
 
             ////Complete the second action
             //RobotAction turn2 = results.Dequeue();
