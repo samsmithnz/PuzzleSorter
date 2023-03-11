@@ -25,6 +25,8 @@ namespace PuzzleSolver
         //Characters
         public List<Robot> Robots { get; set; }
 
+     private   Dictionary<int, int> _RobotProgress = new Dictionary<int, int>();
+
         //Constructor
         public Board(string[,] map,
             Vector2 unsortedPiecesLocation,
@@ -70,21 +72,24 @@ namespace PuzzleSolver
                     switch (robot.RobotStatus)
                     {
                         case RobotStatus.RobotStatusEnum.LookingForJob:
+                            robot.RobotStatus = RobotStatus.RobotStatusEnum.MovingToPickupLocation;
+                            break;
+                        case RobotStatus.RobotStatusEnum.MovingToPickupLocation:
                             //If there are unsorted pieces, move to pickup
                             RobotAction robotActionPickup = new RobotAction();
                             robotActionPickup.RobotPickupStartingLocation = robot.Location;
                             PathFindingResult pathFindingResultForPickup = FindPickupPathToLocation(robot, robot.PickupLocation);
-                            robot.RobotStatus = RobotStatus.RobotStatusEnum.MovingToPickupLocation;
                             robotActionPickup.RobotPickupEndingLocation = pathFindingResultForPickup.Path.Last();
                             robot.Location = pathFindingResultForPickup.Path.Last();
-                            break;
-                        case RobotStatus.RobotStatusEnum.MovingToPickupLocation:
-                            //If we are at the pickup location, and there are pieces, pick up the piece
+                            if (robot.Location == robot.PickupLocation)
+                            {
+                                robot.RobotStatus = RobotStatus.RobotStatusEnum.PickingUpPackage;
+                            }
                             break;
                         case RobotStatus.RobotStatusEnum.PickingUpPackage:
-                            //If the piece is picked up, move to dropoff
+                            //If we are at the pickup location, and there are pieces, pick up the piece
                             RobotAction robotActionDropoff = new RobotAction();
-                          
+
                             // Process the unsorted piece to work out where it goes
                             Vector2? destinationLocation = null;
                             foreach (SortedDropZone sortedDropZone in SortedDropZones)
@@ -116,11 +121,18 @@ namespace PuzzleSolver
                                     robot.Location = pathFindingResultForDropoff.Path.Last();
                                 }
                             }
+                            if (robot.Location == pathDestinationLocation)
+                            {
+                                robot.RobotStatus = RobotStatus.RobotStatusEnum.MovingToDeliveryLocation;
+                            }
                             break;
                         case RobotStatus.RobotStatusEnum.MovingToDeliveryLocation:
-                            //If we are at the dropoff location, drop off the piece
+                            //If the piece is picked up, move to dropoff
                             break;
                         case RobotStatus.RobotStatusEnum.DeliveringPackage:
+                            //If we are at the dropoff location, drop off the piece
+
+
                             //If the piece is dropped off, move to pickup
                             break;
                     }
@@ -128,6 +140,17 @@ namespace PuzzleSolver
             }
 
             return timeLine;
+        }
+
+        public void PathFindingWithTimeline(string[,] map, Vector2 startLocation, Vector2 endLocation, int robotId, List<Robot> robots)
+        {
+            //Get the path
+            PathFindingResult pathFindingResultForPickup = PathFinding.FindPath(map, startLocation, endLocation, robots);
+
+            //Get the robot turn
+            int turn = _RobotProgress[robotId];
+
+            //Check the timeline to see if there are conflicts
         }
 
         public PathFindingResult FindPickupPathToLocation(Robot robot, Vector2 destination)
@@ -160,17 +183,16 @@ namespace PuzzleSolver
             TimeLine timeline = new TimeLine();
 
             //Create a dictonary to track robot turn progress over time
-            Dictionary<int, int> robotProgress = new Dictionary<int, int>();
             foreach (Robot robot in Robots)
             {
-                robotProgress.Add(robot.RobotId, 0);
+                _RobotProgress.Add(robot.RobotId, 0);
             }
 
             //Need to loop through all unsorted pieces until they are sorted
             while (UnsortedPieces.Count > 0)
             {
                 //Sort the progress list to find the robot with the least number of turns - this is the robot who should pick up next
-                List<KeyValuePair<int, int>> orderedRobotProgress = robotProgress.OrderBy(x => x.Value).ToList();
+                List<KeyValuePair<int, int>> orderedRobotProgress = _RobotProgress.OrderBy(x => x.Value).ToList();
                 //For each robot
                 foreach (Robot robot in Robots)
                 {
@@ -225,7 +247,7 @@ namespace PuzzleSolver
                         //process the robot action
                         if (robotAction != null)
                         {
-                            int turn = robotProgress[robot.RobotId];
+                            int turn = _RobotProgress[robot.RobotId];
                             int turnsNeeded = 0;
 
                             //move to pickup
@@ -319,7 +341,7 @@ namespace PuzzleSolver
                                 dropoffCounter++;
                                 robot.Location = robotAction.RobotDropoffEndingLocation;
                             }
-                            robotProgress[robot.RobotId] += pickupCounter + dropoffCounter;
+                            _RobotProgress[robot.RobotId] += pickupCounter + dropoffCounter;
                         }
                         break;
                     }
@@ -354,7 +376,7 @@ namespace PuzzleSolver
                     //process the robot action
                     if (robotAction != null)
                     {
-                        int turn = robotProgress[robot.RobotId];
+                        int turn = _RobotProgress[robot.RobotId];
                         int turnsNeeded = 0;
 
                         //move to pickup
@@ -391,7 +413,7 @@ namespace PuzzleSolver
                                 });
                             }
                         }
-                        robotProgress[robot.RobotId] += pickupCounter;
+                        _RobotProgress[robot.RobotId] += pickupCounter;
                     }
                 }
             }
