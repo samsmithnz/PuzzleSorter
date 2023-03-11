@@ -25,7 +25,7 @@ namespace PuzzleSolver
         //Characters
         public List<Robot> Robots { get; set; }
 
-     private   Dictionary<int, int> _RobotProgress = new Dictionary<int, int>();
+        private Dictionary<int, int> _RobotProgress = new Dictionary<int, int>();
 
         //Constructor
         public Board(string[,] map,
@@ -142,15 +142,35 @@ namespace PuzzleSolver
             return timeLine;
         }
 
-        public void PathFindingWithTimeline(string[,] map, Vector2 startLocation, Vector2 endLocation, int robotId, List<Robot> robots)
+        public PathFindingResult FindPathFindingWithTimeline(string[,] map, Vector2 startLocation, Vector2 endLocation, int robotId, List<Robot> robots, TimeLine timeLine)
         {
             //Get the path
-            PathFindingResult pathFindingResultForPickup = PathFinding.FindPath(map, startLocation, endLocation, robots);
+            PathFindingResult pathFindingResult = PathFinding.FindPath(map, startLocation, endLocation, robots);
 
             //Get the robot turn
             int turn = _RobotProgress[robotId];
 
             //Check the timeline to see if there are conflicts
+            int j = 0;
+            for (int i = turn - 1; i <= timeLine.Turns.Count - 1; i++)
+            {
+                foreach (RobotTurnAction robotTurnAction in timeLine.Turns[i].RobotActions)
+                {
+                    if (robotTurnAction.RobotId != robotId)
+                    {
+                        if (pathFindingResult.Path.Count - 1 > j &&
+                            robotTurnAction.Movement.Count > 0 &&
+                            pathFindingResult.Path[j].X == robotTurnAction.Movement[0].X &&
+                            pathFindingResult.Path[j].Y == robotTurnAction.Movement[0].Y)
+                        {
+                            //Add a wait action to the path
+                            pathFindingResult.Path.Insert(j, new Vector2(pathFindingResult.Path[j - 1].X, pathFindingResult.Path[j - 1].Y));
+                        }
+                    }
+                }
+            }
+
+            return pathFindingResult;
         }
 
         public PathFindingResult FindPickupPathToLocation(Robot robot, Vector2 destination)

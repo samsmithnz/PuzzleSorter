@@ -6,6 +6,7 @@ namespace PuzzleSolver.Actions
 {
     public class RobotAction
     {
+        public int RobotId { get; set; }
         public int PieceId { get; set; }
         public RobotStatusEnum RobotStatus { get; set; }
         public Vector2 RobotPickupStartingLocation { get; set; }
