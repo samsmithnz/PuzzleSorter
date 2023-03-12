@@ -148,7 +148,10 @@ namespace PuzzleSolver
             string[,] mapWithPickupLocations = (string[,])map.Clone();
             foreach (Robot robot in robots)
             {
-                mapWithPickupLocations[(int)robot.PickupLocation.X, (int)robot.PickupLocation.Y] = "P";
+                if (robot.RobotId != robotId)
+                {
+                    mapWithPickupLocations[(int)robot.PickupLocation.X, (int)robot.PickupLocation.Y] = "P";
+                }
             }
             PathFindingResult pathFindingResult = PathFinding.FindPath(mapWithPickupLocations, startLocation, endLocation);
             //if (robotId == 2)
