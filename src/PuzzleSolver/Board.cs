@@ -145,7 +145,12 @@ namespace PuzzleSolver
         public PathFindingResult FindPathFindingWithTimeline(string[,] map, Vector2 startLocation, Vector2 endLocation, int robotId, List<Robot> robots, TimeLine timeline)
         {
             //Get the path
-            PathFindingResult pathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
+            string[,] mapWithPickupLocations = (string[,])map.Clone();
+            foreach (Robot robot in robots)
+            {
+                mapWithPickupLocations[(int)robot.PickupLocation.X, (int)robot.PickupLocation.Y] = "P";
+            }
+            PathFindingResult pathFindingResult = PathFinding.FindPath(mapWithPickupLocations, startLocation, endLocation);
             //if (robotId == 2)
             //{
             //    foreach (Vector2 item in pathFindingResult.Path)
