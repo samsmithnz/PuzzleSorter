@@ -33,7 +33,7 @@ namespace PuzzleSolver.Tests
 ";
 
             //Act
-            PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation, new List<Robot>());
+            PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
             string mapString = MapCore.GetMapString(map);
 
             //Assert
@@ -71,7 +71,7 @@ namespace PuzzleSolver.Tests
 ";
 
             //Act
-            PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation, new List<Robot>());
+            PathFindingResult PathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
             string mapString = MapCore.GetMapString(map);
 
             //Assert
@@ -116,8 +116,8 @@ b . . . .
 ";
 
             //Act
-            PathFindingResult PathFindingResult = PathFinding.FindPath(map, robots[0].Location, endLocation1, new List<Robot>());
-            PathFindingResult PathFindingResult2 = PathFinding.FindPath(map, robots[1].Location, endLocation2, new List<Robot>());
+            PathFindingResult PathFindingResult = PathFinding.FindPath(map, robots[0].Location, endLocation1);
+            PathFindingResult PathFindingResult2 = PathFinding.FindPath(map, robots[1].Location, endLocation2);
             string mapString = MapCore.GetMapString(map);
 
             //Assert
