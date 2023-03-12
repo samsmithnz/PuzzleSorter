@@ -151,22 +151,30 @@ namespace PuzzleSolver
             int turn = _RobotProgress[robotId];
 
             //Check the timeline to see if there are conflicts
-            int j = 0;
+            //Look at every turn
             for (int i = turn; i <= timeline.Turns.Count - 1; i++)
             {
+                //Look at every robot action in that turn
                 foreach (RobotTurnAction robotTurnAction in timeline.Turns[i].RobotActions)
                 {
+                    //Only look at robots that aren't this one
                     if (robotTurnAction.RobotId != robotId)
                     {
                         if (pathFindingResult != null &&
                             pathFindingResult.Path.Count - 1 > j &&
                             robotTurnAction.Movement != null &&
-                            robotTurnAction.Movement.Count > 0 &&
-                            pathFindingResult.Path[j].X == robotTurnAction.Movement[0].X &&
-                            pathFindingResult.Path[j].Y == robotTurnAction.Movement[0].Y)
+                            robotTurnAction.Movement.Count > 0)
                         {
-                            //Add a wait action to the path
-                            pathFindingResult.Path.Insert(j, new Vector2(pathFindingResult.Path[j - 1].X, pathFindingResult.Path[j - 1].Y));
+                            //Loop through the path
+                            for (int x = 0; x < pathFindingResult.Path.Count - 1; x++)
+                            {
+                                if (pathFindingResult.Path[j].X == robotTurnAction.Movement[0].X &&
+                                    pathFindingResult.Path[j].Y == robotTurnAction.Movement[0].Y)
+                                {
+                                    //Add a wait action to the path
+                                    pathFindingResult.Path.Insert(x, new Vector2(pathFindingResult.Path[x - 1].X, pathFindingResult.Path[x - 1].Y));
+                                }
+                            }
                         }
                     }
                 }
