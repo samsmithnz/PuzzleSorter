@@ -764,6 +764,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(2, turn13.RobotActions.Count);
             Assert.AreEqual(new Vector2(2, 3), turn13.RobotActions[0].Movement[0]);
             Assert.AreEqual(new Vector2(1 ,3), turn13.RobotActions[0].Movement[1]);
+            Assert.AreEqual(2, turn13.RobotActions[1].RobotId);
             Assert.AreEqual(new Vector2(1, 3), turn13.RobotActions[1].Movement[0]);
             Assert.AreEqual(new Vector2(2, 3), turn13.RobotActions[1].Movement[1]);
 

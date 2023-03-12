@@ -156,6 +156,10 @@ namespace PuzzleSolver
                 //Look at every turn
                 for (int i = turn; i <= timeline.Turns.Count - 1; i++)
                 {
+                    if (i == 13)
+                    {
+                        int n = 0;
+                    }
                     //Look at every robot action in that turn
                     foreach (RobotTurnAction robotTurnAction in timeline.Turns[i].RobotActions)
                     {
