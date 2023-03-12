@@ -742,7 +742,6 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new Vector2(1, 3), turn4.RobotActions[1].Movement[0]);
             Assert.AreEqual(new Vector2(2, 3), turn4.RobotActions[1].Movement[1]);
 
-
             //Turn 11 check for bugs
             Turn turn11 = results.Turns[10];
             Assert.AreEqual(11, turn11.TurnNumber);
@@ -865,7 +864,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(0, board.UnsortedPieces.Count);
             Assert.AreEqual(10, board.SortedPieces.Count);
             Assert.IsNotNull(results);
-            Assert.AreEqual(50, results.Turns.Count);
+            Assert.AreEqual(61, results.Turns.Count);
 
             ////Turn 25, robot 2 picks up piece 6, and then loses it
             //Turn turn25 = results.Turns[24];
