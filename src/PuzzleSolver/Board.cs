@@ -147,38 +147,42 @@ namespace PuzzleSolver
             //Get the path
             PathFindingResult pathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
 
-            //Get the robot turn
-            int turn = _RobotProgress[robotId];
-
-            //Check the timeline to see if there are conflicts
-            //Look at every turn
-            for (int i = turn; i <= timeline.Turns.Count - 1; i++)
+            if (robots.Count > 1)
             {
-                //Look at every robot action in that turn
-                foreach (RobotTurnAction robotTurnAction in timeline.Turns[i].RobotActions)
+                //Get the robot turn
+                int turn = _RobotProgress[robotId];
+
+                //Check the timeline to see if there are conflicts
+                //Look at every turn
+                for (int i = turn; i <= timeline.Turns.Count - 1; i++)
                 {
-                    //Only look at robots that aren't this one
-                    if (robotTurnAction.RobotId != robotId)
+                    //Look at every robot action in that turn
+                    foreach (RobotTurnAction robotTurnAction in timeline.Turns[i].RobotActions)
                     {
-                        if (pathFindingResult != null &&
-                            pathFindingResult.Path.Count > 0 &&
-                            robotTurnAction.Movement != null &&
-                            robotTurnAction.Movement.Count > 0)
+                        //Only look at robots that aren't this one
+                        if (robotTurnAction.RobotId != robotId)
                         {
-                            //Loop through the path
-                            for (int k = 0; k < pathFindingResult.Path.Count - 1; k++)
+                            if (pathFindingResult != null &&
+                                pathFindingResult.Path.Count > 0 &&
+                                robotTurnAction.Movement != null &&
+                                robotTurnAction.Movement.Count > 0)
                             {
-                                if (pathFindingResult.Path[k].X == robotTurnAction.Movement[0].X &&
-                                    pathFindingResult.Path[k].Y == robotTurnAction.Movement[0].Y)
+                                //Loop through the path
+                                for (int k = 0; k < pathFindingResult.Path.Count - 1; k++)
                                 {
-                                    //Add a wait action to the path
-                                    if (k == 0)
+                                    if (pathFindingResult.Path[k].X == robotTurnAction.Movement[0].X &&
+                                        pathFindingResult.Path[k].Y == robotTurnAction.Movement[0].Y)
                                     {
-                                        pathFindingResult.Path.Insert(0, startLocation);
-                                    }
-                                    else
-                                    {
-                                        pathFindingResult.Path.Insert(k, new Vector2(pathFindingResult.Path[k - 1].X, pathFindingResult.Path[k - 1].Y));
+                                        //Add a wait action to the path
+                                        if (k == 0)
+                                        {
+                                            pathFindingResult.Path.Insert(0, startLocation);
+                                        }
+                                        else
+                                        {
+                                            pathFindingResult.Path.Insert(k, new Vector2(pathFindingResult.Path[k - 1].X, pathFindingResult.Path[k - 1].Y));
+                                        }
+                                        break;
                                     }
                                 }
                             }
