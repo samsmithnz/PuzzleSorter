@@ -38,7 +38,7 @@ public class MainLoop : MonoBehaviour
         string[,] map = MapGeneration.GenerateMap(width, height);
         System.Numerics.Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
         Utility.LogWithTime("Initializing color palette");
-        List<Rgb24> palette = ColorPalettes.Get16ColorPalette();
+        List<Rgb24> palette = ColorPalettes.Get6ColorPalette();
         Utility.LogWithTime("Initializing pieces");
         Dictionary<int, System.Numerics.Vector2> robotStartingLocations = new()
         {
