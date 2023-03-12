@@ -1,5 +1,6 @@
 using Assets.Scripts.Common;
 using PuzzleSolver;
+using PuzzleSolver.Entities;
 using PuzzleSolver.Images;
 using PuzzleSolver.Map;
 using PuzzleSolver.MultipleRobots;
