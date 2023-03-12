@@ -4,8 +4,8 @@ namespace PuzzleSolver.Actions
 {
     public class Turn
     {
-        public int TurnNumber;
-        public List<RobotTurnAction> RobotActions;
+        public int TurnNumber { get; set; }
+        public List<RobotTurnAction> RobotActions { get; set; }
 
         public Turn(int turnNumber)
         {

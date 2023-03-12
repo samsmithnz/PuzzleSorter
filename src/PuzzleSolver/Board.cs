@@ -152,13 +152,14 @@ namespace PuzzleSolver
 
             //Check the timeline to see if there are conflicts
             int j = 0;
-            for (int i = turn - 1; i <= timeline.Turns.Count - 1; i++)
+            for (int i = turn; i <= timeline.Turns.Count - 1; i++)
             {
                 foreach (RobotTurnAction robotTurnAction in timeline.Turns[i].RobotActions)
                 {
                     if (robotTurnAction.RobotId != robotId)
                     {
-                        if (pathFindingResult.Path.Count - 1 > j &&
+                        if (pathFindingResult != null &&
+                            pathFindingResult.Path.Count - 1 > j &&
                             robotTurnAction.Movement.Count > 0 &&
                             pathFindingResult.Path[j].X == robotTurnAction.Movement[0].X &&
                             pathFindingResult.Path[j].Y == robotTurnAction.Movement[0].Y)
