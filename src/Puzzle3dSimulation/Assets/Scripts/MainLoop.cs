@@ -109,7 +109,7 @@ public class MainLoop : MonoBehaviour
             pieceImageObject.transform.parent = pieceObject.transform;
             pieceImageObject.transform.localScale = new Vector3(1f, 0.1f, 1f);
             pieceImageObject.transform.SetLocalPositionAndRotation(
-                new Vector3(0f, 0.6f, 0f), 
+                new Vector3(0f, 0.6f, 0f),
                 Quaternion.Euler(new Vector3(0f, 180f, 0f)));
             y -= _PieceHeight;
         }
@@ -228,7 +228,14 @@ public class MainLoop : MonoBehaviour
 
         if (robotObject != null)
         {
-            Debug.Log("Robot " + robotId + " moving from " + startLocation + " to location " + endLocation.ToString());
+            if (startLocation == endLocation)
+            {
+                Debug.Log("Robot " + robotId + " is waiting at " + startLocation.ToString());
+            }
+            else
+            {
+                Debug.Log("Robot " + robotId + " moving from " + startLocation.ToString() + " to location " + endLocation.ToString());
+            }
             Movement movementScript = robotObject.GetComponent<Movement>();
             if (movementScript == null)
             {
