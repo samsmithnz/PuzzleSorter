@@ -53,7 +53,7 @@ namespace PuzzleSolver
 
         public TimeLine RunRobots2()
         {
-            TimeLine timeLine = new TimeLine();
+            TimeLine timeline = new TimeLine();
             //Create a dictonary to track robot turn progress over time
             Dictionary<int, int> robotProgress = new Dictionary<int, int>();
             foreach (Robot robot in Robots)
@@ -78,7 +78,7 @@ namespace PuzzleSolver
                             //If there are unsorted pieces, move to pickup
                             RobotAction robotActionPickup = new RobotAction();
                             robotActionPickup.RobotPickupStartingLocation = robot.Location;
-                            PathFindingResult pathFindingResultForPickup = FindPickupPathToLocation(robot, robot.PickupLocation);
+                            PathFindingResult pathFindingResultForPickup = FindPickupPathToLocation(robot, robot.PickupLocation, timeline);
                             robotActionPickup.RobotPickupEndingLocation = pathFindingResultForPickup.Path.Last();
                             robot.Location = pathFindingResultForPickup.Path.Last();
                             if (robot.Location == robot.PickupLocation)
@@ -115,7 +115,7 @@ namespace PuzzleSolver
                                     pathDestinationLocation = (Vector2)adjacentLocation;
                                     robotActionDropoff.RobotDropoffStartingLocation = robot.Location;
 
-                                    PathFindingResult pathFindingResultForDropoff = FindPickupPathToLocation(robot, (Vector2)pathDestinationLocation);
+                                    PathFindingResult pathFindingResultForDropoff = FindPickupPathToLocation(robot, (Vector2)pathDestinationLocation, timeline);
                                     robot.RobotStatus = RobotStatus.RobotStatusEnum.MovingToPickupLocation;
                                     robotActionDropoff.RobotDropoffEndingLocation = pathFindingResultForDropoff.Path.Last();
                                     robot.Location = pathFindingResultForDropoff.Path.Last();
@@ -139,22 +139,22 @@ namespace PuzzleSolver
                 }
             }
 
-            return timeLine;
+            return timeline;
         }
 
-        public PathFindingResult FindPathFindingWithTimeline(string[,] map, Vector2 startLocation, Vector2 endLocation, int robotId, List<Robot> robots, TimeLine timeLine)
+        public PathFindingResult FindPathFindingWithTimeline(string[,] map, Vector2 startLocation, Vector2 endLocation, int robotId, List<Robot> robots, TimeLine timeline)
         {
             //Get the path
-            PathFindingResult pathFindingResult = PathFinding.FindPath(map, startLocation, endLocation, robots);
+            PathFindingResult pathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
 
             //Get the robot turn
             int turn = _RobotProgress[robotId];
 
             //Check the timeline to see if there are conflicts
             int j = 0;
-            for (int i = turn - 1; i <= timeLine.Turns.Count - 1; i++)
+            for (int i = turn - 1; i <= timeline.Turns.Count - 1; i++)
             {
-                foreach (RobotTurnAction robotTurnAction in timeLine.Turns[i].RobotActions)
+                foreach (RobotTurnAction robotTurnAction in timeline.Turns[i].RobotActions)
                 {
                     if (robotTurnAction.RobotId != robotId)
                     {
@@ -173,7 +173,7 @@ namespace PuzzleSolver
             return pathFindingResult;
         }
 
-        public PathFindingResult FindPickupPathToLocation(Robot robot, Vector2 destination)
+        public PathFindingResult FindPickupPathToLocation(Robot robot, Vector2 destination, TimeLine timeline)
         {
             PathFindingResult pathFindingResult = null;
             if (robot.Location != destination)
@@ -185,7 +185,7 @@ namespace PuzzleSolver
 
                 // Move to unsorted pile
                 //robotAction.RobotPickupStartingLocation = currentRobotLocation;
-                PathFindingResult pathFindingResultForPickup = PathFinding.FindPath(Map, robot.Location, robot.PickupLocation, Robots);
+                PathFindingResult pathFindingResultForPickup = FindPathFindingWithTimeline(Map, robot.Location, robot.PickupLocation, robot.RobotId, Robots, timeline);
                 if (pathFindingResultForPickup != null && pathFindingResultForPickup.Path.Any())
                 {
                     //Move robot
@@ -233,7 +233,7 @@ namespace PuzzleSolver
                             robotAction.RobotPickupStartingLocation = currentRobotLocation;
                             if (currentRobotLocation != pickupLocation)
                             {
-                                PathFindingResult pathFindingResultForPickup = PathFinding.FindPath(Map, currentRobotLocation, pickupLocation, Robots);
+                                PathFindingResult pathFindingResultForPickup = FindPathFindingWithTimeline(Map, currentRobotLocation, pickupLocation, robot.RobotId, Robots, timeline);
                                 if (pathFindingResultForPickup != null && pathFindingResultForPickup.Path.Any())
                                 {
                                     //Move robot
@@ -248,7 +248,7 @@ namespace PuzzleSolver
                         else if (robot.Piece == null && UnsortedPieces.Count > 0)
                         {
                             piece = UnsortedPieces.Dequeue();
-                            robotAction = GetRobotAction(robot, piece);
+                            robotAction = GetRobotAction(robot, piece, timeline);
                         }
                         ////Robot is holding the piece
                         //else if (robot.Piece != null)
@@ -382,7 +382,7 @@ namespace PuzzleSolver
                     robotAction.RobotPickupStartingLocation = currentRobotLocation;
                     if (currentRobotLocation != pickupLocation)
                     {
-                        PathFindingResult pathFindingResultForPickup = PathFinding.FindPath(Map, currentRobotLocation, pickupLocation, Robots);
+                        PathFindingResult pathFindingResultForPickup = FindPathFindingWithTimeline(Map, currentRobotLocation, pickupLocation, robot.RobotId, Robots, timeline);
                         if (pathFindingResultForPickup != null && pathFindingResultForPickup.Path.Any())
                         {
                             //Move robot
@@ -484,7 +484,7 @@ namespace PuzzleSolver
             return adjacentLocation;
         }
 
-        private RobotAction GetRobotAction(Robot robot, Piece piece)
+        private RobotAction GetRobotAction(Robot robot, Piece piece, TimeLine timeline)
         {
             RobotAction robotAction = new RobotAction();
 
@@ -496,7 +496,7 @@ namespace PuzzleSolver
             if (currentRobotLocation != pickupLocation)
             {
                 robot.RobotStatus = RobotStatus.RobotStatusEnum.MovingToPickupLocation;
-                PathFindingResult pathFindingResultForPickup = PathFinding.FindPath(Map, currentRobotLocation, pickupLocation, Robots);
+                PathFindingResult pathFindingResultForPickup = FindPathFindingWithTimeline(Map, currentRobotLocation, pickupLocation, robot.RobotId, Robots, timeline);
                 if (pathFindingResultForPickup != null && pathFindingResultForPickup.Path.Any())
                 {
                     //Move robot
@@ -551,7 +551,7 @@ namespace PuzzleSolver
             {
                 robot.RobotStatus = RobotStatus.RobotStatusEnum.MovingToDeliveryLocation;
                 //now find the path
-                PathFindingResult pathFindingResultForDropoff = PathFinding.FindPath(Map, currentRobotLocation, (Vector2)pathDestinationLocation, Robots);
+                PathFindingResult pathFindingResultForDropoff = FindPathFindingWithTimeline(Map, currentRobotLocation, (Vector2)pathDestinationLocation, robot.RobotId, Robots, timeline);
                 if (pathFindingResultForDropoff != null && pathFindingResultForDropoff.Path.Count >= 0)
                 {
                     //Move robot
