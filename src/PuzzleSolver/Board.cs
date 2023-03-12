@@ -161,18 +161,18 @@ namespace PuzzleSolver
                     if (robotTurnAction.RobotId != robotId)
                     {
                         if (pathFindingResult != null &&
-                            pathFindingResult.Path.Count - 1 > j &&
+                            pathFindingResult.Path.Count > 0 &&
                             robotTurnAction.Movement != null &&
                             robotTurnAction.Movement.Count > 0)
                         {
                             //Loop through the path
-                            for (int x = 0; x < pathFindingResult.Path.Count - 1; x++)
+                            for (int k = 0; k < pathFindingResult.Path.Count - 1; k++)
                             {
-                                if (pathFindingResult.Path[j].X == robotTurnAction.Movement[0].X &&
-                                    pathFindingResult.Path[j].Y == robotTurnAction.Movement[0].Y)
+                                if (pathFindingResult.Path[k].X == robotTurnAction.Movement[0].X &&
+                                    pathFindingResult.Path[k].Y == robotTurnAction.Movement[0].Y)
                                 {
                                     //Add a wait action to the path
-                                    pathFindingResult.Path.Insert(x, new Vector2(pathFindingResult.Path[x - 1].X, pathFindingResult.Path[x - 1].Y));
+                                    pathFindingResult.Path.Insert(k, new Vector2(pathFindingResult.Path[k - 1].X, pathFindingResult.Path[k - 1].Y));
                                 }
                             }
                         }
