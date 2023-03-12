@@ -160,6 +160,7 @@ namespace PuzzleSolver
                     {
                         if (pathFindingResult != null &&
                             pathFindingResult.Path.Count - 1 > j &&
+                            robotTurnAction.Movement != null &&
                             robotTurnAction.Movement.Count > 0 &&
                             pathFindingResult.Path[j].X == robotTurnAction.Movement[0].X &&
                             pathFindingResult.Path[j].Y == robotTurnAction.Movement[0].Y)
