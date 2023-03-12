@@ -3,8 +3,6 @@ using PuzzleSolver;
 using PuzzleSolver.Entities;
 using PuzzleSolver.Images;
 using PuzzleSolver.Map;
-using PuzzleSolver.MultipleRobots;
-using PuzzleSolver.Processing;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Collections;
