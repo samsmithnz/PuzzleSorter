@@ -146,17 +146,17 @@ namespace PuzzleSolver
         {
             //Get the path
             PathFindingResult pathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
-            //if (robotId == 2)
-            //{
-            //    foreach (Vector2 item in pathFindingResult.Path)
-            //    {
-            //        if (item == new Vector2(1, 3))
-            //        {
-            //            int m = 0;
-            //            break;
-            //        }
-            //    }
-            //}
+            if (robotId == 2)
+            {
+                foreach (Vector2 item in pathFindingResult.Path)
+                {
+                    if (item == new Vector2(1, 3))
+                    {
+                        int m = 0;
+                        break;
+                    }
+                }
+            }
 
 
             if (robots.Count > 1)
@@ -187,10 +187,10 @@ namespace PuzzleSolver
                                 for (int k = 0; k < pathFindingResult.Path.Count - 1; k++)
                                 {
                                     //Check that the location the robot is moving too isn't the destination of another robot
-                                    if (pathFindingResult.Path[k].X == robotTurnAction.Movement[0].X &&
-                                        pathFindingResult.Path[k].Y == robotTurnAction.Movement[0].Y &&
-                                        pathFindingResult.Path[k].X == robotTurnAction.Movement[1].X &&
-                                        pathFindingResult.Path[k].Y == robotTurnAction.Movement[1].Y)
+                                    if ((pathFindingResult.Path[k].X == robotTurnAction.Movement[0].X &&
+                                        pathFindingResult.Path[k].Y == robotTurnAction.Movement[0].Y) ||
+                                        (pathFindingResult.Path[k].X == robotTurnAction.Movement[1].X &&
+                                        pathFindingResult.Path[k].Y == robotTurnAction.Movement[1].Y))
                                     {
                                         //Add a wait action to the path
                                         if (k == 0)
