@@ -146,6 +146,18 @@ namespace PuzzleSolver
         {
             //Get the path
             PathFindingResult pathFindingResult = PathFinding.FindPath(map, startLocation, endLocation);
+            //if (robotId == 2)
+            //{
+            //    foreach (Vector2 item in pathFindingResult.Path)
+            //    {
+            //        if (item == new Vector2(1, 3))
+            //        {
+            //            int m = 0;
+            //            break;
+            //        }
+            //    }
+            //}
+
 
             if (robots.Count > 1)
             {
@@ -156,7 +168,7 @@ namespace PuzzleSolver
                 //Look at every turn
                 for (int i = turn; i <= timeline.Turns.Count - 1; i++)
                 {
-                    if (i == 13)
+                    if (i == 11 || i == 12 || i == 13)
                     {
                         int n = 0;
                     }
@@ -174,8 +186,11 @@ namespace PuzzleSolver
                                 //Loop through the path
                                 for (int k = 0; k < pathFindingResult.Path.Count - 1; k++)
                                 {
+                                    //Check that the location the robot is moving too isn't the destination of another robot
                                     if (pathFindingResult.Path[k].X == robotTurnAction.Movement[0].X &&
-                                        pathFindingResult.Path[k].Y == robotTurnAction.Movement[0].Y)
+                                        pathFindingResult.Path[k].Y == robotTurnAction.Movement[0].Y &&
+                                        pathFindingResult.Path[k].X == robotTurnAction.Movement[1].X &&
+                                        pathFindingResult.Path[k].Y == robotTurnAction.Movement[1].Y)
                                     {
                                         //Add a wait action to the path
                                         if (k == 0)
@@ -198,30 +213,30 @@ namespace PuzzleSolver
             return pathFindingResult;
         }
 
-        public PathFindingResult FindPickupPathToLocation(Robot robot, Vector2 destination, TimeLine timeline)
-        {
-            PathFindingResult pathFindingResult = null;
-            if (robot.Location != destination)
-            {
-                robot.RobotStatus = RobotStatus.RobotStatusEnum.MovingToPickupLocation;
-                //Move the robot to the pickup zone - By doing this first we ensure we don't pick up a piece until we are there.
-                //Vector2 currentRobotLocation = robot.Location;
-                //Vector2 pickupLocation = robot.PickupLocation;
+        //public PathFindingResult FindPickupPathToLocation(Robot robot, Vector2 destination, TimeLine timeline)
+        //{
+        //    PathFindingResult pathFindingResult = null;
+        //    if (robot.Location != destination)
+        //    {
+        //        robot.RobotStatus = RobotStatus.RobotStatusEnum.MovingToPickupLocation;
+        //        //Move the robot to the pickup zone - By doing this first we ensure we don't pick up a piece until we are there.
+        //        //Vector2 currentRobotLocation = robot.Location;
+        //        //Vector2 pickupLocation = robot.PickupLocation;
 
-                // Move to unsorted pile
-                //robotAction.RobotPickupStartingLocation = currentRobotLocation;
-                PathFindingResult pathFindingResultForPickup = FindPathFindingWithTimeline(Map, robot.Location, robot.PickupLocation, robot.RobotId, Robots, timeline);
-                if (pathFindingResultForPickup != null && pathFindingResultForPickup.Path.Any())
-                {
-                    //Move robot
-                    pathFindingResult = pathFindingResultForPickup;
-                    //currentRobotLocation = pathFindingResultForPickup.Path.Last();
-                }
-                //robotAction.RobotPickupEndingLocation = currentRobotLocation;
-                //robot.Location = currentRobotLocation;
-            }
-            return pathFindingResult;
-        }
+        //        // Move to unsorted pile
+        //        //robotAction.RobotPickupStartingLocation = currentRobotLocation;
+        //        PathFindingResult pathFindingResultForPickup = FindPathFindingWithTimeline(Map, robot.Location, robot.PickupLocation, robot.RobotId, Robots, timeline);
+        //        if (pathFindingResultForPickup != null && pathFindingResultForPickup.Path.Any())
+        //        {
+        //            //Move robot
+        //            pathFindingResult = pathFindingResultForPickup;
+        //            //currentRobotLocation = pathFindingResultForPickup.Path.Last();
+        //        }
+        //        //robotAction.RobotPickupEndingLocation = currentRobotLocation;
+        //        //robot.Location = currentRobotLocation;
+        //    }
+        //    return pathFindingResult;
+        //}
 
         public TimeLine RunRobots()
         {
