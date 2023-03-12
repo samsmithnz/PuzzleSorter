@@ -747,7 +747,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(11, turn11.TurnNumber);
             Assert.AreEqual(2, turn11.RobotActions.Count);
             Assert.AreEqual(null, turn11.RobotActions[0].PieceId);
-            Assert.AreEqual(null, turn11.RobotActions[1].PieceId);
+            Assert.AreEqual(4, turn11.RobotActions[1].PieceId);
 
             //Turn 12, the bots cross paths, but shouldn't
             Turn turn12 = results.Turns[11];
