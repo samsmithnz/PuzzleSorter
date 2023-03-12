@@ -172,7 +172,14 @@ namespace PuzzleSolver
                                     pathFindingResult.Path[k].Y == robotTurnAction.Movement[0].Y)
                                 {
                                     //Add a wait action to the path
-                                    pathFindingResult.Path.Insert(k, new Vector2(pathFindingResult.Path[k - 1].X, pathFindingResult.Path[k - 1].Y));
+                                    if (k == 0)
+                                    {
+                                        pathFindingResult.Path.Insert(0, startLocation);
+                                    }
+                                    else
+                                    {
+                                        pathFindingResult.Path.Insert(k, new Vector2(pathFindingResult.Path[k - 1].X, pathFindingResult.Path[k - 1].Y));
+                                    }
                                 }
                             }
                         }
