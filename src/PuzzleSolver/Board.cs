@@ -176,10 +176,10 @@ namespace PuzzleSolver
                 //Look at every turn
                 for (int i = turn; i <= timeline.Turns.Count - 1; i++)
                 {
-                    if (i == 11 || i == 12 || i == 13)
-                    {
-                        int n = 0;
-                    }
+                    //if (i == 11 || i == 12 || i == 13)
+                    //{
+                    //    int n = 0;
+                    //}
                     //Look at every robot action in that turn
                     foreach (RobotTurnAction robotTurnAction in timeline.Turns[i].RobotActions)
                     {
@@ -353,18 +353,27 @@ namespace PuzzleSolver
                                 robotAction.PathToPickup.Path != null &&
                                 robotAction.PathToPickup.Path.Count > 0)
                             {
+                                Robot robotPathRemaining = GetRobot(robotAction.RobotId);
+                                if (robotPathRemaining != null)
+                                {
+                                    robotPathRemaining.RobotPath = new Queue<Vector2>(robotAction.PathToPickup.Path);
+                                }
                                 pickupCounter++;
                                 timeline.Turns[turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToPickupLocation, null)
                                 {
-                                    Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToPickup.Path[0] }
+                                    Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToPickup.Path[0] },
+                                    PathRemaining = robotPathRemaining.RobotPath.ToList()
                                 });
+                                robotPathRemaining.RobotPath.Dequeue();
                                 for (int j = 1; j <= robotAction.PathToPickup.Path.Count - 1; j++)
                                 {
                                     pickupCounter++;
                                     timeline.Turns[turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToPickupLocation, null)
                                     {
-                                        Movement = new List<Vector2>() { robotAction.PathToPickup.Path[j - 1], robotAction.PathToPickup.Path[j] }
+                                        Movement = new List<Vector2>() { robotAction.PathToPickup.Path[j - 1], robotAction.PathToPickup.Path[j] },
+                                        PathRemaining = robotPathRemaining.RobotPath.ToList()
                                     });
+                                    robotPathRemaining.RobotPath.Dequeue();
                                 }
                             }
 
@@ -384,18 +393,27 @@ namespace PuzzleSolver
                                 robotAction.PathToDropoff.Path != null &&
                                 robotAction.PathToDropoff.Path.Count > 0)
                             {
+                                Robot robotPathRemaining = GetRobot(robotAction.RobotId);
+                                if (robotPathRemaining != null)
+                                {
+                                    robotPathRemaining.RobotPath = new Queue<Vector2>(robotAction.PathToDropoff.Path);
+                                }
                                 dropoffCounter++;
                                 timeline.Turns[pickupCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToDeliveryLocation, piece.Id)
                                 {
-                                    Movement = new List<Vector2>() { robotAction.RobotDropoffStartingLocation, robotAction.PathToDropoff.Path[0] }
+                                    Movement = new List<Vector2>() { robotAction.RobotDropoffStartingLocation, robotAction.PathToDropoff.Path[0] },
+                                    PathRemaining = robotPathRemaining.RobotPath.ToList()
                                 });
+                                robotPathRemaining.RobotPath.Dequeue();
                                 for (int j = 1; j <= robotAction.PathToDropoff.Path.Count - 1; j++)
                                 {
                                     dropoffCounter++;
                                     timeline.Turns[pickupCounter + turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToDeliveryLocation, piece.Id)
                                     {
-                                        Movement = new List<Vector2>() { robotAction.PathToDropoff.Path[j - 1], robotAction.PathToDropoff.Path[j] }
+                                        Movement = new List<Vector2>() { robotAction.PathToDropoff.Path[j - 1], robotAction.PathToDropoff.Path[j] },
+                                        PathRemaining = robotPathRemaining.RobotPath.ToList()
                                     });
+                                    robotPathRemaining.RobotPath.Dequeue();
                                 }
                             }
 
@@ -467,18 +485,27 @@ namespace PuzzleSolver
                             robotAction.PathToPickup.Path != null &&
                             robotAction.PathToPickup.Path.Count > 0)
                         {
+                            Robot robotPathRemaining = GetRobot(robotAction.RobotId);
+                            if (robotPathRemaining != null)
+                            {
+                                robotPathRemaining.RobotPath = new Queue<Vector2>(robotAction.PathToPickup.Path);
+                            }
                             pickupCounter++;
                             timeline.Turns[turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToPickupLocation, null)
                             {
-                                Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToPickup.Path[0] }
+                                Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToPickup.Path[0] },
+                                PathRemaining = robotPathRemaining.RobotPath.ToList()
                             });
+                            robotPathRemaining.RobotPath.Dequeue();
                             for (int j = 1; j <= robotAction.PathToPickup.Path.Count - 1; j++)
                             {
                                 pickupCounter++;
                                 timeline.Turns[turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToPickupLocation, null)
                                 {
-                                    Movement = new List<Vector2>() { robotAction.PathToPickup.Path[j - 1], robotAction.PathToPickup.Path[j] }
+                                    Movement = new List<Vector2>() { robotAction.PathToPickup.Path[j - 1], robotAction.PathToPickup.Path[j] },
+                                    PathRemaining = robotPathRemaining.RobotPath.ToList()
                                 });
+                                robotPathRemaining.RobotPath.Dequeue();
                             }
                         }
                         _RobotProgress[robot.RobotId] += pickupCounter;
@@ -487,6 +514,20 @@ namespace PuzzleSolver
             }
 
             return timeline;
+        }
+
+        private Robot GetRobot(int robotId)
+        {
+            Robot result = null;
+            foreach (Robot robot in Robots)
+            {
+                if (robot.RobotId == robotId)
+                {
+                    result = robot;
+                    break;
+                }
+            }
+            return result;
         }
 
         public int GetPieceCount(Vector2 dropOfflocation)
