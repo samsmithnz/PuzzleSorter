@@ -1028,7 +1028,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new Vector2(1, 2), turn4.RobotActions[1].Movement[1]);
 
             Turn turn5 = results.Turns[4];
-            Assert.AreEqual(4, turn5.TurnNumber);
+            Assert.AreEqual(5, turn5.TurnNumber);
             Assert.AreEqual(2, turn5.RobotActions.Count);
             Assert.AreEqual(null, turn5.RobotActions[1].PieceId);
             Assert.AreEqual(new Vector2(1, 1), turn5.RobotActions[0].Movement[0]);
@@ -1037,7 +1037,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new Vector2(2, 3), turn5.RobotActions[1].Movement[1]);
 
             Turn turn6 = results.Turns[5];
-            Assert.AreEqual(4, turn6.TurnNumber);
+            Assert.AreEqual(6, turn6.TurnNumber);
             Assert.AreEqual(2, turn6.RobotActions.Count);
             Assert.AreEqual(null, turn6.RobotActions[1].PieceId);
             Assert.AreEqual(new Vector2(1, 1), turn6.RobotActions[0].Movement[0]);
@@ -1046,7 +1046,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new Vector2(2, 3), turn6.RobotActions[1].Movement[1]);
 
             Turn turn7 = results.Turns[6];
-            Assert.AreEqual(4, turn7.TurnNumber);
+            Assert.AreEqual(7, turn7.TurnNumber);
             Assert.AreEqual(2, turn7.RobotActions.Count);
             Assert.AreEqual(null, turn7.RobotActions[1].PieceId);
             Assert.AreEqual(new Vector2(1, 1), turn7.RobotActions[0].Movement[0]);
@@ -1055,7 +1055,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new Vector2(2, 3), turn7.RobotActions[1].Movement[1]);
 
             Turn turn8 = results.Turns[7];
-            Assert.AreEqual(4, turn8.TurnNumber);
+            Assert.AreEqual(8, turn8.TurnNumber);
             Assert.AreEqual(2, turn8.RobotActions.Count);
             Assert.AreEqual(null, turn8.RobotActions[1].PieceId);
             Assert.AreEqual(new Vector2(1, 1), turn8.RobotActions[0].Movement[0]);
