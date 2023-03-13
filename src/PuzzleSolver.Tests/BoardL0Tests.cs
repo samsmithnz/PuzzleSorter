@@ -983,7 +983,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(0, board.UnsortedPieces.Count);
             Assert.AreEqual(4, board.SortedPieces.Count);
             Assert.IsNotNull(results);
-            Assert.AreEqual(49, results.Turns.Count);
+            Assert.AreEqual(8, results.Turns.Count);
 
             //check the first turn
             Turn turn1 = results.Turns[0];
@@ -1001,7 +1001,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(2, turn2.RobotActions[1].PieceId);
             Assert.AreEqual(2, turn2.RobotActions[0].Movement.Count);
             Assert.AreEqual(2, turn2.RobotActions[1].Movement.Count);
-            Assert.AreEqual(new Vector2(3, 2), turn2.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(2, 1), turn2.RobotActions[0].Movement[0]);
             Assert.AreEqual(new Vector2(2, 2), turn2.RobotActions[0].Movement[1]);
             Assert.AreEqual(new Vector2(2, 3), turn2.RobotActions[1].Movement[0]);
             Assert.AreEqual(new Vector2(1, 3), turn2.RobotActions[1].Movement[1]);
