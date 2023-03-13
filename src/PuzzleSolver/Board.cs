@@ -661,27 +661,30 @@ namespace PuzzleSolver
                 {
                     //Move robot
                     robotAction.PathToDropoff = pathFindingResultForDropoff;
-                    robotAction.DropoffAction = new ObjectInteraction()
+                    if ((Vector2)pathDestinationLocation == pathFindingResultForDropoff.Path.LastOrDefault())
                     {
-                        Location = (Vector2)destinationLocation
-                    };
-                    //Move the piece from the robot to the sorted pile
-                    robot.RobotStatus = RobotStatus.RobotStatusEnum.DeliveringPackage;
-                    robot.Piece.Location = robotAction.DropoffAction.Location;
-                    SortedPieces.Add(robot.Piece);
-                    foreach (SortedDropZone sortedDropZone in SortedDropZones)
-                    {
-                        if (sortedDropZone.Location == destinationLocation)
+                        robotAction.DropoffAction = new ObjectInteraction()
                         {
-                            sortedDropZone.Count++;
-                            break;
+                            Location = (Vector2)destinationLocation
+                        };
+                        //Move the piece from the robot to the sorted pile
+                        robot.RobotStatus = RobotStatus.RobotStatusEnum.DeliveringPackage;
+                        robot.Piece.Location = robotAction.DropoffAction.Location;
+                        SortedPieces.Add(robot.Piece);
+                        foreach (SortedDropZone sortedDropZone in SortedDropZones)
+                        {
+                            if (sortedDropZone.Location == destinationLocation)
+                            {
+                                sortedDropZone.Count++;
+                                break;
+                            }
                         }
-                    }
-                    robot.Piece = null;
-                    robotAction.DropoffPieceCount = GetPieceCount(robotAction.DropoffAction.Location);
-                    if (pathFindingResultForDropoff.Path.Count > 0)
-                    {
-                        currentRobotLocation = pathFindingResultForDropoff.Path.Last();
+                        robot.Piece = null;
+                        robotAction.DropoffPieceCount = GetPieceCount(robotAction.DropoffAction.Location);
+                        if (pathFindingResultForDropoff.Path.Count > 0)
+                        {
+                            currentRobotLocation = pathFindingResultForDropoff.Path.Last();
+                        }
                     }
                 }
             }

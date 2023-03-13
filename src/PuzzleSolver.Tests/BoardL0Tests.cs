@@ -1154,7 +1154,7 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(results);
             Assert.AreEqual(4, results.Turns.Count);
 
-            //Pickup
+            //Robot 1 + 2 Pickup
             Turn turn1 = results.Turns[0];
             Assert.AreEqual(1, turn1.TurnNumber);
             Assert.AreEqual(2, turn1.RobotActions.Count);
