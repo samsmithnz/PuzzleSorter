@@ -422,16 +422,16 @@ public class MainLoop : MonoBehaviour
     {
         List<Piece> pieces = new()
         {
-            new Piece() {
-                Id = 1,
-                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
-                Location = centerPointLocation
-            },
-            new Piece() {
-                Id = 2,
-                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>()),
-                Location = centerPointLocation
-            },
+            //new Piece() {
+            //    Id = 1,
+            //    Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
+            //    Location = centerPointLocation
+            //},
+            //new Piece() {
+            //    Id = 2,
+            //    Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>()),
+            //    Location = centerPointLocation
+            //},
             new Piece() {
                 Id = 3,
                 Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
