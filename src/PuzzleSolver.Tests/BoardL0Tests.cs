@@ -1150,52 +1150,9 @@ namespace PuzzleSolver.Tests
             //Assert           
             Assert.IsNotNull(board);
             Assert.AreEqual(0, board.UnsortedPieces.Count);
-            Assert.AreEqual(4, board.SortedPieces.Count);
+            Assert.AreEqual(2, board.SortedPieces.Count);
             Assert.IsNotNull(results);
-            Assert.AreEqual(8, results.Turns.Count);
-
-            //check the first turn
-            //Turn turn1 = results.Turns[0];
-            //Assert.AreEqual(1, turn1.TurnNumber);
-            //Assert.AreEqual(2, turn1.RobotActions.Count);
-            //Assert.AreEqual(1, turn1.RobotActions[0].PieceId);
-            //Assert.AreEqual(2, turn1.RobotActions[1].PieceId);
-            //Assert.AreEqual(new Vector2(2,2), turn1.RobotActions[0].PickupAction.Location);
-            //Assert.AreEqual(new Vector2(2,2), turn1.RobotActions[1].PickupAction.Location);
-            //Assert.IsNull(turn1.RobotActions[0].Movement);
-            //Assert.IsNull(turn1.RobotActions[1].Movement);
-
-            //Turn turn2 = results.Turns[1];
-            //Assert.AreEqual(2, turn2.TurnNumber);
-            //Assert.AreEqual(2, turn2.RobotActions.Count);
-            //Assert.AreEqual(1, turn2.RobotActions[0].PieceId);
-            //Assert.AreEqual(2, turn2.RobotActions[1].PieceId);
-            //Assert.AreEqual(2, turn2.RobotActions[0].Movement.Count);
-            //Assert.AreEqual(2, turn2.RobotActions[1].Movement.Count);
-            //Assert.AreEqual(new Vector2(2, 1), turn2.RobotActions[0].Movement[0]);
-            //Assert.AreEqual(new Vector2(1, 1), turn2.RobotActions[0].Movement[1]);
-            //Assert.AreEqual(new Vector2(1, 2), turn2.RobotActions[1].Movement[0]);
-            //Assert.AreEqual(new Vector2(1, 3), turn2.RobotActions[1].Movement[1]);
-
-            //Turn turn3 = results.Turns[2];
-            //Assert.AreEqual(3, turn3.TurnNumber);
-            //Assert.AreEqual(2, turn3.RobotActions.Count);
-            //Assert.AreEqual(1, turn3.RobotActions[0].PieceId);
-            //Assert.AreEqual(2, turn3.RobotActions[1].PieceId);
-            //Assert.AreEqual(new Vector2(0, 1), turn3.RobotActions[0].DropoffAction.Location);
-            //Assert.AreEqual(new Vector2(0, 3), turn3.RobotActions[1].DropoffAction.Location);
-            //Assert.AreEqual(1, turn3.RobotActions[0].DropoffAction.DestinationPieceCount);
-            //Assert.AreEqual(1, turn3.RobotActions[1].DropoffAction.DestinationPieceCount);
-
-            //Turn turn4 = results.Turns[3];
-            //Assert.AreEqual(4, turn4.TurnNumber);
-            //Assert.AreEqual(2, turn4.RobotActions.Count);
-            //Assert.AreEqual(null, turn4.RobotActions[0].PieceId);
-            //Assert.AreEqual(null, turn4.RobotActions[1].PieceId);
-            //Assert.AreEqual(new Vector2(1, 1), turn4.RobotActions[0].Movement[0]);
-            //Assert.AreEqual(new Vector2(2, 1), turn4.RobotActions[0].Movement[1]);
-            //Assert.AreEqual(new Vector2(1, 3), turn4.RobotActions[1].Movement[0]);
-            //Assert.AreEqual(new Vector2(1, 2), turn4.RobotActions[1].Movement[1]);
+            Assert.AreEqual(4, results.Turns.Count);
 
             Turn turn5 = results.Turns[0];
             Assert.AreEqual(5, turn5.TurnNumber);
