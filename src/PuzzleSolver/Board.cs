@@ -158,7 +158,7 @@ namespace PuzzleSolver
             }
             if (timeline.Turns.Count > 0)
             {
-                foreach (RobotTurnAction robotTurnAction in timeline.Turns[turn].RobotActions)
+                foreach (RobotTurnAction robotTurnAction in timeline.Turns[turn - 1].RobotActions)
                 {
                     if (robotTurnAction.PathRemaining != null &&
                         robotTurnAction.PathRemaining.Count > 0)
