@@ -1037,6 +1037,7 @@ namespace PuzzleSolver.Tests
             Assert.IsNull(turn5.RobotActions[0].Movement);
             Assert.IsNull(turn5.RobotActions[1].Movement);
 
+            //this turn is problematic
             Turn turn6 = results.Turns[5];
             Assert.AreEqual(6, turn6.TurnNumber);
             Assert.AreEqual(2, turn6.RobotActions.Count);
