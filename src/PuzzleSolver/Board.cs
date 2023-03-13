@@ -171,17 +171,6 @@ namespace PuzzleSolver
                 }
             }
             PathFindingResult pathFindingResult = PathFinding.FindPath(mapWithAllPaths, startLocation, endLocation);
-            //if (robotId == 2)
-            //{
-            //    foreach (Vector2 item in pathFindingResult.Path)
-            //    {
-            //        if (item == new Vector2(1, 3))
-            //        {
-            //            int m = 0;
-            //            break;
-            //        }
-            //    }
-            //}
 
             if (robots.Count > 1)
             {
@@ -189,10 +178,6 @@ namespace PuzzleSolver
                 //Look at every turn
                 for (int i = turn; i <= timeline.Turns.Count - 1; i++)
                 {
-                    //if (i == 11 || i == 12 || i == 13)
-                    //{
-                    //    int n = 0;
-                    //}
                     //Look at every robot action in that turn
                     foreach (RobotTurnAction robotTurnAction in timeline.Turns[i].RobotActions)
                     {
