@@ -148,15 +148,29 @@ namespace PuzzleSolver
             int turn = _RobotProgress[robotId];
 
             //Get the path
-            string[,] mapWithPickupLocations = (string[,])map.Clone();
+            string[,] mapWithAllPaths = (string[,])map.Clone();
             foreach (Robot robot in robots)
             {
                 if (robot.RobotId != robotId)
                 {
-                    mapWithPickupLocations[(int)robot.PickupLocation.X, (int)robot.PickupLocation.Y] = "P";
+                    mapWithAllPaths[(int)robot.PickupLocation.X, (int)robot.PickupLocation.Y] = "P";
                 }
             }
-            PathFindingResult pathFindingResult = PathFinding.FindPath(mapWithPickupLocations, startLocation, endLocation);
+            if (timeline.Turns.Count > 0)
+            {
+                foreach (RobotTurnAction robotTurnAction in timeline.Turns[turn].RobotActions)
+                {
+                    if (robotTurnAction.PathRemaining != null &&
+                        robotTurnAction.PathRemaining.Count > 0)
+                    {
+                        foreach (Vector2 pathLocation in robotTurnAction.PathRemaining)
+                        {
+                            mapWithAllPaths[(int)pathLocation.X, (int)pathLocation.Y] = "X";
+                        }
+                    }
+                }
+            }
+            PathFindingResult pathFindingResult = PathFinding.FindPath(mapWithAllPaths, startLocation, endLocation);
             //if (robotId == 2)
             //{
             //    foreach (Vector2 item in pathFindingResult.Path)
