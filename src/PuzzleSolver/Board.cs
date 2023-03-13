@@ -156,7 +156,7 @@ namespace PuzzleSolver
                     mapWithAllPaths[(int)robot.PickupLocation.X, (int)robot.PickupLocation.Y] = "P";
                 }
             }
-            if (timeline.Turns.Count > 0 && timeline.Turns.Count >= turn)
+            if (timeline.Turns.Count > 0 && timeline.Turns.Count <= turn)
             {
                 foreach (RobotTurnAction robotTurnAction in timeline.Turns[turn - 1].RobotActions)
                 {
