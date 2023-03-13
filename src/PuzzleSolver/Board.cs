@@ -156,16 +156,22 @@ namespace PuzzleSolver
                     mapWithAllPaths[(int)robot.PickupLocation.X, (int)robot.PickupLocation.Y] = "P";
                 }
             }
-            if (timeline.Turns.Count > 0 && timeline.Turns.Count <= turn)
+            if (timeline.Turns.Count > 0 && timeline.Turns.Count >= turn)
             {
-                foreach (RobotTurnAction robotTurnAction in timeline.Turns[turn - 1].RobotActions)
+                for (int i = turn; i < timeline.Turns.Count; i++)
                 {
-                    if (robotTurnAction.PathRemaining != null &&
-                        robotTurnAction.PathRemaining.Count > 0)
+                    foreach (RobotTurnAction robotTurnAction in timeline.Turns[i].RobotActions)
                     {
-                        foreach (Vector2 pathLocation in robotTurnAction.PathRemaining)
+                        if (robotTurnAction.PathRemaining != null &&
+                            robotTurnAction.PathRemaining.Count > 0)
                         {
-                            mapWithAllPaths[(int)pathLocation.X, (int)pathLocation.Y] = "X";
+                            foreach (Vector2 pathLocation in robotTurnAction.PathRemaining)
+                            {
+                                if (mapWithAllPaths[(int)pathLocation.X, (int)pathLocation.Y] == "")
+                                {
+                                    mapWithAllPaths[(int)pathLocation.X, (int)pathLocation.Y] = "X";
+                                }
+                            }
                         }
                     }
                 }
@@ -173,7 +179,7 @@ namespace PuzzleSolver
             PathFindingResult pathFindingResult = PathFinding.FindPath(mapWithAllPaths, startLocation, endLocation);
 
             if (pathFindingResult != null &&
-                pathFindingResult.Path.Count > 0 && 
+                pathFindingResult.Path.Count > 0 &&
                 robots.Count > 1)
             {
                 //Check the timeline to see if there are conflicts
