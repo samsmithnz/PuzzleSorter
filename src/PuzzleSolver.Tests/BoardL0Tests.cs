@@ -1053,7 +1053,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(4, turn7.RobotActions[1].PieceId);
             Assert.AreEqual(new Vector2(0, 1), turn7.RobotActions[0].DropoffAction.Location);
             Assert.AreEqual(new Vector2(1, 0), turn7.RobotActions[1].DropoffAction.Location);
-            Assert.AreEqual(1, turn7.RobotActions[0].DropoffAction.DestinationPieceCount);
+            Assert.AreEqual(2, turn7.RobotActions[0].DropoffAction.DestinationPieceCount);
             Assert.AreEqual(1, turn7.RobotActions[1].DropoffAction.DestinationPieceCount);
 
             Turn turn8 = results.Turns[7];
