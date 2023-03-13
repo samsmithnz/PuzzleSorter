@@ -144,6 +144,9 @@ namespace PuzzleSolver
 
         public PathFindingResult FindPathFindingWithTimeline(string[,] map, Vector2 startLocation, Vector2 endLocation, int robotId, List<Robot> robots, TimeLine timeline)
         {
+            //Get the robot turn
+            int turn = _RobotProgress[robotId];
+
             //Get the path
             string[,] mapWithPickupLocations = (string[,])map.Clone();
             foreach (Robot robot in robots)
@@ -166,12 +169,8 @@ namespace PuzzleSolver
             //    }
             //}
 
-
             if (robots.Count > 1)
             {
-                //Get the robot turn
-                int turn = _RobotProgress[robotId];
-
                 //Check the timeline to see if there are conflicts
                 //Look at every turn
                 for (int i = turn; i <= timeline.Turns.Count - 1; i++)
