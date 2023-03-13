@@ -18,5 +18,10 @@ namespace PuzzleSolver.Actions
         public ObjectInteraction DropoffAction { get; set; }
         public int DropoffPieceCount { get; set; }
         public Vector2 RobotDropoffEndingLocation { get; set; }
+
+        public RobotAction(int robotId)
+        {
+            RobotId = robotId;
+        }
     }
 }

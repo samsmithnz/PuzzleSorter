@@ -267,7 +267,7 @@ namespace PuzzleSolver
                     //Find the robot with the least progress, and then break
                     if (robot.Piece == null && orderedRobotProgress[0].Key == robot.RobotId)
                     {
-                        RobotAction robotAction = new RobotAction();
+                        RobotAction robotAction = new RobotAction(robot.RobotId);
                         Piece piece = null;
                         //See if the robot needs to move to the pickup zone
                         if (robot.Location != robot.PickupLocation)
@@ -439,7 +439,7 @@ namespace PuzzleSolver
             {
                 if (robot.Location != robot.PickupLocation)
                 {
-                    RobotAction robotAction = new RobotAction();
+                    RobotAction robotAction = new RobotAction(robot.RobotId);
                     //Move the robot to the pickup zone - By doing this first we ensure we don't pick up a piece until we are there.
                     Vector2 currentRobotLocation = robot.Location;
                     Vector2 pickupLocation = robot.PickupLocation;
@@ -575,7 +575,7 @@ namespace PuzzleSolver
 
         private RobotAction GetRobotAction(Robot robot, Piece piece, TimeLine timeline)
         {
-            RobotAction robotAction = new RobotAction();
+            RobotAction robotAction = new RobotAction(robot.RobotId);
 
             Vector2 currentRobotLocation = robot.Location;
             Vector2 pickupLocation = robot.PickupLocation;
