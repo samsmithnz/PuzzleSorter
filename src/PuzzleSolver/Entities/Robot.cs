@@ -18,6 +18,7 @@ namespace PuzzleSolver.Entities
             RobotId = robotId;
             PickupLocation = pickupLocation;
             Location = location;
+            RobotPath = new Queue<Vector2>();
         }
     }
 }
