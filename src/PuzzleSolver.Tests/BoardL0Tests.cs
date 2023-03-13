@@ -1025,7 +1025,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new Vector2(1, 1), turn4.RobotActions[0].Movement[0]);
             Assert.AreEqual(new Vector2(2, 1), turn4.RobotActions[0].Movement[1]);
             Assert.AreEqual(new Vector2(1, 3), turn4.RobotActions[1].Movement[0]);
-            Assert.AreEqual(new Vector2(2, 3), turn4.RobotActions[1].Movement[1]);
+            Assert.AreEqual(new Vector2(1, 2), turn4.RobotActions[1].Movement[1]);
 
             Turn turn5 = results.Turns[4];
             Assert.AreEqual(4, turn5.TurnNumber);
