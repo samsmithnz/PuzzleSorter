@@ -1032,15 +1032,15 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(5, turn5.TurnNumber);
             Assert.AreEqual(2, turn5.RobotActions.Count);
             Assert.AreEqual(4, turn5.RobotActions[1].PieceId);
-            Assert.AreEqual(new Vector2(2, 2), turn1.RobotActions[0].PickupAction.Location);
-            Assert.AreEqual(new Vector2(2, 2), turn1.RobotActions[1].PickupAction.Location);
-            Assert.IsNull(turn1.RobotActions[0].Movement);
-            Assert.IsNull(turn1.RobotActions[1].Movement);
+            Assert.AreEqual(new Vector2(2, 2), turn5.RobotActions[0].PickupAction.Location);
+            Assert.AreEqual(new Vector2(2, 2), turn5.RobotActions[1].PickupAction.Location);
+            Assert.IsNull(turn5.RobotActions[0].Movement);
+            Assert.IsNull(turn5.RobotActions[1].Movement);
 
             Turn turn6 = results.Turns[5];
             Assert.AreEqual(6, turn6.TurnNumber);
             Assert.AreEqual(2, turn6.RobotActions.Count);
-            Assert.AreEqual(null, turn6.RobotActions[1].PieceId);
+            Assert.AreEqual(4, turn6.RobotActions[1].PieceId);
             Assert.AreEqual(new Vector2(1, 1), turn6.RobotActions[0].Movement[0]);
             Assert.AreEqual(new Vector2(2, 1), turn6.RobotActions[0].Movement[1]);
             Assert.AreEqual(new Vector2(1, 3), turn6.RobotActions[1].Movement[0]);
