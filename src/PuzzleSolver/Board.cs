@@ -172,7 +172,9 @@ namespace PuzzleSolver
             }
             PathFindingResult pathFindingResult = PathFinding.FindPath(mapWithAllPaths, startLocation, endLocation);
 
-            if (robots.Count > 1)
+            if (pathFindingResult != null &&
+                pathFindingResult.Path.Count > 0 && 
+                robots.Count > 1)
             {
                 //Check the timeline to see if there are conflicts
                 //Look at every turn
@@ -184,9 +186,7 @@ namespace PuzzleSolver
                         //Only look at robots that aren't this one
                         if (robotTurnAction.RobotId != robotId)
                         {
-                            if (pathFindingResult != null &&
-                                pathFindingResult.Path.Count > 0 &&
-                                robotTurnAction.Movement != null &&
+                            if (robotTurnAction.Movement != null &&
                                 robotTurnAction.Movement.Count > 0)
                             {
                                 //Loop through the path
@@ -285,6 +285,10 @@ namespace PuzzleSolver
                                     //Move robot
                                     robotAction.PathToPickup = pathFindingResultForPickup;
                                     currentRobotLocation = pathFindingResultForPickup.Path.Last();
+                                }
+                                else
+                                {
+                                    int g = 0;
                                 }
                             }
                             robotAction.RobotPickupEndingLocation = currentRobotLocation;
@@ -453,6 +457,10 @@ namespace PuzzleSolver
                             robotAction.PathToPickup = pathFindingResultForPickup;
                             currentRobotLocation = pathFindingResultForPickup.Path.Last();
                         }
+                        else
+                        {
+                            int g = 0;
+                        }
                     }
                     robotAction.RobotPickupEndingLocation = currentRobotLocation;
                     robot.Location = currentRobotLocation;
@@ -589,6 +597,10 @@ namespace PuzzleSolver
                     //Move robot
                     robotAction.PathToPickup = pathFindingResultForPickup;
                     currentRobotLocation = pathFindingResultForPickup.Path.Last();
+                }
+                else
+                {
+                    int g = 0;
                 }
             }
             robotAction.RobotPickupEndingLocation = currentRobotLocation;
