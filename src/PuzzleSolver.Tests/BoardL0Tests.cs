@@ -1041,10 +1041,10 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(6, turn6.TurnNumber);
             Assert.AreEqual(2, turn6.RobotActions.Count);
             Assert.AreEqual(4, turn6.RobotActions[1].PieceId);
-            Assert.AreEqual(new Vector2(1, 1), turn6.RobotActions[0].Movement[0]);
-            Assert.AreEqual(new Vector2(2, 1), turn6.RobotActions[0].Movement[1]);
-            Assert.AreEqual(new Vector2(1, 3), turn6.RobotActions[1].Movement[0]);
-            Assert.AreEqual(new Vector2(2, 3), turn6.RobotActions[1].Movement[1]);
+            Assert.AreEqual(new Vector2(2, 1), turn6.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 1), turn6.RobotActions[0].Movement[1]);
+            Assert.AreEqual(new Vector2(1, 2), turn6.RobotActions[1].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 3), turn6.RobotActions[1].Movement[1]);
 
             Turn turn7 = results.Turns[6];
             Assert.AreEqual(7, turn7.TurnNumber);
