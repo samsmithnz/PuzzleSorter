@@ -320,7 +320,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(10, board.SortedPieces.Count);
             Assert.IsTrue(board.UnsortedPieces.Count == 0);
             Assert.IsNotNull(results);
-            Assert.AreEqual(52, results.Turns.Count);
+            Assert.AreEqual(53, results.Turns.Count);
 
             //Complete the first action
             Turn turn1 = results.Turns[0];
