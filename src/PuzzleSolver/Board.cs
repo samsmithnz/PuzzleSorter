@@ -191,6 +191,7 @@ namespace PuzzleSolver
                                         break;
                                     }
                                 }
+                                robotAction.PieceId = robot.Piece.Id;
                                 robot.Piece = null;
                                 robotAction.DropoffPieceCount = GetPieceCount(robotAction.DropoffAction.Location);
                                 robot.RobotStatus = RobotStatus.RobotStatusEnum.LookingForJob;
