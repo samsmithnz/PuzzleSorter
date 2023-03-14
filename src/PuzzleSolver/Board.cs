@@ -100,6 +100,10 @@ namespace PuzzleSolver
                 foreach (Robot robot in Robots)
                 {
                     RobotAction robotAction = new RobotAction(robot.RobotId);
+                    if (robot.RobotId == 1)
+                    {
+                        int n = 0;
+                    }
                     switch (robot.RobotStatus)
                     {
                         case RobotStatus.RobotStatusEnum.LookingForJob:
@@ -329,7 +333,7 @@ namespace PuzzleSolver
                                 DropoffAction = robotAction.DropoffAction
                             });
                             dropoffCounter++;
-                            robot.Location = robotAction.RobotDropoffEndingLocation;
+                            //robot.Location = robotAction.RobotDropoffEndingLocation;
                         }
                         _RobotProgress[robot.RobotId] += pickupCounter + dropoffCounter;
                     }
