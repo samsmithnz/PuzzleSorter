@@ -67,7 +67,7 @@ namespace PuzzleSolver
             while (UnsortedPieces.Count > 0)
             {
                 //Sort the progress list to find the robot with the least number of turns - this is the robot who should pick up next
-                List<KeyValuePair<int, int>> orderedRobotProgress = robotProgress.OrderBy(x => x.Value).ToList();
+                List<KeyValuePair<int, int>> orderedRobotProgress = _RobotProgress.OrderBy(x => x.Value).ToList();
                 //For each robot
                 foreach (Robot robot in Robots)
                 {
