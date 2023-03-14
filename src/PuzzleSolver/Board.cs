@@ -146,6 +146,7 @@ namespace PuzzleSolver
                                     adjacentLocation = GetAdjacentLocation((Vector2)deliveryDestinationLocation, Map, SortedDropZones);
                                     if (adjacentLocation != null)
                                     {
+                                        robotAction.PieceId = robot.Piece.Id;
                                         robotAction.RobotDropoffStartingLocation = robot.Location;
                                         PathFindingResult pathFindingResultForDropoff = FindPathFindingWithTimeline(Map, robot.Location, (Vector2)deliveryDestinationLocation, robot.RobotId, Robots, timeline);
                                         if (pathFindingResultForDropoff != null &&
