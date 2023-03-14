@@ -151,6 +151,7 @@ namespace PuzzleSolver
                                         if (pathFindingResultForDropoff != null &&
                                             pathFindingResultForDropoff.Path != null)
                                         {
+                                            robotAction.PathToDropoff = pathFindingResultForDropoff;
                                             robotAction.RobotDropoffEndingLocation = pathFindingResultForDropoff.Path.Last();
                                             robot.Location = pathFindingResultForDropoff.Path.Last();
                                         }
