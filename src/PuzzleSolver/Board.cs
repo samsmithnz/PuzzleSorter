@@ -57,10 +57,10 @@ namespace PuzzleSolver
         {
             TimeLine timeline = new TimeLine();
             //Create a dictonary to track robot turn progress over time
-            Dictionary<int, int> robotProgress = new Dictionary<int, int>();
+            _RobotProgress = new Dictionary<int, int>();
             foreach (Robot robot in Robots)
             {
-                robotProgress.Add(robot.RobotId, 0);
+                _RobotProgress.Add(robot.RobotId, 0);
             }
 
             //Need to loop through all unsorted pieces until they are sorted
