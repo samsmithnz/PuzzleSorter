@@ -138,12 +138,15 @@ namespace PuzzleSolver
                             break;
 
                         case RobotStatus.RobotStatusEnum.PickingUpPackage:
-                            robot.Piece = UnsortedPieces.Dequeue();
-                            robotAction.PickupAction = new ObjectInteraction()
+                            if (UnsortedPieces.Count > 0)
                             {
-                                Location = robot.Piece.Location
-                            };
-                            robotAction.PieceId = robot.Piece.Id;
+                                robot.Piece = UnsortedPieces.Dequeue();
+                                robotAction.PickupAction = new ObjectInteraction()
+                                {
+                                    Location = robot.Piece.Location
+                                };
+                                robotAction.PieceId = robot.Piece.Id;
+                            }
                             robot.RobotStatus = RobotStatus.RobotStatusEnum.MovingToDeliveryLocation;
                             break;
 
