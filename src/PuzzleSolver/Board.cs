@@ -121,6 +121,7 @@ namespace PuzzleSolver
                                     if (pathFindingResultForPickup != null &&
                                         pathFindingResultForPickup.Path != null)
                                     {
+                                        robotAction.PathToPickup = pathFindingResultForPickup;
                                         robotAction.RobotPickupEndingLocation = pathFindingResultForPickup.Path.Last();
                                         robot.Location = pathFindingResultForPickup.Path.Last();
                                     }
