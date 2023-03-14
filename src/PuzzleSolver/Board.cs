@@ -275,7 +275,7 @@ namespace PuzzleSolver
                                 PickupAction = robotAction.PickupAction
                             });
                             pickupCounter++;
-                            robot.Location = robotAction.RobotPickupEndingLocation;
+                            //robot.Location = robotAction.RobotPickupEndingLocation;
                         }
 
                         //Now populate the turns with the dropoff path
