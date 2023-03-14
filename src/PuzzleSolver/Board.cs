@@ -111,7 +111,7 @@ namespace PuzzleSolver
                             break;
 
                         case RobotStatus.RobotStatusEnum.MovingToPickupLocation:
-                            if (UnsortedPieces.Count > 0)
+                            if (UnsortedPieces.Count > 0 || RobotsOutOfPosition() > 0)
                             {
                                 //move to pickup location to pickup a piece
                                 if (robot.Location != robot.PickupLocation)
