@@ -476,329 +476,329 @@ namespace PuzzleSolver
         //    return pathFindingResult;
         //}
 
-        public TimeLine RunRobots()
-        {
-            TimeLine timeline = new TimeLine();
+        //public TimeLine RunRobots()
+        //{
+        //    TimeLine timeline = new TimeLine();
 
-            //Create a dictonary to track robot turn progress over time
-            foreach (Robot robot in Robots)
-            {
-                _RobotProgress.Add(robot.RobotId, 0);
-            }
+        //    //Create a dictonary to track robot turn progress over time
+        //    foreach (Robot robot in Robots)
+        //    {
+        //        _RobotProgress.Add(robot.RobotId, 0);
+        //    }
 
-            //Need to loop through all unsorted pieces until they are sorted
-            while (UnsortedPieces.Count > 0)
-            {
-                //Sort the progress list to find the robot with the least number of turns - this is the robot who should pick up next
-                List<KeyValuePair<int, int>> orderedRobotProgress = _RobotProgress.OrderBy(x => x.Value).ToList();
-                //For each robot
-                foreach (Robot robot in Robots)
-                {
-                    //Find the robot with the least progress, and then break
-                    if (robot.Piece == null && orderedRobotProgress[0].Key == robot.RobotId)
-                    {
-                        RobotAction robotAction = new RobotAction(robot.RobotId);
-                        Piece piece = null;
-                        //See if the robot needs to move to the pickup zone
-                        if (robot.Location != robot.PickupLocation)
-                        {
-                            robot.RobotStatus = RobotStatus.RobotStatusEnum.MovingToPickupLocation;
-                            //Move the robot to the pickup zone - By doing this first we ensure we don't pick up a piece until we are there.
-                            Vector2 currentRobotLocation = robot.Location;
-                            Vector2 pickupLocation = robot.PickupLocation;
+        //    //Need to loop through all unsorted pieces until they are sorted
+        //    while (UnsortedPieces.Count > 0)
+        //    {
+        //        //Sort the progress list to find the robot with the least number of turns - this is the robot who should pick up next
+        //        List<KeyValuePair<int, int>> orderedRobotProgress = _RobotProgress.OrderBy(x => x.Value).ToList();
+        //        //For each robot
+        //        foreach (Robot robot in Robots)
+        //        {
+        //            //Find the robot with the least progress, and then break
+        //            if (robot.Piece == null && orderedRobotProgress[0].Key == robot.RobotId)
+        //            {
+        //                RobotAction robotAction = new RobotAction(robot.RobotId);
+        //                Piece piece = null;
+        //                //See if the robot needs to move to the pickup zone
+        //                if (robot.Location != robot.PickupLocation)
+        //                {
+        //                    robot.RobotStatus = RobotStatus.RobotStatusEnum.MovingToPickupLocation;
+        //                    //Move the robot to the pickup zone - By doing this first we ensure we don't pick up a piece until we are there.
+        //                    Vector2 currentRobotLocation = robot.Location;
+        //                    Vector2 pickupLocation = robot.PickupLocation;
 
-                            // Move to unsorted pile
-                            robotAction.RobotPickupStartingLocation = currentRobotLocation;
-                            if (currentRobotLocation != pickupLocation)
-                            {
-                                PathFindingResult pathFindingResultForPickup = FindPathFindingWithTimeline(Map, currentRobotLocation, pickupLocation, robot.RobotId, Robots, timeline);
-                                if (pathFindingResultForPickup != null && pathFindingResultForPickup.Path.Any())
-                                {
-                                    //Move robot
-                                    robotAction.PathToPickup = pathFindingResultForPickup;
-                                    currentRobotLocation = pathFindingResultForPickup.Path.Last();
-                                }
-                                else
-                                {
-                                    int g = 0;
-                                }
-                            }
-                            robotAction.RobotPickupEndingLocation = currentRobotLocation;
-                            robot.Location = currentRobotLocation;
-                        }
-                        //Else do the pickup, dropoff and delivery
-                        else if (robot.Piece == null && UnsortedPieces.Count > 0)
-                        {
-                            piece = UnsortedPieces.Dequeue();
-                            robotAction = GetRobotAction(robot, piece, timeline);
-                        }
-                        ////Robot is holding the piece
-                        //else if (robot.Piece != null)
-                        //{
-                        //    robotAction = GetRobotAction(robot, robot.Piece);
-                        //    if (robot.Location != robotAction.RobotDropoffEndingLocation)
-                        //    {
-                        //        //need to find a dropoff path
-                        //    }
-                        //    else
-                        //    {
-                        //        //is at the dropoff point
-                        //    }
-                        //}
+        //                    // Move to unsorted pile
+        //                    robotAction.RobotPickupStartingLocation = currentRobotLocation;
+        //                    if (currentRobotLocation != pickupLocation)
+        //                    {
+        //                        PathFindingResult pathFindingResultForPickup = FindPathFindingWithTimeline(Map, currentRobotLocation, pickupLocation, robot.RobotId, Robots, timeline);
+        //                        if (pathFindingResultForPickup != null && pathFindingResultForPickup.Path.Any())
+        //                        {
+        //                            //Move robot
+        //                            robotAction.PathToPickup = pathFindingResultForPickup;
+        //                            currentRobotLocation = pathFindingResultForPickup.Path.Last();
+        //                        }
+        //                        else
+        //                        {
+        //                            int g = 0;
+        //                        }
+        //                    }
+        //                    robotAction.RobotPickupEndingLocation = currentRobotLocation;
+        //                    robot.Location = currentRobotLocation;
+        //                }
+        //                //Else do the pickup, dropoff and delivery
+        //                else if (robot.Piece == null && UnsortedPieces.Count > 0)
+        //                {
+        //                    piece = UnsortedPieces.Dequeue();
+        //                    robotAction = GetRobotAction(robot, piece, timeline);
+        //                }
+        //                ////Robot is holding the piece
+        //                //else if (robot.Piece != null)
+        //                //{
+        //                //    robotAction = GetRobotAction(robot, robot.Piece);
+        //                //    if (robot.Location != robotAction.RobotDropoffEndingLocation)
+        //                //    {
+        //                //        //need to find a dropoff path
+        //                //    }
+        //                //    else
+        //                //    {
+        //                //        //is at the dropoff point
+        //                //    }
+        //                //}
 
-                        //process the robot action
-                        if (robotAction != null)
-                        {
-                            int turn = _RobotProgress[robot.RobotId];
-                            int turnsNeeded = 0;
+        //                //process the robot action
+        //                if (robotAction != null)
+        //                {
+        //                    int turn = _RobotProgress[robot.RobotId];
+        //                    int turnsNeeded = 0;
 
-                            //move to pickup
-                            if (robotAction.PathToPickup != null)
-                            {
-                                turnsNeeded += robotAction.PathToPickup.Path.Count;
-                            }
-                            //pickup piece
-                            if (robotAction.PickupAction != null)
-                            {
-                                turnsNeeded++;
-                            }
-                            //move to drop off
-                            if (robotAction.PathToDropoff != null)
-                            {
-                                turnsNeeded += robotAction.PathToDropoff.Path.Count;
-                            }
-                            //drop off piece
-                            if (robotAction.DropoffAction != null)
-                            {
-                                turnsNeeded++;
-                            }
-                            //Initialize the turns needed for this robot to complete it's turn
-                            for (int j = turn; j < turn + turnsNeeded; j++)
-                            {
-                                if (timeline.Turns.Any(t => t.TurnNumber == j + 1) == false)
-                                {
-                                    timeline.Turns.Add(new Turn(j + 1));
-                                }
-                            }
+        //                    //move to pickup
+        //                    if (robotAction.PathToPickup != null)
+        //                    {
+        //                        turnsNeeded += robotAction.PathToPickup.Path.Count;
+        //                    }
+        //                    //pickup piece
+        //                    if (robotAction.PickupAction != null)
+        //                    {
+        //                        turnsNeeded++;
+        //                    }
+        //                    //move to drop off
+        //                    if (robotAction.PathToDropoff != null)
+        //                    {
+        //                        turnsNeeded += robotAction.PathToDropoff.Path.Count;
+        //                    }
+        //                    //drop off piece
+        //                    if (robotAction.DropoffAction != null)
+        //                    {
+        //                        turnsNeeded++;
+        //                    }
+        //                    //Initialize the turns needed for this robot to complete it's turn
+        //                    for (int j = turn; j < turn + turnsNeeded; j++)
+        //                    {
+        //                        if (timeline.Turns.Any(t => t.TurnNumber == j + 1) == false)
+        //                        {
+        //                            timeline.Turns.Add(new Turn(j + 1));
+        //                        }
+        //                    }
 
-                            //Now populate the turns with the pickup path
-                            int pickupCounter = 0;
-                            if (robotAction.PathToPickup != null &&
-                                robotAction.PathToPickup.Path != null &&
-                                robotAction.PathToPickup.Path.Count > 0)
-                            {
-                                Robot robotPathRemaining = GetRobot(robotAction.RobotId);
-                                if (robotPathRemaining != null)
-                                {
-                                    robotPathRemaining.RobotPath = new Queue<Vector2>(robotAction.PathToPickup.Path);
-                                }
-                                pickupCounter++;
-                                timeline.Turns[turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToPickupLocation, null)
-                                {
-                                    Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToPickup.Path[0] },
-                                    PathRemaining = robotPathRemaining.RobotPath.ToList()
-                                });
-                                robotPathRemaining.RobotPath.Dequeue();
-                                for (int j = 1; j <= robotAction.PathToPickup.Path.Count - 1; j++)
-                                {
-                                    pickupCounter++;
-                                    timeline.Turns[turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToPickupLocation, null)
-                                    {
-                                        Movement = new List<Vector2>() { robotAction.PathToPickup.Path[j - 1], robotAction.PathToPickup.Path[j] },
-                                        PathRemaining = robotPathRemaining.RobotPath.ToList()
-                                    });
-                                    robotPathRemaining.RobotPath.Dequeue();
-                                }
-                            }
+        //                    //Now populate the turns with the pickup path
+        //                    int pickupCounter = 0;
+        //                    if (robotAction.PathToPickup != null &&
+        //                        robotAction.PathToPickup.Path != null &&
+        //                        robotAction.PathToPickup.Path.Count > 0)
+        //                    {
+        //                        Robot robotPathRemaining = GetRobot(robotAction.RobotId);
+        //                        if (robotPathRemaining != null)
+        //                        {
+        //                            robotPathRemaining.RobotPath = new Queue<Vector2>(robotAction.PathToPickup.Path);
+        //                        }
+        //                        pickupCounter++;
+        //                        timeline.Turns[turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToPickupLocation, null)
+        //                        {
+        //                            Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToPickup.Path[0] },
+        //                            PathRemaining = robotPathRemaining.RobotPath.ToList()
+        //                        });
+        //                        robotPathRemaining.RobotPath.Dequeue();
+        //                        for (int j = 1; j <= robotAction.PathToPickup.Path.Count - 1; j++)
+        //                        {
+        //                            pickupCounter++;
+        //                            timeline.Turns[turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToPickupLocation, null)
+        //                            {
+        //                                Movement = new List<Vector2>() { robotAction.PathToPickup.Path[j - 1], robotAction.PathToPickup.Path[j] },
+        //                                PathRemaining = robotPathRemaining.RobotPath.ToList()
+        //                            });
+        //                            robotPathRemaining.RobotPath.Dequeue();
+        //                        }
+        //                    }
 
-                            if (robotAction.PickupAction != null)
-                            {
-                                timeline.Turns[pickupCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.PickingUpPackage, piece.Id)
-                                {
-                                    PickupAction = robotAction.PickupAction
-                                });
-                                pickupCounter++;
-                                robot.Location = robotAction.RobotPickupEndingLocation;
-                            }
+        //                    if (robotAction.PickupAction != null)
+        //                    {
+        //                        timeline.Turns[pickupCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.PickingUpPackage, piece.Id)
+        //                        {
+        //                            PickupAction = robotAction.PickupAction
+        //                        });
+        //                        pickupCounter++;
+        //                        robot.Location = robotAction.RobotPickupEndingLocation;
+        //                    }
 
-                            //Now populate the turns with the dropoff path
-                            int dropoffCounter = 0;
-                            if (robotAction.PathToDropoff != null &&
-                                robotAction.PathToDropoff.Path != null &&
-                                robotAction.PathToDropoff.Path.Count > 0)
-                            {
-                                Robot robotPathRemaining = GetRobot(robotAction.RobotId);
-                                if (robotPathRemaining != null)
-                                {
-                                    robotPathRemaining.RobotPath = new Queue<Vector2>(robotAction.PathToDropoff.Path);
-                                }
-                                dropoffCounter++;
-                                timeline.Turns[pickupCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToDeliveryLocation, piece.Id)
-                                {
-                                    Movement = new List<Vector2>() { robotAction.RobotDropoffStartingLocation, robotAction.PathToDropoff.Path[0] },
-                                    PathRemaining = robotPathRemaining.RobotPath.ToList()
-                                });
-                                robotPathRemaining.RobotPath.Dequeue();
-                                for (int j = 1; j <= robotAction.PathToDropoff.Path.Count - 1; j++)
-                                {
-                                    dropoffCounter++;
-                                    timeline.Turns[pickupCounter + turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToDeliveryLocation, piece.Id)
-                                    {
-                                        Movement = new List<Vector2>() { robotAction.PathToDropoff.Path[j - 1], robotAction.PathToDropoff.Path[j] },
-                                        PathRemaining = robotPathRemaining.RobotPath.ToList()
-                                    });
-                                    robotPathRemaining.RobotPath.Dequeue();
-                                }
-                            }
+        //                    //Now populate the turns with the dropoff path
+        //                    int dropoffCounter = 0;
+        //                    if (robotAction.PathToDropoff != null &&
+        //                        robotAction.PathToDropoff.Path != null &&
+        //                        robotAction.PathToDropoff.Path.Count > 0)
+        //                    {
+        //                        Robot robotPathRemaining = GetRobot(robotAction.RobotId);
+        //                        if (robotPathRemaining != null)
+        //                        {
+        //                            robotPathRemaining.RobotPath = new Queue<Vector2>(robotAction.PathToDropoff.Path);
+        //                        }
+        //                        dropoffCounter++;
+        //                        timeline.Turns[pickupCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToDeliveryLocation, piece.Id)
+        //                        {
+        //                            Movement = new List<Vector2>() { robotAction.RobotDropoffStartingLocation, robotAction.PathToDropoff.Path[0] },
+        //                            PathRemaining = robotPathRemaining.RobotPath.ToList()
+        //                        });
+        //                        robotPathRemaining.RobotPath.Dequeue();
+        //                        for (int j = 1; j <= robotAction.PathToDropoff.Path.Count - 1; j++)
+        //                        {
+        //                            dropoffCounter++;
+        //                            timeline.Turns[pickupCounter + turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToDeliveryLocation, piece.Id)
+        //                            {
+        //                                Movement = new List<Vector2>() { robotAction.PathToDropoff.Path[j - 1], robotAction.PathToDropoff.Path[j] },
+        //                                PathRemaining = robotPathRemaining.RobotPath.ToList()
+        //                            });
+        //                            robotPathRemaining.RobotPath.Dequeue();
+        //                        }
+        //                    }
 
-                            if (robotAction.DropoffAction != null)
-                            {
-                                robotAction.DropoffAction.DestinationPieceCount = GetPieceCount(robotAction.DropoffAction.Location);
-                                timeline.Turns[pickupCounter + dropoffCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.DeliveringPackage, piece.Id)
-                                {
-                                    DropoffAction = robotAction.DropoffAction
-                                });
-                                dropoffCounter++;
-                                robot.Location = robotAction.RobotDropoffEndingLocation;
-                            }
-                            _RobotProgress[robot.RobotId] += pickupCounter + dropoffCounter;
-                        }
-                        break;
-                    }
-                    //else if (robot.Piece != null)
-                    //{
-                    //    RobotAction robotAction = new RobotAction(robot.RobotId);
-                    //    robotAction = GetRobotAction(robot, robot.Piece, timeline);
+        //                    if (robotAction.DropoffAction != null)
+        //                    {
+        //                        robotAction.DropoffAction.DestinationPieceCount = GetPieceCount(robotAction.DropoffAction.Location);
+        //                        timeline.Turns[pickupCounter + dropoffCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.DeliveringPackage, piece.Id)
+        //                        {
+        //                            DropoffAction = robotAction.DropoffAction
+        //                        });
+        //                        dropoffCounter++;
+        //                        robot.Location = robotAction.RobotDropoffEndingLocation;
+        //                    }
+        //                    _RobotProgress[robot.RobotId] += pickupCounter + dropoffCounter;
+        //                }
+        //                break;
+        //            }
+        //            //else if (robot.Piece != null)
+        //            //{
+        //            //    RobotAction robotAction = new RobotAction(robot.RobotId);
+        //            //    robotAction = GetRobotAction(robot, robot.Piece, timeline);
 
-                    //    //Run the dropoff routine again
-                    //    if (robotAction.PathToDropoff != null &&
-                    //            robotAction.PathToDropoff.Path != null &&
-                    //            robotAction.PathToDropoff.Path.Count > 0)
-                    //    {
-                    //        Robot robotPathRemaining = GetRobot(robotAction.RobotId);
-                    //        if (robotPathRemaining != null)
-                    //        {
-                    //            robotPathRemaining.RobotPath = new Queue<Vector2>(robotAction.PathToDropoff.Path);
-                    //        }
-                    //        dropoffCounter++;
-                    //        timeline.Turns[pickupCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToDeliveryLocation, piece.Id)
-                    //        {
-                    //            Movement = new List<Vector2>() { robotAction.RobotDropoffStartingLocation, robotAction.PathToDropoff.Path[0] },
-                    //            PathRemaining = robotPathRemaining.RobotPath.ToList()
-                    //        });
-                    //        robotPathRemaining.RobotPath.Dequeue();
-                    //        for (int j = 1; j <= robotAction.PathToDropoff.Path.Count - 1; j++)
-                    //        {
-                    //            dropoffCounter++;
-                    //            timeline.Turns[pickupCounter + turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToDeliveryLocation, piece.Id)
-                    //            {
-                    //                Movement = new List<Vector2>() { robotAction.PathToDropoff.Path[j - 1], robotAction.PathToDropoff.Path[j] },
-                    //                PathRemaining = robotPathRemaining.RobotPath.ToList()
-                    //            });
-                    //            robotPathRemaining.RobotPath.Dequeue();
-                    //        }
-                    //    }
+        //            //    //Run the dropoff routine again
+        //            //    if (robotAction.PathToDropoff != null &&
+        //            //            robotAction.PathToDropoff.Path != null &&
+        //            //            robotAction.PathToDropoff.Path.Count > 0)
+        //            //    {
+        //            //        Robot robotPathRemaining = GetRobot(robotAction.RobotId);
+        //            //        if (robotPathRemaining != null)
+        //            //        {
+        //            //            robotPathRemaining.RobotPath = new Queue<Vector2>(robotAction.PathToDropoff.Path);
+        //            //        }
+        //            //        dropoffCounter++;
+        //            //        timeline.Turns[pickupCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToDeliveryLocation, piece.Id)
+        //            //        {
+        //            //            Movement = new List<Vector2>() { robotAction.RobotDropoffStartingLocation, robotAction.PathToDropoff.Path[0] },
+        //            //            PathRemaining = robotPathRemaining.RobotPath.ToList()
+        //            //        });
+        //            //        robotPathRemaining.RobotPath.Dequeue();
+        //            //        for (int j = 1; j <= robotAction.PathToDropoff.Path.Count - 1; j++)
+        //            //        {
+        //            //            dropoffCounter++;
+        //            //            timeline.Turns[pickupCounter + turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToDeliveryLocation, piece.Id)
+        //            //            {
+        //            //                Movement = new List<Vector2>() { robotAction.PathToDropoff.Path[j - 1], robotAction.PathToDropoff.Path[j] },
+        //            //                PathRemaining = robotPathRemaining.RobotPath.ToList()
+        //            //            });
+        //            //            robotPathRemaining.RobotPath.Dequeue();
+        //            //        }
+        //            //    }
 
-                    //    if (robotAction.DropoffAction != null)
-                    //    {
-                    //        robotAction.DropoffAction.DestinationPieceCount = GetPieceCount(robotAction.DropoffAction.Location);
-                    //        timeline.Turns[pickupCounter + dropoffCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.DeliveringPackage, piece.Id)
-                    //        {
-                    //            DropoffAction = robotAction.DropoffAction
-                    //        });
-                    //        dropoffCounter++;
-                    //        robot.Location = robotAction.RobotDropoffEndingLocation;
-                    //    }
-                    //    _RobotProgress[robot.RobotId] += pickupCounter + dropoffCounter;
-                    //}
-                }
-            }
+        //            //    if (robotAction.DropoffAction != null)
+        //            //    {
+        //            //        robotAction.DropoffAction.DestinationPieceCount = GetPieceCount(robotAction.DropoffAction.Location);
+        //            //        timeline.Turns[pickupCounter + dropoffCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.DeliveringPackage, piece.Id)
+        //            //        {
+        //            //            DropoffAction = robotAction.DropoffAction
+        //            //        });
+        //            //        dropoffCounter++;
+        //            //        robot.Location = robotAction.RobotDropoffEndingLocation;
+        //            //    }
+        //            //    _RobotProgress[robot.RobotId] += pickupCounter + dropoffCounter;
+        //            //}
+        //        }
+        //    }
 
-            //Move the robots back to the start location
-            foreach (Robot robot in Robots)
-            {
-                if (robot.Location != robot.PickupLocation)
-                {
-                    RobotAction robotAction = new RobotAction(robot.RobotId);
-                    //Move the robot to the pickup zone - By doing this first we ensure we don't pick up a piece until we are there.
-                    Vector2 currentRobotLocation = robot.Location;
-                    Vector2 pickupLocation = robot.PickupLocation;
+        //    //Move the robots back to the start location
+        //    foreach (Robot robot in Robots)
+        //    {
+        //        if (robot.Location != robot.PickupLocation)
+        //        {
+        //            RobotAction robotAction = new RobotAction(robot.RobotId);
+        //            //Move the robot to the pickup zone - By doing this first we ensure we don't pick up a piece until we are there.
+        //            Vector2 currentRobotLocation = robot.Location;
+        //            Vector2 pickupLocation = robot.PickupLocation;
 
-                    // Move to unsorted pile
-                    robotAction.RobotPickupStartingLocation = currentRobotLocation;
-                    if (currentRobotLocation != pickupLocation)
-                    {
-                        PathFindingResult pathFindingResultForPickup = FindPathFindingWithTimeline(Map, currentRobotLocation, pickupLocation, robot.RobotId, Robots, timeline);
-                        if (pathFindingResultForPickup != null && pathFindingResultForPickup.Path.Any())
-                        {
-                            //Move robot
-                            robotAction.PathToPickup = pathFindingResultForPickup;
-                            currentRobotLocation = pathFindingResultForPickup.Path.Last();
-                        }
-                        else
-                        {
-                            int g = 0;
-                        }
-                    }
-                    robotAction.RobotPickupEndingLocation = currentRobotLocation;
-                    robot.Location = currentRobotLocation;
+        //            // Move to unsorted pile
+        //            robotAction.RobotPickupStartingLocation = currentRobotLocation;
+        //            if (currentRobotLocation != pickupLocation)
+        //            {
+        //                PathFindingResult pathFindingResultForPickup = FindPathFindingWithTimeline(Map, currentRobotLocation, pickupLocation, robot.RobotId, Robots, timeline);
+        //                if (pathFindingResultForPickup != null && pathFindingResultForPickup.Path.Any())
+        //                {
+        //                    //Move robot
+        //                    robotAction.PathToPickup = pathFindingResultForPickup;
+        //                    currentRobotLocation = pathFindingResultForPickup.Path.Last();
+        //                }
+        //                else
+        //                {
+        //                    int g = 0;
+        //                }
+        //            }
+        //            robotAction.RobotPickupEndingLocation = currentRobotLocation;
+        //            robot.Location = currentRobotLocation;
 
-                    //process the robot action
-                    if (robotAction != null)
-                    {
-                        int turn = _RobotProgress[robot.RobotId];
-                        int turnsNeeded = 0;
+        //            //process the robot action
+        //            if (robotAction != null)
+        //            {
+        //                int turn = _RobotProgress[robot.RobotId];
+        //                int turnsNeeded = 0;
 
-                        //move to pickup
-                        if (robotAction.PathToPickup != null)
-                        {
-                            turnsNeeded += robotAction.PathToPickup.Path.Count;
-                        }
-                        //Initialize the turns needed for this robot to complete it's turn
-                        for (int j = turn; j < turn + turnsNeeded; j++)
-                        {
-                            if (timeline.Turns.Any(t => t.TurnNumber == j + 1) == false)
-                            {
-                                timeline.Turns.Add(new Turn(j + 1));
-                            }
-                        }
+        //                //move to pickup
+        //                if (robotAction.PathToPickup != null)
+        //                {
+        //                    turnsNeeded += robotAction.PathToPickup.Path.Count;
+        //                }
+        //                //Initialize the turns needed for this robot to complete it's turn
+        //                for (int j = turn; j < turn + turnsNeeded; j++)
+        //                {
+        //                    if (timeline.Turns.Any(t => t.TurnNumber == j + 1) == false)
+        //                    {
+        //                        timeline.Turns.Add(new Turn(j + 1));
+        //                    }
+        //                }
 
-                        //Now populate the turns with the pickup path
-                        int pickupCounter = 0;
-                        if (robotAction.PathToPickup != null &&
-                            robotAction.PathToPickup.Path != null &&
-                            robotAction.PathToPickup.Path.Count > 0)
-                        {
-                            Robot robotPathRemaining = GetRobot(robotAction.RobotId);
-                            if (robotPathRemaining != null)
-                            {
-                                robotPathRemaining.RobotPath = new Queue<Vector2>(robotAction.PathToPickup.Path);
-                            }
-                            pickupCounter++;
-                            timeline.Turns[turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToPickupLocation, null)
-                            {
-                                Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToPickup.Path[0] },
-                                PathRemaining = robotPathRemaining.RobotPath.ToList()
-                            });
-                            robotPathRemaining.RobotPath.Dequeue();
-                            for (int j = 1; j <= robotAction.PathToPickup.Path.Count - 1; j++)
-                            {
-                                pickupCounter++;
-                                timeline.Turns[turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToPickupLocation, null)
-                                {
-                                    Movement = new List<Vector2>() { robotAction.PathToPickup.Path[j - 1], robotAction.PathToPickup.Path[j] },
-                                    PathRemaining = robotPathRemaining.RobotPath.ToList()
-                                });
-                                robotPathRemaining.RobotPath.Dequeue();
-                            }
-                        }
-                        _RobotProgress[robot.RobotId] += pickupCounter;
-                    }
-                }
-            }
+        //                //Now populate the turns with the pickup path
+        //                int pickupCounter = 0;
+        //                if (robotAction.PathToPickup != null &&
+        //                    robotAction.PathToPickup.Path != null &&
+        //                    robotAction.PathToPickup.Path.Count > 0)
+        //                {
+        //                    Robot robotPathRemaining = GetRobot(robotAction.RobotId);
+        //                    if (robotPathRemaining != null)
+        //                    {
+        //                        robotPathRemaining.RobotPath = new Queue<Vector2>(robotAction.PathToPickup.Path);
+        //                    }
+        //                    pickupCounter++;
+        //                    timeline.Turns[turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToPickupLocation, null)
+        //                    {
+        //                        Movement = new List<Vector2>() { robotAction.RobotPickupStartingLocation, robotAction.PathToPickup.Path[0] },
+        //                        PathRemaining = robotPathRemaining.RobotPath.ToList()
+        //                    });
+        //                    robotPathRemaining.RobotPath.Dequeue();
+        //                    for (int j = 1; j <= robotAction.PathToPickup.Path.Count - 1; j++)
+        //                    {
+        //                        pickupCounter++;
+        //                        timeline.Turns[turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToPickupLocation, null)
+        //                        {
+        //                            Movement = new List<Vector2>() { robotAction.PathToPickup.Path[j - 1], robotAction.PathToPickup.Path[j] },
+        //                            PathRemaining = robotPathRemaining.RobotPath.ToList()
+        //                        });
+        //                        robotPathRemaining.RobotPath.Dequeue();
+        //                    }
+        //                }
+        //                _RobotProgress[robot.RobotId] += pickupCounter;
+        //            }
+        //        }
+        //    }
 
-            return timeline;
-        }
+        //    return timeline;
+        //}
 
         private Robot GetRobot(int robotId)
         {
