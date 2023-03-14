@@ -86,17 +86,20 @@ namespace PuzzleSolver
                             if (UnsortedPieces.Count > 0)
                             {
                                 //move to pickup location to pickup a piece
-                                robotAction.RobotPickupStartingLocation = robot.Location;
-                                PathFindingResult pathFindingResultForPickup = FindPathFindingWithTimeline(Map, robot.Location, robot.PickupLocation, robot.RobotId, Robots, timeline);
-                                if (pathFindingResultForPickup != null &&
-                                    pathFindingResultForPickup.Path != null)
+                                if (robot.Location != robot.PickupLocation)
                                 {
-                                    robotAction.RobotPickupEndingLocation = pathFindingResultForPickup.Path.Last();
-                                    robot.Location = pathFindingResultForPickup.Path.Last();
-                                }
-                                else
-                                {
-                                    robotAction.RobotPickupEndingLocation = robot.Location;
+                                    robotAction.RobotPickupStartingLocation = robot.Location;
+                                    PathFindingResult pathFindingResultForPickup = FindPathFindingWithTimeline(Map, robot.Location, robot.PickupLocation, robot.RobotId, Robots, timeline);
+                                    if (pathFindingResultForPickup != null &&
+                                        pathFindingResultForPickup.Path != null)
+                                    {
+                                        robotAction.RobotPickupEndingLocation = pathFindingResultForPickup.Path.Last();
+                                        robot.Location = pathFindingResultForPickup.Path.Last();
+                                    }
+                                    else
+                                    {
+                                        robotAction.RobotPickupEndingLocation = robot.Location;
+                                    }
                                 }
                                 //If we are at the pickuplocation, move to the picking up package status
                                 if (robot.Location == robot.PickupLocation)
