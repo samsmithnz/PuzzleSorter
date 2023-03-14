@@ -4,6 +4,7 @@ using PuzzleSolver.Images;
 using PuzzleSolver.Map;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Numerics;
 
@@ -220,6 +221,12 @@ namespace PuzzleSolver
                         }
                     }
                 }
+            }
+            else if (pathFindingResult != null &&
+                pathFindingResult.Path.Count == 0)
+            {
+                //Add a wait action to the path
+                pathFindingResult.Path.Insert(0, startLocation);
             }
 
             return pathFindingResult;
