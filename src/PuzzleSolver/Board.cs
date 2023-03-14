@@ -53,7 +53,7 @@ namespace PuzzleSolver
             Robots = robots;
         }
 
-        public TimeLine RunRobots2()
+        public TimeLine RunRobotsMk2()
         {
             TimeLine timeline = new TimeLine();
             //Create a dictonary to track robot turn progress over time
@@ -145,7 +145,7 @@ namespace PuzzleSolver
                                     if (adjacentLocation != null)
                                     {
                                         robotActionDropoff.RobotDropoffStartingLocation = robot.Location;
-                                        PathFindingResult pathFindingResultForDropoff = FindPathFindingWithTimeline(Map, robot.Location, (Vector2)pathDestinationLocation, robot.RobotId, Robots, timeline);
+                                        PathFindingResult pathFindingResultForDropoff = FindPathFindingWithTimeline(Map, robot.Location, (Vector2)destinationLocation, robot.RobotId, Robots, timeline);
                                         if (pathFindingResultForDropoff != null &&
                                             pathFindingResultForDropoff.Path != null)
                                         {
