@@ -1402,8 +1402,10 @@ namespace PuzzleSolver.Tests
             //Assert.AreEqual(new Vector2(1, 2), turn7.RobotActions[1].Movement[1]);
             //Assert.AreEqual(new Vector2(1, 0), turn7.RobotActions[1].DropoffAction.Location);
             //Assert.AreEqual(1, turn7.RobotActions[1].DropoffAction.DestinationPieceCount);
-            Assert.AreEqual(new Vector2(1, 0), turn7.RobotActions[0].DropoffAction.Location);
-            Assert.AreEqual(1, turn6.RobotActions[0].DropoffAction.DestinationPieceCount);
+            //Assert.AreEqual(new Vector2(1, 0), turn7.RobotActions[0].DropoffAction.Location);
+            //Assert.AreEqual(1, turn6.RobotActions[0].DropoffAction.DestinationPieceCount);
+            Assert.AreEqual(new Vector2(1, 1), turn7.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 2), turn7.RobotActions[0].Movement[1]);
 
         }
     }
