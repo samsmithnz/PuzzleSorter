@@ -89,8 +89,8 @@ namespace PuzzleSolver
                     switch (robot.RobotStatus)
                     {
                         case RobotStatus.RobotStatusEnum.LookingForJob:
-                            //If there is still work to do, and the robot is not busy, find a job
-                            if (UnsortedPieces.Count > 0)
+                            //If there is still work to do, and the robot is not busy, find a job, or if the robot isn't in the pickup location
+                            if (UnsortedPieces.Count > 0 | robot.Location != robot.PickupLocation)
                             {
                                 robot.RobotStatus = RobotStatus.RobotStatusEnum.MovingToPickupLocation;
                             }
@@ -138,7 +138,6 @@ namespace PuzzleSolver
                             {
                                 //If the piece is picked up, move to dropoff
                                 Vector2? packageMovingDestinationLocation = GetPieceDestination(robot.Piece);
-
                                 //Get the best adjacent location to the destination - this is where the package is delivered
                                 Vector2? robotDestinationLocation = packageMovingDestinationLocation;
                                 if (packageMovingDestinationLocation != null)
@@ -172,7 +171,6 @@ namespace PuzzleSolver
                         case RobotStatus.RobotStatusEnum.DeliveringPackage:
                             //If we are at the dropoff location, drop off the piece
                             Vector2? packageDestinationLocation = GetPieceDestination(robot.Piece);
-
                             if (packageDestinationLocation != null)
                             {
                                 robotAction.DropoffAction = new ObjectInteraction()
