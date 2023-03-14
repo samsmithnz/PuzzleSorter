@@ -137,18 +137,18 @@ namespace PuzzleSolver
                             if (robot.Piece != null)
                             {
                                 //If the piece is picked up, move to dropoff
-                                Vector2? deliveryDestinationLocation = GetPieceDestination(robot.Piece);
+                                Vector2? packageMovingDestinationLocation = GetPieceDestination(robot.Piece);
 
                                 //Get the best adjacent location to the destination - this is where the package is delivered
-                                Vector2? adjacentLocation = deliveryDestinationLocation;
-                                if (deliveryDestinationLocation != null)
+                                Vector2? robotDestinationLocation = packageMovingDestinationLocation;
+                                if (packageMovingDestinationLocation != null)
                                 {
-                                    adjacentLocation = GetAdjacentLocation((Vector2)deliveryDestinationLocation, Map, SortedDropZones);
-                                    if (adjacentLocation != null)
+                                    robotDestinationLocation = GetAdjacentLocation((Vector2)packageMovingDestinationLocation, Map, SortedDropZones);
+                                    if (robotDestinationLocation != null)
                                     {
                                         robotAction.PieceId = robot.Piece.Id;
                                         robotAction.RobotDropoffStartingLocation = robot.Location;
-                                        PathFindingResult pathFindingResultForDropoff = FindPathFindingWithTimeline(Map, robot.Location, (Vector2)adjacentLocation, robot.RobotId, Robots, timeline);
+                                        PathFindingResult pathFindingResultForDropoff = FindPathFindingWithTimeline(Map, robot.Location, (Vector2)robotDestinationLocation, robot.RobotId, Robots, timeline);
                                         if (pathFindingResultForDropoff != null &&
                                             pathFindingResultForDropoff.Path != null)
                                         {
@@ -162,7 +162,7 @@ namespace PuzzleSolver
                                         }
                                     }
                                 }
-                                if (robot.Location == deliveryDestinationLocation)
+                                if (robot.Location == robotDestinationLocation)
                                 {
                                     robot.RobotStatus = RobotStatus.RobotStatusEnum.DeliveringPackage;
                                 }
