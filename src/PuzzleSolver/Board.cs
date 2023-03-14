@@ -148,7 +148,7 @@ namespace PuzzleSolver
                                     {
                                         robotAction.PieceId = robot.Piece.Id;
                                         robotAction.RobotDropoffStartingLocation = robot.Location;
-                                        PathFindingResult pathFindingResultForDropoff = FindPathFindingWithTimeline(Map, robot.Location, (Vector2)deliveryDestinationLocation, robot.RobotId, Robots, timeline);
+                                        PathFindingResult pathFindingResultForDropoff = FindPathFindingWithTimeline(Map, robot.Location, (Vector2)adjacentLocation, robot.RobotId, Robots, timeline);
                                         if (pathFindingResultForDropoff != null &&
                                             pathFindingResultForDropoff.Path != null)
                                         {
