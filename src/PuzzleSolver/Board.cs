@@ -376,6 +376,11 @@ namespace PuzzleSolver
                     mapWithAllPaths[(int)robot.Location.X, (int)robot.Location.Y] = "P";
                 }
             }
+            foreach (SortedDropZone sortedDropZone in SortedDropZones)
+            {
+                //Research pickup zones from dropzones (potentially this could be improved to only include dropzones with pieces on them)
+                mapWithAllPaths[(int)sortedDropZone.Location.X, (int)sortedDropZone.Location.Y] = "D";
+            }
             if (timeline.Turns.Count > 0 && timeline.Turns.Count >= turn)
             {
                 for (int i = turn; i < timeline.Turns.Count; i++)
