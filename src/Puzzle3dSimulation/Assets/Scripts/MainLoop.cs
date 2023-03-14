@@ -1,9 +1,9 @@
 using Assets.Scripts.Common;
 using PuzzleSolver;
+using PuzzleSolver.Actions;
+using PuzzleSolver.Entities;
 using PuzzleSolver.Images;
 using PuzzleSolver.Map;
-using PuzzleSolver.MultipleRobots;
-using PuzzleSolver.Processing;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Collections;
@@ -15,6 +15,7 @@ using UnityEngine;
 public class MainLoop : MonoBehaviour
 {
     public Texture2D SourceTexture;
+    public Texture2D SourceTexture2;
     public Material PieceMaterial;
 
     private readonly bool _ShowCoordOnFloor = true;
@@ -25,7 +26,6 @@ public class MainLoop : MonoBehaviour
     private float _PieceWidth = 0.5f;
     private float _PieceHeight = 0.25f;
     private float _PieceDepth = 0.5f;
-    private int _PieceSize = 250;
     private int _Turn = 0;
 
     // Start is called before the first frame update
@@ -48,15 +48,16 @@ public class MainLoop : MonoBehaviour
             { 4, new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y + 1) }
         };
         //List<Piece> pieces = GetRandomPieceList(36, palette);
-        //List<Piece> pieces = GetPiecesFromImage(_PieceSize, _PieceSize, palette, centerPointLocation);
+        //List<Piece> pieces = GetPiecesFromStJohnImage(250, 250, palette, centerPointLocation);
+        //List<Piece> pieces = GetPiecesFromLegoImage(100, 100, palette, centerPointLocation);
         List<Piece> pieces = GetColoredPieceList(centerPointLocation);
         List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
 
         List<Robot> robots = new() {
             new Robot(1, robotStartingLocations[1], robotStartingLocations[1]),
             new Robot(2, robotStartingLocations[2], robotStartingLocations[2]),
-            //new Robot(3, robotStartingLocations[3], robotStartingLocations[3]),
-            //new Robot(4, robotStartingLocations[4], robotStartingLocations[4])
+            new Robot(3, robotStartingLocations[3], robotStartingLocations[3]),
+            new Robot(4, robotStartingLocations[4], robotStartingLocations[4])
         };
         //Initialize the game board
         Board board = new(map,
@@ -75,7 +76,7 @@ public class MainLoop : MonoBehaviour
 
         //Get the robot actions
         Utility.LogWithTime("Calculating robot moves");
-        _Timeline = board.RunRobots();
+        _Timeline = board.RunRobotsMk2();
         Utility.LogWithTime(_Timeline.Turns.Count + " turns found");
 
         //Add unsorted pieces
@@ -90,7 +91,7 @@ public class MainLoop : MonoBehaviour
             GameObject pieceObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
             pieceObject.transform.position = new Vector3(centerPointLocation.X, y, centerPointLocation.Y);
             pieceObject.transform.localScale = new Vector3(_PieceWidth, _PieceHeight, _PieceDepth);
-            pieceObject.name = GetPieceName(i);
+            pieceObject.name = GetPieceName(piece.Id);
             if (piece != null && piece.TopColorGroup != null)
             {
                 pieceObject.GetComponent<Renderer>().material = PieceMaterial;
@@ -108,7 +109,7 @@ public class MainLoop : MonoBehaviour
             pieceImageObject.transform.parent = pieceObject.transform;
             pieceImageObject.transform.localScale = new Vector3(1f, 0.1f, 1f);
             pieceImageObject.transform.SetLocalPositionAndRotation(
-                new Vector3(0f, 0.6f, 0f), 
+                new Vector3(0f, 0.6f, 0f),
                 Quaternion.Euler(new Vector3(0f, 180f, 0f)));
             y -= _PieceHeight;
         }
@@ -227,7 +228,14 @@ public class MainLoop : MonoBehaviour
 
         if (robotObject != null)
         {
-            Debug.Log("Robot " + robotId + " moving from " + startLocation + " to location " + endLocation.ToString());
+            if (startLocation == endLocation)
+            {
+                Debug.Log("Robot " + robotId + " is waiting at " + startLocation.ToString());
+            }
+            else
+            {
+                Debug.Log("Robot " + robotId + " moving from " + startLocation.ToString() + " to location " + endLocation.ToString());
+            }
             Movement movementScript = robotObject.GetComponent<Movement>();
             if (movementScript == null)
             {
@@ -348,7 +356,25 @@ public class MainLoop : MonoBehaviour
         return pieceList;
     }
 
-    private List<Piece> GetPiecesFromImage(int subImageWidth, int subImageHeight, List<Rgb24> palette, System.Numerics.Vector2 centerPointLocation)
+    private List<Piece> GetPiecesFromStJohnImage(int subImageWidth, int subImageHeight, List<Rgb24> palette, System.Numerics.Vector2 centerPointLocation)
+    {
+        GameObject imageObject = GameObject.Find("PuzzleCompleteImage");
+        GameObject imageObject2 = GameObject.Find("PuzzleCompleteImage2");
+        imageObject.GetComponent<Renderer>().enabled = true;
+        imageObject2.GetComponent<Renderer>().enabled = false;
+        return GetPiecesFromImage(subImageWidth, subImageHeight, palette, centerPointLocation, SourceTexture);
+    }
+
+    private List<Piece> GetPiecesFromLegoImage(int subImageWidth, int subImageHeight, List<Rgb24> palette, System.Numerics.Vector2 centerPointLocation)
+    {
+        GameObject imageObject = GameObject.Find("PuzzleCompleteImage");
+        GameObject imageObject2 = GameObject.Find("PuzzleCompleteImage2");
+        imageObject.GetComponent<Renderer>().enabled = false;
+        imageObject2.GetComponent<Renderer>().enabled = true;
+        return GetPiecesFromImage(subImageWidth, subImageHeight, palette, centerPointLocation, SourceTexture2);
+    }
+
+    private List<Piece> GetPiecesFromImage(int subImageWidth, int subImageHeight, List<Rgb24> palette, System.Numerics.Vector2 centerPointLocation, Texture2D texture)
     {
         List<Piece> pieceList = new();
 
@@ -360,7 +386,7 @@ public class MainLoop : MonoBehaviour
 
         //2. Split apart images/Crop the individual images next
         Utility.LogWithTime("GetPiecesFromImage: Split apart image into smaller images");
-        Image<Rgb24> sourceImg = Texture2Image(SourceTexture);
+        Image<Rgb24> sourceImg = Texture2Image(texture);
         List<Image<Rgb24>> images = ImageCropping.SplitImageIntoMultiplePieces(sourceImg, subImageWidth, subImageHeight);
 
         //Get image stats for each individual image and combine in one list

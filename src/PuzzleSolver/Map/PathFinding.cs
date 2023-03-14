@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using PuzzleSolver.Entities;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace PuzzleSolver.Map
@@ -28,7 +29,7 @@ namespace PuzzleSolver.Map
                     _tiles[x, y] = new MapTile(x, y, map[x, y], _endLocation);
                 }
             }
-            
+
             //Establish the start and end tiles
             MapTile startTile = _tiles[(int)startLocation.X, (int)startLocation.Y];
             startTile.State = TileState.Open;

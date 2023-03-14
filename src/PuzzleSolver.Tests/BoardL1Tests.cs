@@ -1,7 +1,7 @@
-﻿using PuzzleSolver.Images;
+﻿using PuzzleSolver.Actions;
+using PuzzleSolver.Entities;
+using PuzzleSolver.Images;
 using PuzzleSolver.Map;
-using PuzzleSolver.MultipleRobots;
-using PuzzleSolver.Processing;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Diagnostics.CodeAnalysis;
@@ -62,7 +62,7 @@ namespace PuzzleSolver.Tests
                 new List<Robot>() { robot });
 
             //Act
-            TimeLine results = board.RunRobots();
+            TimeLine results = board.RunRobotsMk2();
 
             //Assert
             Assert.IsNotNull(board);
@@ -70,7 +70,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(12, board.SortedPieces.Count);
             Assert.IsTrue(board.UnsortedPieces.Count == 0);
             Assert.IsNotNull(results);
-            Assert.AreEqual(82, results.Turns.Count);
+            Assert.AreEqual(90, results.Turns.Count);
         }
 
     }

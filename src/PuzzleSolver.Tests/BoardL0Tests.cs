@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PuzzleSolver.Actions;
+using PuzzleSolver.Entities;
 using PuzzleSolver.Images;
 using PuzzleSolver.Map;
-using PuzzleSolver.MultipleRobots;
-using PuzzleSolver.Processing;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Diagnostics.CodeAnalysis;
@@ -171,7 +171,7 @@ namespace PuzzleSolver.Tests
                 new List<Robot>() { robot });
 
             //Act
-            TimeLine results = board.RunRobots();
+            TimeLine results = board.RunRobotsMk2();
 
             //Assert           
             Assert.IsNotNull(board);
@@ -188,6 +188,7 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(turn1.RobotActions[0].PieceId);
             Assert.IsNull(turn1.RobotActions[0].Movement); //This is null because we start in the right location
             Assert.IsNotNull(turn1.RobotActions[0].PickupAction);
+            Assert.AreEqual(RobotStatus.RobotStatusEnum.PickingUpPackage, turn1.RobotActions[0].RobotStatus);
 
 
             //Assert.AreEqual(new(2, 1), turn1.RobotActions[0].RobotDropoffStartingLocation);
@@ -311,7 +312,7 @@ namespace PuzzleSolver.Tests
                 new List<Robot>() { robot });
 
             //Act
-            TimeLine results = board.RunRobots();
+            TimeLine results = board.RunRobotsMk2();
 
             //Assert           
             Assert.IsNotNull(board);
@@ -319,7 +320,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(10, board.SortedPieces.Count);
             Assert.IsTrue(board.UnsortedPieces.Count == 0);
             Assert.IsNotNull(results);
-            Assert.AreEqual(48, results.Turns.Count);
+            Assert.AreEqual(53, results.Turns.Count);
 
             //Complete the first action
             Turn turn1 = results.Turns[0];
@@ -330,6 +331,7 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(turn1.RobotActions[0].PickupAction);
             Assert.IsNull(turn1.RobotActions[0].DropoffAction);
             Assert.AreEqual(new(0, 1), board.SortedPieces[0].Location);
+            Assert.AreEqual(RobotStatus.RobotStatusEnum.PickingUpPackage, turn1.RobotActions[0].RobotStatus);
 
             ////Complete the second action
             //RobotAction turn2 = results.Dequeue();
@@ -463,7 +465,7 @@ namespace PuzzleSolver.Tests
                 robots);
 
             //Act
-            TimeLine results = board.RunRobots();
+            TimeLine results = board.RunRobotsMk2();
 
             //Assert           
             Assert.IsNotNull(board);
@@ -472,12 +474,13 @@ namespace PuzzleSolver.Tests
             Assert.IsNotNull(results);
             Assert.AreEqual(84, results.Turns.Count);
 
-            //Pickup piece 1 from 3,3
+            //Turns
             Turn turn1 = results.Turns[0];
             Assert.AreEqual(1, turn1.TurnNumber);
             Assert.AreEqual(1, turn1.RobotActions.Count);
             Assert.AreEqual(1, turn1.RobotActions[0].PieceId);
             Assert.IsNull(turn1.RobotActions[0].Movement);
+            Assert.AreEqual(RobotStatus.RobotStatusEnum.PickingUpPackage, turn1.RobotActions[0].RobotStatus);
 
             //Move piece 1 from 3,2 to 2,2
             Turn turn2 = results.Turns[1];
@@ -487,6 +490,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(2, turn2.RobotActions[0].Movement.Count);
             Assert.AreEqual(new Vector2(3, 2), turn2.RobotActions[0].Movement[0]);
             Assert.AreEqual(new Vector2(2, 2), turn2.RobotActions[0].Movement[1]);
+            Assert.AreEqual(RobotStatus.RobotStatusEnum.MovingToDeliveryLocation, turn2.RobotActions[0].RobotStatus);
 
             //Move piece 1 from 2,2 to 1,2
             Turn turn3 = results.Turns[2];
@@ -495,6 +499,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(1, turn3.RobotActions[0].PieceId); ;
             Assert.AreEqual(new Vector2(2, 2), turn3.RobotActions[0].Movement[0]);
             Assert.AreEqual(new Vector2(1, 2), turn3.RobotActions[0].Movement[1]);
+            Assert.AreEqual(RobotStatus.RobotStatusEnum.MovingToDeliveryLocation, turn3.RobotActions[0].RobotStatus);
 
             //Move piece 1 from 1,2 to 1,1
             Turn turn4 = results.Turns[3];
@@ -502,7 +507,8 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(1, turn4.RobotActions.Count);
             Assert.AreEqual(1, turn4.RobotActions[0].PieceId); ;
             Assert.AreEqual(new Vector2(1, 2), turn4.RobotActions[0].Movement[0]);
-            Assert.AreEqual(new Vector2(1, 1), turn4.RobotActions[0].Movement[1]);
+            Assert.AreEqual(new Vector2(1, 1), turn4.RobotActions[index: 0].Movement[1]);
+            Assert.AreEqual(RobotStatus.RobotStatusEnum.MovingToDeliveryLocation, turn4.RobotActions[0].RobotStatus);
 
             //Dropoff piece 1 to 0,1
             Turn turn5 = results.Turns[4];
@@ -512,7 +518,6 @@ namespace PuzzleSolver.Tests
             Assert.IsNull(turn5.RobotActions[0].Movement);
             Assert.AreEqual(new Vector2(0, 1), turn5.RobotActions[0].DropoffAction.Location);
             Assert.AreEqual(1, turn5.RobotActions[0].DropoffAction.DestinationPieceCount);
-
 
             ////Dropoff piece 1 to 0,1
             //Turn turn3 = results.Turns[2];
@@ -680,14 +685,14 @@ namespace PuzzleSolver.Tests
                 robots);
 
             //Act
-            TimeLine results = board.RunRobots();
+            TimeLine results = board.RunRobotsMk2();
 
             //Assert           
             Assert.IsNotNull(board);
             Assert.AreEqual(0, board.UnsortedPieces.Count);
             Assert.AreEqual(10, board.SortedPieces.Count);
             Assert.IsNotNull(results);
-            Assert.AreEqual(40, results.Turns.Count);
+            Assert.AreEqual(62, results.Turns.Count);
 
             //check the first turn
             Turn turn1 = results.Turns[0];
@@ -731,29 +736,47 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(4, turn4.TurnNumber);
             Assert.AreEqual(2, turn4.RobotActions.Count);
             Assert.AreEqual(1, turn4.RobotActions[0].PieceId);
-            Assert.AreEqual(null, turn4.RobotActions[1].PieceId); 
+            Assert.AreEqual(null, turn4.RobotActions[1].PieceId);
             Assert.AreEqual(new Vector2(1, 2), turn4.RobotActions[0].Movement[0]);
             Assert.AreEqual(new Vector2(1, 1), turn4.RobotActions[0].Movement[1]);
             Assert.AreEqual(new Vector2(1, 3), turn4.RobotActions[1].Movement[0]);
             Assert.AreEqual(new Vector2(2, 3), turn4.RobotActions[1].Movement[1]);
 
-
             //Turn 11 check for bugs
             Turn turn11 = results.Turns[10];
             Assert.AreEqual(11, turn11.TurnNumber);
             Assert.AreEqual(2, turn11.RobotActions.Count);
-            Assert.AreEqual(4, turn11.RobotActions[0].PieceId);
-            Assert.AreEqual(null, turn11.RobotActions[1].PieceId);
+            Assert.AreEqual(3, turn11.RobotActions[0].PieceId);
+            Assert.AreEqual(6, turn11.RobotActions[1].PieceId);
 
-            //Turn 12, the bots cross paths, but shouldn't
+            //Turn 12, the bots previously crossed paths, but shouldn't anymore
             Turn turn12 = results.Turns[11];
             Assert.AreEqual(12, turn12.TurnNumber);
             Assert.AreEqual(2, turn12.RobotActions.Count);
-            Assert.AreEqual(new Vector2(2, 3), turn12.RobotActions[0].Movement[0]);
-            Assert.AreEqual(new Vector2(1, 3), turn12.RobotActions[0].Movement[1]);
-            Assert.AreEqual(new Vector2(1, 3), turn12.RobotActions[1].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 2), turn12.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 1), turn12.RobotActions[0].Movement[1]);
+            Assert.AreEqual(new Vector2(2, 3), turn12.RobotActions[1].Movement[0]);
             Assert.AreEqual(new Vector2(2, 3), turn12.RobotActions[1].Movement[1]);
 
+            //Turn 15, the bots previously crossed paths, but shouldn't anymore
+            Turn turn15 = results.Turns[14];
+            Assert.AreEqual(15, turn15.TurnNumber);
+            Assert.AreEqual(2, turn15.RobotActions.Count);
+            Assert.AreEqual(new Vector2(2, 1), turn15.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(2, 2), turn15.RobotActions[0].Movement[1]);
+            Assert.AreEqual(new Vector2(2, 3), turn15.RobotActions[1].Movement[0]);
+            Assert.AreEqual(new Vector2(2, 3), turn15.RobotActions[1].Movement[1]);
+
+
+            ////Turn 13, the bots cross paths, but shouldn't
+            //Turn turn13 = results.Turns[12];
+            //Assert.AreEqual(13, turn13.TurnNumber);
+            //Assert.AreEqual(2, turn13.RobotActions.Count);
+            //Assert.AreEqual(new Vector2(2, 3), turn13.RobotActions[0].Movement[0]);
+            //Assert.AreEqual(new Vector2(1 ,3), turn13.RobotActions[0].Movement[1]);
+            //Assert.AreEqual(2, turn13.RobotActions[1].RobotId);
+            //Assert.AreEqual(new Vector2(1, 3), turn13.RobotActions[1].Movement[0]);
+            //Assert.AreEqual(new Vector2(2, 3), turn13.RobotActions[1].Movement[1]);
 
             ////check the fourth to last turn
             //Assert.AreEqual(17, results.Turns[results.Turns.Count - 4].TurnNumber);
@@ -775,6 +798,587 @@ namespace PuzzleSolver.Tests
             //Assert.AreEqual(20, results.Turns[results.Turns.Count - 1].TurnNumber);
             //Assert.AreEqual(2, results.Turns[results.Turns.Count - 1].RobotActions.Count);
             //Assert.AreEqual(null, results.Turns[results.Turns.Count - 1].RobotActions[0].PieceId);
+
+        }
+
+
+
+        [TestMethod]
+        public void BoardTwoRobots16ColorsTest()
+        {
+            //Arrange
+            int width = 7;
+            int height = 7;
+            string[,] map = MapGeneration.GenerateMap(width, height);
+            Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
+            List<Rgb24> palette = ColorPalettes.Get16ColorPalette();
+            List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
+            List<Robot> robots = new() {
+                new Robot(1, new Vector2(centerPointLocation.X, centerPointLocation.Y - 1), new Vector2(centerPointLocation.X, centerPointLocation.Y - 1)),
+                new Robot(2, new Vector2(centerPointLocation.X - 1, centerPointLocation.Y), new Vector2(centerPointLocation.X - 1, centerPointLocation.Y))
+            };
+            //Initialize the game board
+            Board board = new(map,
+                centerPointLocation,
+                palette,
+                new List<Piece>() {
+                    new Piece() {
+                        Id = 1,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 2,
+                        Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 3,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 4,
+                        Image = ImageCropping.CreateImage(Color.Green.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 5,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 6,
+                        Image = ImageCropping.CreateImage(Color.Purple.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 7,
+                        Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 8,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 9,
+                        Image = ImageCropping.CreateImage(Color.Yellow.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 10,
+                        Image = ImageCropping.CreateImage(Color.Orange.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    }
+                },
+                sortedDropZones,
+                robots);
+
+            //Act
+            TimeLine results = board.RunRobotsMk2();
+
+            //Assert           
+            Assert.IsNotNull(board);
+            Assert.AreEqual(0, board.UnsortedPieces.Count);
+            Assert.AreEqual(10, board.SortedPieces.Count);
+            Assert.IsNotNull(results);
+            Assert.AreEqual(78, results.Turns.Count);
+
+            ////Turn 25, robot 2 picks up piece 6, and then loses it
+            //Turn turn25 = results.Turns[24];
+            //Assert.AreEqual(25, turn25.TurnNumber);
+            //Assert.AreEqual(2, turn25.RobotActions.Count);
+            //Assert.AreEqual(6, turn25.RobotActions[1].PieceId);
+            //Assert.IsNotNull(turn25.RobotActions[1].PickupAction);
+
+            ////Turn 26, robot 2 picks up piece 6, and then loses it
+            //Turn turn26 = results.Turns[25];
+            //Assert.AreEqual(26, turn26.TurnNumber);
+            //Assert.AreEqual(2, turn26.RobotActions.Count);
+            //Assert.AreEqual(7, turn26.RobotActions[1].PieceId);
+            //Assert.IsNotNull( turn26.RobotActions[1].PickupAction);
+
+        }
+
+        [TestMethod]
+        public void BoardTwoRobots6ColorsSmallMapTest()
+        {
+            //Arrange
+            int width = 5;
+            int height = 5;
+            string[,] map = MapGeneration.GenerateMap(width, height);
+            Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
+            List<Rgb24> palette = ColorPalettes.Get6ColorPalette();
+            List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
+            List<Robot> robots = new() {
+                new Robot(1, new Vector2(centerPointLocation.X, centerPointLocation.Y - 1), new Vector2(centerPointLocation.X, centerPointLocation.Y - 1)),
+                new Robot(2, new Vector2(centerPointLocation.X - 1, centerPointLocation.Y), new Vector2(centerPointLocation.X - 1, centerPointLocation.Y))
+            };
+            //Initialize the game board
+            Board board = new(map,
+                centerPointLocation,
+                palette,
+                new List<Piece>() {
+                    new Piece() {
+                        Id = 1,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 2,
+                        Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 3,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 4,
+                        Image = ImageCropping.CreateImage(Color.Green.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    //new Piece() {
+                    //    Id = 5,
+                    //    Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //},
+                    //new Piece() {
+                    //    Id = 6,
+                    //    Image = ImageCropping.CreateImage(Color.Purple.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //},
+                    //new Piece() {
+                    //    Id = 7,
+                    //    Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //},
+                    //new Piece() {
+                    //    Id = 8,
+                    //    Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //},
+                    //new Piece() {
+                    //    Id = 9,
+                    //    Image = ImageCropping.CreateImage(Color.Yellow.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //},
+                    //new Piece() {
+                    //    Id = 10,
+                    //    Image = ImageCropping.CreateImage(Color.Orange.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //}
+                },
+                sortedDropZones,
+                robots);
+
+            //Act
+            TimeLine results = board.RunRobotsMk2();
+
+            //Assert           
+            Assert.IsNotNull(board);
+            Assert.AreEqual(0, board.UnsortedPieces.Count);
+            Assert.AreEqual(4, board.SortedPieces.Count);
+            Assert.IsNotNull(results);
+            Assert.AreEqual(11, results.Turns.Count);
+
+            //check the first turn
+            Turn turn1 = results.Turns[0];
+            Assert.AreEqual(1, turn1.TurnNumber);
+            Assert.AreEqual(2, turn1.RobotActions.Count);
+            Assert.AreEqual(1, turn1.RobotActions[0].PieceId);
+            Assert.AreEqual(2, turn1.RobotActions[1].PieceId);
+            Assert.AreEqual(new Vector2(2, 2), turn1.RobotActions[0].PickupAction.Location);
+            Assert.AreEqual(new Vector2(2, 2), turn1.RobotActions[1].PickupAction.Location);
+            Assert.IsNull(turn1.RobotActions[0].Movement);
+            Assert.IsNull(turn1.RobotActions[1].Movement);
+
+            Turn turn2 = results.Turns[1];
+            Assert.AreEqual(2, turn2.TurnNumber);
+            Assert.AreEqual(2, turn2.RobotActions.Count);
+            Assert.AreEqual(1, turn2.RobotActions[0].PieceId);
+            Assert.AreEqual(2, turn2.RobotActions[1].PieceId);
+            Assert.AreEqual(2, turn2.RobotActions[0].Movement.Count);
+            Assert.AreEqual(2, turn2.RobotActions[1].Movement.Count);
+            Assert.AreEqual(new Vector2(2, 1), turn2.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 1), turn2.RobotActions[0].Movement[1]);
+            Assert.AreEqual(new Vector2(1, 2), turn2.RobotActions[1].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 3), turn2.RobotActions[1].Movement[1]);
+
+            Turn turn3 = results.Turns[2];
+            Assert.AreEqual(3, turn3.TurnNumber);
+            Assert.AreEqual(2, turn3.RobotActions.Count);
+            Assert.AreEqual(1, turn3.RobotActions[0].PieceId);
+            Assert.AreEqual(2, turn3.RobotActions[1].PieceId);
+            Assert.AreEqual(new Vector2(0, 1), turn3.RobotActions[0].DropoffAction.Location);
+            Assert.AreEqual(new Vector2(0, 3), turn3.RobotActions[1].DropoffAction.Location);
+            Assert.AreEqual(1, turn3.RobotActions[0].DropoffAction.DestinationPieceCount);
+            Assert.AreEqual(1, turn3.RobotActions[1].DropoffAction.DestinationPieceCount);
+
+            Turn turn4 = results.Turns[3];
+            Assert.AreEqual(4, turn4.TurnNumber);
+            Assert.AreEqual(2, turn4.RobotActions.Count);
+            Assert.AreEqual(null, turn4.RobotActions[0].PieceId);
+            Assert.AreEqual(null, turn4.RobotActions[1].PieceId);
+            Assert.AreEqual(new Vector2(1, 1), turn4.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(2, 1), turn4.RobotActions[0].Movement[1]);
+            Assert.AreEqual(new Vector2(1, 3), turn4.RobotActions[1].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 2), turn4.RobotActions[1].Movement[1]);
+
+            Turn turn5 = results.Turns[4];
+            Assert.AreEqual(5, turn5.TurnNumber);
+            Assert.AreEqual(2, turn5.RobotActions.Count);
+            Assert.AreEqual(3, turn5.RobotActions[0].PieceId);
+            Assert.AreEqual(4, turn5.RobotActions[1].PieceId);
+            Assert.AreEqual(new Vector2(2, 2), turn5.RobotActions[0].PickupAction.Location);
+            Assert.AreEqual(new Vector2(2, 2), turn5.RobotActions[1].PickupAction.Location);
+            Assert.IsNull(turn5.RobotActions[0].Movement);
+            Assert.IsNull(turn5.RobotActions[1].Movement);
+
+            //this turn is problematic
+            Turn turn6 = results.Turns[5];
+            Assert.AreEqual(6, turn6.TurnNumber);
+            Assert.AreEqual(2, turn6.RobotActions.Count);
+            Assert.AreEqual(3, turn6.RobotActions[0].PieceId);
+            Assert.AreEqual(4, turn6.RobotActions[1].PieceId);
+            Assert.AreEqual(new Vector2(2, 1), turn6.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 1), turn6.RobotActions[0].Movement[1]);
+            Assert.AreEqual(new Vector2(1, 2), turn6.RobotActions[1].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 2), turn6.RobotActions[1].Movement[1]);
+
+            Turn turn7 = results.Turns[6];
+            Assert.AreEqual(7, turn7.TurnNumber);
+            Assert.AreEqual(2, turn7.RobotActions.Count);
+            Assert.AreEqual(3, turn7.RobotActions[0].PieceId);
+            Assert.AreEqual(4, turn7.RobotActions[1].PieceId);
+            Assert.AreEqual(new Vector2(0, 1), turn7.RobotActions[0].DropoffAction.Location);
+            //Assert.AreEqual(new Vector2(1, 0), turn7.RobotActions[1].DropoffAction.Location);
+            Assert.AreEqual(2, turn7.RobotActions[0].DropoffAction.DestinationPieceCount);
+            //Assert.AreEqual(1, turn7.RobotActions[1].DropoffAction.DestinationPieceCount);
+            Assert.AreEqual(new Vector2(1, 2), turn7.RobotActions[1].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 2), turn7.RobotActions[1].Movement[1]);
+
+            Turn turn8 = results.Turns[7];
+            Assert.AreEqual(8, turn8.TurnNumber);
+            Assert.AreEqual(2, turn8.RobotActions.Count);
+            Assert.AreEqual(4, turn8.RobotActions[0].PieceId);
+            Assert.AreEqual(null, turn8.RobotActions[1].PieceId);
+            Assert.AreEqual(new Vector2(1, 2), turn8.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 2), turn8.RobotActions[0].Movement[1]);
+            Assert.AreEqual(new Vector2(1, 1), turn8.RobotActions[1].Movement[0]);
+            Assert.AreEqual(new Vector2(2, 1), turn8.RobotActions[1].Movement[1]);
+
+        }
+
+        [TestMethod]
+        public void BoardTwoRobots6ColorsTinyMapTest()
+        {
+            //Arrange
+            int width = 5;
+            int height = 5;
+            string[,] map = MapGeneration.GenerateMap(width, height);
+            Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
+            List<Rgb24> palette = ColorPalettes.Get6ColorPalette();
+            List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
+            List<Robot> robots = new() {
+                new Robot(1, new Vector2(centerPointLocation.X, centerPointLocation.Y - 1), new Vector2(centerPointLocation.X, centerPointLocation.Y - 1)),
+                new Robot(2, new Vector2(centerPointLocation.X - 1, centerPointLocation.Y), new Vector2(centerPointLocation.X - 1, centerPointLocation.Y))
+            };
+            //Initialize the game board
+            Board board = new(map,
+                centerPointLocation,
+                palette,
+                new List<Piece>() {
+                    //new Piece() {
+                    //    Id = 1,
+                    //    Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //},
+                    //new Piece() {
+                    //    Id = 2,
+                    //    Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //},
+                    new Piece() {
+                        Id = 3,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 4,
+                        Image = ImageCropping.CreateImage(Color.Green.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    //new Piece() {
+                    //    Id = 5,
+                    //    Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //},
+                    //new Piece() {
+                    //    Id = 6,
+                    //    Image = ImageCropping.CreateImage(Color.Purple.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //},
+                    //new Piece() {
+                    //    Id = 7,
+                    //    Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //},
+                    //new Piece() {
+                    //    Id = 8,
+                    //    Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //},
+                    //new Piece() {
+                    //    Id = 9,
+                    //    Image = ImageCropping.CreateImage(Color.Yellow.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //},
+                    //new Piece() {
+                    //    Id = 10,
+                    //    Image = ImageCropping.CreateImage(Color.Orange.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //}
+                },
+                sortedDropZones,
+                robots);
+
+            //Act
+            TimeLine results = board.RunRobotsMk2();
+
+            //Assert           
+            Assert.IsNotNull(board);
+            Assert.AreEqual(0, board.UnsortedPieces.Count);
+            //Assert.AreEqual(2, board.SortedPieces.Count);
+            Assert.IsNotNull(results);
+            Assert.AreEqual(7, results.Turns.Count);
+
+            //Robot 1 + 2 Pickup
+            Turn turn1 = results.Turns[0];
+            Assert.AreEqual(1, turn1.TurnNumber);
+            Assert.AreEqual(2, turn1.RobotActions.Count);
+            Assert.AreEqual(3, turn1.RobotActions[0].PieceId);
+            Assert.AreEqual(4, turn1.RobotActions[1].PieceId);
+            Assert.AreEqual(new Vector2(2, 2), turn1.RobotActions[0].PickupAction.Location);
+            Assert.AreEqual(new Vector2(2, 2), turn1.RobotActions[1].PickupAction.Location);
+            Assert.IsNull(turn1.RobotActions[0].Movement);
+            Assert.IsNull(turn1.RobotActions[1].Movement);
+
+            //this turn is problematic
+            //Robot 1 move to dropoff, Robot 2 waiting
+            Turn turn2 = results.Turns[1];
+            Assert.AreEqual(2, turn2.TurnNumber);
+            Assert.AreEqual(2, turn2.RobotActions.Count);
+            Assert.AreEqual(3, turn2.RobotActions[0].PieceId);
+            Assert.AreEqual(4, turn2.RobotActions[1].PieceId);
+            Assert.AreEqual(new Vector2(2, 1), turn2.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 1), turn2.RobotActions[0].Movement[1]);
+            Assert.AreEqual(new Vector2(1, 2), turn2.RobotActions[1].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 2), turn2.RobotActions[1].Movement[1]);
+
+            //Robot 1 Dropoff, Robot 2 waiting
+            Turn turn3 = results.Turns[2];
+            Assert.AreEqual(3, turn3.TurnNumber);
+            Assert.AreEqual(2, turn3.RobotActions.Count);
+            Assert.AreEqual(3, turn3.RobotActions[0].PieceId);
+            Assert.AreEqual(4, turn3.RobotActions[1].PieceId);
+            Assert.AreEqual(new Vector2(0, 1), turn3.RobotActions[0].DropoffAction.Location);
+            Assert.AreEqual(1, turn3.RobotActions[0].DropoffAction.DestinationPieceCount);
+            Assert.AreEqual(new Vector2(1, 2), turn3.RobotActions[1].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 2), turn3.RobotActions[1].Movement[1]);
+
+            //Move Robot 1 back to pickup, Robot 2 moving to dropoff
+            Turn turn4 = results.Turns[3];
+            Assert.AreEqual(4, turn4.TurnNumber);
+            Assert.AreEqual(2, turn4.RobotActions.Count);
+            Assert.AreEqual(4, turn4.RobotActions[0].PieceId);
+            Assert.AreEqual(null, turn4.RobotActions[1].PieceId);
+            Assert.AreEqual(new Vector2(1, 2), turn4.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 2), turn4.RobotActions[0].Movement[1]);
+            Assert.AreEqual(new Vector2(1, 1), turn4.RobotActions[1].Movement[0]);
+            Assert.AreEqual(new Vector2(2, 1), turn4.RobotActions[1].Movement[1]);
+
+            //Move Robot 1 is idle, Robot 2 moving back to pickup
+            Turn turn5 = results.Turns[4];
+            Assert.AreEqual(5, turn5.TurnNumber);
+            Assert.AreEqual(1, turn5.RobotActions.Count);
+            Assert.AreEqual(4, turn5.RobotActions[0].PieceId);
+            Assert.AreEqual(new Vector2(1, 2), turn5.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 1), turn5.RobotActions[0].Movement[1]);
+            //Assert.AreEqual(new Vector2(1, 1), turn5.RobotActions[1].Movement[0]);
+            //Assert.AreEqual(new Vector2(1, 2), turn5.RobotActions[1].Movement[1]);
+            //Assert.AreEqual(new Vector2(1, 0), turn5.RobotActions[1].DropoffAction.Location);
+            //Assert.AreEqual(1, turn5.RobotActions[1].DropoffAction.DestinationPieceCount);
+
+            //Move Robot 1 is idle, Robot 2 moving back to pickup
+            Turn turn6 = results.Turns[5];
+            Assert.AreEqual(6, turn6.TurnNumber);
+            Assert.AreEqual(1, turn6.RobotActions.Count);
+            Assert.AreEqual(4, turn6.RobotActions[0].PieceId);
+            Assert.AreEqual(new Vector2(1, 0), turn6.RobotActions[0].DropoffAction.Location);
+            Assert.AreEqual(1, turn6.RobotActions[0].DropoffAction.DestinationPieceCount);
+
+        }
+
+        [TestMethod]
+        public void BoardTwoRobotsMk26ColorsTinyMapTest()
+        {
+            //Arrange
+            int width = 5;
+            int height = 5;
+            string[,] map = MapGeneration.GenerateMap(width, height);
+            Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
+            List<Rgb24> palette = ColorPalettes.Get6ColorPalette();
+            List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
+            List<Robot> robots = new() {
+                new Robot(1, new Vector2(centerPointLocation.X, centerPointLocation.Y - 1), new Vector2(centerPointLocation.X, centerPointLocation.Y - 1)),
+                new Robot(2, new Vector2(centerPointLocation.X - 1, centerPointLocation.Y), new Vector2(centerPointLocation.X - 1, centerPointLocation.Y))
+            };
+            //Initialize the game board
+            Board board = new(map,
+                centerPointLocation,
+                palette,
+                new List<Piece>() {
+                    //new Piece() {
+                    //    Id = 1,
+                    //    Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //},
+                    //new Piece() {
+                    //    Id = 2,
+                    //    Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //},
+                    new Piece() {
+                        Id = 3,
+                        Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    new Piece() {
+                        Id = 4,
+                        Image = ImageCropping.CreateImage(Color.Green.ToPixel<Rgb24>()),
+                        Location = centerPointLocation
+                    },
+                    //new Piece() {
+                    //    Id = 5,
+                    //    Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //},
+                    //new Piece() {
+                    //    Id = 6,
+                    //    Image = ImageCropping.CreateImage(Color.Purple.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //},
+                    //new Piece() {
+                    //    Id = 7,
+                    //    Image = ImageCropping.CreateImage(Color.Blue.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //},
+                    //new Piece() {
+                    //    Id = 8,
+                    //    Image = ImageCropping.CreateImage(Color.Red.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //},
+                    //new Piece() {
+                    //    Id = 9,
+                    //    Image = ImageCropping.CreateImage(Color.Yellow.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //},
+                    //new Piece() {
+                    //    Id = 10,
+                    //    Image = ImageCropping.CreateImage(Color.Orange.ToPixel<Rgb24>()),
+                    //    Location = centerPointLocation
+                    //}
+                },
+                sortedDropZones,
+                robots);
+
+            //Act
+            TimeLine results = board.RunRobotsMk2();
+
+            //Assert           
+            Assert.IsNotNull(board);
+            Assert.AreEqual(0, board.UnsortedPieces.Count);
+            Assert.AreEqual(2, board.SortedPieces.Count);
+            Assert.IsNotNull(results);
+            Assert.AreEqual(7, results.Turns.Count);
+
+            //Robot 1 + 2 Pickup
+            Turn turn1 = results.Turns[0];
+            Assert.AreEqual(1, turn1.TurnNumber);
+            Assert.AreEqual(2, turn1.RobotActions.Count);
+            Assert.AreEqual(3, turn1.RobotActions[0].PieceId);
+            Assert.AreEqual(4, turn1.RobotActions[1].PieceId);
+            Assert.AreEqual(new Vector2(2, 2), turn1.RobotActions[0].PickupAction.Location);
+            Assert.AreEqual(new Vector2(2, 2), turn1.RobotActions[1].PickupAction.Location);
+            Assert.IsNull(turn1.RobotActions[0].Movement);
+            Assert.IsNull(turn1.RobotActions[1].Movement);
+
+            //this turn is problematic
+            //Robot 1 move to dropoff, Robot 2 waiting
+            Turn turn2 = results.Turns[1];
+            Assert.AreEqual(2, turn2.TurnNumber);
+            Assert.AreEqual(2, turn2.RobotActions.Count);
+            Assert.AreEqual(3, turn2.RobotActions[0].PieceId);
+            Assert.AreEqual(4, turn2.RobotActions[1].PieceId);
+            Assert.AreEqual(new Vector2(2, 1), turn2.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 1), turn2.RobotActions[0].Movement[1]);
+            Assert.AreEqual(new Vector2(1, 2), turn2.RobotActions[1].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 2), turn2.RobotActions[1].Movement[1]);
+
+            //Robot 1 Dropoff, Robot 2 waiting
+            Turn turn3 = results.Turns[2];
+            Assert.AreEqual(3, turn3.TurnNumber);
+            Assert.AreEqual(2, turn3.RobotActions.Count);
+            Assert.AreEqual(3, turn3.RobotActions[0].PieceId);
+            Assert.AreEqual(4, turn3.RobotActions[1].PieceId);
+            Assert.AreEqual(new Vector2(0, 1), turn3.RobotActions[0].DropoffAction.Location);
+            Assert.AreEqual(1, turn3.RobotActions[0].DropoffAction.DestinationPieceCount);
+            Assert.AreEqual(new Vector2(1, 2), turn3.RobotActions[1].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 2), turn3.RobotActions[1].Movement[1]);
+
+
+            //Move Robot 1 back to pickup, Robot 2 waiting
+            Turn turn4 = results.Turns[3];
+            Assert.AreEqual(4, turn4.TurnNumber);
+            Assert.AreEqual(2, turn4.RobotActions.Count);
+            Assert.AreEqual(2, turn4.RobotActions[0].RobotId);
+            Assert.AreEqual(1, turn4.RobotActions[1].RobotId);
+            Assert.AreEqual(4, turn4.RobotActions[0].PieceId);
+            Assert.AreEqual(null, turn4.RobotActions[1].PieceId);
+            Assert.AreEqual(new Vector2(1, 1), turn4.RobotActions[1].Movement[0]);
+            Assert.AreEqual(new Vector2(2, 1), turn4.RobotActions[1].Movement[1]);
+
+            //Robot 1 is idle, Robot 2 moving to dropoff
+            Turn turn5 = results.Turns[4];
+            Assert.AreEqual(5, turn5.TurnNumber);
+            Assert.AreEqual(1, turn5.RobotActions.Count);
+            Assert.AreEqual(2, turn5.RobotActions[0].RobotId);
+            Assert.AreEqual(4, turn5.RobotActions[0].PieceId);
+            Assert.AreEqual(new Vector2(1, 2), turn5.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 1), turn5.RobotActions[0].Movement[1]);
+
+            //Robot 1 is idle, Robot 2 dropping off
+            Turn turn6 = results.Turns[5];
+            Assert.AreEqual(6, turn6.TurnNumber);
+            Assert.AreEqual(1, turn6.RobotActions.Count);
+            Assert.AreEqual(2, turn6.RobotActions[0].RobotId);
+            Assert.AreEqual(4, turn6.RobotActions[0].PieceId);
+            Assert.AreEqual(new Vector2(1, 0), turn6.RobotActions[0].DropoffAction.Location);
+            Assert.AreEqual(1, turn6.RobotActions[0].DropoffAction.DestinationPieceCount);
+
+
+            //Robot 1 is idle, Robot 2 moving back to pickup
+            Turn turn7 = results.Turns[6];
+            Assert.AreEqual(7, turn7.TurnNumber);
+            Assert.AreEqual(1, turn7.RobotActions.Count);
+            Assert.AreEqual(2, turn7.RobotActions[0].RobotId);
+            Assert.AreEqual(null, turn7.RobotActions[0].PieceId);
+            Assert.AreEqual(new Vector2(1, 1), turn7.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 2), turn7.RobotActions[0].Movement[1]);
 
         }
     }
