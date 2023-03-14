@@ -3,6 +3,7 @@ using PuzzleSolver.Entities;
 using PuzzleSolver.Images;
 using PuzzleSolver.Map;
 using SixLabors.ImageSharp.PixelFormats;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
@@ -52,96 +53,158 @@ namespace PuzzleSolver
             Robots = robots;
         }
 
-        //public TimeLine RunRobots2()
-        //{
-        //    TimeLine timeline = new TimeLine();
-        //    //Create a dictonary to track robot turn progress over time
-        //    Dictionary<int, int> robotProgress = new Dictionary<int, int>();
-        //    foreach (Robot robot in Robots)
-        //    {
-        //        robotProgress.Add(robot.RobotId, 0);
-        //    }
+        public TimeLine RunRobots2()
+        {
+            TimeLine timeline = new TimeLine();
+            //Create a dictonary to track robot turn progress over time
+            Dictionary<int, int> robotProgress = new Dictionary<int, int>();
+            foreach (Robot robot in Robots)
+            {
+                robotProgress.Add(robot.RobotId, 0);
+            }
 
-        //    //Need to loop through all unsorted pieces until they are sorted
-        //    while (UnsortedPieces.Count > 0)
-        //    {
-        //        //Sort the progress list to find the robot with the least number of turns - this is the robot who should pick up next
-        //        List<KeyValuePair<int, int>> orderedRobotProgress = robotProgress.OrderBy(x => x.Value).ToList();
-        //        //For each robot
-        //        foreach (Robot robot in Robots)
-        //        {
-        //            switch (robot.RobotStatus)
-        //            {
-        //                case RobotStatus.RobotStatusEnum.LookingForJob:
-        //                    robot.RobotStatus = RobotStatus.RobotStatusEnum.MovingToPickupLocation;
-        //                    break;
-        //                case RobotStatus.RobotStatusEnum.MovingToPickupLocation:
-        //                    //If there are unsorted pieces, move to pickup
-        //                    RobotAction robotActionPickup = new RobotAction(robot.RobotId);
-        //                    robotActionPickup.RobotPickupStartingLocation = robot.Location;
-        //                    PathFindingResult pathFindingResultForPickup = FindPathFindingWithTimeline(Map, robot.Location, robot.PickupLocation, robot.RobotId, Robots, timeline);
-        //                    robotActionPickup.RobotPickupEndingLocation = pathFindingResultForPickup.Path.Last();
-        //                    robot.Location = pathFindingResultForPickup.Path.Last();
-        //                    if (robot.Location == robot.PickupLocation)
-        //                    {
-        //                        robot.RobotStatus = RobotStatus.RobotStatusEnum.PickingUpPackage;
-        //                    }
-        //                    break;
-        //                case RobotStatus.RobotStatusEnum.PickingUpPackage:
-        //                    //If we are at the pickup location, and there are pieces, pick up the piece
-        //                    RobotAction robotActionDropoff = new RobotAction(robot.RobotId);
+            //Need to loop through all unsorted pieces until they are sorted
+            while (UnsortedPieces.Count > 0)
+            {
+                //Sort the progress list to find the robot with the least number of turns - this is the robot who should pick up next
+                List<KeyValuePair<int, int>> orderedRobotProgress = robotProgress.OrderBy(x => x.Value).ToList();
+                //For each robot
+                foreach (Robot robot in Robots)
+                {
+                    switch (robot.RobotStatus)
+                    {
+                        case RobotStatus.RobotStatusEnum.LookingForJob:
+                            //If there is still work to do, and the robot is not busy, find a job
+                            if (UnsortedPieces.Count > 0)
+                            {
+                                robot.RobotStatus = RobotStatus.RobotStatusEnum.MovingToPickupLocation;
+                            }
+                            break;
 
-        //                    // Process the unsorted piece to work out where it goes
-        //                    Vector2? destinationLocation = null;
-        //                    foreach (SortedDropZone sortedDropZone in SortedDropZones)
-        //                    {
-        //                        if (sortedDropZone.Color == robot.Piece.ImageStats.TopColorGroupColor)
-        //                        {
-        //                            destinationLocation = sortedDropZone.Location;
-        //                            break;
-        //                        }
-        //                    }
-        //                    if (destinationLocation == null)
-        //                    {
-        //                        throw new System.Exception("Destination not found for piece " + robot.Piece.Id);
-        //                    }
+                        case RobotStatus.RobotStatusEnum.MovingToPickupLocation:
+                            if (UnsortedPieces.Count > 0)
+                            {
+                                //move to pickup location to pickup a piece
+                                RobotAction robotActionMoveToPickup = new RobotAction(robot.RobotId);
+                                robotActionMoveToPickup.RobotPickupStartingLocation = robot.Location;
+                                PathFindingResult pathFindingResultForPickup = FindPathFindingWithTimeline(Map, robot.Location, robot.PickupLocation, robot.RobotId, Robots, timeline);
+                                if (pathFindingResultForPickup != null &&
+                                    pathFindingResultForPickup.Path != null)
+                                {
+                                    robotActionMoveToPickup.RobotPickupEndingLocation = pathFindingResultForPickup.Path.Last();
+                                    robot.Location = pathFindingResultForPickup.Path.Last();
+                                }
+                                else
+                                {
+                                    robotActionMoveToPickup.RobotPickupEndingLocation = robot.Location;
+                                }
+                                //If we are at the pickuplocation, move to the picking up package status
+                                if (robot.Location == robot.PickupLocation)
+                                {
+                                    robot.RobotStatus = RobotStatus.RobotStatusEnum.PickingUpPackage;
+                                }
+                            }
+                            break;
 
-        //                    //Get the best adjacent location to the destination
-        //                    Vector2? pathDestinationLocation = destinationLocation;
-        //                    if (destinationLocation != null)
-        //                    {
-        //                        Vector2? adjacentLocation = GetAdjacentLocation((Vector2)destinationLocation, Map, SortedDropZones);
-        //                        if (adjacentLocation != null)
-        //                        {
-        //                            pathDestinationLocation = (Vector2)adjacentLocation;
-        //                            robotActionDropoff.RobotDropoffStartingLocation = robot.Location;
+                        case RobotStatus.RobotStatusEnum.PickingUpPackage:
+                            RobotAction robotActionPickup = new RobotAction(robot.RobotId);
+                            robotActionPickup.PickupAction = new ObjectInteraction()
+                            {
+                                Location = robot.PickupLocation
+                            };
+                            robot.Piece = UnsortedPieces.Dequeue();
+                            robotActionPickup.PieceId = robot.Piece.Id;
+                            robot.RobotStatus = RobotStatus.RobotStatusEnum.PickingUpPackage;
+                            break;
 
-        //                            PathFindingResult pathFindingResultForDropoff = FindPathFindingWithTimeline(Map, robot.Location, (Vector2)pathDestinationLocation, robot.RobotId, Robots, timeline);
-        //                            robot.RobotStatus = RobotStatus.RobotStatusEnum.MovingToPickupLocation;
-        //                            robotActionDropoff.RobotDropoffEndingLocation = pathFindingResultForDropoff.Path.Last();
-        //                            robot.Location = pathFindingResultForDropoff.Path.Last();
-        //                        }
-        //                    }
-        //                    if (robot.Location == pathDestinationLocation)
-        //                    {
-        //                        robot.RobotStatus = RobotStatus.RobotStatusEnum.MovingToDeliveryLocation;
-        //                    }
-        //                    break;
-        //                case RobotStatus.RobotStatusEnum.MovingToDeliveryLocation:
-        //                    //If the piece is picked up, move to dropoff
-        //                    break;
-        //                case RobotStatus.RobotStatusEnum.DeliveringPackage:
-        //                    //If we are at the dropoff location, drop off the piece
+                        case RobotStatus.RobotStatusEnum.MovingToDeliveryLocation:
+                            if (robot.Piece != null)
+                            {
+                                //If the piece is picked up, move to dropoff
+                                RobotAction robotActionDropoff = new RobotAction(robot.RobotId);
+                                // Process the unsorted piece to work out where the destination location is
+                                Vector2? destinationLocation = null;
+                                foreach (SortedDropZone sortedDropZone in SortedDropZones)
+                                {
+                                    if (sortedDropZone.Color == robot.Piece.ImageStats.TopColorGroupColor)
+                                    {
+                                        destinationLocation = sortedDropZone.Location;
+                                        break;
+                                    }
+                                }
+                                if (destinationLocation == null)
+                                {
+                                    throw new System.Exception("Destination not found for piece " + robot.Piece.Id);
+                                }
+
+                                //Get the best adjacent location to the destination - this is where the package is delivered
+                                Vector2? adjacentLocation = destinationLocation;
+                                if (destinationLocation != null)
+                                {
+                                    adjacentLocation = GetAdjacentLocation((Vector2)destinationLocation, Map, SortedDropZones);
+                                    if (adjacentLocation != null)
+                                    {
+                                        robotActionDropoff.RobotDropoffStartingLocation = robot.Location;
+                                        PathFindingResult pathFindingResultForDropoff = FindPathFindingWithTimeline(Map, robot.Location, (Vector2)pathDestinationLocation, robot.RobotId, Robots, timeline);
+                                        if (pathFindingResultForDropoff != null &&
+                                            pathFindingResultForDropoff.Path != null)
+                                        {
+                                            robotActionDropoff.RobotDropoffEndingLocation = pathFindingResultForDropoff.Path.Last();
+                                            robot.Location = pathFindingResultForDropoff.Path.Last();
+                                        }
+                                        else
+                                        {
+                                            robotActionDropoff.RobotDropoffEndingLocation = robot.Location;
+                                        }
+                                    }
+                                }
+                                if (robot.Location == destinationLocation)
+                                {
+                                    robot.RobotStatus = RobotStatus.RobotStatusEnum.DeliveringPackage;
+                                }
+                            }
+                            break;
+
+                        case RobotStatus.RobotStatusEnum.DeliveringPackage:
+                            //If we are at the dropoff location, drop off the piece
+                            //RobotAction robotActionPickup = new RobotAction(robot.RobotId);
+                            //robotActionPickup.PickupAction = new ObjectInteraction()
+                            //{
+                            //    Location = robot.PickupLocation
+                            //};
+                            //robot.Piece = UnsortedPieces.Dequeue();
+                            //robotActionPickup.PieceId = robot.Piece.Id;
 
 
-        //                    //If the piece is dropped off, move to pickup
-        //                    break;
-        //            }
-        //        }
-        //    }
+                            //robotAction.DropoffAction = new ObjectInteraction()
+                            //{
+                            //    Location = (Vector2)destinationLocation
+                            //};
+                            ////Move the piece from the robot to the sorted pile
+                            //robot.RobotStatus = RobotStatus.RobotStatusEnum.DeliveringPackage;
+                            //robot.Piece.Location = robotAction.DropoffAction.Location;
+                            //SortedPieces.Add(robot.Piece);
+                            //foreach (SortedDropZone sortedDropZone in SortedDropZones)
+                            //{
+                            //    if (sortedDropZone.Location == destinationLocation)
+                            //    {
+                            //        sortedDropZone.Count++;
+                            //        break;
+                            //    }
+                            //}
+                            //robot.Piece = null;
+                            //robotAction.DropoffPieceCount = GetPieceCount(robotAction.DropoffAction.Location);
 
-        //    return timeline;
-        //}
+
+
+                            robot.RobotStatus = RobotStatus.RobotStatusEnum.LookingForJob;
+                            break;
+                    }
+                }
+            }
+
+            return timeline;
+        }
 
         public PathFindingResult FindPathFindingWithTimeline(string[,] map, Vector2 startLocation, Vector2 endLocation, int robotId, List<Robot> robots, TimeLine timeline)
         {
@@ -446,6 +509,52 @@ namespace PuzzleSolver
                         }
                         break;
                     }
+                    //else if (robot.Piece != null)
+                    //{
+                    //    RobotAction robotAction = new RobotAction(robot.RobotId);
+                    //    robotAction = GetRobotAction(robot, robot.Piece, timeline);
+
+                    //    //Run the dropoff routine again
+                    //    if (robotAction.PathToDropoff != null &&
+                    //            robotAction.PathToDropoff.Path != null &&
+                    //            robotAction.PathToDropoff.Path.Count > 0)
+                    //    {
+                    //        Robot robotPathRemaining = GetRobot(robotAction.RobotId);
+                    //        if (robotPathRemaining != null)
+                    //        {
+                    //            robotPathRemaining.RobotPath = new Queue<Vector2>(robotAction.PathToDropoff.Path);
+                    //        }
+                    //        dropoffCounter++;
+                    //        timeline.Turns[pickupCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToDeliveryLocation, piece.Id)
+                    //        {
+                    //            Movement = new List<Vector2>() { robotAction.RobotDropoffStartingLocation, robotAction.PathToDropoff.Path[0] },
+                    //            PathRemaining = robotPathRemaining.RobotPath.ToList()
+                    //        });
+                    //        robotPathRemaining.RobotPath.Dequeue();
+                    //        for (int j = 1; j <= robotAction.PathToDropoff.Path.Count - 1; j++)
+                    //        {
+                    //            dropoffCounter++;
+                    //            timeline.Turns[pickupCounter + turn + j].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.MovingToDeliveryLocation, piece.Id)
+                    //            {
+                    //                Movement = new List<Vector2>() { robotAction.PathToDropoff.Path[j - 1], robotAction.PathToDropoff.Path[j] },
+                    //                PathRemaining = robotPathRemaining.RobotPath.ToList()
+                    //            });
+                    //            robotPathRemaining.RobotPath.Dequeue();
+                    //        }
+                    //    }
+
+                    //    if (robotAction.DropoffAction != null)
+                    //    {
+                    //        robotAction.DropoffAction.DestinationPieceCount = GetPieceCount(robotAction.DropoffAction.Location);
+                    //        timeline.Turns[pickupCounter + dropoffCounter + turn].RobotActions.Add(new RobotTurnAction(robot.RobotId, RobotStatus.RobotStatusEnum.DeliveringPackage, piece.Id)
+                    //        {
+                    //            DropoffAction = robotAction.DropoffAction
+                    //        });
+                    //        dropoffCounter++;
+                    //        robot.Location = robotAction.RobotDropoffEndingLocation;
+                    //    }
+                    //    _RobotProgress[robot.RobotId] += pickupCounter + dropoffCounter;
+                    //}
                 }
             }
 
