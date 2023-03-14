@@ -1392,9 +1392,9 @@ namespace PuzzleSolver.Tests
 
             //Robot 1 is idle, Robot 2 moving back to pickup
             Turn turn7 = results.Turns[6];
-            Assert.AreEqual(6, turn7.TurnNumber);
+            Assert.AreEqual(7, turn7.TurnNumber);
             Assert.AreEqual(1, turn7.RobotActions.Count);
-            Assert.AreEqual(4, turn7.RobotActions[0].PieceId);
+            Assert.AreEqual(null, turn7.RobotActions[0].PieceId);
             //Assert.AreEqual(4, turn7.RobotActions[1].PieceId);
             //Assert.AreEqual(new Vector2(2, 1), turn7.RobotActions[0].Movement[0]);
             //Assert.AreEqual(new Vector2(2, 1), turn7.RobotActions[0].Movement[1]);
