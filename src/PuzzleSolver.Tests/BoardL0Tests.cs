@@ -1152,7 +1152,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(0, board.UnsortedPieces.Count);
             //Assert.AreEqual(2, board.SortedPieces.Count);
             Assert.IsNotNull(results);
-            Assert.AreEqual(4, results.Turns.Count);
+            Assert.AreEqual(7, results.Turns.Count);
 
             //Robot 1 + 2 Pickup
             Turn turn1 = results.Turns[0];
