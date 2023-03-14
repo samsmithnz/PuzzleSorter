@@ -62,7 +62,7 @@ namespace PuzzleSolver.Tests
                 new List<Robot>() { robot });
 
             //Act
-            TimeLine results = board.RunRobots();
+            TimeLine results = board.RunRobotsMk2();
 
             //Assert
             Assert.IsNotNull(board);
