@@ -373,7 +373,9 @@ namespace PuzzleSolver
             {
                 if (robot.RobotId != robotId)
                 {
+                    //Reserve pickup zones and current robot locations
                     mapWithAllPaths[(int)robot.PickupLocation.X, (int)robot.PickupLocation.Y] = "P";
+                    mapWithAllPaths[(int)robot.Location.X, (int)robot.Location.Y] = "P";
                 }
             }
             if (timeline.Turns.Count > 0 && timeline.Turns.Count >= turn)
