@@ -173,7 +173,7 @@ namespace PuzzleSolver
                             //If we are at the dropoff location, drop off the piece
                             Vector2? packageDestinationLocation = GetPieceDestination(robot.Piece);
 
-                            if (packageDestinationLocation != null && packageDestinationLocation == robot.Location)
+                            if (packageDestinationLocation != null)
                             {
                                 robotAction.DropoffAction = new ObjectInteraction()
                                 {
