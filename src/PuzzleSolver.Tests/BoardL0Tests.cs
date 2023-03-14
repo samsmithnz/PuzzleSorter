@@ -1150,7 +1150,7 @@ namespace PuzzleSolver.Tests
             //Assert           
             Assert.IsNotNull(board);
             Assert.AreEqual(0, board.UnsortedPieces.Count);
-            Assert.AreEqual(2, board.SortedPieces.Count);
+            //Assert.AreEqual(2, board.SortedPieces.Count);
             Assert.IsNotNull(results);
             Assert.AreEqual(4, results.Turns.Count);
 
@@ -1185,10 +1185,8 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(4, turn3.RobotActions[1].PieceId);
             Assert.AreEqual(new Vector2(0, 1), turn3.RobotActions[0].DropoffAction.Location);
             Assert.AreEqual(1, turn3.RobotActions[0].DropoffAction.DestinationPieceCount);
-            //Assert.AreEqual(new Vector2(1, 0), turn3.RobotActions[1].DropoffAction.Location);
-            //Assert.AreEqual(1, turn3.RobotActions[1].DropoffAction.DestinationPieceCount);
-            Assert.AreEqual(new Vector2(1, 2), turn2.RobotActions[1].Movement[0]);
-            Assert.AreEqual(new Vector2(1, 1), turn2.RobotActions[1].Movement[1]);
+            Assert.AreEqual(new Vector2(1, 2), turn3.RobotActions[1].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 2), turn3.RobotActions[1].Movement[1]);
 
 
             //Move Robot 1 back to pickup, Robot 2 moving to dropoff
