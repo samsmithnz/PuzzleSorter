@@ -107,13 +107,13 @@ namespace PuzzleSolver
                             break;
 
                         case RobotStatus.RobotStatusEnum.PickingUpPackage:
+                            robot.Piece = UnsortedPieces.Dequeue();
                             robotAction.PickupAction = new ObjectInteraction()
                             {
-                                Location = robot.PickupLocation
+                                Location = robot.Piece.Location
                             };
-                            robot.Piece = UnsortedPieces.Dequeue();
                             robotAction.PieceId = robot.Piece.Id;
-                            robot.RobotStatus = RobotStatus.RobotStatusEnum.PickingUpPackage;
+                            robot.RobotStatus = RobotStatus.RobotStatusEnum.MovingToDeliveryLocation;
                             break;
 
                         case RobotStatus.RobotStatusEnum.MovingToDeliveryLocation:
