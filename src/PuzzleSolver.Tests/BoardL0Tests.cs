@@ -884,7 +884,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(0, board.UnsortedPieces.Count);
             Assert.AreEqual(10, board.SortedPieces.Count);
             Assert.IsNotNull(results);
-            Assert.AreEqual(61, results.Turns.Count);
+            Assert.AreEqual(67, results.Turns.Count);
 
             ////Turn 25, robot 2 picks up piece 6, and then loses it
             //Turn turn25 = results.Turns[24];
