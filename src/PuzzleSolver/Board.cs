@@ -53,6 +53,20 @@ namespace PuzzleSolver
             Robots = robots;
         }
 
+        private int CountPiecesHeldByRobots()
+        {
+            int count = 0;
+            foreach (Robot robot in Robots)
+            {
+                if (robot.Piece != null)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
         public TimeLine RunRobotsMk2()
         {
             TimeLine timeline = new TimeLine();
@@ -64,7 +78,7 @@ namespace PuzzleSolver
             }
 
             //Need to loop through all unsorted pieces until they are sorted
-            while (UnsortedPieces.Count > 0)
+            while (UnsortedPieces.Count > 0 || CountPiecesHeldByRobots() > 0)
             {
                 //Sort the progress list to find the robot with the least number of turns - this is the robot who should pick up next
                 List<KeyValuePair<int, int>> orderedRobotProgress = _RobotProgress.OrderBy(x => x.Value).ToList();
@@ -123,26 +137,13 @@ namespace PuzzleSolver
                             if (robot.Piece != null)
                             {
                                 //If the piece is picked up, move to dropoff
-                                // Process the unsorted piece to work out where the destination location is
-                                Vector2? destinationLocation = null;
-                                foreach (SortedDropZone sortedDropZone in SortedDropZones)
-                                {
-                                    if (sortedDropZone.Color == robot.Piece.ImageStats.TopColorGroupColor)
-                                    {
-                                        destinationLocation = sortedDropZone.Location;
-                                        break;
-                                    }
-                                }
-                                if (destinationLocation == null)
-                                {
-                                    throw new System.Exception("Destination not found for piece " + robot.Piece.Id);
-                                }
+                                Vector2? deliveryDestinationLocation = GetPieceDestination(robot.Piece);
 
                                 //Get the best adjacent location to the destination - this is where the package is delivered
-                                Vector2? adjacentLocation = destinationLocation;
-                                if (destinationLocation != null)
+                                Vector2? adjacentLocation = deliveryDestinationLocation;
+                                if (deliveryDestinationLocation != null)
                                 {
-                                    adjacentLocation = GetAdjacentLocation((Vector2)destinationLocation, Map, SortedDropZones);
+                                    adjacentLocation = GetAdjacentLocation((Vector2)deliveryDestinationLocation, Map, SortedDropZones);
                                     if (adjacentLocation != null)
                                     {
                                         robotAction.RobotDropoffStartingLocation = robot.Location;
@@ -159,7 +160,7 @@ namespace PuzzleSolver
                                         }
                                     }
                                 }
-                                if (robot.Location == destinationLocation)
+                                if (robot.Location == deliveryDestinationLocation)
                                 {
                                     robot.RobotStatus = RobotStatus.RobotStatusEnum.DeliveringPackage;
                                 }
@@ -168,37 +169,30 @@ namespace PuzzleSolver
 
                         case RobotStatus.RobotStatusEnum.DeliveringPackage:
                             //If we are at the dropoff location, drop off the piece
-                            //RobotAction robotActionPickup = new RobotAction(robot.RobotId);
-                            //robotActionPickup.PickupAction = new ObjectInteraction()
-                            //{
-                            //    Location = robot.PickupLocation
-                            //};
-                            //robot.Piece = UnsortedPieces.Dequeue();
-                            //robotActionPickup.PieceId = robot.Piece.Id;
+                            Vector2? packageDestinationLocation = GetPieceDestination(robot.Piece);
 
-
-                            //robotAction.DropoffAction = new ObjectInteraction()
-                            //{
-                            //    Location = (Vector2)destinationLocation
-                            //};
-                            ////Move the piece from the robot to the sorted pile
-                            //robot.RobotStatus = RobotStatus.RobotStatusEnum.DeliveringPackage;
-                            //robot.Piece.Location = robotAction.DropoffAction.Location;
-                            //SortedPieces.Add(robot.Piece);
-                            //foreach (SortedDropZone sortedDropZone in SortedDropZones)
-                            //{
-                            //    if (sortedDropZone.Location == destinationLocation)
-                            //    {
-                            //        sortedDropZone.Count++;
-                            //        break;
-                            //    }
-                            //}
-                            //robot.Piece = null;
-                            //robotAction.DropoffPieceCount = GetPieceCount(robotAction.DropoffAction.Location);
-
-
-
-                            robot.RobotStatus = RobotStatus.RobotStatusEnum.LookingForJob;
+                            if (packageDestinationLocation != null && packageDestinationLocation == robot.Location)
+                            {
+                                robotAction.DropoffAction = new ObjectInteraction()
+                                {
+                                    Location = (Vector2)packageDestinationLocation
+                                };
+                                //Move the piece from the robot to the sorted pile
+                                robot.RobotStatus = RobotStatus.RobotStatusEnum.DeliveringPackage;
+                                robot.Piece.Location = robotAction.DropoffAction.Location;
+                                SortedPieces.Add(robot.Piece);
+                                foreach (SortedDropZone sortedDropZone in SortedDropZones)
+                                {
+                                    if (sortedDropZone.Location == packageDestinationLocation)
+                                    {
+                                        sortedDropZone.Count++;
+                                        break;
+                                    }
+                                }
+                                robot.Piece = null;
+                                robotAction.DropoffPieceCount = GetPieceCount(robotAction.DropoffAction.Location);
+                                robot.RobotStatus = RobotStatus.RobotStatusEnum.LookingForJob;
+                            }
                             break;
                     }
 
@@ -324,6 +318,25 @@ namespace PuzzleSolver
             }
 
             return timeline;
+        }
+
+        private Vector2? GetPieceDestination(Piece piece)
+        {
+            // Process the unsorted piece to work out where the destination location is
+            Vector2? destinationLocation = null;
+            foreach (SortedDropZone sortedDropZone in SortedDropZones)
+            {
+                if (sortedDropZone.Color == piece.ImageStats.TopColorGroupColor)
+                {
+                    destinationLocation = sortedDropZone.Location;
+                    break;
+                }
+            }
+            if (destinationLocation == null)
+            {
+                throw new System.Exception("Destination not found for piece " + piece.Id);
+            }
+            return destinationLocation;
         }
 
         public PathFindingResult FindPathFindingWithTimeline(string[,] map, Vector2 startLocation, Vector2 endLocation, int robotId, List<Robot> robots, TimeLine timeline)
