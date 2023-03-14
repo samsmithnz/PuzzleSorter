@@ -33,8 +33,8 @@ public class MainLoop : MonoBehaviour
     {
         Utility.LogWithTime("Initializing map");
         //Setup board
-        int width = 5;
-        int height = 5;
+        int width = 7;
+        int height = 7;
         string[,] map = MapGeneration.GenerateMap(width, height);
         System.Numerics.Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
         Utility.LogWithTime("Initializing color palette");
@@ -56,8 +56,8 @@ public class MainLoop : MonoBehaviour
         List<Robot> robots = new() {
             new Robot(1, robotStartingLocations[1], robotStartingLocations[1]),
             new Robot(2, robotStartingLocations[2], robotStartingLocations[2]),
-            //new Robot(3, robotStartingLocations[3], robotStartingLocations[3]),
-            //new Robot(4, robotStartingLocations[4], robotStartingLocations[4])
+            new Robot(3, robotStartingLocations[3], robotStartingLocations[3]),
+            new Robot(4, robotStartingLocations[4], robotStartingLocations[4])
         };
         //Initialize the game board
         Board board = new(map,
@@ -422,16 +422,16 @@ public class MainLoop : MonoBehaviour
     {
         List<Piece> pieces = new()
         {
-            //new Piece() {
-            //    Id = 1,
-            //    Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
-            //    Location = centerPointLocation
-            //},
-            //new Piece() {
-            //    Id = 2,
-            //    Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>()),
-            //    Location = centerPointLocation
-            //},
+            new Piece() {
+                Id = 1,
+                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
+                Location = centerPointLocation
+            },
+            new Piece() {
+                Id = 2,
+                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>()),
+                Location = centerPointLocation
+            },
             new Piece() {
                 Id = 3,
                 Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
@@ -442,36 +442,36 @@ public class MainLoop : MonoBehaviour
                 Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Green.ToPixel<Rgb24>()),
                 Location = centerPointLocation
             },
-            //new Piece() {
-            //    Id = 5,
-            //    Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
-            //    Location = centerPointLocation
-            //},
-            //new Piece() {
-            //    Id = 6,
-            //    Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Purple.ToPixel<Rgb24>()),
-            //    Location = centerPointLocation
-            //},
-            //new Piece() {
-            //    Id = 7,
-            //    Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>()),
-            //    Location = centerPointLocation
-            //},
-            //new Piece() {
-            //    Id = 8,
-            //    Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
-            //    Location = centerPointLocation
-            //},
-            //new Piece() {
-            //    Id = 9,
-            //    Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Yellow.ToPixel<Rgb24>()),
-            //    Location = centerPointLocation
-            //},
-            //new Piece() {
-            //    Id = 10,
-            //    Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Orange.ToPixel<Rgb24>()),
-            //    Location = centerPointLocation
-            //}
+            new Piece() {
+                Id = 5,
+                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
+                Location = centerPointLocation
+            },
+            new Piece() {
+                Id = 6,
+                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Purple.ToPixel<Rgb24>()),
+                Location = centerPointLocation
+            },
+            new Piece() {
+                Id = 7,
+                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Blue.ToPixel<Rgb24>()),
+                Location = centerPointLocation
+            },
+            new Piece() {
+                Id = 8,
+                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Red.ToPixel<Rgb24>()),
+                Location = centerPointLocation
+            },
+            new Piece() {
+                Id = 9,
+                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Yellow.ToPixel<Rgb24>()),
+                Location = centerPointLocation
+            },
+            new Piece() {
+                Id = 10,
+                Image = ImageCropping.CreateImage(SixLabors.ImageSharp.Color.Orange.ToPixel<Rgb24>()),
+                Location = centerPointLocation
+            }
         };
         return pieces;
     }
