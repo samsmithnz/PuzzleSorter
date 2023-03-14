@@ -1345,7 +1345,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new Vector2(0, 1), turn3.RobotActions[0].DropoffAction.Location);
             Assert.AreEqual(1, turn3.RobotActions[0].DropoffAction.DestinationPieceCount);
             Assert.AreEqual(new Vector2(1, 2), turn3.RobotActions[1].Movement[0]);
-            Assert.AreEqual(new Vector2(1, 2), turn3.RobotActions[1].Movement[1]);
+            Assert.AreEqual(new Vector2(1, 1), turn3.RobotActions[1].Movement[1]);
 
 
             //Move Robot 1 back to pickup, Robot 2 moving to dropoff
