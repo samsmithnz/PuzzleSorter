@@ -67,6 +67,20 @@ namespace PuzzleSolver
             return count;
         }
 
+        private int RobotsOutOfPosition()
+        {
+            int count = 0;
+            foreach (Robot robot in Robots)
+            {
+                if (robot.Location != robot.PickupLocation)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
         public TimeLine RunRobotsMk2()
         {
             TimeLine timeline = new TimeLine();
@@ -78,7 +92,7 @@ namespace PuzzleSolver
             }
 
             //Need to loop through all unsorted pieces until they are sorted
-            while (UnsortedPieces.Count > 0 || CountPiecesHeldByRobots() > 0)
+            while (UnsortedPieces.Count > 0 || CountPiecesHeldByRobots() > 0 || RobotsOutOfPosition() > 0)
             {
                 //Sort the progress list to find the robot with the least number of turns - this is the robot who should pick up next
                 List<KeyValuePair<int, int>> orderedRobotProgress = _RobotProgress.OrderBy(x => x.Value).ToList();
