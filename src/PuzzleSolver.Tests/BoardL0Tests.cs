@@ -1391,12 +1391,12 @@ namespace PuzzleSolver.Tests
             string[,] map = MapGeneration.GenerateMap(width, height);
             Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
             List<Rgb24> palette = ColorPalettes.Get6ColorPalette();
-            Dictionary<int, System.Numerics.Vector2> robotStartingLocations = new()
+            Dictionary<int, Vector2> robotStartingLocations = new()
             {
-                { 1, new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y - 1) },
-                { 2, new System.Numerics.Vector2(centerPointLocation.X - 1, centerPointLocation.Y) },
-                { 3, new System.Numerics.Vector2(centerPointLocation.X + 1, centerPointLocation.Y) },
-                { 4, new System.Numerics.Vector2(centerPointLocation.X, centerPointLocation.Y + 1) }
+                { 1, new Vector2(centerPointLocation.X, centerPointLocation.Y - 1) },
+                { 2, new Vector2(centerPointLocation.X - 1, centerPointLocation.Y) },
+                { 3, new Vector2(centerPointLocation.X + 1, centerPointLocation.Y) },
+                { 4, new Vector2(centerPointLocation.X, centerPointLocation.Y + 1) }
             };
             List<SortedDropZone> sortedDropZones = SortedDropZones.GetSortedDropZones(map, palette);
             List<Robot> robots = new() {
