@@ -403,11 +403,6 @@ namespace PuzzleSolver
                 }
             }
             PathFindingResult pathFindingResult = PathFinding.FindPath(mapWithAllPaths, startLocation, endLocation);
-            //if (robotId == 3 && pathFindingResult.Path.Count > 0)
-            //{
-            //    int n = 0;
-            //    string mapString = MapCore.GetMapString(mapWithAllPaths);
-            //}
             //Don't allow paths that are too long
             if (pathFindingResult!= null &&
                 pathFindingResult.Path.Count > 15)

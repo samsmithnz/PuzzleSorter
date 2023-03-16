@@ -33,8 +33,8 @@ public class MainLoop : MonoBehaviour
     {
         Utility.LogWithTime("Initializing map");
         //Setup board
-        int width = 7;
-        int height = 7;
+        int width = 9;
+        int height = 9;
         string[,] map = MapGeneration.GenerateMap(width, height);
         System.Numerics.Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
         Utility.LogWithTime("Initializing color palette");
