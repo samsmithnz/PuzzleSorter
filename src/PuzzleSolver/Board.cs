@@ -395,6 +395,7 @@ namespace PuzzleSolver
                                 if (mapWithAllPaths[(int)pathLocation.X, (int)pathLocation.Y] == "")
                                 {
                                     mapWithAllPaths[(int)pathLocation.X, (int)pathLocation.Y] = "X";
+                                    string mapString = MapCore.GetMapString(mapWithAllPaths);
                                 }
                             }
                         }
@@ -402,7 +403,18 @@ namespace PuzzleSolver
                 }
             }
             PathFindingResult pathFindingResult = PathFinding.FindPath(mapWithAllPaths, startLocation, endLocation);
-
+            //if (robotId == 3 && pathFindingResult.Path.Count > 0)
+            //{
+            //    int n = 0;
+            //    string mapString = MapCore.GetMapString(mapWithAllPaths);
+            //}
+            //Don't allow paths that are too long
+            if (pathFindingResult!= null &&
+                pathFindingResult.Path.Count > 15)
+            {
+                pathFindingResult.Path = new List<Vector2>();
+                pathFindingResult.Tiles = new List<MapTile>();
+            }
             if (pathFindingResult != null &&
                 pathFindingResult.Path.Count > 0 &&
                 robots.Count > 1)
