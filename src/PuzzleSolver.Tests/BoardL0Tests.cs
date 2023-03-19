@@ -742,7 +742,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new Vector2(1, 3), turn4.RobotActions[1].Movement[0]);
             Assert.AreEqual(new Vector2(2, 3), turn4.RobotActions[1].Movement[1]);
 
-            //Turn 5: BUG: Robot 2 picks up an piece 4 instead of piece 3 that isn't the top item
+            //Turn 5: (fixed) BUG: Robot 2 should pick up piece 3
             Turn turn5 = results.Turns[4];
             Assert.AreEqual(5, turn5.TurnNumber);
             Assert.AreEqual(2, turn5.RobotActions.Count);
@@ -756,7 +756,7 @@ namespace PuzzleSolver.Tests
             Turn turn11 = results.Turns[10];
             Assert.AreEqual(11, turn11.TurnNumber);
             Assert.AreEqual(2, turn11.RobotActions.Count);
-            Assert.AreEqual(3, turn11.RobotActions[0].PieceId);
+            Assert.AreEqual(4, turn11.RobotActions[0].PieceId);
             Assert.AreEqual(6, turn11.RobotActions[1].PieceId);
 
             //Turn 12, the bots previously crossed paths, but shouldn't anymore
