@@ -197,6 +197,10 @@ namespace PuzzleSolver
                                         robot.RobotStatus = RobotStatus.RobotStatusEnum.DeliveringPackage;
                                     }
                                 }
+                                else
+                                {
+                                    robot.RobotStatus = RobotStatus.RobotStatusEnum.LookingForJob;
+                                }
                                 break;
 
                             case RobotStatus.RobotStatusEnum.DeliveringPackage:
