@@ -772,10 +772,10 @@ namespace PuzzleSolver.Tests
             Turn turn15 = results.Turns[14];
             Assert.AreEqual(15, turn15.TurnNumber);
             Assert.AreEqual(2, turn15.RobotActions.Count);
-            Assert.AreEqual(new Vector2(2, 1), turn15.RobotActions[0].Movement[0]);
-            Assert.AreEqual(new Vector2(2, 2), turn15.RobotActions[0].Movement[1]);
-            Assert.AreEqual(new Vector2(2, 3), turn15.RobotActions[1].Movement[0]);
-            Assert.AreEqual(new Vector2(2, 3), turn15.RobotActions[1].Movement[1]);
+            Assert.AreEqual(new Vector2(4, 3), turn15.RobotActions[0].Movement[0]);
+            Assert.AreEqual(new Vector2(4, 4), turn15.RobotActions[0].Movement[1]);
+            Assert.AreEqual(new Vector2(1, 4), turn15.RobotActions[1].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 3), turn15.RobotActions[1].Movement[1]);
 
 
             ////Turn 13, the bots cross paths, but shouldn't
