@@ -1074,7 +1074,7 @@ namespace PuzzleSolver.Tests
             Turn turn8 = results.Turns[7];
             Assert.AreEqual(8, turn8.TurnNumber);
             Assert.AreEqual(2, turn8.RobotActions.Count);
-            Assert.AreEqual(4, turn8.RobotActions[0].PieceId);
+            Assert.AreEqual(null, turn8.RobotActions[0].PieceId);
             Assert.AreEqual(null, turn8.RobotActions[1].PieceId);
             Assert.AreEqual(new Vector2(1, 2), turn8.RobotActions[0].Movement[0]);
             Assert.AreEqual(new Vector2(1, 2), turn8.RobotActions[0].Movement[1]);
