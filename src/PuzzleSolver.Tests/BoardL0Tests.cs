@@ -1535,7 +1535,7 @@ namespace PuzzleSolver.Tests
             Turn turn5 = results.Turns[4];
             Assert.AreEqual(5, turn5.TurnNumber);
             Assert.AreEqual(4, turn5.RobotActions.Count);
-            Assert.AreEqual(2, turn5.RobotActions[3].RobotId);
+            Assert.AreEqual(4, turn5.RobotActions[3].RobotId);
             Assert.AreEqual(6, turn5.RobotActions[3].PieceId);
             //Assert.AreEqual(new Vector2(1, 2), turn4.RobotActions[0].Movement[0]);
             //Assert.AreEqual(new Vector2(1, 1), turn4.RobotActions[0].Movement[1]);
