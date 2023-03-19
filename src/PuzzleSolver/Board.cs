@@ -95,7 +95,7 @@ namespace PuzzleSolver
             while (UnsortedPieces.Count > 0 || CountPiecesHeldByRobots() > 0 || RobotsOutOfPosition() > 0)
             {
                 currentTurn++;
-                Debug.WriteLine("Loop " + currentTurn.ToString());
+                //Debug.WriteLine("Loop " + currentTurn.ToString());
                 //Sort the progress list to find the robot with the least number of turns - this is the robot who should pick up next
                 List<KeyValuePair<int, int>> orderedRobotProgress = _RobotProgress.OrderBy(x => x.Value).ToList();
                 //For each robot
@@ -105,10 +105,10 @@ namespace PuzzleSolver
                     if (orderedRobotProgress[0].Key == robot.RobotId)
                     {
                         RobotAction robotAction = new RobotAction(robot.RobotId);
-                        if (robot.RobotId == 1)
-                        {
-                            int n = 0;
-                        }
+                        //if (robot.RobotId == 1)
+                        //{
+                        //    int n = 0;
+                        //}
                         switch (robot.RobotStatus)
                         {
                             case RobotStatus.RobotStatusEnum.LookingForJob:
