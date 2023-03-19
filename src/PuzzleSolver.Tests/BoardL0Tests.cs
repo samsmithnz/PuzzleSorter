@@ -742,6 +742,16 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new Vector2(1, 3), turn4.RobotActions[1].Movement[0]);
             Assert.AreEqual(new Vector2(2, 3), turn4.RobotActions[1].Movement[1]);
 
+            //Turn 5: BUG: Robot 2 picks up an piece 4 instead of piece 3 that isn't the top item
+            Turn turn5 = results.Turns[4];
+            Assert.AreEqual(5, turn5.TurnNumber);
+            Assert.AreEqual(2, turn5.RobotActions.Count);
+            Assert.AreEqual(1, turn5.RobotActions[0].PieceId);
+            Assert.AreEqual(3, turn5.RobotActions[1].PieceId);
+            Assert.IsNotNull(turn5.RobotActions[1].PickupAction);
+
+            //Turn 11: BUG: Robot 2 picks up an item then waits from turn 12 on...
+
             //Turn 11 check for bugs
             Turn turn11 = results.Turns[10];
             Assert.AreEqual(11, turn11.TurnNumber);
@@ -1525,8 +1535,8 @@ namespace PuzzleSolver.Tests
             Turn turn5 = results.Turns[4];
             Assert.AreEqual(5, turn5.TurnNumber);
             Assert.AreEqual(4, turn5.RobotActions.Count);
-            Assert.AreEqual(2, turn5.RobotActions[2].RobotId);
-            Assert.AreEqual(6, turn5.RobotActions[2].PieceId);
+            Assert.AreEqual(2, turn5.RobotActions[3].RobotId);
+            Assert.AreEqual(6, turn5.RobotActions[3].PieceId);
             //Assert.AreEqual(new Vector2(1, 2), turn4.RobotActions[0].Movement[0]);
             //Assert.AreEqual(new Vector2(1, 1), turn4.RobotActions[0].Movement[1]);
             //Assert.AreEqual(new Vector2(1, 3), turn4.RobotActions[1].Movement[0]);
