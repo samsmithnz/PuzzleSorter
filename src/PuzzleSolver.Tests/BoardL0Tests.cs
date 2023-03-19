@@ -1078,7 +1078,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(4, turn8.RobotActions[1].PieceId);
             Assert.AreEqual(new Vector2(1, 1), turn8.RobotActions[0].Movement[0]);
             Assert.AreEqual(new Vector2(2, 1), turn8.RobotActions[0].Movement[1]);
-            Assert.AreEqual(new Vector2(1, 1), turn8.RobotActions[1].Movement[0]);
+            Assert.AreEqual(new Vector2(1, 2), turn8.RobotActions[1].Movement[0]);
             Assert.AreEqual(new Vector2(2, 1), turn8.RobotActions[1].Movement[1]);
 
         }
