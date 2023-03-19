@@ -766,7 +766,7 @@ namespace PuzzleSolver.Tests
             Assert.AreEqual(new Vector2(1, 2), turn12.RobotActions[0].Movement[0]);
             Assert.AreEqual(new Vector2(1, 3), turn12.RobotActions[0].Movement[1]);
             Assert.AreEqual(new Vector2(3, 1), turn12.RobotActions[1].Movement[0]);
-            Assert.AreEqual(new Vector2(2, 3), turn12.RobotActions[1].Movement[1]);
+            Assert.AreEqual(new Vector2(4, 1), turn12.RobotActions[1].Movement[1]);
 
             //Turn 15, the bots previously crossed paths, but shouldn't anymore
             Turn turn15 = results.Turns[14];
