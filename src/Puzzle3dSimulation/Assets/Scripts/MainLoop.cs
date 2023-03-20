@@ -33,8 +33,8 @@ public class MainLoop : MonoBehaviour
     {
         Utility.LogWithTime("Initializing map");
         //Setup board
-        int width = 7;
-        int height = 7;
+        int width = 9;
+        int height = 9;
         string[,] map = MapGeneration.GenerateMap(width, height);
         System.Numerics.Vector2 centerPointLocation = MapGeneration.GetCenterPointLocation(width, height);
         Utility.LogWithTime("Initializing color palette");
@@ -56,8 +56,8 @@ public class MainLoop : MonoBehaviour
         List<Robot> robots = new() {
             new Robot(1, robotStartingLocations[1], robotStartingLocations[1]),
             new Robot(2, robotStartingLocations[2], robotStartingLocations[2]),
-            //new Robot(3, robotStartingLocations[3], robotStartingLocations[3]),
-            //new Robot(4, robotStartingLocations[4], robotStartingLocations[4])
+            new Robot(3, robotStartingLocations[3], robotStartingLocations[3]),
+            new Robot(4, robotStartingLocations[4], robotStartingLocations[4])
         };
         //Initialize the game board
         Board board = new(map,
