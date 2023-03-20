@@ -12,5 +12,19 @@ namespace PuzzleSolver.Actions
             TurnNumber = turnNumber;
             RobotActions = new List<RobotTurnAction>();
         }
+
+        public RobotTurnAction GetRobotTurnAction(int robotId)
+        {
+            RobotTurnAction result = null;
+            foreach (RobotTurnAction item in RobotActions)
+            {
+                if (item.RobotId == robotId)
+                {
+                    result = item;
+                    break;
+                }
+            }
+            return result;
+        }
     }
 }
