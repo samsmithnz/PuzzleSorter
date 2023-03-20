@@ -1601,6 +1601,18 @@ namespace PuzzleSolver.Tests
             ////Assert.AreEqual(2, results.Turns[results.Turns.Count - 1].RobotActions.Count);
             ////Assert.AreEqual(null, results.Turns[results.Turns.Count - 1].RobotActions[0].PieceId);
 
+            //Turn 24, the Robot 4 creates a very long page
+            Turn turn24 = results.Turns[23];
+            Assert.AreEqual(24, turn24.TurnNumber);
+            Assert.AreEqual(4, turn24.RobotActions.Count);
+            Assert.AreEqual(4, turn24.RobotActions[0].RobotId);
+            
+            //Assert.AreEqual(new Vector2(2, 3), turn24.RobotActions[0].Movement[0]);
+            //Assert.AreEqual(new Vector2(1, 3), turn24.RobotActions[0].Movement[1]);
+            //Assert.AreEqual(2, turn24.RobotActions[1].RobotId);
+            //Assert.AreEqual(new Vector2(1, 3), turn24.RobotActions[1].Movement[0]);
+            //Assert.AreEqual(new Vector2(2, 3), turn24.RobotActions[1].Movement[1]);
+
         }
     }
 }
