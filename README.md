@@ -1,7 +1,7 @@
 # PuzzleSolver
 [![CI/CD](https://github.com/samsmithnz/PuzzleSolver/actions/workflows/workflow.yml/badge.svg)](https://github.com/samsmithnz/PuzzleSolver/actions/workflows/workflow.yml)
 
-Question: With software, can we sort jigsaw puzzle pieces? 
+Question: With software, can we sort jigsaw puzzle pieces and/or Lego? 
 
 Some early prototypes:
 
