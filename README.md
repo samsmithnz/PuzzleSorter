@@ -1,5 +1,5 @@
-# PuzzleSolver
-[![CI/CD](https://github.com/samsmithnz/PuzzleSolver/actions/workflows/workflow.yml/badge.svg)](https://github.com/samsmithnz/PuzzleSolver/actions/workflows/workflow.yml)
+# PuzzleSorter
+[![CI/CD](https://github.com/samsmithnz/PuzzleSorter/actions/workflows/workflow.yml/badge.svg)](https://github.com/samsmithnz/PuzzleSorter/actions/workflows/workflow.yml)
 
 Question: With software, can we sort jigsaw puzzle pieces and/or Lego? 
 
