@@ -1,3 +1,32 @@
+```mermaid
+flowchart TD
+    id0[Start] --> id1[Are there unsorted pieces remaining?]
+    id1 --> id2[Are there free agents?]
+    id2 --> id3[Move free agent to pickup location]
+    id3 --> id4[Pick up package]
+    id4 --> id5[Analyze package]
+    id5 --> id6[Find delivery location]
+    id6 --> id7[Find route to delivery location]
+    id7 --> id8[Carry package to delivery location]
+    id8 --> id9[Drop package at delivery location]
+    id9 --> id1
+```
+
+```mermaid
+flowchart TD
+    id0[Start] --> id1[Looking for new job]
+    id1[Looking for new job] --> idLook[Are there jobs]
+    idLook[Are there jobs?] --yes--> id2[Moving to pick up location]
+    id2[Moving to pick up location] --> id3[Picking up package]
+    id3[Picking up package] --> id4[Moving to delivery location]
+    id4[Moving to delivery location] --> id5[delivering package]
+    id5[Delivering package] --> id1[Looking for new job]
+    idLook[Are there jobs?] --no--> idEnd[End] 
+```
+
+
+
+
 # PuzzleSorter
 [![CI/CD](https://github.com/samsmithnz/PuzzleSorter/actions/workflows/workflow.yml/badge.svg)](https://github.com/samsmithnz/PuzzleSorter/actions/workflows/workflow.yml)
 
