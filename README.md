@@ -2,6 +2,7 @@
 flowchart TD
     id0[Start] --> id1[Are there unsorted pieces remaining?]
     id1 --yes--> id2[Are there free agents?]
+    id1 --no--> idWait[Wait] --> id1
     id2 --yes--> id3[Move free agent to pickup location]
     id3 --> id4[Pick up package]
     id4 --> id5[Analyze package]
