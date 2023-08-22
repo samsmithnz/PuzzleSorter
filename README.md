@@ -1,8 +1,8 @@
 ```mermaid
 flowchart TD
     id0[Start] --> id1[Are there unsorted pieces remaining?]
-    id1 --> id2[Are there free agents?]
-    id2 --> id3[Move free agent to pickup location]
+    id1 --yes--> id2[Are there free agents?]
+    id2 --yes--> id3[Move free agent to pickup location]
     id3 --> id4[Pick up package]
     id4 --> id5[Analyze package]
     id5 --> id6[Find delivery location]
@@ -10,6 +10,7 @@ flowchart TD
     id7 --> id8[Carry package to delivery location]
     id8 --> id9[Drop package at delivery location]
     id9 --> id1
+    id1 --no--> idEnd[Done]
 ```
 
 ```mermaid
