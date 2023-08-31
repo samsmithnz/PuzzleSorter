@@ -12,6 +12,11 @@ updates:
   assignees:
   - samsmithnz
   open-pull-requests-limit: 10
+  groups:
+    tests:
+      patterns: ["*"]
+      ignore-patterns: ["SixLabors.ImageSharp"]
+      update-types: ["minor", "patch"]
 - package-ecosystem: nuget
   directory: /src/PuzzleSolver/
   schedule:
@@ -24,6 +29,11 @@ updates:
   assignees:
   - samsmithnz
   open-pull-requests-limit: 10
+  groups:
+    core:
+      patterns: ["*"]
+      ignore-patterns: ["SixLabors.ImageSharp"]
+      update-types: ["minor", "patch"]
 - package-ecosystem: github-actions
   directory: /
   schedule:
@@ -33,3 +43,8 @@ updates:
   assignees:
   - samsmithnz
   open-pull-requests-limit: 10
+  groups:
+    actions:
+      patterns: ["*"]
+      ignore-patterns: ["SixLabors.ImageSharp"]
+      update-types: ["minor", "patch"]
