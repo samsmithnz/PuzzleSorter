@@ -15,7 +15,7 @@ updates:
   groups:
     tests:
       patterns: ["*"]
-      ignore-patterns: ["SixLabors.ImageSharp"]
+      #ignore-patterns: ["SixLabors.ImageSharp"]
       update-types: ["minor", "patch"]
 - package-ecosystem: nuget
   directory: /src/PuzzleSolver/
@@ -32,7 +32,7 @@ updates:
   groups:
     core:
       patterns: ["*"]
-      ignore-patterns: ["SixLabors.ImageSharp"]
+      #ignore-patterns: ["SixLabors.ImageSharp"]
       update-types: ["minor", "patch"]
 - package-ecosystem: github-actions
   directory: /
@@ -46,5 +46,5 @@ updates:
   groups:
     actions:
       patterns: ["*"]
-      ignore-patterns: ["SixLabors.ImageSharp"]
+      #ignore-patterns: ["SixLabors.ImageSharp"]
       update-types: ["minor", "patch"]
