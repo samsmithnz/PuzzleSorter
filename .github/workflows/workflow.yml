@@ -33,7 +33,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 8.0.x
     - name: .NET test
       run: dotnet test src/PuzzleSolver.Tests/PuzzleSolver.Tests.csproj -c Debug --logger trx -e:CollectCoverage=true -e:CoverletOutput=TestResults/ -e:CoverletOutputFormat=lcov
     - name: Publish coverage report to coveralls.io
@@ -60,7 +60,7 @@ jobs:
         uses: samsmithnz/SamsDotNetSonarCloudAction@v2.0.1
         with:
           projects: 'src/PuzzleSolver/PuzzleSolver.csproj,src/PuzzleSolver.Tests/PuzzleSolver.Tests.csproj'
-          dotnet-version: '7.0.x'
+          dotnet-version: '8.0.x'
           sonarcloud-organization: samsmithnz-github
           sonarcloud-project: samsmithnz_PuzzleSolver
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
