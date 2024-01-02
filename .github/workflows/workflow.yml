@@ -57,7 +57,7 @@ jobs:
     if: github.ref == 'refs/heads/main' 
     steps:
       - name: Run Sonarcloud test
-        uses: samsmithnz/SamsDotNetSonarCloudAction@v2.1.0
+        uses: samsmithnz/SamsDotNetSonarCloudAction@v2.1.1
         with:
           projects: 'src/PuzzleSolver/PuzzleSolver.csproj,src/PuzzleSolver.Tests/PuzzleSolver.Tests.csproj'
           dotnet-version: '8.0.x'
