@@ -74,7 +74,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
     - name: Download artifacts
-      uses: actions/download-artifact@v4.1.1
+      uses: actions/download-artifact@v4.1.2
       with:
         name: drop 
         path: drop 
@@ -84,7 +84,7 @@ jobs:
         echo "Version: ${{ needs.build.outputs.Version }}" 
         echo "CommitsSinceVersionSource: ${{ needs.build.outputs.CommitsSinceVersionSource }}" 
     - name: Create Release
-      uses: ncipollo/release-action@v1.13.0
+      uses: ncipollo/release-action@v1.14.0
       if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only create a release if there has been a commit/version change
       with:
         tag: "v${{ needs.build.outputs.Version }}"
