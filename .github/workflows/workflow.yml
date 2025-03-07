@@ -20,12 +20,12 @@ jobs:
       with:
         fetch-depth: 0
     - name: Setup GitVersion
-      uses: gittools/actions/gitversion/setup@v3.0.0
+      uses: gittools/actions/gitversion/setup@v3.1.11
       with:
         versionSpec: 5.x
     - name: Determine Version
       id: gitversion
-      uses: gittools/actions/gitversion/execute@v3.0.0
+      uses: gittools/actions/gitversion/execute@v3.1.11
     - name: Display GitVersion outputs
       run: |
         echo "Version: ${{ steps.gitversion.outputs.SemVer }}"
@@ -74,7 +74,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
     - name: Download artifacts
-      uses: actions/download-artifact@v4.1.8
+      uses: actions/download-artifact@v4.1.9
       with:
         name: drop 
         path: drop 
@@ -84,7 +84,7 @@ jobs:
         echo "Version: ${{ needs.build.outputs.Version }}" 
         echo "CommitsSinceVersionSource: ${{ needs.build.outputs.CommitsSinceVersionSource }}" 
     - name: Create Release
-      uses: ncipollo/release-action@v1.14.0
+      uses: ncipollo/release-action@v1.16.0
       if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only create a release if there has been a commit/version change
       with:
         tag: "v${{ needs.build.outputs.Version }}"
