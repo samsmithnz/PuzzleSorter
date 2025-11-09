@@ -46,5 +46,3 @@ updates:
   groups:
     actions:
       patterns: ["*"]
-      #ignore-patterns: ["SixLabors.ImageSharp"]
-      update-types: ["minor", "patch"]
