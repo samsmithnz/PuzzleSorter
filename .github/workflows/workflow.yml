@@ -16,7 +16,7 @@ jobs:
       Version: ${{ steps.gitversion.outputs.MajorMinorPatch }}
       CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         fetch-depth: 0
     - name: Setup GitVersion
@@ -45,7 +45,7 @@ jobs:
     - name: .NET publish
       run: dotnet publish src/PuzzleSolver/PuzzleSolver.csproj -c ${{ env.configuration }} -p:Version='${{ steps.gitversion.outputs.MajorMinorPatch }}'
     - name: Upload package back to GitHub
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: drop
         path: src/PuzzleSolver/bin/${{ env.configuration }}/netstandard2.0
@@ -74,7 +74,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
     - name: Download artifacts
-      uses: actions/download-artifact@v6.0.0
+      uses: actions/download-artifact@v7.0.0
       with:
         name: drop 
         path: drop 
