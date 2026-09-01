@@ -13,7 +13,7 @@ A plan to build real hardware that executes the algorithm implemented in `src/Pu
 | `Robot.Location` (`Vector2`) | Gantry XY position (or mobile robot odometry) |
 | `Robot.PickupLocation` | Infeed / piece presentation area |
 | `Piece.Image` + `ImageStats` | Overhead camera capture + color analysis |
-| `SortedDropZone` | Physical bin at a fixed grid coordinate |
+| `SortedDropZones` | Physical bin at a fixed grid coordinate |
 | `PathFinding` (A*) | Motion planner producing waypoint list |
 | `RobotStatusEnum` states | Firmware state machine (idle / moving / picking / analyzing / delivering) |
 | `TimeLine` / `Turn` | Real-time scheduler loop, one command block per robot per cycle |
