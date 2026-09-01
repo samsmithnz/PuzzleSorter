@@ -1,7 +1,7 @@
 # Physical Robot Build Plan: PuzzleSorter
 
 A plan to build real hardware that executes the algorithm implemented in `src/PuzzleSolver`
-(`Board`, `Robot`, `Piece`, `PathFinding`, `SortedDropZones`, `ImageColorGroups`).
+(`Board`, `Robot`, `Piece`, `PathFinding`, `SortedDropZone`, `ImageColorGroups`).
 
 ---
 
