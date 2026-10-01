@@ -14,7 +14,7 @@ A plan to build real hardware that executes the algorithm implemented in `src/Pu
 | `Robot.PickupLocation` | Infeed / piece presentation area |
 | `Piece.Image` + `ImageStats` | Overhead camera capture + color analysis |
 | `SortedDropZones` | Physical bin at a fixed grid coordinate |
-| `PathFinding` (A*) | Motion planner producing waypoint list |
+| `PathFinding` (heuristic depth-first search; not A*) | Grid waypoint planner that must be replaced or validated before controlling hardware |
 | `RobotStatusEnum` states | Firmware state machine (idle / moving / picking / analyzing / delivering) |
 | `TimeLine` / `Turn` | Real-time scheduler loop, one command block per robot per cycle |
 
