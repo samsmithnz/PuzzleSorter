@@ -300,7 +300,7 @@ Per shuttle:
 - 1× micro ball caster
 - 1× 3.7 g micro servo (tray tilt)
 - Dual H-bridge motor driver (DRV8833 or similar)
-- 5 F 2.7 V supercapacitor + charge-limiting circuit, or 1S 150 mAh LiPo
+- 5 F 2.7 V supercapacitor + charge limiting and a regulated boost supply sized for the MCU, servo, and motors; or 1S 150 mAh LiPo with appropriate regulation
 - Downward optical position sensor (position-mat reader)
 - Spring contact pins for station charging
 
