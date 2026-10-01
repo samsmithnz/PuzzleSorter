@@ -104,8 +104,8 @@ a scan lightbox, and the bins. Detailed in **section 10**.
 - Camera calibration target (checkerboard) — printable
 
 ### Pick head
-- Vacuum pump (12 V diaphragm) or venturi ejector if you already have compressed air
-- 12 V solenoid valve (3/2 way), vacuum reservoir, silicone tubing
+- Vacuum pump (24 V diaphragm) or venturi ejector if you already have compressed air
+- 24 V solenoid valve (3/2 way), vacuum reservoir, silicone tubing
 - Vacuum nozzles/cups, assorted 4–10 mm silicone cups
 - Vacuum pressure sensor (e.g. XGZP6847 or similar analog sensor)
 - MOSFET relay board to switch pump and valve
